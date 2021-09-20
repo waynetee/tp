@@ -10,31 +10,31 @@ import java.util.Set;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.model.person.Person;
+import seedu.address.model.property.Property;
 import seedu.address.model.tag.Tag;
 
 /**
- * A utility class for Person.
+ * A utility class for Property.
  */
-public class PersonUtil {
+public class PropertyUtil {
 
     /**
-     * Returns an add command string for adding the {@code person}.
+     * Returns an add command string for adding the {@code property}.
      */
-    public static String getAddCommand(Person person) {
-        return AddCommand.COMMAND_WORD + " " + getPersonDetails(person);
+    public static String getAddCommand(Property property) {
+        return AddCommand.COMMAND_WORD + " " + getPersonDetails(property);
     }
 
     /**
-     * Returns the part of command string for the given {@code person}'s details.
+     * Returns the part of command string for the given {@code property}'s details.
      */
-    public static String getPersonDetails(Person person) {
+    public static String getPersonDetails(Property property) {
         StringBuilder sb = new StringBuilder();
-        sb.append(PREFIX_NAME + person.getName().fullName + " ");
-        sb.append(PREFIX_PHONE + person.getPhone().value + " ");
-        sb.append(PREFIX_EMAIL + person.getEmail().value + " ");
-        sb.append(PREFIX_ADDRESS + person.getAddress().value + " ");
-        person.getTags().stream().forEach(
+        sb.append(PREFIX_NAME + property.getName().fullName + " ");
+        sb.append(PREFIX_PHONE + property.getPhone().value + " ");
+        sb.append(PREFIX_EMAIL + property.getEmail().value + " ");
+        sb.append(PREFIX_ADDRESS + property.getAddress().value + " ");
+        property.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
         return sb.toString();
