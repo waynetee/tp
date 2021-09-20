@@ -21,14 +21,14 @@ class JsonSerializableAddressBook {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate property(s).";
 
-    private final List<JsonAdaptedProperty> persons = new ArrayList<>();
+    private final List<JsonAdaptedProperty> properties = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableAddressBook} with the given persons.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedProperty> persons) {
-        this.persons.addAll(persons);
+    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedProperty> properties) {
+        this.properties.addAll(properties);
     }
 
     /**
@@ -37,7 +37,7 @@ class JsonSerializableAddressBook {
      * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
      */
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
-        persons.addAll(source.getPersonList().stream().map(JsonAdaptedProperty::new).collect(Collectors.toList()));
+        properties.addAll(source.getPropertyList().stream().map(JsonAdaptedProperty::new).collect(Collectors.toList()));
     }
 
     /**
@@ -47,12 +47,12 @@ class JsonSerializableAddressBook {
      */
     public AddressBook toModelType() throws IllegalValueException {
         AddressBook addressBook = new AddressBook();
-        for (JsonAdaptedProperty jsonAdaptedProperty : persons) {
+        for (JsonAdaptedProperty jsonAdaptedProperty : properties) {
             Property property = jsonAdaptedProperty.toModelType();
-            if (addressBook.hasPerson(property)) {
+            if (addressBook.hasProperty(property)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
-            addressBook.addPerson(property);
+            addressBook.addProperty(property);
         }
         return addressBook;
     }

@@ -6,7 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PROPERTIES;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -46,51 +46,51 @@ public class EditCommand extends Command {
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Property: %1$s";
+    public static final String MESSAGE_EDIT_PROPERTY_SUCCESS = "Edited Property: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This property already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_PROPERTY = "This property already exists in the address book.";
 
     private final Index index;
-    private final EditPersonDescriptor editPersonDescriptor;
+    private final EditPropertyDescriptor editPersonDescriptor;
 
     /**
      * @param index of the property in the filtered property list to edit
      * @param editPersonDescriptor details to edit the property with
      */
-    public EditCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
+    public EditCommand(Index index, EditPropertyDescriptor editPersonDescriptor) {
         requireNonNull(index);
         requireNonNull(editPersonDescriptor);
 
         this.index = index;
-        this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
+        this.editPersonDescriptor = new EditPropertyDescriptor(editPersonDescriptor);
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Property> lastShownList = model.getFilteredPersonList();
+        List<Property> lastShownList = model.getFilteredPropertyList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_PROPERTY_DISPLAYED_INDEX);
         }
 
         Property propertyToEdit = lastShownList.get(index.getZeroBased());
-        Property editedProperty = createEditedPerson(propertyToEdit, editPersonDescriptor);
+        Property editedProperty = createdEditedProperty(propertyToEdit, editPersonDescriptor);
 
-        if (!propertyToEdit.isSamePerson(editedProperty) && model.hasPerson(editedProperty)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        if (!propertyToEdit.isSameProperty(editedProperty) && model.hasProperty(editedProperty)) {
+            throw new CommandException(MESSAGE_DUPLICATE_PROPERTY);
         }
 
-        model.setPerson(propertyToEdit, editedProperty);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedProperty));
+        model.setProperty(propertyToEdit, editedProperty);
+        model.updateFiltedPropertyList(PREDICATE_SHOW_ALL_PROPERTIES);
+        return new CommandResult(String.format(MESSAGE_EDIT_PROPERTY_SUCCESS, editedProperty));
     }
 
     /**
      * Creates and returns a {@code Property} with the details of {@code propertyToEdit}
      * edited with {@code editPersonDescriptor}.
      */
-    private static Property createEditedPerson(Property propertyToEdit, EditPersonDescriptor editPersonDescriptor) {
+    private static Property createdEditedProperty(Property propertyToEdit, EditPropertyDescriptor editPersonDescriptor) {
         assert propertyToEdit != null;
 
         Name updatedName = editPersonDescriptor.getName().orElse(propertyToEdit.getName());
@@ -124,20 +124,20 @@ public class EditCommand extends Command {
      * Stores the details to edit the property with. Each non-empty field value will replace the
      * corresponding field value of the property.
      */
-    public static class EditPersonDescriptor {
+    public static class EditPropertyDescriptor {
         private Name name;
         private Phone phone;
         private Email email;
         private Address address;
         private Set<Tag> tags;
 
-        public EditPersonDescriptor() {}
+        public EditPropertyDescriptor() {}
 
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditPersonDescriptor(EditPersonDescriptor toCopy) {
+        public EditPropertyDescriptor(EditPropertyDescriptor toCopy) {
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
@@ -209,12 +209,12 @@ public class EditCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof EditPersonDescriptor)) {
+            if (!(other instanceof EditPropertyDescriptor)) {
                 return false;
             }
 
             // state check
-            EditPersonDescriptor e = (EditPersonDescriptor) other;
+            EditPropertyDescriptor e = (EditPropertyDescriptor) other;
 
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())

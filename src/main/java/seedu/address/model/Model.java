@@ -12,7 +12,7 @@ import seedu.address.model.property.Property;
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Property> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Property> PREDICATE_SHOW_ALL_PROPERTIES = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -55,33 +55,33 @@ public interface Model {
     /**
      * Returns true if a property with the same identity as {@code property} exists in the address book.
      */
-    boolean hasPerson(Property property);
+    boolean hasProperty(Property property);
 
     /**
      * Deletes the given property.
      * The property must exist in the address book.
      */
-    void deletePerson(Property target);
+    void deleteProperty(Property target);
 
     /**
      * Adds the given property.
      * {@code property} must not already exist in the address book.
      */
-    void addPerson(Property property);
+    void addProperty(Property property);
 
     /**
      * Replaces the given property {@code target} with {@code editedProperty}.
      * {@code target} must exist in the address book.
      * The property identity of {@code editedProperty} must not be the same as another existing property in the address book.
      */
-    void setPerson(Property target, Property editedProperty);
+    void setProperty(Property target, Property editedProperty);
 
     /** Returns an unmodifiable view of the filtered property list */
-    ObservableList<Property> getFilteredPersonList();
+    ObservableList<Property> getFilteredPropertyList();
 
     /**
      * Updates the filter of the filtered property list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Property> predicate);
+    void updateFiltedPropertyList(Predicate<Property> predicate);
 }

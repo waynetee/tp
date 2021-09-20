@@ -8,7 +8,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.property.exceptions.DuplicatePersonException;
+import seedu.address.model.property.exceptions.DuplicatePropertyException;
 import seedu.address.model.property.exceptions.PropertyNotFoundException;
 
 /**
@@ -20,7 +20,7 @@ import seedu.address.model.property.exceptions.PropertyNotFoundException;
  *
  * Supports a minimal set of list operations.
  *
- * @see Property#isSamePerson(Property)
+ * @see Property#isSameProperty(Property)
  */
 public class UniquePropertyList implements Iterable<Property> {
 
@@ -33,7 +33,7 @@ public class UniquePropertyList implements Iterable<Property> {
      */
     public boolean contains(Property toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSamePerson);
+        return internalList.stream().anyMatch(toCheck::isSameProperty);
     }
 
     /**
@@ -43,7 +43,7 @@ public class UniquePropertyList implements Iterable<Property> {
     public void add(Property toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicatePersonException();
+            throw new DuplicatePropertyException();
         }
         internalList.add(toAdd);
     }
@@ -61,8 +61,8 @@ public class UniquePropertyList implements Iterable<Property> {
             throw new PropertyNotFoundException();
         }
 
-        if (!target.isSamePerson(editedProperty) && contains(editedProperty)) {
-            throw new DuplicatePersonException();
+        if (!target.isSameProperty(editedProperty) && contains(editedProperty)) {
+            throw new DuplicatePropertyException();
         }
 
         internalList.set(index, editedProperty);
@@ -91,7 +91,7 @@ public class UniquePropertyList implements Iterable<Property> {
     public void setProperties(List<Property> properties) {
         requireAllNonNull(properties);
         if (!propertiesAreUnique(properties)) {
-            throw new DuplicatePersonException();
+            throw new DuplicatePropertyException();
         }
 
         internalList.setAll(properties);
@@ -127,7 +127,7 @@ public class UniquePropertyList implements Iterable<Property> {
     private boolean propertiesAreUnique(List<Property> properties) {
         for (int i = 0; i < properties.size() - 1; i++) {
             for (int j = i + 1; j < properties.size(); j++) {
-                if (properties.get(i).isSamePerson(properties.get(j))) {
+                if (properties.get(i).isSameProperty(properties.get(j))) {
                     return false;
                 }
             }

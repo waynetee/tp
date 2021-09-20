@@ -30,7 +30,7 @@ public class AddCommandIntegrationTest {
         Property validProperty = new PropertyBuilder().build();
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.addPerson(validProperty);
+        expectedModel.addProperty(validProperty);
 
         assertCommandSuccess(new AddCommand(validProperty), model,
                 String.format(AddCommand.MESSAGE_SUCCESS, validProperty), expectedModel);
@@ -38,7 +38,7 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
-        Property propertyInList = model.getAddressBook().getPersonList().get(0);
+        Property propertyInList = model.getAddressBook().getPropertyList().get(0);
         assertCommandFailure(new AddCommand(propertyInList), model, AddCommand.MESSAGE_DUPLICATE_PERSON);
     }
 

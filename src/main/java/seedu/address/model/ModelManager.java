@@ -34,7 +34,7 @@ public class ModelManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredProperties = new FilteredList<>(this.addressBook.getPersonList());
+        filteredProperties = new FilteredList<>(this.addressBook.getPropertyList());
     }
 
     public ModelManager() {
@@ -89,27 +89,27 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasPerson(Property property) {
+    public boolean hasProperty(Property property) {
         requireNonNull(property);
-        return addressBook.hasPerson(property);
+        return addressBook.hasProperty(property);
     }
 
     @Override
-    public void deletePerson(Property target) {
-        addressBook.removePerson(target);
+    public void deleteProperty(Property target) {
+        addressBook.removeProperty(target);
     }
 
     @Override
-    public void addPerson(Property property) {
-        addressBook.addPerson(property);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    public void addProperty(Property property) {
+        addressBook.addProperty(property);
+        updateFiltedPropertyList(PREDICATE_SHOW_ALL_PROPERTIES);
     }
 
     @Override
-    public void setPerson(Property target, Property editedProperty) {
+    public void setProperty(Property target, Property editedProperty) {
         requireAllNonNull(target, editedProperty);
 
-        addressBook.setPerson(target, editedProperty);
+        addressBook.addProperty(target, editedProperty);
     }
 
     //=========== Filtered Property List Accessors =============================================================
@@ -119,12 +119,12 @@ public class ModelManager implements Model {
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Property> getFilteredPersonList() {
+    public ObservableList<Property> getFilteredPropertyList() {
         return filteredProperties;
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Property> predicate) {
+    public void updateFiltedPropertyList(Predicate<Property> predicate) {
         requireNonNull(predicate);
         filteredProperties.setPredicate(predicate);
     }

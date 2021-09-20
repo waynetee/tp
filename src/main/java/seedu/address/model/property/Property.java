@@ -64,7 +64,7 @@ public class Property {
      * Returns true if both persons have the same name.
      * This defines a weaker notion of equality between two persons.
      */
-    public boolean isSamePerson(Property otherProperty) {
+    public boolean isSameProperty(Property otherProperty) {
         if (otherProperty == this) {
             return true;
         }
