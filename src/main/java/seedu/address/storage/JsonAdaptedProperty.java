@@ -59,7 +59,7 @@ class JsonAdaptedProperty {
     public JsonAdaptedProperty(Property source) {
         name = source.getName().fullName;
         seller = source.getSeller().fullName;
-        price = source.getPrice().value;
+        price = source.getPrice().value.toString();
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
