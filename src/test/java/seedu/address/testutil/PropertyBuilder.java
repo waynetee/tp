@@ -8,6 +8,7 @@ import seedu.address.model.property.Email;
 import seedu.address.model.property.Name;
 import seedu.address.model.property.Property;
 import seedu.address.model.property.Phone;
+import seedu.address.model.property.Seller;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -16,12 +17,14 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class PropertyBuilder {
 
-    public static final String DEFAULT_NAME = "Amy Bee";
+    public static final String DEFAULT_NAME = "Paradise Park";
+    public static final String DEFAULT_SELLER = "Amy Bee";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
 
     private Name name;
+    private Seller seller;
     private Phone phone;
     private Email email;
     private Address address;
@@ -32,6 +35,7 @@ public class PropertyBuilder {
      */
     public PropertyBuilder() {
         name = new Name(DEFAULT_NAME);
+        seller = new Seller(DEFAULT_SELLER);
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
@@ -43,6 +47,7 @@ public class PropertyBuilder {
      */
     public PropertyBuilder(Property propertyToCopy) {
         name = propertyToCopy.getName();
+        seller = propertyToCopy.getSeller();
         phone = propertyToCopy.getPhone();
         email = propertyToCopy.getEmail();
         address = propertyToCopy.getAddress();
@@ -89,8 +94,16 @@ public class PropertyBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Email} of the {@code Property} that we are building.
+     */
+    public PropertyBuilder withSeller(String seller) {
+        this.seller = new Seller(seller);
+        return this;
+    }
+
     public Property build() {
-        return new Property(name, phone, email, address, tags);
+        return new Property(name, phone, email, address, tags, seller);
     }
 
 }

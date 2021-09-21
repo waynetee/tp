@@ -4,6 +4,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SELLER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
@@ -31,6 +32,7 @@ public class PropertyUtil {
     public static String getPersonDetails(Property property) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + property.getName().fullName + " ");
+        sb.append(PREFIX_SELLER + property.getSeller().fullName + " ");
         sb.append(PREFIX_PHONE + property.getPhone().value + " ");
         sb.append(PREFIX_EMAIL + property.getEmail().value + " ");
         sb.append(PREFIX_ADDRESS + property.getAddress().value + " ");
