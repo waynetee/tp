@@ -77,7 +77,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Replaces the given property {@code target} in the list with {@code editedProperty}.
      * {@code target} must exist in the address book.
-     * The property identity of {@code editedProperty} must not be the same as another existing property in the address book.
+     * The property identity of {@code editedProperty} must not be the same as another existing property
+     * in the address book.
      */
     public void addProperty(Property target, Property editedProperty) {
         requireNonNull(editedProperty);

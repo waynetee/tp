@@ -33,9 +33,11 @@ public class EditPropertyDescriptorBuilder {
     public EditPropertyDescriptorBuilder(Property property) {
         descriptor = new EditCommand.EditPropertyDescriptor();
         descriptor.setName(property.getName());
+        descriptor.setSeller(property.getSeller());
+        descriptor.setAddress(property.getAddress());
+        descriptor.setPrice(property.getPrice());
         descriptor.setPhone(property.getPhone());
         descriptor.setEmail(property.getEmail());
-        descriptor.setAddress(property.getAddress());
         descriptor.setTags(property.getTags());
     }
 

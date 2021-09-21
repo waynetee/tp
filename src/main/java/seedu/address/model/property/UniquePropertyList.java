@@ -13,9 +13,10 @@ import seedu.address.model.property.exceptions.PropertyNotFoundException;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
- * A property is considered unique by comparing using {@code Property#isSamePerson(Property)}. As such, adding and updating of
- * persons uses Property#isSamePerson(Property) for equality so as to ensure that the property being added or updated is
- * unique in terms of identity in the UniquePropertyList. However, the removal of a property uses Property#equals(Object) so
+ * A property is considered unique by comparing using {@code Property#isSamePerson(Property)}.
+ * As such, adding and updating of persons uses Property#isSamePerson(Property) for equality
+ * so as to ensure that the property being added or updated is unique in terms of identity in the
+ * UniquePropertyList. However, the removal of a property uses Property#equals(Object) so
  * as to ensure that the property with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.

@@ -6,6 +6,7 @@ import java.util.Set;
 import seedu.address.model.property.Address;
 import seedu.address.model.property.Email;
 import seedu.address.model.property.Name;
+import seedu.address.model.property.Price;
 import seedu.address.model.property.Property;
 import seedu.address.model.property.Phone;
 import seedu.address.model.property.Seller;
@@ -22,6 +23,7 @@ public class PropertyBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_PRICE = "571000";
 
     private Name name;
     private Seller seller;
@@ -29,6 +31,7 @@ public class PropertyBuilder {
     private Email email;
     private Address address;
     private Set<Tag> tags;
+    private Price price;
 
     /**
      * Creates a {@code PropertyBuilder} with the default details.
@@ -40,6 +43,7 @@ public class PropertyBuilder {
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
+        price = new Price(DEFAULT_PRICE);
     }
 
     /**
@@ -52,6 +56,7 @@ public class PropertyBuilder {
         email = propertyToCopy.getEmail();
         address = propertyToCopy.getAddress();
         tags = new HashSet<>(propertyToCopy.getTags());
+        price = propertyToCopy.getPrice();
     }
 
     /**
@@ -95,15 +100,23 @@ public class PropertyBuilder {
     }
 
     /**
-     * Sets the {@code Email} of the {@code Property} that we are building.
+     * Sets the {@code Seller} of the {@code Property} that we are building.
      */
     public PropertyBuilder withSeller(String seller) {
         this.seller = new Seller(seller);
         return this;
     }
 
+    /**
+     * Sets the {@code Price} of the {@code Property} that we are building.
+     */
+    public PropertyBuilder withPrice(String price) {
+        this.price = new Price(price);
+        return this;
+    }
+
     public Property build() {
-        return new Property(name, phone, email, address, tags, seller);
+        return new Property(name, phone, email, address, tags, seller, price);
     }
 
 }

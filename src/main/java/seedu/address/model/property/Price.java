@@ -7,6 +7,7 @@ public class Price {
     public static final String MESSAGE_CONSTRAINTS =
             "Price (in dollars) should only contain numbers, and it should be at least 3 digits long";
     public static final String VALIDATION_REGEX = "\\d{3,}";
+    // TODO: Change value into type long
     public final String value;
 
     /**

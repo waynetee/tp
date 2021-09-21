@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SELLER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PROPERTIES;
@@ -24,6 +25,7 @@ import seedu.address.model.property.Address;
 import seedu.address.model.property.Email;
 import seedu.address.model.property.Name;
 import seedu.address.model.property.Phone;
+import seedu.address.model.property.Price;
 import seedu.address.model.property.Property;
 import seedu.address.model.property.Seller;
 import seedu.address.model.tag.Tag;
@@ -41,6 +43,7 @@ public class EditCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
+            + "[" + PREFIX_PRICE + "PRICE] "
             + "[" + PREFIX_SELLER + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
@@ -99,12 +102,14 @@ public class EditCommand extends Command {
 
         Name updatedName = editPersonDescriptor.getName().orElse(propertyToEdit.getName());
         Seller updatedSeller = editPersonDescriptor.getSeller().orElse(propertyToEdit.getSeller());
+        Price updatedPrice = editPersonDescriptor.getPrice().orElse(propertyToEdit.getPrice());
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(propertyToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(propertyToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(propertyToEdit.getAddress());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(propertyToEdit.getTags());
 
-        return new Property(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags, updatedSeller);
+        return new Property(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags,
+                updatedSeller, updatedPrice);
     }
 
     @Override
@@ -132,9 +137,10 @@ public class EditCommand extends Command {
     public static class EditPropertyDescriptor {
         private Name name;
         private Seller seller;
+        private Address address;
+        private Price price;
         private Phone phone;
         private Email email;
-        private Address address;
         private Set<Tag> tags;
 
         public EditPropertyDescriptor() {}
@@ -146,9 +152,10 @@ public class EditCommand extends Command {
         public EditPropertyDescriptor(EditPropertyDescriptor toCopy) {
             setName(toCopy.name);
             setSeller(toCopy.seller);
+            setAddress(toCopy.address);
+            setPrice(toCopy.price);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
-            setAddress(toCopy.address);
             setTags(toCopy.tags);
         }
 
@@ -214,6 +221,14 @@ public class EditCommand extends Command {
 
         public Optional<Seller> getSeller() {
             return Optional.ofNullable(seller);
+        }
+
+        public void setPrice(Price price) {
+            this.price = price;
+        }
+
+        public Optional<Price> getPrice() {
+            return Optional.ofNullable(price);
         }
 
         @Override

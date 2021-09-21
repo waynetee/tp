@@ -13,8 +13,9 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.property.Address;
 import seedu.address.model.property.Email;
 import seedu.address.model.property.Name;
-import seedu.address.model.property.Property;
 import seedu.address.model.property.Phone;
+import seedu.address.model.property.Price;
+import seedu.address.model.property.Property;
 import seedu.address.model.property.Seller;
 import seedu.address.model.tag.Tag;
 
@@ -30,6 +31,7 @@ class JsonAdaptedProperty {
     private final String phone;
     private final String email;
     private final String address;
+    private final String price;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -39,10 +41,11 @@ class JsonAdaptedProperty {
     public JsonAdaptedProperty(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
                                @JsonProperty("email") String email, @JsonProperty("address") String address,
                                @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
-                               @JsonProperty("seller") String seller) {
+                               @JsonProperty("seller") String seller, @JsonProperty("price") String price) {
         this.name = name;
         this.seller = seller;
         this.phone = phone;
+        this.price = price;
         this.email = email;
         this.address = address;
         if (tagged != null) {
@@ -56,6 +59,7 @@ class JsonAdaptedProperty {
     public JsonAdaptedProperty(Property source) {
         name = source.getName().fullName;
         seller = source.getSeller().fullName;
+        price = source.getPrice().value;
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
@@ -99,6 +103,14 @@ class JsonAdaptedProperty {
         }
         final Phone modelPhone = new Phone(phone);
 
+        if (price == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Price.class.getSimpleName()));
+        }
+        if (!Price.isValidPrice(price)) {
+            throw new IllegalValueException(Price.MESSAGE_CONSTRAINTS);
+        }
+        final Price modelPrice = new Price(price);
+
         if (email == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
         }
@@ -116,7 +128,7 @@ class JsonAdaptedProperty {
         final Address modelAddress = new Address(address);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Property(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelSeller);
+        return new Property(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelSeller, modelPrice);
     }
 
 }

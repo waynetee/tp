@@ -23,12 +23,13 @@ public class Property {
 
     // Data fields
     private final Address address;
+    private final Price price;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Property(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Seller seller) {
+    public Property(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Seller seller, Price min) {
         requireAllNonNull(name, phone, email, address, tags, seller);
         this.name = name;
         this.phone = phone;
@@ -36,6 +37,7 @@ public class Property {
         this.address = address;
         this.tags.addAll(tags);
         this.seller = seller;
+        this.price = min;
     }
 
     public Name getName() {
@@ -64,6 +66,10 @@ public class Property {
 
     public Seller getSeller() {
         return seller;
+    }
+
+    public Price getPrice() {
+        return price;
     }
 
     /**
@@ -96,6 +102,7 @@ public class Property {
         Property otherProperty = (Property) other;
         return otherProperty.getName().equals(getName())
                 && otherProperty.getPhone().equals(getPhone())
+                && otherProperty.getSeller().equals(getPhone())
                 && otherProperty.getEmail().equals(getEmail())
                 && otherProperty.getAddress().equals(getAddress())
                 && otherProperty.getTags().equals(getTags());
@@ -111,14 +118,16 @@ public class Property {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
+                .append("; Address: ")
+                .append(getAddress())
                 .append("; Seller: ")
                 .append(getSeller())
+                .append("; Price: ")
+                .append(getPrice())
                 .append("; Phone: ")
                 .append(getPhone())
                 .append("; Email: ")
-                .append(getEmail())
-                .append("; Address: ")
-                .append(getAddress());
+                .append(getEmail());
 
         Set<Tag> tags = getTags();
         if (!tags.isEmpty()) {

@@ -25,11 +25,13 @@ public class TypicalProperties {
 
     public static final Property ALICE = new PropertyBuilder().withName("Jurong West Ave 6")
             .withSeller("Alice Pauline")
+            .withPrice("654321")
             .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
             .withPhone("94351253")
             .withTags("HDB").build();
     public static final Property BENSON = new PropertyBuilder().withName("Mayflower")
             .withSeller("Benson Meier")
+            .withPrice("654321")
             .withAddress("311, Clementi Ave 2, #02-25")
             .withEmail("johnd@example.com").withPhone("98765432")
             .withTags("condo").build();
