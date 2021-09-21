@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SELLER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PROPERTIES;
 
@@ -22,8 +23,9 @@ import seedu.address.model.Model;
 import seedu.address.model.property.Address;
 import seedu.address.model.property.Email;
 import seedu.address.model.property.Name;
-import seedu.address.model.property.Property;
 import seedu.address.model.property.Phone;
+import seedu.address.model.property.Property;
+import seedu.address.model.property.Seller;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -38,9 +40,10 @@ public class EditCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
+            + "[" + PREFIX_ADDRESS + "ADDRESS] "
+            + "[" + PREFIX_SELLER + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
@@ -90,16 +93,18 @@ public class EditCommand extends Command {
      * Creates and returns a {@code Property} with the details of {@code propertyToEdit}
      * edited with {@code editPersonDescriptor}.
      */
-    private static Property createdEditedProperty(Property propertyToEdit, EditPropertyDescriptor editPersonDescriptor) {
+    private static Property createdEditedProperty(Property propertyToEdit, EditPropertyDescriptor
+            editPersonDescriptor) {
         assert propertyToEdit != null;
 
         Name updatedName = editPersonDescriptor.getName().orElse(propertyToEdit.getName());
+        Seller updatedSeller = editPersonDescriptor.getSeller().orElse(propertyToEdit.getSeller());
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(propertyToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(propertyToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(propertyToEdit.getAddress());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(propertyToEdit.getTags());
 
-        return new Property(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Property(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags, updatedSeller);
     }
 
     @Override
@@ -126,6 +131,7 @@ public class EditCommand extends Command {
      */
     public static class EditPropertyDescriptor {
         private Name name;
+        private Seller seller;
         private Phone phone;
         private Email email;
         private Address address;
@@ -139,6 +145,7 @@ public class EditCommand extends Command {
          */
         public EditPropertyDescriptor(EditPropertyDescriptor toCopy) {
             setName(toCopy.name);
+            setSeller(toCopy.seller);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
             setAddress(toCopy.address);
@@ -201,6 +208,14 @@ public class EditCommand extends Command {
             return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
         }
 
+        public void setSeller(Seller seller) {
+            this.seller = seller;
+        }
+
+        public Optional<Seller> getSeller() {
+            return Optional.ofNullable(seller);
+        }
+
         @Override
         public boolean equals(Object other) {
             // short circuit if same object
@@ -217,6 +232,7 @@ public class EditCommand extends Command {
             EditPropertyDescriptor e = (EditPropertyDescriptor) other;
 
             return getName().equals(e.getName())
+                    && getSeller().equals(e.getSeller())
                     && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail())
                     && getAddress().equals(e.getAddress())

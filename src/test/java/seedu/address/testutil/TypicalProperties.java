@@ -23,14 +23,16 @@ import seedu.address.model.property.Property;
  */
 public class TypicalProperties {
 
-    public static final Property ALICE = new PropertyBuilder().withName("Alice Pauline")
+    public static final Property ALICE = new PropertyBuilder().withName("Jurong West Ave 6")
+            .withSeller("Alice Pauline")
             .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
             .withPhone("94351253")
-            .withTags("friends").build();
-    public static final Property BENSON = new PropertyBuilder().withName("Benson Meier")
+            .withTags("HDB").build();
+    public static final Property BENSON = new PropertyBuilder().withName("Mayflower")
+            .withSeller("Benson Meier")
             .withAddress("311, Clementi Ave 2, #02-25")
             .withEmail("johnd@example.com").withPhone("98765432")
-            .withTags("owesMoney", "friends").build();
+            .withTags("condo").build();
     public static final Property CARL = new PropertyBuilder().withName("Carl Kurz").withPhone("95352563")
             .withEmail("heinz@example.com").withAddress("wall street").build();
     public static final Property DANIEL = new PropertyBuilder().withName("Daniel Meier").withPhone("87652533")

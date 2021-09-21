@@ -15,6 +15,7 @@ import seedu.address.model.property.Email;
 import seedu.address.model.property.Name;
 import seedu.address.model.property.Property;
 import seedu.address.model.property.Phone;
+import seedu.address.model.property.Seller;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -25,6 +26,7 @@ class JsonAdaptedProperty {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Property's %s field is missing!";
 
     private final String name;
+    private final String seller;
     private final String phone;
     private final String email;
     private final String address;
@@ -36,8 +38,10 @@ class JsonAdaptedProperty {
     @JsonCreator
     public JsonAdaptedProperty(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
                                @JsonProperty("email") String email, @JsonProperty("address") String address,
-                               @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+                               @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
+                               @JsonProperty("seller") String seller) {
         this.name = name;
+        this.seller = seller;
         this.phone = phone;
         this.email = email;
         this.address = address;
@@ -51,6 +55,7 @@ class JsonAdaptedProperty {
      */
     public JsonAdaptedProperty(Property source) {
         name = source.getName().fullName;
+        seller = source.getSeller().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
@@ -78,6 +83,14 @@ class JsonAdaptedProperty {
         }
         final Name modelName = new Name(name);
 
+        if (seller == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Seller.class.getSimpleName()));
+        }
+        if (!Seller.isValidSeller(seller)) {
+            throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
+        }
+        final Seller modelSeller = new Seller(seller);
+
         if (phone == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
         }
@@ -103,7 +116,7 @@ class JsonAdaptedProperty {
         final Address modelAddress = new Address(address);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Property(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        return new Property(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelSeller);
     }
 
 }
