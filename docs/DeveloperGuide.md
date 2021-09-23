@@ -257,71 +257,95 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* has a need to manage a significant number of contacts
+* has a need to manage a significant number of properties and buyers
 * prefer desktop apps over other types
 * can type fast
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**: manage properties and buyers faster than a typical mouse/GUI driven app
 
 
 ### User stories
 
-Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
+Priorities: High (must have) - `H`, Medium (nice to have) - `M`, Low (unlikely to have) - `L`
 
 | Priority | As a …​                                    | I want to …​                     | So that I can…​                                                        |
-| -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
-| `* * *`  | new user                                   | see usage instructions         | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person               |                                                                        |
-| `* * *`  | user                                       | delete a person                | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name          | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details   | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name           | locate a person easily                                                 |
+| ---- | ------------------------------------------ | ------------------------------ | -------------------------------------------------------------------------- |
+| `H`  | new user                                   | see usage instructions         | refer to instructions when I forget how to use the App                     |
+| `H`  | user                                       | add a property                 | keep track of the property                                                 |
+| `H`  | user                                       | delete a property              | stop keeping track of the property                                         |
+| `H`  | user                                       | edit property details          | edit details directly instead of deleting and adding                       |
+| `H`  | user                                       | list all properties            | easily see all properties                                                  |
+| `H`  | user                                       | find property by name          | locate details of property without having to go through the entire list    |
+| `H`  | user                                       | update property tags           | provide details about a property                                           |
+| `H`  | user                                       | find property by tags          | easily see related properties with a given tag                             |
+| `H`  | user                                       | add a buyer                    | keep track of the buyer                                                    |
+| `H`  | user                                       | delete a buyer                 | stop keeping track of the buyer                                            |
+| `H`  | user                                       | edit buyer details             | edit details directly instead of deleting and adding                       |
+| `H`  | user                                       | list all buyers                | easily see all buyers                                                      |
+| `H`  | user                                       | update buyer tags              | provide details about a buyer                                              |
+| `H`  | user                                       | find buyer by tags             | easily see related buyers with a given tag                                 |
+
 
 *{More to be added}*
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `PropertyWhiz` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Delete a person**
+**Use case: UC01 - Delete property**
 
 **MSS**
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  `User` requests to delete a specific _property_ by specifying its index
+2.  `PropertyWhiz` deletes the property
 
     Use case ends.
 
 **Extensions**
 
-* 2a. The list is empty.
+* 1a. The index is invalid.
 
-  Use case ends.
+  * 1a1. `PropertyWhiz` throws an error message.
 
-* 3a. The given index is invalid.
+    Use case ends.
 
-    * 3a1. AddressBook shows an error message.
 
-      Use case resumes at step 2.
+**Use case: UC02 - Modify property**
+
+**MSS**
+
+1. `User` requests to modify a property
+2. `PropertyWhiz` edits attributes of the property
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. `User` does not provide new attributes.
+
+  * 1a1. `PropertyWhiz` throws an error message.
+
+    Use case ends.
 
 *{More to be added}*
 
 ### Non-Functional Requirements
 
-1.  Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
-2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+1. Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
+2. Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+3. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+4. Should be able to function without internet access.
+5. Should be able to restart without loss of data.
 
 *{More to be added}*
 
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, OS-X
-* **Private contact detail**: A contact detail that is not meant to be shared with others
+* **Property**: A property listed for sale
+* **Buyer**: A person who expresses interest in a range of properties
 
 --------------------------------------------------------------------------------------------------------------------
 
