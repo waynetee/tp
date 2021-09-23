@@ -275,11 +275,14 @@ Priorities: High (must have) - `H`, Medium (nice to have) - `M`, Low (unlikely t
 | `H`  | new user                                   | see usage instructions         | refer to instructions when I forget how to use the App                     |
 | `H`  | user                                       | add a property                 | keep track of the property                                                 |
 | `H`  | user                                       | delete a property              | stop keeping track of the property                                         |
+| `H`  | user                                       | edit property details          | edit details directly instead of deleting and adding                       |
 | `H`  | user                                       | list all properties            | easily see all properties                                                  |
 | `H`  | user                                       | find property by name          | locate details of property without having to go through the entire list    |
 | `H`  | user                                       | update property tags           | provide details about a property                                           |
 | `H`  | user                                       | find property by tags          | easily see related properties with a given tag                             |
-| `H`  | user                                       | add, update, delete a buyer    | keep track of the buyer                                                    |
+| `H`  | user                                       | add a buyer                    | keep track of the buyer                                                    |
+| `H`  | user                                       | delete a buyer                 | stop keeping track of the buyer                                            |
+| `H`  | user                                       | edit buyer details             | edit details directly instead of deleting and adding                       |
 | `H`  | user                                       | list all buyers                | easily see all buyers                                                      |
 | `H`  | user                                       | update buyer tags              | provide details about a buyer                                              |
 | `H`  | user                                       | find buyer by tags             | easily see related buyers with a given tag                                 |
@@ -290,8 +293,6 @@ Priorities: High (must have) - `H`, Medium (nice to have) - `M`, Low (unlikely t
 ### Use cases
 
 (For all use cases below, the **System** is the `PropertyWhiz` and the **Actor** is the `user`, unless specified otherwise)
-
-**Use case: Delete a person**
 
 **Use case: UC01 - Delete property**
 
@@ -343,6 +344,8 @@ Priorities: High (must have) - `H`, Medium (nice to have) - `M`, Low (unlikely t
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, OS-X
+* **Property**: A property listed for sale
+* **Buyer**: A person who expresses interest in a range of properties
 
 --------------------------------------------------------------------------------------------------------------------
 
