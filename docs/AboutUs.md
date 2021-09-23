@@ -19,15 +19,15 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Developer
 * Responsibilities: Testing + UI
 
-### Jane Doe
+### Elizabeth Chow
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/lizchow.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/lizchow)]
+[[portfolio](team/lizchow.md)]
 
-* Role: Team Lead
-* Responsibilities: UI
+* Role: Developer
+* Responsibilities: Scheduling and tracking of deadline, Model
 
 ### Johnny Doe
 
