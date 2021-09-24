@@ -22,12 +22,12 @@ public class JsonSerializableAddressBookTest {
     private static final Path DUPLICATE_PROPERTY_FILE = TEST_DATA_FOLDER.resolve("duplicatePropertyAddressBook.json");
 
     @Ignore
-    public void toModelType_typicalPersonsFile_success() throws Exception {
+    public void toModelType_typicalPropertiesFile_success() throws Exception {
         JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_PROPERTIES_FILE,
                 JsonSerializableAddressBook.class).get();
         AddressBook addressBookFromFile = dataFromFile.toModelType();
-        AddressBook typicalPersonsAddressBook = TypicalProperties.getTypicalAddressBook();
-        assertEquals(addressBookFromFile, typicalPersonsAddressBook);
+        AddressBook typicalPropertiesAddressBook = TypicalProperties.getTypicalAddressBook();
+        assertEquals(addressBookFromFile, typicalPropertiesAddressBook);
     }
 
     @Test
@@ -38,7 +38,7 @@ public class JsonSerializableAddressBookTest {
     }
 
     @Ignore
-    public void toModelType_duplicatePersons_throwsIllegalValueException() throws Exception {
+    public void toModelType_duplicateProperties_throwsIllegalValueException() throws Exception {
         JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(DUPLICATE_PROPERTY_FILE,
                 JsonSerializableAddressBook.class).get();
         assertThrows(IllegalValueException.class, JsonSerializableAddressBook.MESSAGE_DUPLICATE_PERSON,

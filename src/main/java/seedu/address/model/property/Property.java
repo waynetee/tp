@@ -73,8 +73,8 @@ public class Property {
     }
 
     /**
-     * Returns true if both persons have the same name.
-     * This defines a weaker notion of equality between two persons.
+     * Returns true if both properties have the same name.
+     * This defines a weaker notion of equality between two properties.
      */
     public boolean isSameProperty(Property otherProperty) {
         if (otherProperty == this) {
@@ -86,8 +86,8 @@ public class Property {
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both properties have the same identity and data fields.
+     * This defines a stronger notion of equality between two properties.
      */
     @Override
     public boolean equals(Object other) {

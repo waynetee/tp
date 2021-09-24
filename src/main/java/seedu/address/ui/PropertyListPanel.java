@@ -11,7 +11,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.property.Property;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of properties.
  */
 public class PropertyListPanel extends UiPart<Region> {
     private static final String FXML = "PropertyListPanel.fxml";

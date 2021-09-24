@@ -19,15 +19,15 @@ import seedu.address.model.property.Property;
 @JsonRootName(value = "addressbook")
 class JsonSerializableAddressBook {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate property(s).";
+    public static final String MESSAGE_DUPLICATE_PERSON = "Property list contains duplicate property(s).";
 
     private final List<JsonAdaptedProperty> properties = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given persons.
+     * Constructs a {@code JsonSerializableAddressBook} with the given properties.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedProperty> properties) {
+    public JsonSerializableAddressBook(@JsonProperty("properties") List<JsonAdaptedProperty> properties) {
         this.properties.addAll(properties);
     }
 

@@ -64,7 +64,7 @@ public class TypicalProperties {
     private TypicalProperties() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons.
+     * Returns an {@code AddressBook} with all the typical properties.
      */
     public static AddressBook getTypicalAddressBook() {
         AddressBook ab = new AddressBook();
