@@ -159,7 +159,8 @@ public class UniquePropertyListTest {
     @Test
     public void setProperties_listWithDuplicateProperties_throwsDuplicatePropertyException() {
         List<Property> listWithDuplicateProperties = Arrays.asList(ALICE, ALICE);
-        assertThrows(DuplicatePropertyException.class, () -> uniquePropertyList.setProperties(listWithDuplicateProperties));
+        assertThrows(DuplicatePropertyException.class, () -> uniquePropertyList
+                .setProperties(listWithDuplicateProperties));
     }
 
     @Test
