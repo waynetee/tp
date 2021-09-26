@@ -61,14 +61,14 @@ public class EditCommand extends Command {
 
     /**
      * @param index of the property in the filtered property list to edit
-     * @param editPersonDescriptor details to edit the property with
+     * @param editPropertyDescriptor details to edit the property with
      */
-    public EditCommand(Index index, EditPropertyDescriptor editPersonDescriptor) {
+    public EditCommand(Index index, EditPropertyDescriptor editPropertyDescriptor) {
         requireNonNull(index);
-        requireNonNull(editPersonDescriptor);
+        requireNonNull(editPropertyDescriptor);
 
         this.index = index;
-        this.editPersonDescriptor = new EditPropertyDescriptor(editPersonDescriptor);
+        this.editPropertyDescriptor = new EditPropertyDescriptor(editPropertyDescriptor);
     }
 
     @Override
@@ -81,7 +81,7 @@ public class EditCommand extends Command {
         }
 
         Property propertyToEdit = lastShownList.get(index.getZeroBased());
-        Property editedProperty = createdEditedProperty(propertyToEdit, editPersonDescriptor);
+        Property editedProperty = createdEditedProperty(propertyToEdit, editPropertyDescriptor);
 
         if (!propertyToEdit.isSameProperty(editedProperty) && model.hasProperty(editedProperty)) {
             throw new CommandException(MESSAGE_DUPLICATE_PROPERTY);
@@ -127,7 +127,7 @@ public class EditCommand extends Command {
         // state check
         EditCommand e = (EditCommand) other;
         return index.equals(e.index)
-                && editPersonDescriptor.equals(e.editPersonDescriptor);
+                && editPropertyDescriptor.equals(e.editPropertyDescriptor);
     }
 
     /**

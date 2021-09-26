@@ -39,7 +39,7 @@ public class AddCommandIntegrationTest {
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
         Property propertyInList = model.getAddressBook().getPropertyList().get(0);
-        assertCommandFailure(new AddCommand(propertyInList), model, AddCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(new AddCommand(propertyInList), model, AddCommand.MESSAGE_DUPLICATE_PROPERTY);
     }
 
 }

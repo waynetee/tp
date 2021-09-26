@@ -74,9 +74,9 @@ class JsonAdaptedProperty {
      * @throws IllegalValueException if there were any data constraints violated in the adapted property.
      */
     public Property toModelType() throws IllegalValueException {
-        final List<Tag> personTags = new ArrayList<>();
+        final List<Tag> propertyTags = new ArrayList<>();
         for (JsonAdaptedTag tag : tagged) {
-            personTags.add(tag.toModelType());
+            propertyTags.add(tag.toModelType());
         }
 
         if (name == null) {
@@ -127,7 +127,7 @@ class JsonAdaptedProperty {
         }
         final Address modelAddress = new Address(address);
 
-        final Set<Tag> modelTags = new HashSet<>(personTags);
+        final Set<Tag> modelTags = new HashSet<>(propertyTags);
         return new Property(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelSeller, modelPrice);
     }
 
