@@ -57,7 +57,7 @@ public class EditCommand extends Command {
     public static final String MESSAGE_DUPLICATE_PROPERTY = "This property already exists in the address book.";
 
     private final Index index;
-    private final EditPropertyDescriptor editPersonDescriptor;
+    private final EditPropertyDescriptor editPropertyDescriptor;
 
     /**
      * @param index of the property in the filtered property list to edit
