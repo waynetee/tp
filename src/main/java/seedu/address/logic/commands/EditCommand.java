@@ -2,14 +2,14 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SELLER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_TAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PROPERTIES;
 
 import java.util.Collections;
@@ -117,7 +117,9 @@ public class EditCommand extends Command {
         Person updatedSeller = new Person(updatedSellerName, updatedSellerPhone, updatedSellerEmail);
         Price updatedPrice = editPropertyDescriptor.getPrice().orElse(propertyToEdit.getPrice());
         Set<Tag> updatedTags = editPropertyDescriptor.getTags().orElse(propertyToEdit.getTags());
-        Set<Tag> editedTags = TagSet.mergeAndRemove(updatedTags, editPropertyDescriptor.getTagsToAdd().get(), editPropertyDescriptor.getTagsToDelete().get());
+        Set<Tag> editedTags = TagSet.mergeAndRemove(updatedTags,
+                editPropertyDescriptor.getTagsToAdd().get(),
+                editPropertyDescriptor.getTagsToDelete().get());
 
         return new Property(updatedName, updatedAddress, updatedSeller, updatedPrice, editedTags);
     }

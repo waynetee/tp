@@ -21,11 +21,11 @@ public class ContainsTagsPredicate implements Predicate<Property> {
         Set<Tag> propertyTags = property.getTags();
         return propertyTags.containsAll(this.tags);
     }
-    
+
     @Override
     public boolean equals(Object other) {
-        return other == this ||
-            (other instanceof ContainsTagsPredicate) && 
-            tags.equals(((ContainsTagsPredicate) other).tags);
+        return other == this
+                || (other instanceof ContainsTagsPredicate)
+                && tags.equals(((ContainsTagsPredicate) other).tags);
     }
 }

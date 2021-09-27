@@ -13,7 +13,8 @@ public class TagSet {
      * @param tagsToDelete A collection of tags to be removed from {@code originalTags}.
      * @return
      */
-    public static Set<Tag> mergeAndRemove(Collection<Tag> originalTags, Collection<Tag> tagsToAdd, Collection<Tag> tagsToDelete) {
+    public static Set<Tag> mergeAndRemove(Collection<Tag> originalTags, Collection<Tag> tagsToAdd,
+                                          Collection<Tag> tagsToDelete) {
         Set<Tag> mergedSet = new HashSet<>();
         for (Tag t : mergedSet) {
             if (tagsToDelete.contains(t)) {

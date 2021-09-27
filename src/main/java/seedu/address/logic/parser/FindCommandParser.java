@@ -35,7 +35,8 @@ public class FindCommandParser implements Parser<FindCommand> {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TAG);
         Set<Tag> tagsFilter = parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        return new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)), new ContainsTagsPredicate(tagsFilter));
+        return new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)),
+                new ContainsTagsPredicate(tagsFilter));
     }
 
     /**
