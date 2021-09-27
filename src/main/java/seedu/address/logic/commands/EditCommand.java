@@ -94,19 +94,19 @@ public class EditCommand extends Command {
 
     /**
      * Creates and returns a {@code Property} with the details of {@code propertyToEdit}
-     * edited with {@code editPersonDescriptor}.
+     * edited with {@code editPropertyDescriptor}.
      */
     private static Property createdEditedProperty(Property propertyToEdit, EditPropertyDescriptor
-            editPersonDescriptor) {
+            editPropertyDescriptor) {
         assert propertyToEdit != null;
 
-        Name updatedName = editPersonDescriptor.getName().orElse(propertyToEdit.getName());
-        Seller updatedSeller = editPersonDescriptor.getSeller().orElse(propertyToEdit.getSeller());
-        Price updatedPrice = editPersonDescriptor.getPrice().orElse(propertyToEdit.getPrice());
-        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(propertyToEdit.getPhone());
-        Email updatedEmail = editPersonDescriptor.getEmail().orElse(propertyToEdit.getEmail());
-        Address updatedAddress = editPersonDescriptor.getAddress().orElse(propertyToEdit.getAddress());
-        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(propertyToEdit.getTags());
+        Name updatedName = editPropertyDescriptor.getName().orElse(propertyToEdit.getName());
+        Seller updatedSeller = editPropertyDescriptor.getSeller().orElse(propertyToEdit.getSeller());
+        Price updatedPrice = editPropertyDescriptor.getPrice().orElse(propertyToEdit.getPrice());
+        Phone updatedPhone = editPropertyDescriptor.getPhone().orElse(propertyToEdit.getPhone());
+        Email updatedEmail = editPropertyDescriptor.getEmail().orElse(propertyToEdit.getEmail());
+        Address updatedAddress = editPropertyDescriptor.getAddress().orElse(propertyToEdit.getAddress());
+        Set<Tag> updatedTags = editPropertyDescriptor.getTags().orElse(propertyToEdit.getTags());
 
         return new Property(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags,
                 updatedSeller, updatedPrice);
@@ -251,6 +251,7 @@ public class EditCommand extends Command {
                     && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail())
                     && getAddress().equals(e.getAddress())
+                    && getPrice().equals(e.getPrice())
                     && getTags().equals(e.getTags());
         }
     }
