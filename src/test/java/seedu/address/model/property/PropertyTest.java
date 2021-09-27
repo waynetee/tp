@@ -11,7 +11,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalProperties.ALICE;
 import static seedu.address.testutil.TypicalProperties.BOB;
 
-import org.junit.Ignore;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.testutil.PropertyBuilder;
@@ -51,7 +51,7 @@ public class PropertyTest {
         assertFalse(BOB.isSameProperty(editedBob));
     }
 
-    @Ignore
+    @Disabled
     public void equals() {
         // same values -> returns true
         Property aliceCopy = new PropertyBuilder(ALICE).build();

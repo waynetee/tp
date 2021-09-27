@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.junit.Ignore;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddCommand;
@@ -34,7 +34,7 @@ public class AddressBookParserTest {
 
     private final AddressBookParser parser = new AddressBookParser();
 
-    @Ignore
+    @Disabled
     public void parseCommand_add() throws Exception {
         Property property = new PropertyBuilder().build();
         AddCommand command = (AddCommand) parser.parseCommand(PropertyUtil.getAddCommand(property));
@@ -54,7 +54,7 @@ public class AddressBookParserTest {
         assertEquals(new DeleteCommand(INDEX_FIRST_PERSON), command);
     }
 
-    @Ignore
+    @Disabled
     public void parseCommand_edit() throws Exception {
         Property property = new PropertyBuilder().build();
         EditPropertyDescriptor descriptor = new EditPropertyDescriptorBuilder(property).build();
