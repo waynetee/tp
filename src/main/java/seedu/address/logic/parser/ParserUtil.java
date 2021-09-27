@@ -13,6 +13,8 @@ import seedu.address.model.property.Address;
 import seedu.address.model.property.Email;
 import seedu.address.model.property.Name;
 import seedu.address.model.property.Phone;
+import seedu.address.model.property.Price;
+import seedu.address.model.property.Seller;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -48,6 +50,36 @@ public class ParserUtil {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return new Name(trimmedName);
+    }
+
+    /**
+     * Parses a {@code String seller} into a {@code Seller}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code seller} is invalid.
+     */
+    public static Seller parseSeller(String seller) throws ParseException {
+        requireNonNull(seller);
+        String trimmedSeller = seller.trim();
+        if (!Seller.isValidSeller(trimmedSeller)) {
+            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+        }
+        return new Seller(trimmedSeller);
+    }
+
+    /**
+     * Parses a {@code String price} into a {@code Price}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code price} is invalid.
+     */
+    public static Price parsePrice(String price) throws ParseException {
+        requireNonNull(price);
+        String trimmedPrice = price.trim();
+        if (!Price.isValidPrice(trimmedPrice)) {
+            throw new ParseException(Price.MESSAGE_CONSTRAINTS);
+        }
+        return new Price(trimmedPrice);
     }
 
     /**
