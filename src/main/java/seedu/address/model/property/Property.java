@@ -105,13 +105,14 @@ public class Property {
                 && otherProperty.getSeller().equals(getPhone())
                 && otherProperty.getEmail().equals(getEmail())
                 && otherProperty.getAddress().equals(getAddress())
+                && otherProperty.getPrice().equals(getPrice())
                 && otherProperty.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags, seller);
+        return Objects.hash(name, phone, email, address, tags, seller, price);
     }
 
     @Override
