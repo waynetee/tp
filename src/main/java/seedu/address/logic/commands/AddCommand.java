@@ -36,9 +36,9 @@ public class AddCommand extends Command {
             + PREFIX_SELLER + "John Doe "
             + PREFIX_PHONE + "98765432 "
             + PREFIX_EMAIL + "johnd@example.com "
-            + PREFIX_TAG + "Condo"
-            + PREFIX_TAG + "4 rm"
-            + PREFIX_TAG + "621 sqft"
+            + PREFIX_TAG + "Condo "
+            + PREFIX_TAG + "4 rm "
+            + PREFIX_TAG + "621 sqft "
             + PREFIX_TAG + "EW23 Clementi";
 
     public static final String MESSAGE_SUCCESS = "New property added: %1$s";
