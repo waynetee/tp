@@ -9,6 +9,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SELLER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE_TAG;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -34,7 +36,7 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE,
-                PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG, PREFIX_SELLER, PREFIX_PRICE);
+                PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG, PREFIX_SELLER, PREFIX_PRICE, PREFIX_ADD_TAG, PREFIX_DELETE_TAG);
 
         Index index;
 
@@ -64,7 +66,10 @@ public class EditCommandParser implements Parser<EditCommand> {
             editPropertyDescriptor.setPrice(ParserUtil.parsePrice(argMultimap.getValue(PREFIX_PRICE).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPropertyDescriptor::setTags);
+        parseTagsForEdit(argMultimap.getAllValues(PREFIX_ADD_TAG)).ifPresent(editPropertyDescriptor::setTagsToAdd);
+        parseTagsForEdit(argMultimap.getAllValues(PREFIX_DELETE_TAG)).ifPresent(editPropertyDescriptor::setTagsToDelete);
 
+        
         if (!editPropertyDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
         }

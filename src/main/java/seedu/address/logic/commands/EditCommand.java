@@ -8,6 +8,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SELLER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PROPERTIES;
 
 import java.util.Collections;
@@ -29,6 +31,7 @@ import seedu.address.model.field.Price;
 import seedu.address.model.property.Address;
 import seedu.address.model.property.Property;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.TagSet;
 
 /**
  * Edits the details of an existing property in the address book.
@@ -39,7 +42,8 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the property identified "
             + "by the index number used in the displayed property list. "
-            + "Existing values will be overwritten by the input values.\n"
+            + "Existing values will be overwritten by the input values, with the exception of adding tags. "
+            + "Added tags will be appended to the current tags. \n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
@@ -47,7 +51,10 @@ public class EditCommand extends Command {
             + "[" + PREFIX_SELLER + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_TAG + "TAG]..."
+            + "[" + PREFIX_ADD_TAG + "TAG]..."
+            + "[" + PREFIX_DELETE_TAG + "TAG]..."
+            + "\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
@@ -110,8 +117,9 @@ public class EditCommand extends Command {
         Person updatedSeller = new Person(updatedSellerName, updatedSellerPhone, updatedSellerEmail);
         Price updatedPrice = editPropertyDescriptor.getPrice().orElse(propertyToEdit.getPrice());
         Set<Tag> updatedTags = editPropertyDescriptor.getTags().orElse(propertyToEdit.getTags());
+        Set<Tag> editedTags = TagSet.mergeAndRemove(updatedTags, editPropertyDescriptor.getTagsToAdd().get(), editPropertyDescriptor.getTagsToDelete().get());
 
-        return new Property(updatedName, updatedAddress, updatedSeller, updatedPrice, updatedTags);
+        return new Property(updatedName, updatedAddress, updatedSeller, updatedPrice, editedTags);
     }
 
     @Override
@@ -144,6 +152,8 @@ public class EditCommand extends Command {
         private Email sellerEmail;
         private Price price;
         private Set<Tag> tags;
+        private Set<Tag> tagsToAdd;
+        private Set<Tag> tagsToDelete;
 
         public EditPropertyDescriptor() {}
 
@@ -159,6 +169,8 @@ public class EditCommand extends Command {
             setSellerEmail(toCopy.sellerEmail);
             setPrice(toCopy.price);
             setTags(toCopy.tags);
+            setTagsToAdd(toCopy.tagsToAdd);
+            setTagsToDelete(toCopy.tagsToDelete);
         }
 
         /**
@@ -166,7 +178,7 @@ public class EditCommand extends Command {
          */
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyNonNull(propertyName, sellerPhone, sellerEmail,
-                    address, tags, sellerName, price);
+                    address, tags, tagsToAdd, tagsToDelete, sellerName, price);
         }
 
         public void setPropertyName(Name propertyName) {
@@ -226,12 +238,46 @@ public class EditCommand extends Command {
         }
 
         /**
+         * Sets {@code tags} to this object's {@code tags}.
+         * A defensive copy of {@code tagsToAppend} is used internally.
+         */
+        public void setTagsToAdd(Set<Tag> tags) {
+            this.tagsToAdd = (tags != null) ? new HashSet<>(tags) : null;
+        }
+
+        /**
+         * Sets {@code tags} to this object's {@code tags}.
+         * A defensive copy of {@code tagsToDelete} is used internally.
+         */
+        public void setTagsToDelete(Set<Tag> tags) {
+            this.tagsToDelete = (tags != null) ? new HashSet<>(tags) : null;
+        }
+
+        /**
          * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
          * if modification is attempted.
          * Returns {@code Optional#empty()} if {@code tags} is null.
          */
         public Optional<Set<Tag>> getTags() {
             return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
+        }
+
+        /**
+         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
+         * if modification is attempted.
+         * Returns {@code Optional#empty()} if {@code tagsToAdd} is null.
+         */
+        public Optional<Set<Tag>> getTagsToAdd() {
+            return (tagsToAdd != null) ? Optional.of(Collections.unmodifiableSet(tagsToAdd)) : Optional.empty();
+        }
+
+        /**
+         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
+         * if modification is attempted.
+         * Returns {@code Optional#empty()} if {@code tagsToDelete} is null.
+         */
+        public Optional<Set<Tag>> getTagsToDelete() {
+            return (tagsToDelete != null) ? Optional.of(Collections.unmodifiableSet(tagsToDelete)) : Optional.empty();
         }
 
         @Override
@@ -255,7 +301,9 @@ public class EditCommand extends Command {
                     && getSellerPhone().equals(e.getSellerPhone())
                     && getSellerEmail().equals(e.getSellerEmail())
                     && getPrice().equals(e.getPrice())
-                    && getTags().equals(e.getTags());
+                    && getTags().equals(e.getTags())
+                    && getTagsToAdd().equals(e.getTagsToAdd())
+                    && getTagsToDelete().equals(e.getTagsToDelete());
         }
     }
 }
