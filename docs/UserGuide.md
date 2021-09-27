@@ -3,7 +3,7 @@ layout: page
 title: User Guide
 ---
 
-AddressBook Level 3 (AB3) is a **desktop app for managing properties, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your property management tasks done faster than traditional GUI apps.
+PropertyWhiz (PropertyWhiz) is a **desktop app for managing properties, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, PropertyWhiz can get your property management tasks done faster than traditional GUI apps.
 
 * Table of Contents
 {:toc}
@@ -16,7 +16,7 @@ AddressBook Level 3 (AB3) is a **desktop app for managing properties, optimized 
 
 1. Download the latest `addressbook.jar` from [here](https://github.com/se-edu/addressbook-level3/releases).
 
-1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
+1. Copy the file to the folder you want to use as the _home folder_ for your PropertyWhiz.
 
 1. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
@@ -75,7 +75,7 @@ Format: `help`
 
 ### Adding a property: `add`
 
-Adds a property to the address book.
+Adds a property to PropertyWhiz.
 
 Format: `add n/PROPERTY_NAME a/PROPERTY_ADDRESS s/SELLER_NAME p/SELLER_PHONE $/PRICE_MIN [t/TAG]…​` e.g., `add n/Blk 123 a/123, Clementi Rd, #04-20, 1234665 s/James Lee sp/61234567 $/100000 max/100000 t/HDB t/3rm`
 
@@ -88,13 +88,13 @@ Examples:
 
 ### Listing all properties : `list`
 
-Shows a list of all properties in the address book.
+Shows a list of all properties in PropertyWhiz.
 
 Format: `list`
 
 ### Editing a property : `edit`
 
-Edits an existing property in the address book.
+Edits an existing property in PropertyWhiz.
 
 Format: `edit INDEX [n/PROPERTY_NAME] [a/PROPERTY_ADDRESS] [s/SELLER_NAME] [p/SELLER_PHONE] [$/PRICE_MIN] [t/TAG]…​`
 
@@ -129,7 +129,7 @@ Examples:
 
 ### Deleting a property : `delete`
 
-Deletes the specified property from the address book.
+Deletes the specified property from PropertyWhiz.
 
 Format: `delete INDEX`
 
@@ -138,12 +138,12 @@ Format: `delete INDEX`
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd property in the address book.
+* `list` followed by `delete 2` deletes the 2nd property in PropertyWhiz.
 * `find East Coast` followed by `delete 1` deletes the 1st property in the results of the `find` command.
 
 ### Clearing all entries : `clear`
 
-Clears all entries from the address book.
+Clears all entries from PropertyWhiz.
 
 Format: `clear`
 
@@ -155,14 +155,14 @@ Format: `exit`
 
 ### Saving the data
 
-AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+PropertyWhiz's data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 ### Editing the data file
 
-AddressBook data are saved as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+PropertyWhiz's data are saved as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run.
+If your changes to the data file makes its format invalid, PropertyWhiz will discard all data and start with an empty data file at the next run.
 </div>
 
 ### Archiving data files `[coming in v2.0]`
@@ -174,7 +174,7 @@ _Details coming soon ..._
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous PropertyWhiz home folder.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -182,7 +182,7 @@ _Details coming soon ..._
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add n/PROPERTY_NAME a/PROPERTY_ADDRESS s/SELLER_NAME p/SELLER_PHONE $/PRICE_MIN [t/TAG]…​` e.g., `add n/Blk 123 a/123, Clementi Rd, #04-20, 1234665 s/James Lee sp/61234567 $/100000 max/100000 t/HDB t/3rm`
+**Add** | `add n/PROPERTY_NAME a/PROPERTY_ADDRESS s/SELLER_NAME p/SELLER_PHONE $/PRICE_MIN [t/TAG]…​` <br> e.g., `add n/Blk 123 a/123, Clementi Rd, #04-20, 1234665 s/James Lee sp/61234567 $/100000 max/100000 t/HDB t/3rm`
 **Clear** | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit** | `edit INDEX [n/PROPERTY_NAME] [a/PROPERTY_ADDRESS] [s/SELLER_NAME] [p/SELLER_PHONE] [$/PRICE_MIN] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
