@@ -29,11 +29,22 @@ public class FindCommand extends Command {
             + PREFIX_TAG + "4 rm ";
 
     private final Predicate<Property> propertyPredicate;
+    private final NameContainsKeywordsPredicate namePredicate;
+    private final ContainsTagsPredicate tagsPredicate;
+
     public FindCommand(NameContainsKeywordsPredicate namePredicate) {
-        this.propertyPredicate = namePredicate;
+        this(namePredicate, new ContainsTagsPredicate());
     }
 
+    /**
+     * Creates a FindCommand that composes the given predicates.
+     *
+     * @param namePredicate Property predicate checking for name match.
+     * @param tagsPredicate Property predicate checking for containment of tags.
+     */
     public FindCommand(NameContainsKeywordsPredicate namePredicate, ContainsTagsPredicate tagsPredicate) {
+        this.namePredicate = namePredicate;
+        this.tagsPredicate = tagsPredicate;
         this.propertyPredicate = namePredicate.and(tagsPredicate);
     }
 
@@ -49,6 +60,7 @@ public class FindCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof FindCommand // instanceof handles nulls
-                && propertyPredicate.equals(((FindCommand) other).propertyPredicate)); // state check
+                && namePredicate.equals(((FindCommand) other).namePredicate)
+                && tagsPredicate.equals(((FindCommand) other).tagsPredicate)); // state check
     }
 }

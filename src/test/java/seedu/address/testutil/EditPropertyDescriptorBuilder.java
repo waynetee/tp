@@ -1,5 +1,6 @@
 package seedu.address.testutil;
 
+import java.util.Collections;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -40,6 +41,8 @@ public class EditPropertyDescriptorBuilder {
         descriptor.setSellerEmail(property.getSeller().getEmail());
         descriptor.setPrice(property.getPrice());
         descriptor.setTags(property.getTags());
+        descriptor.setTagsToAdd(Collections.emptySet());
+        descriptor.setTagsToDelete(Collections.emptySet());
     }
 
     /**

@@ -1,5 +1,6 @@
 package seedu.address.model.property;
 
+import java.util.Collections;
 import java.util.Set;
 import java.util.function.Predicate;
 
@@ -11,6 +12,10 @@ import seedu.address.model.tag.Tag;
 public class ContainsTagsPredicate implements Predicate<Property> {
 
     private final Set<Tag> tags;
+
+    public ContainsTagsPredicate() {
+        this(Collections.emptySet());
+    }
 
     public ContainsTagsPredicate(Set<Tag> tags) {
         this.tags = tags;
