@@ -47,7 +47,7 @@ public class PropertyUtil {
     /**
      * Returns the part of command string for the given {@code EditPropertyDescriptor}'s details.
      */
-    public static String getEditPersonDescriptorDetails(EditPropertyDescriptor descriptor) {
+    public static String getEditPropertyDescriptorDetails(EditPropertyDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
         descriptor.getSeller().ifPresent(seller -> sb.append(PREFIX_SELLER).append(seller.fullName).append(" "));
