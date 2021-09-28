@@ -9,51 +9,51 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
-### John Doe
+### Wayne Tee
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/waynetee.png" width="200px">
 
-[[homepage](http://www.comp.nus.edu.sg/~damithch)]
-[[github](https://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
-
-* Role: Project Advisor
-
-### Jane Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
-
-* Role: Team Lead
-* Responsibilities: UI
-
-### Johnny Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)] [[portfolio](team/johndoe.md)]
+[[github](http://github.com/waynetee)]
+[[portfolio](team/waynetee.md)]
 
 * Role: Developer
-* Responsibilities: Data
+* Responsibilities: Testing + UI
 
-### Jean Doe
+### Elizabeth Chow
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/lizchow.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
-
-* Role: Developer
-* Responsibilities: Dev Ops + Threading
-
-### James Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/lizchow)]
+[[portfolio](team/lizchow.md)]
 
 * Role: Developer
-* Responsibilities: UI
+* Responsibilities: Scheduling and tracking of deadline, Model
+
+### Sun Jia Cheng
+
+<img src="images/sunjc826.png" width="200px">
+
+[[github](http://github.com/sunjc826)] [[portfolio](team/sunjc826.md)]
+
+* Role: Developer
+* Responsibilities: Documentation + Models
+
+### Wong Pei Xian
+
+<img src="images/peixian.png" width="200px">
+
+[[github](http://github.com/trxe)]
+[[portfolio](team/peixian.md)]
+
+* Role: Developer
+* Responsibilities: Code Quality + Logic
+
+### Zhang Guangxuan
+
+<img src="images/guangxuan.png" width="200px">
+
+[[github](https://github.com/guangxuan)]
+[[portfolio](team/guangxuan.md)]
+
+* Role: Developer
+* Responsibilities: Integration + Storage

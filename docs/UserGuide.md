@@ -133,8 +133,8 @@ Examples:
 
 ### Deleting a property : `delete`
 
-Deletes the specified property from PropertyWhiz.
 
+Deletes the specified property from PropertyWhiz.
 Format: `delete INDEX`
 
 * Deletes the property at the specified `INDEX`.
