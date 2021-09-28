@@ -161,7 +161,7 @@ public class EditCommand extends Command {
 
         /**
          * Copy constructor.
-         * A defensive copy of {@code tags} is used internally.
+         * A defensive copy of {@code tags}, {@code tagsToAdd}, {@code tagsToDelete} is used internally.
          */
         public EditPropertyDescriptor(EditPropertyDescriptor toCopy) {
             setPropertyName(toCopy.propertyName);
@@ -240,16 +240,16 @@ public class EditCommand extends Command {
         }
 
         /**
-         * Sets {@code tags} to this object's {@code tags}.
-         * A defensive copy of {@code tagsToAppend} is used internally.
+         * Sets {@code tags} to this object's {@code tagsToAppend}.
+         * A defensive copy of {@code tags} is used internally.
          */
         public void setTagsToAdd(Set<Tag> tags) {
             this.tagsToAdd = (tags != null) ? new HashSet<>(tags) : null;
         }
 
         /**
-         * Sets {@code tags} to this object's {@code tags}.
-         * A defensive copy of {@code tagsToDelete} is used internally.
+         * Sets {@code tags} to this object's {@code tagsToDelete}.
+         * A defensive copy of {@code tags} is used internally.
          */
         public void setTagsToDelete(Set<Tag> tags) {
             this.tagsToDelete = (tags != null) ? new HashSet<>(tags) : null;
