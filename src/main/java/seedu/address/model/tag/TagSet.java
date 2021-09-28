@@ -16,7 +16,7 @@ public class TagSet {
     public static Set<Tag> mergeAndRemove(Collection<Tag> originalTags, Collection<Tag> tagsToAdd,
                                           Collection<Tag> tagsToDelete) {
         Set<Tag> mergedSet = new HashSet<>();
-        for (Tag t : mergedSet) {
+        for (Tag t : originalTags) {
             if (tagsToDelete.contains(t)) {
                 continue;
             }

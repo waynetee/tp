@@ -118,8 +118,8 @@ public class EditCommand extends Command {
         Price updatedPrice = editPropertyDescriptor.getPrice().orElse(propertyToEdit.getPrice());
         Set<Tag> updatedTags = editPropertyDescriptor.getTags().orElse(propertyToEdit.getTags());
         Set<Tag> editedTags = TagSet.mergeAndRemove(updatedTags,
-                editPropertyDescriptor.getTagsToAdd().get(),
-                editPropertyDescriptor.getTagsToDelete().get());
+                editPropertyDescriptor.getTagsToAdd().orElse(Collections.emptySet()),
+                editPropertyDescriptor.getTagsToDelete().orElse(Collections.emptySet()));
 
         return new Property(updatedName, updatedAddress, updatedSeller, updatedPrice, editedTags);
     }
