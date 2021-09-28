@@ -1,0 +1,2 @@
+clear
+add n/Hasta La Vista a/20 Clementi Ave 2, #02-25 $/1652000 s/John Doe p/98765432 e/johnd@example.com t/Condo t/4 rm t/621 sqft t/EW23 Clementi

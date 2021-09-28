@@ -52,7 +52,19 @@ public class MainApp extends Application {
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
-        config = initConfig(appParameters.getConfigPath());
+        initBackend(appParameters.getConfigPath());
+
+        ui = new UiManager(logic);
+    }
+
+    /**
+     * Initialises backend, including config, storage, model, and logic.
+     * Used for system testing.
+     *
+     * @param configPath Path to config file, can be null.
+     */
+    public void initBackend(Path configPath) {
+        config = initConfig(configPath);
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
@@ -64,8 +76,6 @@ public class MainApp extends Application {
         model = initModelManager(storage, userPrefs);
 
         logic = new LogicManager(model, storage);
-
-        ui = new UiManager(logic);
     }
 
     /**
@@ -179,5 +189,15 @@ public class MainApp extends Application {
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
         }
+    }
+
+    /**
+     * Returns the logic module.
+     * Used for system testing.
+     *
+     * @return logic
+     */
+    public Logic getLogic() {
+        return logic;
     }
 }
