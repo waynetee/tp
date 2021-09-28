@@ -46,7 +46,7 @@ public class PropertyCard extends UiPart<Region> {
     private Label seller;
 
     /**
-     * Creates a {@code PropertyCode} with the given {@code Property} and index to display.
+     * Creates a {@code PropertyCard} with the given {@code Property} and index to display.
      */
     public PropertyCard(Property property, int displayedIndex) {
         super(FXML);
