@@ -40,6 +40,10 @@ public class PropertyCard extends UiPart<Region> {
     private Label email;
     @FXML
     private FlowPane tags;
+    @FXML
+    private Label price;
+    @FXML
+    private Label seller;
 
     /**
      * Creates a {@code PropertyCode} with the given {@code Property} and index to display.
@@ -49,6 +53,8 @@ public class PropertyCard extends UiPart<Region> {
         this.property = property;
         id.setText(displayedIndex + ". ");
         name.setText(property.getName().fullName);
+        price.setText('$' + property.getPrice().toString());
+        seller.setText(property.getSeller().fullName);
         phone.setText(property.getPhone().value);
         address.setText(property.getAddress().value);
         email.setText(property.getEmail().value);
