@@ -14,7 +14,9 @@ PropertyWhiz (PropertyWhiz) is a **desktop app for managing properties, optimize
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
-1. Download the latest `addressbook.jar` from [here](https://github.com/se-edu/addressbook-level3/releases).
+1. Download the latest `addressbook.jar` from [here]().
+
+**TODO**: Update and release jar link.
 
 1. Copy the file to the folder you want to use as the _home folder_ for your PropertyWhiz.
 
@@ -45,10 +47,10 @@ PropertyWhiz (PropertyWhiz) is a **desktop app for managing properties, optimize
 **:information_source: Notes about the command format:**<br>
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `add n/PROPERTY_NAME`, `PROPERTY_NAME` is a parameter which can be used as `add n/John Doe`.
+  e.g. in `add n/PROPERTY_NAME`, `PROPERTY_NAME` is a parameter which can be used as `add n/Beautiful Condo`.
 
 * Items in square brackets are optional.<br>
-  e.g `n/PROPERTY_NAME [t/TAG]` can be used as `n/John Doe t/condo` or as `n/John Doe`.
+  e.g `n/PROPERTY_NAME [t/TAG]` can be used as `n/Beautiful Condo t/condo` or as `n/Beautiful Condo`.
 
 * Items with `…`​ after them can be used multiple times including zero times.<br>
   e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/condo`, `t/condo t/family` etc.
@@ -68,6 +70,7 @@ PropertyWhiz (PropertyWhiz) is a **desktop app for managing properties, optimize
 
 Shows a message explaning how to access the help page.
 
+**TODO**: Change help message image
 ![help message](images/helpMessage.png)
 
 Format: `help`
@@ -117,13 +120,14 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 
 * The search is case-insensitive. e.g `hillview` will match `Hillview`
 * The order of the keywords does not matter. e.g. `Hillview Rise` will match `Rise Hillview`
-* Only the name is searched.
+* Only the property name is searched.
 * Only full words will be matched e.g. `Han` will not match `Hillview`
 * Properties matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `Hillview Rise` will return `Hillview Grove`, `Rise Rivervale`
 
 Examples:
 * `find Jurong` returns `jurong` and `Jurong East`
+  **TODO**: Replace `find alex david` image
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
@@ -182,11 +186,12 @@ _Details coming soon ..._
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add n/PROPERTY_NAME a/PROPERTY_ADDRESS s/SELLER_NAME p/SELLER_PHONE $/PRICE_MIN [t/TAG]…​` <br> e.g., `add n/Blk 123 a/123, Clementi Rd, #04-20, 1234665 s/James Lee sp/61234567 $/100000 max/100000 t/HDB t/3rm`
+**Add** | `add n/PROPERTY_NAME a/PROPERTY_ADDRESS s/SELLER_NAME p/SELLER_PHONE $/PRICE_MIN [t/TAG]…​` <br> e.g., `add n/Blk 123 a/123, Clementi Rd, #04-20, 1234665 s/James Lee sp/61234567 $/100000 t/HDB t/3rm`
 **Clear** | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit** | `edit INDEX [n/PROPERTY_NAME] [a/PROPERTY_ADDRESS] [s/SELLER_NAME] [p/SELLER_PHONE] [$/PRICE_MIN] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
 **Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List** | `list`
+**Exit** | `exit`
 **Help** | `help`
 
