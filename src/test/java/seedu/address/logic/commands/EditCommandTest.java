@@ -14,7 +14,6 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalProperties.getTypicalAddressBook;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
@@ -35,7 +34,7 @@ public class EditCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
-    @Disabled
+    @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Property editedProperty = new PropertyBuilder().build();
         EditPropertyDescriptor descriptor = new EditPropertyDescriptorBuilder(editedProperty).build();
@@ -45,11 +44,10 @@ public class EditCommandTest {
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setProperty(model.getFilteredPropertyList().get(0), editedProperty);
-
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
-    @Disabled
+    @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
         Index indexLastPerson = Index.fromOneBased(model.getFilteredPropertyList().size());
         Property lastProperty = model.getFilteredPropertyList().get(indexLastPerson.getZeroBased());
@@ -70,7 +68,7 @@ public class EditCommandTest {
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
-    @Disabled
+    @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, new EditCommand.EditPropertyDescriptor());
         Property editedProperty = model.getFilteredPropertyList().get(INDEX_FIRST_PERSON.getZeroBased());
@@ -82,7 +80,7 @@ public class EditCommandTest {
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
-    @Disabled
+    @Test
     public void execute_filteredList_success() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 

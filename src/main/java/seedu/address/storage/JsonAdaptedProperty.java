@@ -91,7 +91,7 @@ class JsonAdaptedProperty {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Seller.class.getSimpleName()));
         }
         if (!Seller.isValidSeller(seller)) {
-            throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(Seller.MESSAGE_CONSTRAINTS);
         }
         final Seller modelSeller = new Seller(seller);
 
