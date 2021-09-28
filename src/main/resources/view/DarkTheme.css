@@ -350,3 +350,8 @@
     -fx-background-radius: 2;
     -fx-font-size: 11;
 }
+
+#price {
+    -fx-font-family: "Open Sans SemiBold";
+    -fx-font-size: 13px;
+}
