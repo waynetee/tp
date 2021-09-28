@@ -32,6 +32,6 @@ public class PriceTest {
         // valid seller
         assertTrue(Price.isValidPrice("12345")); // numbers only
         assertTrue(Price.isValidPrice("23421231231")); // numbers only
-        assertTrue(Price.isValidPrice("111111111111111111111111111111111111")); // large numbers
+        assertTrue(Price.isValidPrice("123456789012345678")); // large numbers
     }
 }
