@@ -9,7 +9,9 @@ import seedu.address.model.property.Address;
 import seedu.address.model.property.Email;
 import seedu.address.model.property.Name;
 import seedu.address.model.property.Phone;
+import seedu.address.model.property.Price;
 import seedu.address.model.property.Property;
+import seedu.address.model.property.Seller;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -72,6 +74,23 @@ public class EditPropertyDescriptorBuilder {
         descriptor.setAddress(new Address(address));
         return this;
     }
+
+    /**
+     * Sets the {@code Seller} of the {@code EditPropertyDescriptor} that we are building.
+     */
+    public EditPropertyDescriptorBuilder withSeller(String seller) {
+        descriptor.setSeller(new Seller(seller));
+        return this;
+    }
+
+    /**
+     * Sets the {@code Price} of the {@code EditPropertyDescriptor} that we are building.
+     */
+    public EditPropertyDescriptorBuilder withPrice(String price) {
+        descriptor.setPrice(new Price(price));
+        return this;
+    }
+
 
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditPropertyDescriptor}

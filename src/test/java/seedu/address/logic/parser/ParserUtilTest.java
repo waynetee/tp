@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PROPERTY;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -18,6 +18,8 @@ import seedu.address.model.property.Address;
 import seedu.address.model.property.Email;
 import seedu.address.model.property.Name;
 import seedu.address.model.property.Phone;
+import seedu.address.model.property.Price;
+import seedu.address.model.property.Seller;
 import seedu.address.model.tag.Tag;
 
 public class ParserUtilTest {
@@ -25,12 +27,16 @@ public class ParserUtilTest {
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
+    private static final String INVALID_SELLER = "Br@yn";
+    private static final String INVALID_PRICE = "100k";
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
     private static final String VALID_ADDRESS = "123 Main Street #0505";
     private static final String VALID_EMAIL = "rachel@example.com";
+    private static final String VALID_SELLER = "Bryan Walker";
+    private static final String VALID_PRICE = "100000";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
 
@@ -50,10 +56,10 @@ public class ParserUtilTest {
     @Test
     public void parseIndex_validInput_success() throws Exception {
         // No whitespaces
-        assertEquals(INDEX_FIRST_PERSON, ParserUtil.parseIndex("1"));
+        assertEquals(INDEX_FIRST_PROPERTY, ParserUtil.parseIndex("1"));
 
         // Leading and trailing whitespaces
-        assertEquals(INDEX_FIRST_PERSON, ParserUtil.parseIndex("  1  "));
+        assertEquals(INDEX_FIRST_PROPERTY, ParserUtil.parseIndex("  1  "));
     }
 
     @Test
@@ -146,6 +152,52 @@ public class ParserUtilTest {
         String emailWithWhitespace = WHITESPACE + VALID_EMAIL + WHITESPACE;
         Email expectedEmail = new Email(VALID_EMAIL);
         assertEquals(expectedEmail, ParserUtil.parseEmail(emailWithWhitespace));
+    }
+
+    @Test
+    public void parseSeller_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseSeller((String) null));
+    }
+
+    @Test
+    public void parseSeller_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseSeller(INVALID_SELLER));
+    }
+
+    @Test
+    public void parseSeller_validValueWithoutWhitespace_returnsSeller() throws Exception {
+        Seller expectedSeller = new Seller(VALID_SELLER);
+        assertEquals(expectedSeller, ParserUtil.parseSeller(VALID_SELLER));
+    }
+
+    @Test
+    public void parseSeller_validValueWithWhitespace_returnsTrimmedSeller() throws Exception {
+        String sellerWithWhitespace = WHITESPACE + VALID_SELLER + WHITESPACE;
+        Seller expectedSeller = new Seller(VALID_SELLER);
+        assertEquals(expectedSeller, ParserUtil.parseSeller(sellerWithWhitespace));
+    }
+
+    @Test
+    public void parsePrice_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parsePrice((String) null));
+    }
+
+    @Test
+    public void parsePrice_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parsePrice(INVALID_PRICE));
+    }
+
+    @Test
+    public void parsePrice_validValueWithoutWhitespace_returnsPrice() throws Exception {
+        Price expectedPrice = new Price(VALID_PRICE);
+        assertEquals(expectedPrice, ParserUtil.parsePrice(VALID_PRICE));
+    }
+
+    @Test
+    public void parsePrice_validValueWithWhitespace_returnsTrimmedPrice() throws Exception {
+        String priceWithWhitespace = WHITESPACE + VALID_PRICE + WHITESPACE;
+        Price expectedPrice = new Price(VALID_PRICE);
+        assertEquals(expectedPrice, ParserUtil.parsePrice(priceWithWhitespace));
     }
 
     @Test

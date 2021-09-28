@@ -102,7 +102,7 @@ public class Property {
         Property otherProperty = (Property) other;
         return otherProperty.getName().equals(getName())
                 && otherProperty.getPhone().equals(getPhone())
-                && otherProperty.getSeller().equals(getPhone())
+                && otherProperty.getSeller().equals(getSeller())
                 && otherProperty.getEmail().equals(getEmail())
                 && otherProperty.getAddress().equals(getAddress())
                 && otherProperty.getPrice().equals(getPrice())
