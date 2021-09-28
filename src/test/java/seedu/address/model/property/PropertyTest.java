@@ -6,12 +6,13 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SELLER_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalProperties.ALICE;
 import static seedu.address.testutil.TypicalProperties.BOB;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.testutil.PropertyBuilder;
@@ -51,7 +52,7 @@ public class PropertyTest {
         assertFalse(BOB.isSameProperty(editedBob));
     }
 
-    @Disabled
+    @Test
     public void equals() {
         // same values -> returns true
         Property aliceCopy = new PropertyBuilder(ALICE).build();
@@ -83,6 +84,14 @@ public class PropertyTest {
 
         // different address -> returns false
         editedAlice = new PropertyBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).build();
+        assertFalse(ALICE.equals(editedAlice));
+
+        // different seller -> returns false
+        editedAlice = new PropertyBuilder(ALICE).withSeller(VALID_SELLER_BOB).build();
+        assertFalse(ALICE.equals(editedAlice));
+
+        // different price -> returns false
+        editedAlice = new PropertyBuilder(ALICE).withPrice(VALID_PRICE_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different tags -> returns false

@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -17,12 +16,16 @@ import seedu.address.model.property.Address;
 import seedu.address.model.property.Email;
 import seedu.address.model.property.Name;
 import seedu.address.model.property.Phone;
+import seedu.address.model.property.Price;
+import seedu.address.model.property.Seller;
 
 public class JsonAdaptedPropertyTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
+    private static final String INVALID_SELLER = "Br@yn";
+    private static final String INVALID_PRICE = "100k";
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_NAME = BENSON.getName().toString();
@@ -35,91 +38,122 @@ public class JsonAdaptedPropertyTest {
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList());
 
-    // TODO: Fix test
-    @Disabled
-    public void toModelType_validPersonDetails_returnsPerson() throws Exception {
-        JsonAdaptedProperty person = new JsonAdaptedProperty(BENSON);
-        assertEquals(BENSON, person.toModelType());
+    @Test
+    public void toModelType_validPropertyDetails_returnsProperty() throws Exception {
+        JsonAdaptedProperty property = new JsonAdaptedProperty(BENSON);
+        assertEquals(BENSON, property.toModelType());
     }
 
     @Test
     public void toModelType_invalidName_throwsIllegalValueException() {
-        JsonAdaptedProperty person =
+        JsonAdaptedProperty property =
                 new JsonAdaptedProperty(INVALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS,
                         VALID_SELLER, VALID_PRICE);
         String expectedMessage = Name.MESSAGE_CONSTRAINTS;
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+        assertThrows(IllegalValueException.class, expectedMessage, property::toModelType);
     }
 
     @Test
     public void toModelType_nullName_throwsIllegalValueException() {
-        JsonAdaptedProperty person = new JsonAdaptedProperty(null, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
+        JsonAdaptedProperty property = new JsonAdaptedProperty(null, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
                 VALID_TAGS, VALID_SELLER, VALID_PRICE);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+        assertThrows(IllegalValueException.class, expectedMessage, property::toModelType);
     }
 
     @Test
     public void toModelType_invalidPhone_throwsIllegalValueException() {
-        JsonAdaptedProperty person =
+        JsonAdaptedProperty property =
                 new JsonAdaptedProperty(VALID_NAME, INVALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS,
                         VALID_SELLER, VALID_PRICE);
         String expectedMessage = Phone.MESSAGE_CONSTRAINTS;
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+        assertThrows(IllegalValueException.class, expectedMessage, property::toModelType);
     }
 
     @Test
     public void toModelType_nullPhone_throwsIllegalValueException() {
-        JsonAdaptedProperty person = new JsonAdaptedProperty(VALID_NAME, null, VALID_EMAIL, VALID_ADDRESS,
+        JsonAdaptedProperty property = new JsonAdaptedProperty(VALID_NAME, null, VALID_EMAIL, VALID_ADDRESS,
                 VALID_TAGS, VALID_SELLER, VALID_PRICE);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName());
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+        assertThrows(IllegalValueException.class, expectedMessage, property::toModelType);
     }
 
     @Test
     public void toModelType_invalidEmail_throwsIllegalValueException() {
-        JsonAdaptedProperty person =
+        JsonAdaptedProperty property =
                 new JsonAdaptedProperty(VALID_NAME, VALID_PHONE, INVALID_EMAIL, VALID_ADDRESS, VALID_TAGS,
                         VALID_SELLER, VALID_PRICE);
         String expectedMessage = Email.MESSAGE_CONSTRAINTS;
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+        assertThrows(IllegalValueException.class, expectedMessage, property::toModelType);
     }
 
     @Test
     public void toModelType_nullEmail_throwsIllegalValueException() {
-        JsonAdaptedProperty person = new JsonAdaptedProperty(VALID_NAME, VALID_PHONE, null, VALID_ADDRESS,
+        JsonAdaptedProperty property = new JsonAdaptedProperty(VALID_NAME, VALID_PHONE, null, VALID_ADDRESS,
                 VALID_TAGS, VALID_SELLER, VALID_PRICE);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName());
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+        assertThrows(IllegalValueException.class, expectedMessage, property::toModelType);
     }
 
     @Test
     public void toModelType_invalidAddress_throwsIllegalValueException() {
-        JsonAdaptedProperty person =
+        JsonAdaptedProperty property =
                 new JsonAdaptedProperty(VALID_NAME, VALID_PHONE, VALID_EMAIL, INVALID_ADDRESS, VALID_TAGS,
                         VALID_SELLER, VALID_PRICE);
         String expectedMessage = Address.MESSAGE_CONSTRAINTS;
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+        assertThrows(IllegalValueException.class, expectedMessage, property::toModelType);
     }
 
     @Test
     public void toModelType_nullAddress_throwsIllegalValueException() {
-        JsonAdaptedProperty person = new JsonAdaptedProperty(VALID_NAME, VALID_PHONE, VALID_EMAIL, null,
+        JsonAdaptedProperty property = new JsonAdaptedProperty(VALID_NAME, VALID_PHONE, VALID_EMAIL, null,
                 VALID_TAGS, VALID_SELLER, VALID_PRICE);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName());
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+        assertThrows(IllegalValueException.class, expectedMessage, property::toModelType);
     }
 
     @Test
     public void toModelType_invalidTags_throwsIllegalValueException() {
         List<JsonAdaptedTag> invalidTags = new ArrayList<>(VALID_TAGS);
         invalidTags.add(new JsonAdaptedTag(INVALID_TAG));
-        JsonAdaptedProperty person =
+        JsonAdaptedProperty property =
                 new JsonAdaptedProperty(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, invalidTags,
                         VALID_SELLER, VALID_PRICE);
-        assertThrows(IllegalValueException.class, person::toModelType);
+        assertThrows(IllegalValueException.class, property::toModelType);
     }
 
-    // TODO: Can add testing for invalid and null Seller
+    @Test
+    public void toModelType_invalidSeller_throwsIllegalValueException() {
+        JsonAdaptedProperty property =
+                new JsonAdaptedProperty(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS,
+                        INVALID_SELLER, VALID_PRICE);
+        String expectedMessage = Seller.MESSAGE_CONSTRAINTS;
+        assertThrows(IllegalValueException.class, expectedMessage, property::toModelType);
+    }
+
+    @Test
+    public void toModelType_nullSeller_throwsIllegalValueException() {
+        JsonAdaptedProperty property = new JsonAdaptedProperty(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
+                VALID_TAGS, null, VALID_PRICE);
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Seller.class.getSimpleName());
+        assertThrows(IllegalValueException.class, expectedMessage, property::toModelType);
+    }
+
+    @Test
+    public void toModelType_invalidPrice_throwsIllegalValueException() {
+        JsonAdaptedProperty property =
+                new JsonAdaptedProperty(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS,
+                        VALID_SELLER, INVALID_PRICE);
+        String expectedMessage = Price.MESSAGE_CONSTRAINTS;
+        assertThrows(IllegalValueException.class, expectedMessage, property::toModelType);
+    }
+
+    @Test
+    public void toModelType_nullPrice_throwsIllegalValueException() {
+        JsonAdaptedProperty property = new JsonAdaptedProperty(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
+                VALID_TAGS, VALID_SELLER, null);
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Price.class.getSimpleName());
+        assertThrows(IllegalValueException.class, expectedMessage, property::toModelType);
+    }
 
 }

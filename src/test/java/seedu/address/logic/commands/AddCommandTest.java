@@ -26,12 +26,12 @@ import seedu.address.testutil.PropertyBuilder;
 public class AddCommandTest {
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructor_nullProperty_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new AddCommand(null));
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
+    public void execute_propertyAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingPropertyAdded modelStub = new ModelStubAcceptingPropertyAdded();
         Property validProperty = new PropertyBuilder().build();
 
@@ -42,7 +42,7 @@ public class AddCommandTest {
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
+    public void execute_duplicateProperty_throwsCommandException() {
         Property validProperty = new PropertyBuilder().build();
         AddCommand addCommand = new AddCommand(validProperty);
         ModelStub modelStub = new ModelStubWithProperty(validProperty);

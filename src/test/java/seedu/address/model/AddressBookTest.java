@@ -44,7 +44,7 @@ public class AddressBookTest {
     }
 
     @Test
-    public void resetData_withDuplicateProperties_throwsDuplicatePersonException() {
+    public void resetData_withDuplicateProperties_throwsDuplicatePropertyException() {
         // Two properties with the same identity fields
         Property editedAlice = new PropertyBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
@@ -55,23 +55,23 @@ public class AddressBookTest {
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
+    public void hasProperty_nullProperty_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> addressBook.hasProperty(null));
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
+    public void hasProperty_propertyNotInAddressBook_returnsFalse() {
         assertFalse(addressBook.hasProperty(ALICE));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
+    public void hasProperty_propertyInAddressBook_returnsTrue() {
         addressBook.addProperty(ALICE);
         assertTrue(addressBook.hasProperty(ALICE));
     }
 
     @Test
-    public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
+    public void hasProperty_propertyWithSameIdentityFieldsInAddressBook_returnsTrue() {
         addressBook.addProperty(ALICE);
         Property editedAlice = new PropertyBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
@@ -79,7 +79,7 @@ public class AddressBookTest {
     }
 
     @Test
-    public void getPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getPropertyList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> addressBook.getPropertyList().remove(0));
     }
 

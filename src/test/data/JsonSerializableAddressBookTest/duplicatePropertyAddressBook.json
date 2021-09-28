@@ -1,14 +1,18 @@
 {
-  "persons": [ {
+  "properties": [ {
     "name": "Alice Pauline",
     "phone": "94351253",
     "email": "alice@example.com",
     "address": "123, Jurong West Ave 6, #08-111",
+    "price": "10000",
+    "seller": "Valid Seller",
     "tagged": [ "friends" ]
   }, {
     "name": "Alice Pauline",
     "phone": "94351253",
     "email": "pauline@example.com",
-    "address": "4th street"
+    "address": "4th street",
+    "price": "10000",
+    "seller": "Valid Seller"
   } ]
 }
