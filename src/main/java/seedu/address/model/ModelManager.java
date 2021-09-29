@@ -102,7 +102,7 @@ public class ModelManager implements Model {
     @Override
     public void addProperty(Property property) {
         addressBook.addProperty(property);
-        updateFiltedPropertyList(PREDICATE_SHOW_ALL_PROPERTIES);
+        updateFilteredPropertyList(PREDICATE_SHOW_ALL_PROPERTIES);
     }
 
     @Override
@@ -124,7 +124,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateFiltedPropertyList(Predicate<Property> predicate) {
+    public void updateFilteredPropertyList(Predicate<Property> predicate) {
         requireNonNull(predicate);
         filteredProperties.setPredicate(predicate);
     }

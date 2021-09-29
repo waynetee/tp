@@ -145,7 +145,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateFiltedPropertyList(Predicate<Property> predicate) {
+        public void updateFilteredPropertyList(Predicate<Property> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }

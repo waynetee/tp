@@ -75,6 +75,14 @@ public class EditCommandParser implements Parser<EditCommand> {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
         }
 
+        if (editPropertyDescriptor.isTagsBothResetAndModified()) {
+            throw new ParseException(EditCommand.MESSAGE_RESET_TAG_TOGETHER_WITH_MODIFY_TAG);
+        }
+
+        if (editPropertyDescriptor.isAddAndDeleteTagsOverlapping()) {
+            throw new ParseException(EditCommand.MESSAGE_DUPLICATE_ADD_AND_DELETE_TAG);
+        }
+
         return new EditCommand(index, editPropertyDescriptor);
     }
 

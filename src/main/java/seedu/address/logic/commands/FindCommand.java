@@ -12,15 +12,19 @@ import seedu.address.model.property.ContainsTagsPredicate;
 import seedu.address.model.property.Property;
 
 /**
- * Finds and lists all properties in address book whose name contains any of the argument keywords.
- * Keyword matching is case insensitive.
+ * Finds and lists all properties in address book whose name contains any of the argument keywords and whose tags
+ * contain all the argument tags.
+ * Keyword matching is case-insensitive.
+ * Tag matching is case-sensitive.
  */
 public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all properties whose names contain any of "
-            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
+            + "the specified keywords (case-insensitive)\n"
+            + "and whose tags contain all of the specified tags.\n"
+            + "The matching properties are displayed as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]..."
             + "[" + PREFIX_TAG + "TAG]..."
             + "\n"
@@ -51,7 +55,7 @@ public class FindCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFiltedPropertyList(propertyPredicate);
+        model.updateFilteredPropertyList(propertyPredicate);
         return new CommandResult(
                 String.format(Messages.MESSAGE_PROPERTIES_LISTED_OVERVIEW, model.getFilteredPropertyList().size()));
     }

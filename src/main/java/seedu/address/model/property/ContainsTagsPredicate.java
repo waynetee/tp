@@ -30,7 +30,7 @@ public class ContainsTagsPredicate implements Predicate<Property> {
     @Override
     public boolean equals(Object other) {
         return other == this
-                || (other instanceof ContainsTagsPredicate)
-                && tags.equals(((ContainsTagsPredicate) other).tags);
+                || ((other instanceof ContainsTagsPredicate)
+                && tags.equals(((ContainsTagsPredicate) other).tags));
     }
 }

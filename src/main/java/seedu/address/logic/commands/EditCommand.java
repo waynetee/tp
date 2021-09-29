@@ -31,7 +31,6 @@ import seedu.address.model.field.Price;
 import seedu.address.model.property.Address;
 import seedu.address.model.property.Property;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.TagSet;
 
 /**
  * Edits the details of an existing property in the address book.
@@ -51,20 +50,33 @@ public class EditCommand extends Command {
             + "[" + PREFIX_SELLER + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_TAG + "TAG]..."
-            + "[" + PREFIX_ADD_TAG + "TAG]..."
-            + "[" + PREFIX_DELETE_TAG + "TAG]..."
+            + "["
+                + "("
+                    + "[" + PREFIX_TAG + "TAG]..." + " | "
+                    + "[" + PREFIX_ADD_TAG + "TAG_TO_ADD]..."
+                    + "[" + PREFIX_DELETE_TAG + "TAG_TO_DELETE]..."
+                + ")"
+            + "]"
+
             + "\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
 
     public static final String MESSAGE_EDIT_PROPERTY_SUCCESS = "Edited Property: %1$s";
+
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PROPERTY = "This property already exists in the address book.";
+    public static final String MESSAGE_RESET_TAG_TOGETHER_WITH_MODIFY_TAG = "Tags can either be reset or modified.\n"
+            + "You cannot do both at the same time.\n"
+            + "An edit command can either have [t/TAG]... or [ta/TAG_TO_ADD]... [td/TAG_TO_DELETE]...";
+    public static final String MESSAGE_DUPLICATE_ADD_AND_DELETE_TAG = "A tag cannot be both added and deleted.";
 
     private final Index index;
     private final EditPropertyDescriptor editPropertyDescriptor;
+
+    private String messageEditPropertyTags = "";
+
 
     /**
      * @param index of the property in the filtered property list to edit
@@ -95,15 +107,18 @@ public class EditCommand extends Command {
         }
 
         model.setProperty(propertyToEdit, editedProperty);
-        model.updateFiltedPropertyList(PREDICATE_SHOW_ALL_PROPERTIES);
-        return new CommandResult(String.format(MESSAGE_EDIT_PROPERTY_SUCCESS, editedProperty));
+        model.updateFilteredPropertyList(PREDICATE_SHOW_ALL_PROPERTIES);
+        String editPropertyString = editedProperty.toString();
+        String resultString = String.format(MESSAGE_EDIT_PROPERTY_SUCCESS + "\n" + messageEditPropertyTags,
+                editPropertyString);
+        return new CommandResult(resultString);
     }
 
     /**
      * Creates and returns a {@code Property} with the details of {@code propertyToEdit}
      * edited with {@code editPropertyDescriptor}.
      */
-    private static Property createdEditedProperty(Property propertyToEdit, EditPropertyDescriptor
+    private Property createdEditedProperty(Property propertyToEdit, EditPropertyDescriptor
             editPropertyDescriptor) {
         assert propertyToEdit != null;
 
@@ -115,11 +130,37 @@ public class EditCommand extends Command {
         Email updatedSellerEmail = editPropertyDescriptor.getSellerEmail()
                 .orElse(propertyToEdit.getSeller().getEmail());
         Person updatedSeller = new Person(updatedSellerName, updatedSellerPhone, updatedSellerEmail);
-        Price updatedPrice = editPropertyDescriptor.getPrice().orElse(propertyToEdit.getPrice());
-        Set<Tag> updatedTags = editPropertyDescriptor.getTags().orElse(propertyToEdit.getTags());
-        Set<Tag> editedTags = TagSet.mergeAndRemove(updatedTags,
-                editPropertyDescriptor.getTagsToAdd().orElse(Collections.emptySet()),
-                editPropertyDescriptor.getTagsToDelete().orElse(Collections.emptySet()));
+        Price updatedPrice = editPropertyDescriptor.getPrice().orElse(propertyToEdit.getPrice());        
+        Set<Tag> originalTags = editPropertyDescriptor.getTags().orElse(propertyToEdit.getTags());
+        Set<Tag> tagsToAdd = editPropertyDescriptor.getTagsToAdd().orElse(Collections.emptySet());
+        Set<Tag> tagsToDelete = editPropertyDescriptor.getTagsToDelete().orElse(Collections.emptySet());
+
+
+        Set<Tag> tagsAlreadyPresent = new HashSet<>(tagsToAdd);
+        tagsAlreadyPresent.retainAll(originalTags);
+        if (!tagsAlreadyPresent.isEmpty()) {
+            messageEditPropertyTags += "These tags were already present:\n";
+            for (Tag t : tagsAlreadyPresent) {
+                messageEditPropertyTags += t + " ";
+            }
+            messageEditPropertyTags += "\n";
+        }
+
+        Set<Tag> tagsAlreadyAbsent = new HashSet<>(tagsToDelete);
+        tagsAlreadyAbsent.removeAll(originalTags);
+        if (!tagsAlreadyAbsent.isEmpty()) {
+            messageEditPropertyTags += "These tags were not present:\n";
+            for (Tag t : tagsAlreadyAbsent) {
+                messageEditPropertyTags += t + " ";
+            }
+            messageEditPropertyTags += "\n";
+        }
+
+        Set<Tag> mergedSet = new HashSet<>(originalTags);
+        mergedSet.removeAll(tagsToDelete);
+        mergedSet.addAll(tagsToAdd);
+
+        Set<Tag> editedTags = Collections.unmodifiableSet(mergedSet);
 
         return new Property(updatedName, updatedAddress, updatedSeller, updatedPrice, editedTags);
     }
@@ -181,6 +222,27 @@ public class EditCommand extends Command {
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyNonNull(propertyName, sellerPhone, sellerEmail,
                     address, tags, tagsToAdd, tagsToDelete, sellerName, price);
+        }
+
+        
+
+        /**
+         * Returns true if tags are reset and tags are modified by addition or deletion.
+         */
+        public boolean isTagsBothResetAndModified() {
+            return CollectionUtil.isAnyNonNull(tags) && (CollectionUtil.isAnyNonNull(tagsToAdd, tagsToDelete));
+        }
+
+        /**
+         * Returns true if the same tag is both to be added and deleted.
+         */
+        public boolean isAddAndDeleteTagsOverlapping() {
+            if (tagsToAdd == null || tagsToDelete == null) {
+                return false;
+            }
+            Set<Tag> intersection = new HashSet<>(tagsToAdd);
+            intersection.retainAll(tagsToDelete);
+            return !intersection.isEmpty();
         }
 
         public void setPropertyName(Name propertyName) {

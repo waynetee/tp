@@ -133,7 +133,7 @@ public class CommandTestUtil {
 
         Property property = model.getFilteredPropertyList().get(targetIndex.getZeroBased());
         final String[] splitName = property.getName().fullName.split("\\s+");
-        model.updateFiltedPropertyList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredPropertyList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredPropertyList().size());
     }

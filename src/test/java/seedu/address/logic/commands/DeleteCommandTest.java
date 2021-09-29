@@ -102,8 +102,7 @@ public class DeleteCommandTest {
      * Updates {@code model}'s filtered list to show no one.
      */
     private void showNoProperty(Model model) {
-        model.updateFiltedPropertyList(p -> false);
-
+        model.updateFilteredPropertyList(p -> false);
         assertTrue(model.getFilteredPropertyList().isEmpty());
     }
 }
