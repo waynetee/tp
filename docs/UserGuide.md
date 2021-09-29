@@ -14,7 +14,7 @@ PropertyWhiz (PropertyWhiz) is a **desktop app for managing properties, optimize
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
-1. Download the latest `addressbook.jar` from [here]().
+1. Download the latest `propertywhiz.jar` from [here]().
 
 **TODO**: Update and release jar link.
 
@@ -160,11 +160,10 @@ Format: `exit`
 ### Saving the data
 
 PropertyWhiz's data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
-**TODO**: Change `addressbook.json` filename
 
 ### Editing the data file
 
-PropertyWhiz's data are saved as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+PropertyWhiz's data are saved as a JSON file `[JAR file location]/data/propertywhiz.json`. Advanced users are welcome to update data directly by editing that data file.
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 If your changes to the data file makes its format invalid, PropertyWhiz will discard all data and start with an empty data file at the next run.
@@ -185,14 +184,14 @@ _Details coming soon ..._
 
 ## Command summary
 
-Action | Format, Examples
---------|------------------
-**Add** | `add n/PROPERTY_NAME a/PROPERTY_ADDRESS s/SELLER_NAME p/SELLER_PHONE $/PRICE_MIN [t/TAG]…​` <br> e.g., `add n/Blk 123 a/123, Clementi Rd, #04-20, 1234665 s/James Lee sp/61234567 $/100000 t/HDB t/3rm`
-**Clear** | `clear`
-**Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Edit** | `edit INDEX [n/PROPERTY_NAME] [a/PROPERTY_ADDRESS] [s/SELLER_NAME] [p/SELLER_PHONE] [$/PRICE_MIN] [t/TAG]…​`<br> e.g.,`edit 2 s/James Lee e/jameslee@example.com`
-**Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
-**List** | `list`
-**Exit** | `exit`
-**Help** | `help`
+| Action     | Format, Examples                                                                                                                                                                                        |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Add**    | `add n/PROPERTY_NAME a/PROPERTY_ADDRESS s/SELLER_NAME p/SELLER_PHONE $/PRICE_MIN [t/TAG]…​` <br> e.g., `add n/Blk 123 a/123, Clementi Rd, #04-20, 1234665 s/James Lee sp/61234567 $/100000 t/HDB t/3rm` |
+| **Clear**  | `clear`                                                                                                                                                                                                 |
+| **Delete** | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                                                     |
+| **Edit**   | `edit INDEX [n/PROPERTY_NAME] [a/PROPERTY_ADDRESS] [s/SELLER_NAME] [p/SELLER_PHONE] [$/PRICE_MIN] [t/TAG]…​`<br> e.g.,`edit 2 s/James Lee e/jameslee@example.com`                                       |
+| **Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                                                              |
+| **List**   | `list`                                                                                                                                                                                                  |
+| **Exit**   | `exit`                                                                                                                                                                                                  |
+| **Help**   | `help`                                                                                                                                                                                                  |
 
