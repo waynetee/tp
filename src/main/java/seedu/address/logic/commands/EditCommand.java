@@ -21,6 +21,7 @@ import java.util.Set;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.field.Email;
@@ -63,7 +64,7 @@ public class EditCommand extends Command {
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
 
-    public static final String MESSAGE_EDIT_PROPERTY_SUCCESS = "Edited Property: %1$s";
+    public static final String MESSAGE_EDIT_PROPERTY_SUCCESS = "Edited Property: %1$s\n";
 
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PROPERTY = "This property already exists in the address book.";
@@ -115,9 +116,7 @@ public class EditCommand extends Command {
     }
 
     public String getCommandResultMessage() {
-        return MESSAGE_EDIT_PROPERTY_SUCCESS
-                + "\n"
-                + messageEditPropertyTags;
+        return StringUtil.join(MESSAGE_EDIT_PROPERTY_SUCCESS, messageEditPropertyTags);
     }
 
     /**
