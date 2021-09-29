@@ -33,7 +33,7 @@ public class CommandBox extends UiPart<Region> {
      * Creates a {@code CommandBox} with the given {@code CommandExecutor}.
      * When multiple lines of commands are pasted into the box,
      * pressing enter will execute the first command and autofill the next one.
-     * This continues until a different command is entered or all commands have been enetered.
+     * This continues until a different command is entered or all commands have been entered.
      */
     public CommandBox(CommandExecutor commandExecutor) {
         super(FXML);
