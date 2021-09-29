@@ -39,11 +39,12 @@ public class CommandBox extends UiPart<Region> {
         super(FXML);
         this.commandExecutor = commandExecutor;
         this.commandQueue = new LinkedList<>();
-        initCommandBox();
+        this.commandTextField = createCommandTextField();
+        this.stackPane.getChildren().add(commandTextField);
     }
 
-    private void initCommandBox() {
-        commandTextField = new TextField() {
+    private TextField createCommandTextField() {
+        TextField textField = new TextField() {
             // Anonymous class to intercept pastes
             @Override
             public void paste() {
@@ -58,12 +59,12 @@ public class CommandBox extends UiPart<Region> {
                 }
             }
         };
-        commandTextField.setId("commandTextField");
-        commandTextField.setOnAction((e) -> handleCommandEntered());
-        commandTextField.setPromptText("Enter command here...");
+        textField.setId("commandTextField");
+        textField.setOnAction((e) -> handleCommandEntered());
+        textField.setPromptText("Enter command here...");
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
-        commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
-        stackPane.getChildren().add(commandTextField);
+        textField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
+        return textField;
     }
 
     private void handleBatchCommands(String commands) {
