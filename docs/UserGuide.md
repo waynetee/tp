@@ -55,6 +55,9 @@ PropertyWhiz (PropertyWhiz) is a **desktop app for managing properties, optimize
 * Items with `…`​ after them can be used multiple times including zero times.<br>
   e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/condo`, `t/condo t/family` etc.
 
+* Items in circle brackets `()` separated by `|` means that you can only choose 1 of the partitioned items <br>
+  e.g. `([t/TAG] | [ta/TAG_TO_ADD] [t/TAG_TO_DELETE])` can be used as `t/condo`, `ta/condo td/small condo` but not `t/condo ta/condo`, `t/condo td/small condo`, `t/condo ta/condo td/small condo`
+
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
@@ -98,7 +101,7 @@ Format: `list`
 
 Edits an existing property in PropertyWhiz.
 
-Format: `edit INDEX [n/PROPERTY_NAME] [a/PROPERTY_ADDRESS] [s/SELLER_NAME] [p/SELLER_PHONE] [$/PRICE_MIN] [([t/TAG]… |​ [ta/TAG_TO_ADD]... [td/TAG_TO_DELETE]...)]`
+Format: `edit INDEX [n/PROPERTY_NAME] [a/PROPERTY_ADDRESS] [s/SELLER_NAME] [p/SELLER_PHONE] [$/PRICE_MIN] [([t/TAG]… |​ [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]`
 
 * Edits the property at the specified `INDEX`. The index refers to the index number shown in the displayed property list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
@@ -125,7 +128,7 @@ The following example is invalid:
 
 Finds properties whose names contain any of the given keywords and whose tag list contain all of the specified tags.
 
-Format: `find KEYWORD [MORE_KEYWORDS] [t/TAG_TO_MATCH]...`
+Format: `find KEYWORD [MORE_KEYWORDS] [t/TAG_TO_MATCH]…`
 
 * The keyword search is case-insensitive. e.g `hillview` will match `Hillview`
 * The order of the keywords does not matter. e.g. `Hillview Rise` will match `Rise Hillview`
