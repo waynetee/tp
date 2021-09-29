@@ -47,7 +47,15 @@ public class CommandBox extends UiPart<Region> {
             // Anonymous class to intercept pastes
             @Override
             public void paste() {
-                handlePaste();
+                String contents = Clipboard.getSystemClipboard().getString();
+                if (contents == null) {
+                    return;
+                }
+                if (contents.contains("\n")) {
+                    handleBatchCommands(contents);
+                } else {
+                    super.paste();
+                }
             }
         };
         commandTextField.setId("commandTextField");
@@ -58,15 +66,11 @@ public class CommandBox extends UiPart<Region> {
         stackPane.getChildren().add(commandTextField);
     }
 
-    private void handlePaste() {
-        String contents = Clipboard.getSystemClipboard().getString();
-        if (contents == null) {
-            return;
-        }
-        commandQueue.addAll(List.of(contents.split("\\R"))); // Split by newlines
+    private void handleBatchCommands(String commands) {
+        commandQueue.clear();
+        commandQueue.addAll(List.of(commands.split("\\R"))); // Split by newlines
         commandQueue.removeIf(command -> command.equals("")); // Remove empty lines
         updateCommandFieldFromQueue();
-
     }
 
     /**
