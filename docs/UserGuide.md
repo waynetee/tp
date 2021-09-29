@@ -115,13 +115,15 @@ Examples:
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 The following example is invalid:
-* `edit 1 t/near school ta/4rm td/near mrt` You cannot reset the tag list of a property, in this case to ["near school"], *and* modify the resetted tag list by adding a tag called "4rm" and removing a tag called "near mrt". The rationale is that this may be potentially confusing.
+
+`edit 1 t/near school ta/4rm td/near mrt` You cannot reset the tag list of a property, in this case to ["near school"], *and* modify the resetted tag list by adding a tag called "4rm" and removing a tag called "near mrt". The rationale is that this may be potentially confusing.
+
 </div>
 
 
 ### Locating properties by name: `find`
 
-Finds properties whose names contain any of the given keywords.
+Finds properties whose names contain any of the given keywords and whose tag list contain all of the specified tags.
 
 Format: `find KEYWORD [MORE_KEYWORDS] [t/TAG_TO_MATCH]...`
 
@@ -131,8 +133,8 @@ Format: `find KEYWORD [MORE_KEYWORDS] [t/TAG_TO_MATCH]...`
 * Only full words will be matched e.g. `Han` will not match `Hillview`
 * The tag search is case-sensitive.
 * Properties matching at least one keyword (i.e. `OR` search) and matching all the tags (i.e. `AND` search) will be returned.
-  e.g. For keywords, `Hillview Rise` will return `Hillview Grove`, `Rise Rivervale`
-  e.g. For tags, `t/4rm t/near school` will return properties with both `4rm` tag and `near school` tag.
+  * e.g. For keywords, `Hillview Rise` will return `Hillview Grove`, `Rise Rivervale`
+  * e.g. For tags, `t/4rm t/near school` will return properties with both `4rm` tag and `near school` tag.
 
 Examples:
 * `find Jurong` returns `jurong` and `Jurong East`
@@ -195,14 +197,14 @@ You may copy and paste multiple lines of commands into the command box. Press th
 
 ## Command summary
 
-| Action     | Format, Examples                                                                                                                                                                                             |
-| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **Add**    | `add n/PROPERTY_NAME a/PROPERTY_ADDRESS s/SELLER_NAME p/SELLER_PHONE $/PRICE_MIN [t/TAG]…​` <br> e.g., `add n/Blk 123 a/123, Clementi Rd, #04-20, 1234665 s/James Lee sp/61234567 $/100000 t/HDB t/3rm`      |
-| **Clear**  | `clear`                                                                                                                                                                                                      |
-| **Delete** | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                                                          |
-| **Edit**   | `edit INDEX [n/PROPERTY_NAME] [a/PROPERTY_ADDRESS] [s/SELLER_NAME] [p/SELLER_PHONE] [$/PRICE_MIN] [([t/TAG]… | [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]​`<br> e.g.,`edit 2 s/James Lee e/jameslee@example.com` |
-| **Find**   | `find KEYWORD [MORE_KEYWORDS] [t/TAG_TO_MATCH]…`<br> e.g., `find James Jake`                                                                                                                                 |
-| **List**   | `list`                                                                                                                                                                                                       |
-| **Exit**   | `exit`                                                                                                                                                                                                       |
-| **Help**   | `help`                                                                                                                                                                                                       |
+| Action     | Format, Examples                                                                                                                                                                                               |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Add**    | `add n/PROPERTY_NAME a/PROPERTY_ADDRESS s/SELLER_NAME p/SELLER_PHONE $/PRICE_MIN [t/TAG]…​` <br> e.g., `add n/Blk 123 a/123, Clementi Rd, #04-20, 1234665 s/James Lee sp/61234567 $/100000 t/HDB t/3rm`        |
+| **Clear**  | `clear`                                                                                                                                                                                                        |
+| **Delete** | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                                                            |
+| **Edit**   | `edit INDEX [n/PROPERTY_NAME] [a/PROPERTY_ADDRESS] [s/SELLER_NAME] [p/SELLER_PHONE] [$/PRICE_MIN] [([t/TAG]… \| [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]​` <br> e.g.,`edit 2 s/James Lee e/jameslee@example.com` |
+| **Find**   | `find KEYWORD [MORE_KEYWORDS] [t/TAG_TO_MATCH]…`<br> e.g., `find James Jake`                                                                                                                                   |
+| **List**   | `list`                                                                                                                                                                                                         |
+| **Exit**   | `exit`                                                                                                                                                                                                         |
+| **Help**   | `help`                                                                                                                                                                                                         |
 

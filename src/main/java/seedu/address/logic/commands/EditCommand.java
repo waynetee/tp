@@ -78,6 +78,7 @@ public class EditCommand extends Command {
     private String messageEditPropertyTags = "";
 
 
+
     /**
      * @param index of the property in the filtered property list to edit
      * @param editPropertyDescriptor details to edit the property with
@@ -108,10 +109,15 @@ public class EditCommand extends Command {
 
         model.setProperty(propertyToEdit, editedProperty);
         model.updateFilteredPropertyList(PREDICATE_SHOW_ALL_PROPERTIES);
-        String editPropertyString = editedProperty.toString();
-        String resultString = String.format(MESSAGE_EDIT_PROPERTY_SUCCESS + "\n" + messageEditPropertyTags,
-                editPropertyString);
+        String resultString = String.format(getCommandResultMessage(),
+                editedProperty);
         return new CommandResult(resultString);
+    }
+
+    public String getCommandResultMessage() {
+        return MESSAGE_EDIT_PROPERTY_SUCCESS
+                + "\n"
+                + messageEditPropertyTags;
     }
 
     /**
