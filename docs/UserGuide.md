@@ -14,7 +14,7 @@ PropertyWhiz (PropertyWhiz) is a **desktop app for managing properties, optimize
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
-1. Download the latest `addressbook.jar` from [here]().
+1. Download the latest `propertywhiz.jar` from [here]().
 
 **TODO**: Update and release jar link.
 
@@ -70,7 +70,6 @@ PropertyWhiz (PropertyWhiz) is a **desktop app for managing properties, optimize
 
 Shows a message explaning how to access the help page.
 
-**TODO**: Change help message image
 ![help message](images/helpMessage.png)
 
 Format: `help`
@@ -127,9 +126,6 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 
 Examples:
 * `find Jurong` returns `jurong` and `Jurong East`
-  **TODO**: Replace `find alex david` image
-* `find alex david` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
 
 ### Deleting a property : `delete`
 
@@ -160,19 +156,14 @@ Format: `exit`
 ### Saving the data
 
 PropertyWhiz's data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
-**TODO**: Change `addressbook.json` filename
 
 ### Editing the data file
 
-PropertyWhiz's data are saved as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+PropertyWhiz's data are saved as a JSON file `[JAR file location]/data/propertywhiz.json`. Advanced users are welcome to update data directly by editing that data file.
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 If your changes to the data file makes its format invalid, PropertyWhiz will discard all data and start with an empty data file at the next run.
 </div>
-
-### Archiving data files `[coming in v2.0]`
-
-_Details coming soon ..._
 
 --------------------------------------------------------------------------------------------------------------------
 
