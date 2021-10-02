@@ -52,7 +52,7 @@ public class CommandBox extends UiPart<Region> {
                 if (contents == null) {
                     return;
                 }
-                if (contents.contains("\n")) {
+                if (contents.trim().contains("\n")) {
                     handleBatchCommands(contents);
                 } else {
                     super.paste();
@@ -70,7 +70,7 @@ public class CommandBox extends UiPart<Region> {
     private void handleBatchCommands(String commands) {
         commandQueue.clear();
         commandQueue.addAll(List.of(commands.split("\\R"))); // Split by newlines
-        commandQueue.removeIf(command -> command.equals("")); // Remove empty lines
+        commandQueue.removeIf(String::isBlank); // Remove empty lines
         updateCommandFieldFromQueue();
     }
 
