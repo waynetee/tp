@@ -1,0 +1,12 @@
+clear
+add n/Hasta La Vista a/20 Clementi Ave 2, #02-25 $/1652000 s/John Doe p/98765432 e/johnd@example.com t/Condo t/4 rm t/621 sqft t/EW23 Clementi
+add n/Dee Gardens a/Blk 30 Lorong 3 Serangoon Gardens, #07-18 $/3423432 s/Beatrice Yu p/99272758 e/berniceyu@example.com
+add n/Olive Gardens a/Blk 11 Ang Mo Kio Street 74, #11-04 $/6457654 s/Charlotte Oliveiro p/93210283 e/charlotte@example.com t/Condo
+edit 3
+delete 10000
+list
+find la
+find dee
+edit 1 n/new name
+edit 2 n/Olive Gardens a/Blk 11 Ang Mo Kio Street 74, #11-04 $/6457654 s/Charlotte Oliveiro p/93210283 e/charlotte@example.com t/Condo
+delete 3

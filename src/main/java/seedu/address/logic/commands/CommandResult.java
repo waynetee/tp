@@ -68,4 +68,9 @@ public class CommandResult {
         return Objects.hash(feedbackToUser, showHelp, exit);
     }
 
+    @Override
+    public String toString() {
+        return String.format("%s showHelp:%b exit:%b", feedbackToUser, showHelp, exit);
+    }
+
 }
