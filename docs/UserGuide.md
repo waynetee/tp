@@ -157,6 +157,10 @@ Format: `exit`
 
 PropertyWhiz's data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
+## Advanced features
+
+This section contains features intended for advanced users
+
 ### Editing the data file
 
 PropertyWhiz's data are saved as a JSON file `[JAR file location]/data/propertywhiz.json`. Advanced users are welcome to update data directly by editing that data file.
@@ -164,6 +168,10 @@ PropertyWhiz's data are saved as a JSON file `[JAR file location]/data/propertyw
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 If your changes to the data file makes its format invalid, PropertyWhiz will discard all data and start with an empty data file at the next run.
 </div>
+
+### Multi-command input
+
+You may copy and paste multiple lines of commands into to the command box. Press the Enter key to execute the first command and autofill the next one. This continues until you enter a different command or all commands have been executed.
 
 --------------------------------------------------------------------------------------------------------------------
 
