@@ -40,10 +40,10 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ### Wong Pei Xian
 
-<img src="images/peixian.png" width="200px">
+<img src="images/trxe.png" width="200px">
 
 [[github](http://github.com/trxe)]
-[[portfolio](team/peixian.md)]
+[[portfolio](team/trxe.md)]
 
 * Role: Developer
 * Responsibilities: Code Quality + Logic
