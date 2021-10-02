@@ -70,7 +70,7 @@ public class CommandBox extends UiPart<Region> {
     private void handleBatchCommands(String commands) {
         commandQueue.clear();
         commandQueue.addAll(List.of(commands.split("\\R"))); // Split by newlines
-        commandQueue.removeIf(String::isBlank); // Remove empty lines
+        commandQueue.removeIf(String::isBlank); // Remove blank lines
         updateCommandFieldFromQueue();
     }
 
