@@ -159,7 +159,7 @@ PropertyWhiz's data are saved in the hard disk automatically after any command t
 
 ## Advanced features
 
-This section contains features intended for advanced users
+This section contains features intended for advanced users.
 
 ### Editing the data file
 
