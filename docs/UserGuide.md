@@ -171,7 +171,7 @@ If your changes to the data file makes its format invalid, PropertyWhiz will dis
 
 ### Multi-command input
 
-You may copy and paste multiple lines of commands into to the command box. Press the Enter key to execute the first command and autofill the next one. This continues until you enter a different command or all commands have been executed.
+You may copy and paste multiple lines of commands into the command box. Press the Enter key to execute the first command and autofill the next into the command box. This continues until you enter a different command or all commands have been executed.
 
 --------------------------------------------------------------------------------------------------------------------
 
