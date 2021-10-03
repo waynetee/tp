@@ -19,7 +19,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
-import seedu.address.model.property.NameContainsKeywordsPredicate;
+import seedu.address.model.field.NameContainsKeywordsPredicate;
 import seedu.address.model.property.Property;
 import seedu.address.testutil.EditPropertyDescriptorBuilder;
 
