@@ -1,9 +1,10 @@
-package seedu.address.model.property;
+package seedu.address.model.field;
 
 import java.util.List;
 import java.util.function.Predicate;
 
 import seedu.address.commons.util.StringUtil;
+import seedu.address.model.property.Property;
 
 /**
  * Tests that a {@code Property}'s {@code Name} matches any of the keywords given.
