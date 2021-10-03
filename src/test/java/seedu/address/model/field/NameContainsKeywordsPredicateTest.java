@@ -1,4 +1,4 @@
-package seedu.address.model.property;
+package seedu.address.model.field;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -9,7 +9,6 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.field.NameContainsKeywordsPredicate;
 import seedu.address.testutil.PropertyBuilder;
 
 public class NameContainsKeywordsPredicateTest {
