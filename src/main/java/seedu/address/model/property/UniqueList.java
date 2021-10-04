@@ -13,7 +13,7 @@ import seedu.address.model.property.exceptions.ListableNotFoundException;
 
 /**
  * A abstract list that enforces uniqueness between its elements and does not allow nulls.
- * A item {@code T} is considered unique by comparing using {@code T#isSameT(T)}.
+ * A {@code Listable} item is considered unique by comparing using {@code Listable#isSameListable(Listable)}.
  * As such, adding and updating of properties uses Listable#isSameListable(Listable) for equality
  * so as to ensure that the property being added or updated is unique in terms of identity in the
  * UniqueListableList. However, the removal of a property uses Listable#equals(Object) so
@@ -23,16 +23,16 @@ import seedu.address.model.property.exceptions.ListableNotFoundException;
  *
  * @see Listable#isSameListable(Listable)
  */
-public class UniqueList implements Iterable<Listable> {
+public class UniqueList<Item extends Listable> implements Iterable<Item> {
 
-    private final ObservableList<Listable> internalList = FXCollections.observableArrayList();
-    private final ObservableList<Listable> internalUnmodifiableList =
+    private final ObservableList<Item> internalList = FXCollections.observableArrayList();
+    private final ObservableList<Item> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
      * Returns true if the list contains an equivalent property as the given argument.
      */
-    public boolean contains(Listable toCheck) {
+    public boolean contains(Item toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::isSameListable);
     }
@@ -41,7 +41,7 @@ public class UniqueList implements Iterable<Listable> {
      * Adds a property to the list.
      * The property must not already exist in the list.
      */
-    public void add(Listable toAdd) {
+    public void add(Item toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
             throw new DuplicateListableException();
@@ -54,7 +54,7 @@ public class UniqueList implements Iterable<Listable> {
      * {@code target} must exist in the list.
      * The property identity of {@code editedListable} must not be the same as another existing property in the list.
      */
-    public void setListable(Listable target, Listable editedListable) {
+    public void setListable(Item target, Item editedListable) {
         requireAllNonNull(target, editedListable);
 
         int index = internalList.indexOf(target);
@@ -89,7 +89,7 @@ public class UniqueList implements Iterable<Listable> {
      * Replaces the contents of this list with {@code properties}.
      * {@code properties} must not contain duplicate properties.
      */
-    public void setProperties(List<Listable> properties) {
+    public void setProperties(List<Item> properties) {
         requireAllNonNull(properties);
         if (!propertiesAreUnique(properties)) {
             throw new DuplicateListableException();
@@ -101,12 +101,12 @@ public class UniqueList implements Iterable<Listable> {
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
-    public ObservableList<Listable> asUnmodifiableObservableList() {
+    public ObservableList<Item> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
     }
 
     @Override
-    public Iterator<Listable> iterator() {
+    public Iterator<Item> iterator() {
         return internalList.iterator();
     }
 
@@ -125,7 +125,7 @@ public class UniqueList implements Iterable<Listable> {
     /**
      * Returns true if {@code properties} contains only unique properties.
      */
-    private boolean propertiesAreUnique(List<Listable> properties) {
+    private boolean propertiesAreUnique(List<Item> properties) {
         for (int i = 0; i < properties.size() - 1; i++) {
             for (int j = i + 1; j < properties.size(); j++) {
                 if (properties.get(i).isSameListable(properties.get(j))) {
