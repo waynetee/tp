@@ -66,9 +66,9 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_PRICE).isPresent()) {
             editPropertyDescriptor.setPrice(ParserUtil.parsePrice(argMultimap.getValue(PREFIX_PRICE).get()));
         }
-        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPropertyDescriptor::setTags);
-        parseTagsForEdit(argMultimap.getAllValues(PREFIX_ADD_TAG)).ifPresent(editPropertyDescriptor::setTagsToAdd);
-        parseTagsForEdit(argMultimap.getAllValues(PREFIX_DELETE_TAG))
+        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG), true).ifPresent(editPropertyDescriptor::setTags);
+        parseTagsForEdit(argMultimap.getAllValues(PREFIX_ADD_TAG), false).ifPresent(editPropertyDescriptor::setTagsToAdd);
+        parseTagsForEdit(argMultimap.getAllValues(PREFIX_DELETE_TAG), false)
                 .ifPresent(editPropertyDescriptor::setTagsToDelete);
 
         if (!editPropertyDescriptor.isAnyFieldEdited()) {
@@ -88,16 +88,22 @@ public class EditCommandParser implements Parser<EditCommand> {
 
     /**
      * Parses {@code Collection<String> tags} into a {@code Set<Tag>} if {@code tags} is non-empty.
-     * If {@code tags} contain only one element which is an empty string, it will be parsed into a
-     * {@code Set<Tag>} containing zero tags.
+     * If {@code isEmptyStringDefaultsToEmptySet} is set to true and {@code tags} contain only one element
+     * which is an empty string, it will be parsed into a {@code Set<Tag>} containing zero tags.
      */
-    private Optional<Set<Tag>> parseTagsForEdit(Collection<String> tags) throws ParseException {
+    private Optional<Set<Tag>> parseTagsForEdit(Collection<String> tags, boolean isEmptyStringDefaultsToEmptySet)
+            throws ParseException {
         assert tags != null;
 
         if (tags.isEmpty()) {
             return Optional.empty();
         }
-        Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
+        Collection<String> tagSet;
+        if (tags.size() == 1 && tags.contains("") && isEmptyStringDefaultsToEmptySet) {
+            tagSet = Collections.emptySet();
+        } else {
+            tagSet = tags;
+        }
         return Optional.of(ParserUtil.parseTags(tagSet));
     }
 

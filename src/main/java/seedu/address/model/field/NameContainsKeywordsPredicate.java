@@ -18,6 +18,10 @@ public class NameContainsKeywordsPredicate implements Predicate<Property> {
 
     @Override
     public boolean test(Property property) {
+        if (keywords.isEmpty()) {
+            return true;
+        }
+
         return keywords.stream()
                 .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(property.getName().fullName, keyword));
     }
