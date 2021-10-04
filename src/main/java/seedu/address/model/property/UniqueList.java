@@ -80,7 +80,7 @@ public class UniqueList<Item extends Listable> implements Iterable<Item> {
         }
     }
 
-    public void setProperties(UniqueList replacement) {
+    public void setListables(UniqueList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -89,7 +89,7 @@ public class UniqueList<Item extends Listable> implements Iterable<Item> {
      * Replaces the contents of this list with {@code properties}.
      * {@code properties} must not contain duplicate properties.
      */
-    public void setProperties(List<Item> properties) {
+    public void setListables(List<Item> properties) {
         requireAllNonNull(properties);
         if (!propertiesAreUnique(properties)) {
             throw new DuplicateListableException();
