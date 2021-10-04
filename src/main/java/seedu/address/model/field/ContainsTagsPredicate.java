@@ -1,9 +1,10 @@
-package seedu.address.model.property;
+package seedu.address.model.field;
 
 import java.util.Collections;
 import java.util.Set;
 import java.util.function.Predicate;
 
+import seedu.address.model.property.Property;
 import seedu.address.model.tag.Tag;
 
 /**

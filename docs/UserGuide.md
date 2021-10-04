@@ -128,20 +128,21 @@ The following example is invalid:
 
 Finds properties whose names contain any of the given keywords and whose tag list contain all of the specified tags.
 
-Format: `find KEYWORD [MORE_KEYWORDS] [t/TAG_TO_MATCH]…`
+Format: `find [KEYWORDS] [t/TAG_TO_MATCH]…`
 
 * The keyword search is case-insensitive. e.g `hillview` will match `Hillview`
 * The order of the keywords does not matter. e.g. `Hillview Rise` will match `Rise Hillview`
 * Only the property name is searched.
 * Only full words will be matched e.g. `Han` will not match `Hillview`
-* The tag search is case-sensitive.
+* The tag search is case-insensitive.
 * Properties matching at least one keyword (i.e. `OR` search) and matching all the tags (i.e. `AND` search) will be returned.
   * e.g. For keywords, `Hillview Rise` will return `Hillview Grove`, `Rise Rivervale`
-  * e.g. For tags, `t/4rm t/near school` will return properties with both `4rm` tag and `near school` tag.
+  * e.g. For tags, `t/4rm t/near school` will return properties with both `4rm` tag, `4Rm` tag, and `near school` tag.
 
 Examples:
 * `find Jurong` returns `jurong` and `Jurong East`
 * `find Jurong t/4rm t/near school` returns `jurong [4rm] [near school] [near mrt]` and `Jurong East [4rm] [near school] [near mrt]` but not `jurong [4rm] [near mrt]`
+* `find t/4rm t/near school` returns `jurong [4rm] [near school] [near mrt]` and `[4rm] [near school] [near mrt]`
 
 ### Deleting a property : `delete`
 
@@ -200,14 +201,13 @@ You may copy and paste multiple lines of commands into the command box. Press th
 
 ## Command summary
 
-| Action     | Format, Examples                                                                                                                                                                                               |
-| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Add**    | `add n/PROPERTY_NAME a/PROPERTY_ADDRESS s/SELLER_NAME p/SELLER_PHONE $/PRICE_MIN [t/TAG]…​` <br> e.g., `add n/Blk 123 a/123, Clementi Rd, #04-20, 1234665 s/James Lee sp/61234567 $/100000 t/HDB t/3rm`        |
-| **Clear**  | `clear`                                                                                                                                                                                                        |
-| **Delete** | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                                                            |
-| **Edit**   | `edit INDEX [n/PROPERTY_NAME] [a/PROPERTY_ADDRESS] [s/SELLER_NAME] [p/SELLER_PHONE] [$/PRICE_MIN] [([t/TAG]… \| [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]​` <br> e.g.,`edit 2 s/James Lee e/jameslee@example.com` |
-| **Find**   | `find KEYWORD [MORE_KEYWORDS] [t/TAG_TO_MATCH]…`<br> e.g., `find James Jake`                                                                                                                                   |
-| **List**   | `list`                                                                                                                                                                                                         |
-| **Exit**   | `exit`                                                                                                                                                                                                         |
-| **Help**   | `help`                                                                                                                                                                                                         |
-
+Action | Format, Examples
+--------|------------------
+**Add** | `add n/PROPERTY_NAME a/PROPERTY_ADDRESS s/SELLER_NAME p/SELLER_PHONE $/PRICE_MIN [t/TAG]…​` <br> e.g., `add n/Blk 123 a/123, Clementi Rd, #04-20, 1234665 s/James Lee sp/61234567 $/100000 t/HDB t/3rm`
+**Clear** | `clear`
+**Delete** | `delete INDEX`<br> e.g., `delete 3`
+**Edit** | `edit INDEX [n/PROPERTY_NAME] [a/PROPERTY_ADDRESS] [s/SELLER_NAME] [p/SELLER_PHONE] [$/PRICE_MIN] [([t/TAG]… \| [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]​`<br> e.g.,`edit 2 s/James Lee e/jameslee@example.com`
+**Find** | `find [KEYWORDS] [t/TAG_TO_MATCH]…`<br> e.g., `find James Jake`
+**List** | `list`
+**Exit** | `exit`
+**Help** | `help`

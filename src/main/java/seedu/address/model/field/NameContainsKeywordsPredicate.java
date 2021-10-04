@@ -8,6 +8,7 @@ import seedu.address.model.property.Property;
 
 /**
  * Tests that a {@code Property}'s {@code Name} matches any of the keywords given.
+ * If no keywords are given, defaults to match (i.e. predicate returns true).
  */
 public class NameContainsKeywordsPredicate implements Predicate<Property> {
     private final List<String> keywords;

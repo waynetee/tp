@@ -13,8 +13,8 @@ import java.util.stream.Collectors;
 
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.field.ContainsTagsPredicate;
 import seedu.address.model.field.NameContainsKeywordsPredicate;
-import seedu.address.model.property.ContainsTagsPredicate;
 import seedu.address.model.tag.Tag;
 
 /**

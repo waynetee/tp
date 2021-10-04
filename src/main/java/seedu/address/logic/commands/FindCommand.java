@@ -7,15 +7,15 @@ import java.util.function.Predicate;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.model.Model;
+import seedu.address.model.field.ContainsTagsPredicate;
 import seedu.address.model.field.NameContainsKeywordsPredicate;
-import seedu.address.model.property.ContainsTagsPredicate;
 import seedu.address.model.property.Property;
 
 /**
  * Finds and lists all properties in address book whose name contains any of the argument keywords and whose tags
  * contain all the argument tags.
  * Keyword matching is case-insensitive.
- * Tag matching is case-sensitive.
+ * Tag matching is case-insensitive.
  */
 public class FindCommand extends Command {
 
