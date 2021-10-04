@@ -1,9 +1,6 @@
 package seedu.address.testutil;
 
-import seedu.address.model.field.Email;
-import seedu.address.model.field.Name;
 import seedu.address.model.field.Person;
-import seedu.address.model.field.Phone;
 import seedu.address.model.field.Price;
 import seedu.address.model.property.Buyer;
 
@@ -37,6 +34,9 @@ public class BuyerBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Person} of the {@code Buyer} that we are building.
+     */
     public BuyerBuilder withPerson(Person person) {
         this.person = person;
         return this;
