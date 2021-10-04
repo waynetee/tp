@@ -27,7 +27,7 @@ PropertyWhiz (PropertyWhiz) is a **desktop app for managing properties, optimize
    Some example commands you can try:
 
    * **`list`** : Lists all properties.
-    
+
    * **`add`** Adds a property. e.g. `n/Blk 123 a/123, Clementi Rd, #04-20, 1234665 s/James Lee sp/61234567 $/100000 max/100000 t/HDB t/3rm`
 
    * **`delete`**`3` : Deletes the 3rd property shown in the current list.
