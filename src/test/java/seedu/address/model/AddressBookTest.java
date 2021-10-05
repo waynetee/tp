@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalProperties.ALICE;
+import static seedu.address.testutil.TypicalProperties.P_ALICE;
 import static seedu.address.testutil.TypicalProperties.getTypicalAddressBook;
 
 import java.util.Arrays;
@@ -46,9 +46,9 @@ public class AddressBookTest {
     @Test
     public void resetData_withDuplicateProperties_throwsDuplicatePropertyException() {
         // Two properties with the same identity fields
-        Property editedAlice = new PropertyBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Property editedAlice = new PropertyBuilder(P_ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        List<Property> newProperties = Arrays.asList(ALICE, editedAlice);
+        List<Property> newProperties = Arrays.asList(P_ALICE, editedAlice);
         AddressBookStub newData = new AddressBookStub(newProperties);
 
         assertThrows(DuplicatePropertyException.class, () -> addressBook.resetData(newData));
@@ -61,19 +61,19 @@ public class AddressBookTest {
 
     @Test
     public void hasProperty_propertyNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasProperty(ALICE));
+        assertFalse(addressBook.hasProperty(P_ALICE));
     }
 
     @Test
     public void hasProperty_propertyInAddressBook_returnsTrue() {
-        addressBook.addProperty(ALICE);
-        assertTrue(addressBook.hasProperty(ALICE));
+        addressBook.addProperty(P_ALICE);
+        assertTrue(addressBook.hasProperty(P_ALICE));
     }
 
     @Test
     public void hasProperty_propertyWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addProperty(ALICE);
-        Property editedAlice = new PropertyBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        addressBook.addProperty(P_ALICE);
+        Property editedAlice = new PropertyBuilder(P_ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(addressBook.hasProperty(editedAlice));
     }

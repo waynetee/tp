@@ -34,8 +34,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalProperties.AMY;
-import static seedu.address.testutil.TypicalProperties.BOB;
+import static seedu.address.testutil.TypicalProperties.P_AMY;
+import static seedu.address.testutil.TypicalProperties.P_BOB;
 
 import org.junit.jupiter.api.Test;
 
@@ -55,7 +55,7 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Property expectedProperty = new PropertyBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
+        Property expectedProperty = new PropertyBuilder(P_BOB).withTags(VALID_TAG_FRIEND).build();
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
@@ -93,7 +93,7 @@ public class AddCommandParserTest {
                 + TAG_DESC_FRIEND, new AddCommand(expectedProperty));
 
         // multiple tags - all accepted
-        Property expectedPropertyMultipleTags = new PropertyBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
+        Property expectedPropertyMultipleTags = new PropertyBuilder(P_BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
                 + SELLER_DESC_BOB + PRICE_DESC_BOB
@@ -103,7 +103,7 @@ public class AddCommandParserTest {
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
-        Property expectedProperty = new PropertyBuilder(AMY).withTags().build();
+        Property expectedProperty = new PropertyBuilder(P_AMY).withTags().build();
         assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
                 + SELLER_DESC_AMY + PRICE_DESC_AMY, new AddCommand(expectedProperty));
     }
