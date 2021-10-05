@@ -12,6 +12,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_ADDRESS = new Prefix("a/");
     public static final Prefix PREFIX_SELLER = new Prefix("s/");
     public static final Prefix PREFIX_PRICE = new Prefix("$/");
+    public static final Prefix PREFIX_MAX_PRICE = PREFIX_PRICE;
     public static final Prefix PREFIX_TAG = new Prefix("t/");
     public static final Prefix PREFIX_ADD_TAG = new Prefix("ta/");
     public static final Prefix PREFIX_DELETE_TAG = new Prefix("td/");

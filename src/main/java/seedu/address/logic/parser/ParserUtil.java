@@ -22,6 +22,28 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_EMPTY_PREAMBLE = "Incorrect number of arguments in preamble.";
+
+    /**
+     * Parses {@code preamble} into varying fields depending on the specified numFields.
+     * The fields are, in order of index,
+     * 0. Actor (property or buyer)
+     * 1. Index (used by edit etc.)
+     * @param preamble Positional arguments in a command.
+     * @param numFields Number of positional arguments expected.
+     * @throws ParseException if the number of positional arguments is different from {@code numFields}
+     * or if subsequent parsing of each individual argument throws a ParseException.
+     */
+    public static PreambleData parsePreamble(String preamble, int numFields) throws ParseException {
+        String[] preambleArray = preamble.trim().split(" ");
+        if (preambleArray.length != numFields) {
+            throw new ParseException(MESSAGE_EMPTY_PREAMBLE);
+        }
+        String actor = preambleArray[0];
+        Index index = numFields >= 2 ? parseIndex(preambleArray[1]) : null;
+
+        return new PreambleData(actor, index);
+    }
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be

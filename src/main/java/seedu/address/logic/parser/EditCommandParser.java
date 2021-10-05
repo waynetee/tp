@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MAX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
@@ -19,7 +20,8 @@ import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditPropertyDescriptor;
+import seedu.address.logic.commands.buyer.EditBuyerCommand;
+import seedu.address.logic.commands.property.EditPropertyCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.tag.Tag;
 
@@ -27,6 +29,8 @@ import seedu.address.model.tag.Tag;
  * Parses input arguments and creates a new EditCommand object
  */
 public class EditCommandParser implements Parser<EditCommand> {
+    private static final int NUMBER_OF_PREAMBLE_ARGUMENTS = 2;
+
 
     /**
      * Parses the given {@code String} of arguments in the context of the EditCommand
@@ -36,18 +40,41 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE,
-                PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG, PREFIX_SELLER, PREFIX_PRICE, PREFIX_ADD_TAG,
+                PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG, PREFIX_SELLER, PREFIX_PRICE, PREFIX_MAX_PRICE, PREFIX_ADD_TAG,
                 PREFIX_DELETE_TAG);
 
+        PreambleData.Actor actor;
         Index index;
-
         try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+            PreambleData preambleData = ParserUtil.parsePreamble(argMultimap.getPreamble(),
+                    NUMBER_OF_PREAMBLE_ARGUMENTS);
+            actor = preambleData.getActor();
+            index = preambleData.getIndex();
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
         }
 
-        EditCommand.EditPropertyDescriptor editPropertyDescriptor = new EditPropertyDescriptor();
+        EditCommand editCommand;
+
+        switch (actor) {
+        case PROPERTY:
+            EditPropertyCommand.EditPropertyDescriptor editPropertyDescriptor = getEditPropertyDescriptor(argMultimap);
+            editCommand = new EditPropertyCommand(index, editPropertyDescriptor);
+            break;
+        case BUYER:
+            EditBuyerCommand.EditBuyerDescriptor editBuyerDescriptor = getEditBuyerDescriptor(argMultimap);
+            editCommand = new EditBuyerCommand(index, editBuyerDescriptor);
+            break;
+        default:
+            throw new ParseException(PreambleData.MESSAGE_INVALID_ACTOR);
+        }
+        return editCommand;
+    }
+
+    private EditPropertyCommand.EditPropertyDescriptor getEditPropertyDescriptor(ArgumentMultimap argMultimap)
+            throws ParseException {
+        EditPropertyCommand.EditPropertyDescriptor editPropertyDescriptor = new EditPropertyCommand
+                .EditPropertyDescriptor();
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             editPropertyDescriptor.setPropertyName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
@@ -74,7 +101,7 @@ public class EditCommandParser implements Parser<EditCommand> {
                 .ifPresent(editPropertyDescriptor::setTagsToDelete);
 
         if (!editPropertyDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
+            throw new ParseException(EditPropertyCommand.MESSAGE_NOT_EDITED);
         }
 
         if (editPropertyDescriptor.isTagsBothResetAndModified()) {
@@ -84,8 +111,31 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (editPropertyDescriptor.isAddAndDeleteTagsOverlapping()) {
             throw new ParseException(EditCommand.MESSAGE_DUPLICATE_ADD_AND_DELETE_TAG);
         }
+        return editPropertyDescriptor;
+    }
 
-        return new EditCommand(index, editPropertyDescriptor);
+    private EditBuyerCommand.EditBuyerDescriptor getEditBuyerDescriptor(ArgumentMultimap argMultimap)
+            throws ParseException {
+        EditBuyerCommand.EditBuyerDescriptor editBuyerDescriptor = new EditBuyerCommand.EditBuyerDescriptor();
+        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
+            editBuyerDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
+        }
+        if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
+            editBuyerDescriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get()));
+        }
+        if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
+            editBuyerDescriptor.setEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));
+        }
+
+        if (argMultimap.getValue(PREFIX_MAX_PRICE).isPresent()) {
+            editBuyerDescriptor.setMaxPrice(ParserUtil.parsePrice(argMultimap.getValue(PREFIX_PRICE).get()));
+        }
+        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editBuyerDescriptor::setTags);
+
+        if (!editBuyerDescriptor.isAnyFieldEdited()) {
+            throw new ParseException(EditBuyerCommand.MESSAGE_NOT_EDITED);
+        }
+        return editBuyerDescriptor;
     }
 
     /**
