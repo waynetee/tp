@@ -22,13 +22,16 @@ class JsonSerializableAddressBook {
     public static final String MESSAGE_DUPLICATE_PROPERTY = "Property list contains duplicate property(s).";
 
     private final List<JsonAdaptedProperty> properties = new ArrayList<>();
+    private final List<JsonAdaptedBuyer> buyers = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableAddressBook} with the given properties.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("properties") List<JsonAdaptedProperty> properties) {
+    public JsonSerializableAddressBook(@JsonProperty("properties") List<JsonAdaptedProperty> properties,
+                                       @JsonProperty("buyers") List<JsonAdaptedBuyer> buyers) {
         this.properties.addAll(properties);
+        this.buyers.addAll(buyers);
     }
 
     /**
@@ -53,6 +56,12 @@ class JsonSerializableAddressBook {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PROPERTY);
             }
             addressBook.addProperty(property);
+        }
+
+        // TODO: Buyer list
+        for (JsonAdaptedBuyer jsonAdaptedBuyer : buyers) {
+            Buyer buyer = jsonAdaptedBuyer.toModelType();
+            // add buyer to buyerlist
         }
         return addressBook;
     }
