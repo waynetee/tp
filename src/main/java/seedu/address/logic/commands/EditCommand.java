@@ -23,6 +23,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.field.Email;
 import seedu.address.model.field.Name;
+import seedu.address.model.field.Person;
 import seedu.address.model.field.Phone;
 import seedu.address.model.field.Price;
 import seedu.address.model.property.Address;
@@ -101,15 +102,15 @@ public class EditCommand extends Command {
         assert propertyToEdit != null;
 
         Name updatedName = editPropertyDescriptor.getName().orElse(propertyToEdit.getName());
-        Seller updatedSeller = editPropertyDescriptor.getSeller().orElse(propertyToEdit.getSeller());
-        Price updatedPrice = editPropertyDescriptor.getPrice().orElse(propertyToEdit.getPrice());
-        Phone updatedPhone = editPropertyDescriptor.getPhone().orElse(propertyToEdit.getPhone());
-        Email updatedEmail = editPropertyDescriptor.getEmail().orElse(propertyToEdit.getEmail());
         Address updatedAddress = editPropertyDescriptor.getAddress().orElse(propertyToEdit.getAddress());
+        Name updatedSellerName = editPropertyDescriptor.getSeller().orElse(propertyToEdit.getSeller().getName());
+        Phone updatedPhone = editPropertyDescriptor.getPhone().orElse(propertyToEdit.getSeller().getPhone());
+        Email updatedEmail = editPropertyDescriptor.getEmail().orElse(propertyToEdit.getSeller().getEmail());
+        Person updatedSeller = new Person(updatedSellerName, updatedPhone, updatedEmail);
+        Price updatedPrice = editPropertyDescriptor.getPrice().orElse(propertyToEdit.getPrice());
         Set<Tag> updatedTags = editPropertyDescriptor.getTags().orElse(propertyToEdit.getTags());
 
-        return new Property(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags,
-                updatedSeller, updatedPrice);
+        return new Property(updatedName, updatedAddress, updatedSeller, updatedPrice, updatedTags);
     }
 
     @Override
@@ -136,11 +137,11 @@ public class EditCommand extends Command {
      */
     public static class EditPropertyDescriptor {
         private Name name;
-        private Seller seller;
         private Address address;
-        private Price price;
+        private Name seller;
         private Phone phone;
         private Email email;
+        private Price price;
         private Set<Tag> tags;
 
         public EditPropertyDescriptor() {}
@@ -151,11 +152,11 @@ public class EditCommand extends Command {
          */
         public EditPropertyDescriptor(EditPropertyDescriptor toCopy) {
             setName(toCopy.name);
-            setSeller(toCopy.seller);
             setAddress(toCopy.address);
-            setPrice(toCopy.price);
+            setSeller(toCopy.seller);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
+            setPrice(toCopy.price);
             setTags(toCopy.tags);
         }
 
@@ -174,6 +175,22 @@ public class EditCommand extends Command {
             return Optional.ofNullable(name);
         }
 
+        public void setAddress(Address address) {
+            this.address = address;
+        }
+
+        public Optional<Address> getAddress() {
+            return Optional.ofNullable(address);
+        }
+
+        public void setSeller(Name seller) {
+            this.seller = seller;
+        }
+
+        public Optional<Name> getSeller() {
+            return Optional.ofNullable(seller);
+        }
+
         public void setPhone(Phone phone) {
             this.phone = phone;
         }
@@ -190,12 +207,12 @@ public class EditCommand extends Command {
             return Optional.ofNullable(email);
         }
 
-        public void setAddress(Address address) {
-            this.address = address;
+        public void setPrice(Price price) {
+            this.price = price;
         }
 
-        public Optional<Address> getAddress() {
-            return Optional.ofNullable(address);
+        public Optional<Price> getPrice() {
+            return Optional.ofNullable(price);
         }
 
         /**
@@ -215,22 +232,6 @@ public class EditCommand extends Command {
             return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
         }
 
-        public void setSeller(Seller seller) {
-            this.seller = seller;
-        }
-
-        public Optional<Seller> getSeller() {
-            return Optional.ofNullable(seller);
-        }
-
-        public void setPrice(Price price) {
-            this.price = price;
-        }
-
-        public Optional<Price> getPrice() {
-            return Optional.ofNullable(price);
-        }
-
         @Override
         public boolean equals(Object other) {
             // short circuit if same object
@@ -247,10 +248,10 @@ public class EditCommand extends Command {
             EditPropertyDescriptor e = (EditPropertyDescriptor) other;
 
             return getName().equals(e.getName())
+                    && getAddress().equals(e.getAddress())
                     && getSeller().equals(e.getSeller())
                     && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail())
-                    && getAddress().equals(e.getAddress())
                     && getPrice().equals(e.getPrice())
                     && getTags().equals(e.getTags());
         }
