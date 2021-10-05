@@ -71,7 +71,7 @@ public class StringUtil {
      * @param strings Strings to be joined.
      * @return Concatenated string.
      */
-    public static String join(String ...strings) {
+    public static String joinNonEmptyStrings(String ...strings) {
         StringBuilder builder = new StringBuilder();
         for (String s : strings) {
             if (s.length() > 0) {

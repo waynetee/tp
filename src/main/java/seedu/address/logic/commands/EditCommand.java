@@ -116,7 +116,7 @@ public class EditCommand extends Command {
     }
 
     public String getCommandResultMessage() {
-        return StringUtil.join(MESSAGE_EDIT_PROPERTY_SUCCESS, messageEditPropertyTags);
+        return StringUtil.joinNonEmptyStrings(MESSAGE_EDIT_PROPERTY_SUCCESS, messageEditPropertyTags);
     }
 
     /**
@@ -135,11 +135,10 @@ public class EditCommand extends Command {
         Email updatedSellerEmail = editPropertyDescriptor.getSellerEmail()
                 .orElse(propertyToEdit.getSeller().getEmail());
         Person updatedSeller = new Person(updatedSellerName, updatedSellerPhone, updatedSellerEmail);
-        Price updatedPrice = editPropertyDescriptor.getPrice().orElse(propertyToEdit.getPrice());        
+        Price updatedPrice = editPropertyDescriptor.getPrice().orElse(propertyToEdit.getPrice());
         Set<Tag> originalTags = editPropertyDescriptor.getTags().orElse(propertyToEdit.getTags());
         Set<Tag> tagsToAdd = editPropertyDescriptor.getTagsToAdd().orElse(Collections.emptySet());
         Set<Tag> tagsToDelete = editPropertyDescriptor.getTagsToDelete().orElse(Collections.emptySet());
-
 
         Set<Tag> tagsAlreadyPresent = new HashSet<>(tagsToAdd);
         tagsAlreadyPresent.retainAll(originalTags);
@@ -228,8 +227,6 @@ public class EditCommand extends Command {
             return CollectionUtil.isAnyNonNull(propertyName, sellerPhone, sellerEmail,
                     address, tags, tagsToAdd, tagsToDelete, sellerName, price);
         }
-
-        
 
         /**
          * Returns true if tags are reset and tags are modified by addition or deletion.
