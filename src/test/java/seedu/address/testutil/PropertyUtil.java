@@ -33,11 +33,11 @@ public class PropertyUtil {
     public static String getPropertyDetails(Property property) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + property.getName().fullName + " ");
-        sb.append(PREFIX_SELLER + property.getSeller().fullName + " ");
-        sb.append(PREFIX_PRICE + property.getPrice().value.toString() + " ");
         sb.append(PREFIX_ADDRESS + property.getAddress().value + " ");
-        sb.append(PREFIX_PHONE + property.getPhone().value + " ");
-        sb.append(PREFIX_EMAIL + property.getEmail().value + " ");
+        sb.append(PREFIX_SELLER + property.getSeller().getName().fullName + " ");
+        sb.append(PREFIX_PHONE + property.getSeller().getPhone().value + " ");
+        sb.append(PREFIX_EMAIL + property.getSeller().getEmail().value + " ");
+        sb.append(PREFIX_PRICE + property.getPrice().value.toString() + " ");
         property.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
