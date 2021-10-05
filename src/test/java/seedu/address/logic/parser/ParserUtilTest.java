@@ -19,7 +19,6 @@ import seedu.address.model.field.Name;
 import seedu.address.model.field.Phone;
 import seedu.address.model.field.Price;
 import seedu.address.model.property.Address;
-import seedu.address.model.property.Seller;
 import seedu.address.model.tag.Tag;
 
 public class ParserUtilTest {
@@ -152,29 +151,6 @@ public class ParserUtilTest {
         String emailWithWhitespace = WHITESPACE + VALID_EMAIL + WHITESPACE;
         Email expectedEmail = new Email(VALID_EMAIL);
         assertEquals(expectedEmail, ParserUtil.parseEmail(emailWithWhitespace));
-    }
-
-    @Test
-    public void parseSeller_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseSeller((String) null));
-    }
-
-    @Test
-    public void parseSeller_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseSeller(INVALID_SELLER));
-    }
-
-    @Test
-    public void parseSeller_validValueWithoutWhitespace_returnsSeller() throws Exception {
-        Seller expectedSeller = new Seller(VALID_SELLER);
-        assertEquals(expectedSeller, ParserUtil.parseSeller(VALID_SELLER));
-    }
-
-    @Test
-    public void parseSeller_validValueWithWhitespace_returnsTrimmedSeller() throws Exception {
-        String sellerWithWhitespace = WHITESPACE + VALID_SELLER + WHITESPACE;
-        Seller expectedSeller = new Seller(VALID_SELLER);
-        assertEquals(expectedSeller, ParserUtil.parseSeller(sellerWithWhitespace));
     }
 
     @Test

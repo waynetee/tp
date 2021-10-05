@@ -33,11 +33,11 @@ public class PropertyUtil {
     public static String getPropertyDetails(Property property) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + property.getName().fullName + " ");
-        sb.append(PREFIX_SELLER + property.getSeller().fullName + " ");
-        sb.append(PREFIX_PRICE + property.getPrice().value.toString() + " ");
         sb.append(PREFIX_ADDRESS + property.getAddress().value + " ");
-        sb.append(PREFIX_PHONE + property.getPhone().value + " ");
-        sb.append(PREFIX_EMAIL + property.getEmail().value + " ");
+        sb.append(PREFIX_SELLER + property.getSeller().getName().fullName + " ");
+        sb.append(PREFIX_PHONE + property.getSeller().getPhone().value + " ");
+        sb.append(PREFIX_EMAIL + property.getSeller().getEmail().value + " ");
+        sb.append(PREFIX_PRICE + property.getPrice().value.toString() + " ");
         property.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
@@ -49,11 +49,11 @@ public class PropertyUtil {
      */
     public static String getEditPropertyDescriptorDetails(EditPropertyDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
-        descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
-        descriptor.getSeller().ifPresent(seller -> sb.append(PREFIX_SELLER).append(seller.fullName).append(" "));
+        descriptor.getPropertyName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
+        descriptor.getSellerName().ifPresent(seller -> sb.append(PREFIX_SELLER).append(seller.fullName).append(" "));
         descriptor.getPrice().ifPresent(price -> sb.append(PREFIX_PRICE).append(price.value).append(" "));
-        descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
-        descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
+        descriptor.getSellerPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
+        descriptor.getSellerEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
         descriptor.getAddress().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();

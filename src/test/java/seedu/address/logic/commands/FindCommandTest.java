@@ -5,9 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_PROPERTIES_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalProperties.CARL;
-import static seedu.address.testutil.TypicalProperties.ELLE;
-import static seedu.address.testutil.TypicalProperties.FIONA;
+import static seedu.address.testutil.TypicalProperties.P_CARL;
+import static seedu.address.testutil.TypicalProperties.P_ELLE;
+import static seedu.address.testutil.TypicalProperties.P_FIONA;
 import static seedu.address.testutil.TypicalProperties.getTypicalAddressBook;
 
 import java.util.Arrays;
@@ -71,7 +71,7 @@ public class FindCommandTest {
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFiltedPropertyList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredPropertyList());
+        assertEquals(Arrays.asList(P_CARL, P_ELLE, P_FIONA), model.getFilteredPropertyList());
     }
 
     /**
