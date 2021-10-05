@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.field.Email;
@@ -23,6 +24,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Jackson-friendly version of {@link Property}.
  */
+@JsonPropertyOrder({"name", "address", "seller", "price", "tagged" })
 class JsonAdaptedProperty {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Property's %s field is missing!";
@@ -54,10 +56,10 @@ class JsonAdaptedProperty {
      */
     public JsonAdaptedProperty(Property source) {
         name = source.getName().fullName;
+        address = source.getAddress().value;
         seller = new JsonAdaptedPerson(source.getSeller().getName().fullName,
                 source.getSeller().getPhone().value, source.getSeller().getEmail().value);
         price = source.getPrice().value.toString();
-        address = source.getAddress().value;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
