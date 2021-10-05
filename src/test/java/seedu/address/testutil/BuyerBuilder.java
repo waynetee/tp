@@ -4,18 +4,24 @@ import seedu.address.model.field.Person;
 import seedu.address.model.field.Price;
 import seedu.address.model.property.Buyer;
 
-public class BuyerBuilder {
+public class BuyerBuilder extends PersonBuilder {
 
-    public static final Person DEFAULT_PERSON = TypicalPersons.ALICE;
     public static final String DEFAULT_PRICE = "1230000";
 
-    private Person person;
     private Price max;
     /**
      * Creates a {@code PersonBuilder} with the default details.
      */
     public BuyerBuilder() {
-        person = DEFAULT_PERSON;
+        super();
+        max = new Price(DEFAULT_PRICE);
+    }
+
+    /**
+     * Initializes the BuyerBuilder with the data of {@code personToCopy}.
+     */
+    public BuyerBuilder(Person personToCopy) {
+        super(personToCopy);
         max = new Price(DEFAULT_PRICE);
     }
 
@@ -23,7 +29,8 @@ public class BuyerBuilder {
      * Initializes the BuyerBuilder with the data of {@code buyerToCopy}.
      */
     public BuyerBuilder(Buyer buyerToCopy) {
-        person = buyerToCopy.getPerson();
+        super(buyerToCopy);
+        max = buyerToCopy.getPrice();
     }
 
     /**
@@ -38,12 +45,13 @@ public class BuyerBuilder {
      * Sets the {@code Person} of the {@code Buyer} that we are building.
      */
     public BuyerBuilder withPerson(Person person) {
-        this.person = person;
+        super.withName(person.getName().toString());
         return this;
     }
 
+    @Override
     public Buyer build() {
-        return new Buyer(person, max);
+        return new Buyer(getName(), getPhone(), getEmail(), max);
     }
 
 }

@@ -1,5 +1,6 @@
 package seedu.address.model.property;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
@@ -10,9 +11,8 @@ import seedu.address.model.field.Person;
 import seedu.address.model.field.Phone;
 import seedu.address.model.field.Price;
 
-public class Buyer {
+public class Buyer extends Person {
 
-    private final Person person;
     private final Price max;
     // TODO: add Set<Tags> tags
 
@@ -20,8 +20,8 @@ public class Buyer {
      * Every field must be present and not null.
      */
     public Buyer(Person person, Price max) {
-        requireAllNonNull(person, max);
-        this.person = person;
+        super(person.getName(), person.getPhone(), person.getEmail());
+        requireNonNull(max);
         this.max = max;
     }
 
@@ -29,13 +29,9 @@ public class Buyer {
      * Every field must be present and not null.
      */
     public Buyer(Name name, Phone phone, Email email, Price max) {
-        requireAllNonNull(name, phone, email, max);
-        this.person = new Person(name, phone, email);
+        super(name, phone, email);
+        requireAllNonNull(max);
         this.max = max;
-    }
-
-    public Person getPerson() {
-        return person;
     }
 
     public Price getPrice() {
@@ -52,7 +48,7 @@ public class Buyer {
         }
 
         return otherBuyer != null
-                && otherBuyer.getPerson().isSamePerson(getPerson());
+                && otherBuyer.isSamePerson(this);
     }
 
     /**
@@ -70,17 +66,17 @@ public class Buyer {
         }
 
         Buyer otherBuyer = (Buyer) other;
-        return otherBuyer.getPerson().equals(getPerson())
+        return otherBuyer.equals(this)
                 && otherBuyer.getPrice().equals(getPrice());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(person, max);
+        return Objects.hash(getName(), getPhone(), getEmail(), max);
     }
 
     @Override
     public String toString() {
-        return String.format("%s; Maximum Price: %s", person, max);
+        return String.format("%s; Maximum Price: %s", super.toString(), max);
     }
 }
