@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PROPERTIES;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalProperties.ALICE;
-import static seedu.address.testutil.TypicalProperties.BENSON;
+import static seedu.address.testutil.TypicalProperties.P_ALICE;
+import static seedu.address.testutil.TypicalProperties.P_BENSON;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -79,13 +79,13 @@ public class ModelManagerTest {
 
     @Test
     public void hasProperty_propertyNotInAddressBook_returnsFalse() {
-        assertFalse(modelManager.hasProperty(ALICE));
+        assertFalse(modelManager.hasProperty(P_ALICE));
     }
 
     @Test
     public void hasProperty_propertyInAddressBook_returnsTrue() {
-        modelManager.addProperty(ALICE);
-        assertTrue(modelManager.hasProperty(ALICE));
+        modelManager.addProperty(P_ALICE);
+        assertTrue(modelManager.hasProperty(P_ALICE));
     }
 
     @Test
@@ -95,7 +95,7 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        AddressBook addressBook = new AddressBookBuilder().withProperty(ALICE).withProperty(BENSON).build();
+        AddressBook addressBook = new AddressBookBuilder().withProperty(P_ALICE).withProperty(P_BENSON).build();
         AddressBook differentAddressBook = new AddressBook();
         UserPrefs userPrefs = new UserPrefs();
 
@@ -117,7 +117,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
 
         // different filteredList -> returns false
-        String[] keywords = ALICE.getName().fullName.split("\\s+");
+        String[] keywords = P_ALICE.getName().fullName.split("\\s+");
         modelManager.updateFiltedPropertyList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
 

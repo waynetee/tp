@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalProperties.ALICE;
-import static seedu.address.testutil.TypicalProperties.BOB;
+import static seedu.address.testutil.TypicalProperties.P_ALICE;
+import static seedu.address.testutil.TypicalProperties.P_BOB;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -30,19 +30,19 @@ public class UniquePropertyListTest {
 
     @Test
     public void contains_propertyNotInList_returnsFalse() {
-        assertFalse(uniquePropertyList.contains(ALICE));
+        assertFalse(uniquePropertyList.contains(P_ALICE));
     }
 
     @Test
     public void contains_propertyInList_returnsTrue() {
-        uniquePropertyList.add(ALICE);
-        assertTrue(uniquePropertyList.contains(ALICE));
+        uniquePropertyList.add(P_ALICE);
+        assertTrue(uniquePropertyList.contains(P_ALICE));
     }
 
     @Test
     public void contains_propertyWithSameIdentityFieldsInList_returnsTrue() {
-        uniquePropertyList.add(ALICE);
-        Property editedAlice = new PropertyBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        uniquePropertyList.add(P_ALICE);
+        Property editedAlice = new PropertyBuilder(P_ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(uniquePropertyList.contains(editedAlice));
     }
@@ -54,40 +54,40 @@ public class UniquePropertyListTest {
 
     @Test
     public void add_duplicateProperty_throwsDuplicatePropertyException() {
-        uniquePropertyList.add(ALICE);
-        assertThrows(DuplicatePropertyException.class, () -> uniquePropertyList.add(ALICE));
+        uniquePropertyList.add(P_ALICE);
+        assertThrows(DuplicatePropertyException.class, () -> uniquePropertyList.add(P_ALICE));
     }
 
     @Test
     public void setProperty_nullTargetProperty_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniquePropertyList.setProperty(null, ALICE));
+        assertThrows(NullPointerException.class, () -> uniquePropertyList.setProperty(null, P_ALICE));
     }
 
     @Test
     public void setProperty_nullEditedProperty_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniquePropertyList.setProperty(ALICE, null));
+        assertThrows(NullPointerException.class, () -> uniquePropertyList.setProperty(P_ALICE, null));
     }
 
     @Test
     public void setProperty_targetPropertyNotInList_throwsPropertyNotFoundException() {
-        assertThrows(PropertyNotFoundException.class, () -> uniquePropertyList.setProperty(ALICE, ALICE));
+        assertThrows(PropertyNotFoundException.class, () -> uniquePropertyList.setProperty(P_ALICE, P_ALICE));
     }
 
     @Test
     public void setProperty_editedPropertyIsSameProperty_success() {
-        uniquePropertyList.add(ALICE);
-        uniquePropertyList.setProperty(ALICE, ALICE);
+        uniquePropertyList.add(P_ALICE);
+        uniquePropertyList.setProperty(P_ALICE, P_ALICE);
         UniquePropertyList expectedUniquePropertyList = new UniquePropertyList();
-        expectedUniquePropertyList.add(ALICE);
+        expectedUniquePropertyList.add(P_ALICE);
         assertEquals(expectedUniquePropertyList, uniquePropertyList);
     }
 
     @Test
     public void setProperty_editedPropertyHasSameIdentity_success() {
-        uniquePropertyList.add(ALICE);
-        Property editedAlice = new PropertyBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        uniquePropertyList.add(P_ALICE);
+        Property editedAlice = new PropertyBuilder(P_ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        uniquePropertyList.setProperty(ALICE, editedAlice);
+        uniquePropertyList.setProperty(P_ALICE, editedAlice);
         UniquePropertyList expectedUniquePropertyList = new UniquePropertyList();
         expectedUniquePropertyList.add(editedAlice);
         assertEquals(expectedUniquePropertyList, uniquePropertyList);
@@ -95,18 +95,18 @@ public class UniquePropertyListTest {
 
     @Test
     public void setProperty_editedPropertyHasDifferentIdentity_success() {
-        uniquePropertyList.add(ALICE);
-        uniquePropertyList.setProperty(ALICE, BOB);
+        uniquePropertyList.add(P_ALICE);
+        uniquePropertyList.setProperty(P_ALICE, P_BOB);
         UniquePropertyList expectedUniquePropertyList = new UniquePropertyList();
-        expectedUniquePropertyList.add(BOB);
+        expectedUniquePropertyList.add(P_BOB);
         assertEquals(expectedUniquePropertyList, uniquePropertyList);
     }
 
     @Test
     public void setProperty_editedPropertyHasNonUniqueIdentity_throwsDuplicatePropertyException() {
-        uniquePropertyList.add(ALICE);
-        uniquePropertyList.add(BOB);
-        assertThrows(DuplicatePropertyException.class, () -> uniquePropertyList.setProperty(ALICE, BOB));
+        uniquePropertyList.add(P_ALICE);
+        uniquePropertyList.add(P_BOB);
+        assertThrows(DuplicatePropertyException.class, () -> uniquePropertyList.setProperty(P_ALICE, P_BOB));
     }
 
     @Test
@@ -116,13 +116,13 @@ public class UniquePropertyListTest {
 
     @Test
     public void remove_propertyDoesNotExist_throwsPropertyNotFoundException() {
-        assertThrows(PropertyNotFoundException.class, () -> uniquePropertyList.remove(ALICE));
+        assertThrows(PropertyNotFoundException.class, () -> uniquePropertyList.remove(P_ALICE));
     }
 
     @Test
     public void remove_existingProperty_removesProperty() {
-        uniquePropertyList.add(ALICE);
-        uniquePropertyList.remove(ALICE);
+        uniquePropertyList.add(P_ALICE);
+        uniquePropertyList.remove(P_ALICE);
         UniquePropertyList expectedUniquePropertyList = new UniquePropertyList();
         assertEquals(expectedUniquePropertyList, uniquePropertyList);
     }
@@ -134,9 +134,9 @@ public class UniquePropertyListTest {
 
     @Test
     public void setProperties_uniquePropertyList_replacesOwnListWithProvidedUniquePropertyList() {
-        uniquePropertyList.add(ALICE);
+        uniquePropertyList.add(P_ALICE);
         UniquePropertyList expectedUniquePropertyList = new UniquePropertyList();
-        expectedUniquePropertyList.add(BOB);
+        expectedUniquePropertyList.add(P_BOB);
         uniquePropertyList.setProperties(expectedUniquePropertyList);
         assertEquals(expectedUniquePropertyList, uniquePropertyList);
     }
@@ -148,17 +148,17 @@ public class UniquePropertyListTest {
 
     @Test
     public void setProperties_list_replacesOwnListWithProvidedList() {
-        uniquePropertyList.add(ALICE);
-        List<Property> propertyList = Collections.singletonList(BOB);
+        uniquePropertyList.add(P_ALICE);
+        List<Property> propertyList = Collections.singletonList(P_BOB);
         uniquePropertyList.setProperties(propertyList);
         UniquePropertyList expectedUniquePropertyList = new UniquePropertyList();
-        expectedUniquePropertyList.add(BOB);
+        expectedUniquePropertyList.add(P_BOB);
         assertEquals(expectedUniquePropertyList, uniquePropertyList);
     }
 
     @Test
     public void setProperties_listWithDuplicateProperties_throwsDuplicatePropertyException() {
-        List<Property> listWithDuplicateProperties = Arrays.asList(ALICE, ALICE);
+        List<Property> listWithDuplicateProperties = Arrays.asList(P_ALICE, P_ALICE);
         assertThrows(DuplicatePropertyException.class, () -> uniquePropertyList
                 .setProperties(listWithDuplicateProperties));
     }

@@ -46,19 +46,19 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         EditCommand.EditPropertyDescriptor editPropertyDescriptor = new EditPropertyDescriptor();
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            editPropertyDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
+            editPropertyDescriptor.setPropertyName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
         if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
-            editPropertyDescriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get()));
+            editPropertyDescriptor.setSellerPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get()));
         }
         if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
-            editPropertyDescriptor.setEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));
+            editPropertyDescriptor.setSellerEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));
         }
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
             editPropertyDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
         }
         if (argMultimap.getValue(PREFIX_SELLER).isPresent()) {
-            editPropertyDescriptor.setSeller(ParserUtil.parseSeller(argMultimap.getValue(PREFIX_SELLER).get()));
+            editPropertyDescriptor.setSellerName(ParserUtil.parseName(argMultimap.getValue(PREFIX_SELLER).get()));
         }
         if (argMultimap.getValue(PREFIX_PRICE).isPresent()) {
             editPropertyDescriptor.setPrice(ParserUtil.parsePrice(argMultimap.getValue(PREFIX_PRICE).get()));
