@@ -92,6 +92,10 @@ class JsonAdaptedProperty {
         }
         final Address modelAddress = new Address(address);
 
+        if (seller == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    JsonAdaptedPerson.class.getSimpleName()));
+        }
         final Person modelSeller = seller.toModelType();
 
         if (price == null) {
