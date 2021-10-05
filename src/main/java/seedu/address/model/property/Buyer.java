@@ -13,29 +13,29 @@ import seedu.address.model.field.Price;
 
 public class Buyer extends Person {
 
-    private final Price max;
+    private final Price maxPrice;
     // TODO: add Set<Tags> tags
 
     /**
      * Every field must be present and not null.
      */
-    public Buyer(Person person, Price max) {
+    public Buyer(Person person, Price maxPrice) {
         super(person.getName(), person.getPhone(), person.getEmail());
-        requireNonNull(max);
-        this.max = max;
+        requireNonNull(maxPrice);
+        this.maxPrice = maxPrice;
     }
 
     /**
      * Every field must be present and not null.
      */
-    public Buyer(Name name, Phone phone, Email email, Price max) {
+    public Buyer(Name name, Phone phone, Email email, Price maxPrice) {
         super(name, phone, email);
-        requireAllNonNull(max);
-        this.max = max;
+        requireAllNonNull(maxPrice);
+        this.maxPrice = maxPrice;
     }
 
-    public Price getPrice() {
-        return max;
+    public Price getMaxPrice() {
+        return maxPrice;
     }
 
     /**
@@ -48,13 +48,13 @@ public class Buyer extends Person {
         }
 
         return otherBuyer != null
-                && otherBuyer.isSamePerson(this);
+                && super.isSamePerson(otherBuyer);
     }
 
     /**
      * Returns true if both buyers have the same identity, data fields, and
      * maximum price. This defines a stronger notion of equality between
-     * two properties.
+     * two buyers.
      */
     @Override
     public boolean equals(Object other) {
@@ -68,16 +68,16 @@ public class Buyer extends Person {
 
         Buyer otherBuyer = (Buyer) other;
         return super.equals(otherBuyer)
-                && otherBuyer.getPrice().equals(getPrice());
+                && otherBuyer.getMaxPrice().equals(getMaxPrice());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getName(), getPhone(), getEmail(), max);
+        return Objects.hash(getName(), getPhone(), getEmail(), maxPrice);
     }
 
     @Override
     public String toString() {
-        return String.format("%s; Maximum Price: %s", super.toString(), max);
+        return String.format("%s; Maximum Price: %s", super.toString(), maxPrice);
     }
 }

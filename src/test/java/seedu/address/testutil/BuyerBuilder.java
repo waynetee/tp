@@ -30,7 +30,7 @@ public class BuyerBuilder extends PersonBuilder {
      */
     public BuyerBuilder(Buyer buyerToCopy) {
         super(buyerToCopy);
-        max = buyerToCopy.getPrice();
+        max = buyerToCopy.getMaxPrice();
     }
 
     @Override
@@ -61,7 +61,7 @@ public class BuyerBuilder extends PersonBuilder {
 
     @Override
     public Buyer build() {
-        return new Buyer(getName(), getPhone(), getEmail(), max);
+        return new Buyer(super.build(), max);
     }
 
 }
