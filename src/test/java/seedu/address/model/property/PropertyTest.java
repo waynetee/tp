@@ -55,8 +55,8 @@ public class PropertyTest {
     @Test
     public void equals() {
         // same values -> returns true
-        Property P_ALICECopy = new PropertyBuilder(P_ALICE).build();
-        assertTrue(P_ALICE.equals(P_ALICECopy));
+        Property pAliceCopy = new PropertyBuilder(P_ALICE).build();
+        assertTrue(P_ALICE.equals(pAliceCopy));
 
         // same object -> returns true
         assertTrue(P_ALICE.equals(P_ALICE));
