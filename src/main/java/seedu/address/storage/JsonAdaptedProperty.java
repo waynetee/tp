@@ -37,7 +37,7 @@ class JsonAdaptedProperty {
      */
     @JsonCreator
     public JsonAdaptedProperty(@JsonProperty("name") String name, @JsonProperty("address") String address,
-                               @JsonProperty("phone") JsonAdaptedPerson seller, @JsonProperty("price") String price,
+                               @JsonProperty("seller") JsonAdaptedPerson seller, @JsonProperty("price") String price,
                                @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.address = address;
@@ -54,8 +54,7 @@ class JsonAdaptedProperty {
     public JsonAdaptedProperty(Property source) {
         name = source.getName().fullName;
         address = source.getAddress().value;
-        seller = new JsonAdaptedPerson(source.getSeller().getName().fullName,
-                source.getSeller().getPhone().value, source.getSeller().getEmail().value);
+        seller = new JsonAdaptedPerson(source.getSeller());
         price = source.getPrice().value.toString();
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)

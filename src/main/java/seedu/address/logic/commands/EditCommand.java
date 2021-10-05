@@ -100,12 +100,14 @@ public class EditCommand extends Command {
             editPropertyDescriptor) {
         assert propertyToEdit != null;
 
-        Name updatedName = editPropertyDescriptor.getName().orElse(propertyToEdit.getName());
+        Name updatedName = editPropertyDescriptor.getPropertyName().orElse(propertyToEdit.getName());
         Address updatedAddress = editPropertyDescriptor.getAddress().orElse(propertyToEdit.getAddress());
-        Name updatedSellerName = editPropertyDescriptor.getSeller().orElse(propertyToEdit.getSeller().getName());
-        Phone updatedPhone = editPropertyDescriptor.getPhone().orElse(propertyToEdit.getSeller().getPhone());
-        Email updatedEmail = editPropertyDescriptor.getEmail().orElse(propertyToEdit.getSeller().getEmail());
-        Person updatedSeller = new Person(updatedSellerName, updatedPhone, updatedEmail);
+        Name updatedSellerName = editPropertyDescriptor.getSellerName().orElse(propertyToEdit.getSeller().getName());
+        Phone updatedSellerPhone = editPropertyDescriptor.getSellerPhone()
+                .orElse(propertyToEdit.getSeller().getPhone());
+        Email updatedSellerEmail = editPropertyDescriptor.getSellerEmail()
+                .orElse(propertyToEdit.getSeller().getEmail());
+        Person updatedSeller = new Person(updatedSellerName, updatedSellerPhone, updatedSellerEmail);
         Price updatedPrice = editPropertyDescriptor.getPrice().orElse(propertyToEdit.getPrice());
         Set<Tag> updatedTags = editPropertyDescriptor.getTags().orElse(propertyToEdit.getTags());
 
@@ -135,11 +137,11 @@ public class EditCommand extends Command {
      * corresponding field value of the property.
      */
     public static class EditPropertyDescriptor {
-        private Name name;
+        private Name propertyName;
         private Address address;
-        private Name seller;
-        private Phone phone;
-        private Email email;
+        private Name sellerName;
+        private Phone sellerPhone;
+        private Email sellerEmail;
         private Price price;
         private Set<Tag> tags;
 
@@ -150,11 +152,11 @@ public class EditCommand extends Command {
          * A defensive copy of {@code tags} is used internally.
          */
         public EditPropertyDescriptor(EditPropertyDescriptor toCopy) {
-            setName(toCopy.name);
+            setPropertyName(toCopy.propertyName);
             setAddress(toCopy.address);
-            setSeller(toCopy.seller);
-            setPhone(toCopy.phone);
-            setEmail(toCopy.email);
+            setSellerName(toCopy.sellerName);
+            setSellerPhone(toCopy.sellerPhone);
+            setSellerEmail(toCopy.sellerEmail);
             setPrice(toCopy.price);
             setTags(toCopy.tags);
         }
@@ -163,15 +165,16 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags, seller, price);
+            return CollectionUtil.isAnyNonNull(propertyName, sellerPhone, sellerEmail,
+                    address, tags, sellerName, price);
         }
 
-        public void setName(Name name) {
-            this.name = name;
+        public void setPropertyName(Name propertyName) {
+            this.propertyName = propertyName;
         }
 
-        public Optional<Name> getName() {
-            return Optional.ofNullable(name);
+        public Optional<Name> getPropertyName() {
+            return Optional.ofNullable(propertyName);
         }
 
         public void setAddress(Address address) {
@@ -182,28 +185,28 @@ public class EditCommand extends Command {
             return Optional.ofNullable(address);
         }
 
-        public void setSeller(Name seller) {
-            this.seller = seller;
+        public void setSellerName(Name sellerName) {
+            this.sellerName = sellerName;
         }
 
-        public Optional<Name> getSeller() {
-            return Optional.ofNullable(seller);
+        public Optional<Name> getSellerName() {
+            return Optional.ofNullable(sellerName);
         }
 
-        public void setPhone(Phone phone) {
-            this.phone = phone;
+        public void setSellerPhone(Phone sellerPhone) {
+            this.sellerPhone = sellerPhone;
         }
 
-        public Optional<Phone> getPhone() {
-            return Optional.ofNullable(phone);
+        public Optional<Phone> getSellerPhone() {
+            return Optional.ofNullable(sellerPhone);
         }
 
-        public void setEmail(Email email) {
-            this.email = email;
+        public void setSellerEmail(Email sellerEmail) {
+            this.sellerEmail = sellerEmail;
         }
 
-        public Optional<Email> getEmail() {
-            return Optional.ofNullable(email);
+        public Optional<Email> getSellerEmail() {
+            return Optional.ofNullable(sellerEmail);
         }
 
         public void setPrice(Price price) {
@@ -246,11 +249,11 @@ public class EditCommand extends Command {
             // state check
             EditPropertyDescriptor e = (EditPropertyDescriptor) other;
 
-            return getName().equals(e.getName())
+            return getPropertyName().equals(e.getPropertyName())
                     && getAddress().equals(e.getAddress())
-                    && getSeller().equals(e.getSeller())
-                    && getPhone().equals(e.getPhone())
-                    && getEmail().equals(e.getEmail())
+                    && getSellerName().equals(e.getSellerName())
+                    && getSellerPhone().equals(e.getSellerPhone())
+                    && getSellerEmail().equals(e.getSellerEmail())
                     && getPrice().equals(e.getPrice())
                     && getTags().equals(e.getTags());
         }

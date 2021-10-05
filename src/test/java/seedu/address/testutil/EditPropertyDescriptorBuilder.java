@@ -33,11 +33,11 @@ public class EditPropertyDescriptorBuilder {
      */
     public EditPropertyDescriptorBuilder(Property property) {
         descriptor = new EditCommand.EditPropertyDescriptor();
-        descriptor.setName(property.getName());
+        descriptor.setPropertyName(property.getName());
         descriptor.setAddress(property.getAddress());
-        descriptor.setSeller(property.getSeller().getName());
-        descriptor.setPhone(property.getSeller().getPhone());
-        descriptor.setEmail(property.getSeller().getEmail());
+        descriptor.setSellerName(property.getSeller().getName());
+        descriptor.setSellerPhone(property.getSeller().getPhone());
+        descriptor.setSellerEmail(property.getSeller().getEmail());
         descriptor.setPrice(property.getPrice());
         descriptor.setTags(property.getTags());
     }
@@ -46,7 +46,7 @@ public class EditPropertyDescriptorBuilder {
      * Sets the {@code Name} of the {@code EditPropertyDescriptor} that we are building.
      */
     public EditPropertyDescriptorBuilder withName(String name) {
-        descriptor.setName(new Name(name));
+        descriptor.setPropertyName(new Name(name));
         return this;
     }
 
@@ -54,7 +54,7 @@ public class EditPropertyDescriptorBuilder {
      * Sets the {@code Phone} of the {@code EditPropertyDescriptor} that we are building.
      */
     public EditPropertyDescriptorBuilder withPhone(String phone) {
-        descriptor.setPhone(new Phone(phone));
+        descriptor.setSellerPhone(new Phone(phone));
         return this;
     }
 
@@ -62,7 +62,7 @@ public class EditPropertyDescriptorBuilder {
      * Sets the {@code Email} of the {@code EditPropertyDescriptor} that we are building.
      */
     public EditPropertyDescriptorBuilder withEmail(String email) {
-        descriptor.setEmail(new Email(email));
+        descriptor.setSellerEmail(new Email(email));
         return this;
     }
 
@@ -78,7 +78,7 @@ public class EditPropertyDescriptorBuilder {
      * Sets the {@code Seller} of the {@code EditPropertyDescriptor} that we are building.
      */
     public EditPropertyDescriptorBuilder withSeller(String seller) {
-        descriptor.setSeller(new Name(seller));
+        descriptor.setSellerName(new Name(seller));
         return this;
     }
 
