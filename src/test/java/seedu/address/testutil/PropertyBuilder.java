@@ -19,31 +19,24 @@ import seedu.address.model.util.SampleDataUtil;
 public class PropertyBuilder {
 
     public static final String DEFAULT_NAME = "Paradise Park";
-    public static final String DEFAULT_SELLER = "Amy Bee";
-    public static final String DEFAULT_PHONE = "85355255";
-    public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_PRICE = "571000";
 
     private Name name;
-    private Seller seller;
-    private Phone phone;
-    private Email email;
     private Address address;
-    private Set<Tag> tags;
+    private PersonBuilder sellerBuilder;
     private Price price;
+    private Set<Tag> tags;
 
     /**
      * Creates a {@code PropertyBuilder} with the default details.
      */
     public PropertyBuilder() {
         name = new Name(DEFAULT_NAME);
-        seller = new Seller(DEFAULT_SELLER);
-        phone = new Phone(DEFAULT_PHONE);
-        email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
-        tags = new HashSet<>();
+        sellerBuilder = new PersonBuilder();
         price = new Price(DEFAULT_PRICE);
+        tags = new HashSet<>();
     }
 
     /**
@@ -51,12 +44,10 @@ public class PropertyBuilder {
      */
     public PropertyBuilder(Property propertyToCopy) {
         name = propertyToCopy.getName();
-        seller = propertyToCopy.getSeller();
-        phone = propertyToCopy.getPhone();
-        email = propertyToCopy.getEmail();
         address = propertyToCopy.getAddress();
-        tags = new HashSet<>(propertyToCopy.getTags());
+        sellerBuilder = new PersonBuilder(propertyToCopy.getSeller());
         price = propertyToCopy.getPrice();
+        tags = new HashSet<>(propertyToCopy.getTags());
     }
 
     /**
@@ -87,7 +78,7 @@ public class PropertyBuilder {
      * Sets the {@code Phone} of the {@code Property} that we are building.
      */
     public PropertyBuilder withPhone(String phone) {
-        this.phone = new Phone(phone);
+        sellerBuilder.withPhone(phone);
         return this;
     }
 
@@ -95,7 +86,7 @@ public class PropertyBuilder {
      * Sets the {@code Email} of the {@code Property} that we are building.
      */
     public PropertyBuilder withEmail(String email) {
-        this.email = new Email(email);
+        sellerBuilder.withEmail(email);
         return this;
     }
 
@@ -103,7 +94,7 @@ public class PropertyBuilder {
      * Sets the {@code Seller} of the {@code Property} that we are building.
      */
     public PropertyBuilder withSeller(String seller) {
-        this.seller = new Seller(seller);
+        sellerBuilder.withName(seller);
         return this;
     }
 
@@ -116,7 +107,7 @@ public class PropertyBuilder {
     }
 
     public Property build() {
-        return new Property(name, phone, email, address, tags, seller, price);
+        return new Property(name, address, sellerBuilder.build(), price, tags);
     }
 
 }
