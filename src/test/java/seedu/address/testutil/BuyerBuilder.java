@@ -33,19 +33,29 @@ public class BuyerBuilder extends PersonBuilder {
         max = buyerToCopy.getPrice();
     }
 
+    @Override
+    public BuyerBuilder withName(String name) {
+        super.withName(name);
+        return this;
+    }
+
+    @Override
+    public BuyerBuilder withPhone(String phone) {
+        super.withPhone(phone);
+        return this;
+    }
+
+    @Override
+    public BuyerBuilder withEmail(String email) {
+        super.withEmail(email);
+        return this;
+    }
+
     /**
      * Sets the maximum {@code Price} of the {@code Buyer} that we are building.
      */
     public BuyerBuilder withPrice(String max) {
         this.max = new Price(max);
-        return this;
-    }
-
-    /**
-     * Sets the {@code Person} of the {@code Buyer} that we are building.
-     */
-    public BuyerBuilder withPerson(Person person) {
-        super.withName(person.getName().toString());
         return this;
     }
 

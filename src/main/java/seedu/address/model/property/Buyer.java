@@ -52,8 +52,9 @@ public class Buyer extends Person {
     }
 
     /**
-     * Returns true if both properties have the same identity and data fields.
-     * This defines a stronger notion of equality between two properties.
+     * Returns true if both buyers have the same identity, data fields, and
+     * maximum price. This defines a stronger notion of equality between
+     * two properties.
      */
     @Override
     public boolean equals(Object other) {
@@ -66,7 +67,7 @@ public class Buyer extends Person {
         }
 
         Buyer otherBuyer = (Buyer) other;
-        return otherBuyer.equals(this)
+        return super.equals(otherBuyer)
                 && otherBuyer.getPrice().equals(getPrice());
     }
 
