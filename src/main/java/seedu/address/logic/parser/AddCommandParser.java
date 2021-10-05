@@ -16,11 +16,11 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.field.Email;
 import seedu.address.model.field.Name;
+import seedu.address.model.field.Person;
 import seedu.address.model.field.Phone;
 import seedu.address.model.field.Price;
 import seedu.address.model.property.Address;
 import seedu.address.model.property.Property;
-import seedu.address.model.property.Seller;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -45,14 +45,14 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Seller seller = ParserUtil.parseSeller(argMultimap.getValue(PREFIX_SELLER).get());
-        Price price = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_PRICE).get());
+        Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
+        Name sellerName = ParserUtil.parseName(argMultimap.getValue(PREFIX_SELLER).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-        Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
+        Price price = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_PRICE).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Property property = new Property(name, phone, email, address, tagList, seller, price);
+        Property property = new Property(name, address, new Person(sellerName, phone, email), price, tagList);
 
         return new AddCommand(property);
     }

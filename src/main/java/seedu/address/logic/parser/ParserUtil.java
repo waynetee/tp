@@ -53,21 +53,6 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String seller} into a {@code Seller}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code seller} is invalid.
-     */
-    public static Seller parseSeller(String seller) throws ParseException {
-        requireNonNull(seller);
-        String trimmedSeller = seller.trim();
-        if (!Seller.isValidSeller(trimmedSeller)) {
-            throw new ParseException(Seller.MESSAGE_CONSTRAINTS);
-        }
-        return new Seller(trimmedSeller);
-    }
-
-    /**
      * Parses a {@code String price} into a {@code Price}.
      * Leading and trailing whitespaces will be trimmed.
      *
