@@ -61,8 +61,8 @@ public class Property implements Listable {
     }
 
     /**
-     * Returns true if both item is a Property and has the same name.
-     * Used by the UniqueList to identify unique Properties as a Listable.
+     * Returns true if the {@code Listable} item is a {@code Property} and has the same name.
+     * Used by the UniqueList to identify unique properties as a Listable.
      */
     @Override
     public boolean isSameListable(Listable item) {

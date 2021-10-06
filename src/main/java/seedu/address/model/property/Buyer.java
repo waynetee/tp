@@ -11,7 +11,7 @@ import seedu.address.model.field.Person;
 import seedu.address.model.field.Phone;
 import seedu.address.model.field.Price;
 
-public class Buyer extends Person {
+public class Buyer extends Person implements Listable {
 
     private final Price maxPrice;
     // TODO: add Set<Tags> tags
@@ -49,6 +49,18 @@ public class Buyer extends Person {
 
         return otherBuyer != null
                 && super.isSamePerson(otherBuyer);
+    }
+
+    /**
+     * Returns true if the {@code Listable} item is a {@code Buyer} and has the same name.
+     * Used by the UniqueList to identify unique buyers as a Listable.
+     */
+    @Override
+    public boolean isSameListable(Listable item) {
+        if (!(item instanceof Buyer)) {
+            return false;
+        }
+        return isSameBuyer((Buyer) item);
     }
 
     /**
