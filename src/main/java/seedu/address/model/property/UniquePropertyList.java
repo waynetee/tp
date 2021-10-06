@@ -2,6 +2,10 @@ package seedu.address.model.property;
 
 import java.util.List;
 
+import seedu.address.model.property.exceptions.DuplicateListableException;
+import seedu.address.model.property.exceptions.DuplicatePropertyException;
+
+
 /**
  * A list of properties that enforces uniqueness between its elements and does not allow nulls.
  * A property is considered unique by comparing using {@code Property#isSameProperty(Property)}.
@@ -17,14 +21,26 @@ import java.util.List;
 public class UniquePropertyList extends UniqueList<Property> {
 
     public void setProperties(List<Property> properties) {
-        super.setListables(properties);
+        try {
+            super.setListables(properties);
+        } catch (DuplicateListableException e) {
+            throw new DuplicatePropertyException();
+        }
     }
 
     public void setProperties(UniquePropertyList replacement) {
-        super.setListables(replacement);
+        try {
+            super.setListables(replacement);
+        } catch (DuplicateListableException e) {
+            throw new DuplicatePropertyException();
+        }
     }
 
     public void setProperty(Property target, Property editedProperty) {
-        super.setListable(target, editedProperty);
+        try {
+            super.setListable(target, editedProperty);
+        } catch (DuplicateListableException e) {
+            throw new DuplicatePropertyException();
+        }
     }
 }
