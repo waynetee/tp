@@ -23,7 +23,7 @@ public class BuyerTest {
         assertFalse(B_ALICE.isSameBuyer(null));
 
         // different price, all other attributes same -> returns true
-        Buyer editedAlice = new BuyerBuilder(B_ALICE).withPrice("100").build();
+        Buyer editedAlice = new BuyerBuilder(B_ALICE).withMaxPrice("100").build();
         assertTrue(B_ALICE.isSameBuyer(editedAlice));
 
         // different name, all other attributes same -> returns false

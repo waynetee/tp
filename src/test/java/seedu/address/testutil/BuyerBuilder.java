@@ -8,13 +8,13 @@ public class BuyerBuilder extends PersonBuilder {
 
     public static final String DEFAULT_PRICE = "1230000";
 
-    private Price max;
+    private Price maxPrice;
     /**
      * Creates a {@code PersonBuilder} with the default details.
      */
     public BuyerBuilder() {
         super();
-        max = new Price(DEFAULT_PRICE);
+        maxPrice = new Price(DEFAULT_PRICE);
     }
 
     /**
@@ -22,7 +22,7 @@ public class BuyerBuilder extends PersonBuilder {
      */
     public BuyerBuilder(Person personToCopy) {
         super(personToCopy);
-        max = new Price(DEFAULT_PRICE);
+        maxPrice = new Price(DEFAULT_PRICE);
     }
 
     /**
@@ -30,7 +30,7 @@ public class BuyerBuilder extends PersonBuilder {
      */
     public BuyerBuilder(Buyer buyerToCopy) {
         super(buyerToCopy);
-        max = buyerToCopy.getMaxPrice();
+        maxPrice = buyerToCopy.getMaxPrice();
     }
 
     @Override
@@ -54,14 +54,14 @@ public class BuyerBuilder extends PersonBuilder {
     /**
      * Sets the maximum {@code Price} of the {@code Buyer} that we are building.
      */
-    public BuyerBuilder withPrice(String max) {
-        this.max = new Price(max);
+    public BuyerBuilder withMaxPrice(String max) {
+        this.maxPrice = new Price(max);
         return this;
     }
 
     @Override
     public Buyer build() {
-        return new Buyer(super.build(), max);
+        return new Buyer(super.build(), maxPrice);
     }
 
 }
