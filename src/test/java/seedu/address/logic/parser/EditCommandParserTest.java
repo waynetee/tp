@@ -30,6 +30,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SELLER_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -52,6 +54,12 @@ import seedu.address.testutil.EditPropertyDescriptorBuilder;
 public class EditCommandParserTest {
 
     private static final String TAG_EMPTY = " " + PREFIX_TAG;
+    private static final String T_CONDO = "condo";
+    private static final String T_NEAR_SCHOOL = "near school";
+    private static final String TAG_ADD_CONDO = " " + PREFIX_ADD_TAG + T_CONDO;
+    private static final String TAG_ADD_NEAR_SCHOOL = " " + PREFIX_ADD_TAG + T_NEAR_SCHOOL;
+    private static final String TAG_DELETE_CONDO = " " + PREFIX_DELETE_TAG + T_CONDO;
+    private static final String TAG_DELETE_NEAR_SCHOOL = " " + PREFIX_DELETE_TAG + T_NEAR_SCHOOL;
 
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
@@ -231,5 +239,33 @@ public class EditCommandParserTest {
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
+    }
+
+    @Test
+    public void parse_addAndDeleteTags_success() {
+        Index targetIndex = INDEX_THIRD_PROPERTY;
+        String userInput = targetIndex.getOneBased() + TAG_ADD_CONDO + TAG_DELETE_NEAR_SCHOOL;
+
+        EditCommand.EditPropertyDescriptor descriptor = new EditPropertyDescriptorBuilder()
+                .withTagsToAdd(T_CONDO).withTagsToDelete(T_NEAR_SCHOOL).build();
+        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+
+        assertParseSuccess(parser, userInput, expectedCommand);
+    }
+
+    @Test
+    public void parse_addAndDeleteSameTag_failure() {
+        Index targetIndex = INDEX_THIRD_PROPERTY;
+        String userInput = targetIndex.getOneBased() + TAG_ADD_CONDO + TAG_DELETE_CONDO;
+
+        assertParseFailure(parser, userInput, EditCommand.MESSAGE_DUPLICATE_ADD_AND_DELETE_TAG);
+    }
+
+    @Test
+    public void parse_resetAndModifyTagsSimultaneously_failure() {
+        Index targetIndex = INDEX_THIRD_PROPERTY;
+        String userInput = targetIndex.getOneBased() + TAG_EMPTY + TAG_DELETE_CONDO;
+
+        assertParseFailure(parser, userInput, EditCommand.MESSAGE_RESET_TAG_TOGETHER_WITH_MODIFY_TAG);
     }
 }

@@ -32,7 +32,7 @@ public class TypicalProperties {
             .withPrice("654321")
             .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
             .withPhone("94351253")
-            .withTags("HDB").build();
+            .withTags("HDB", "condo").build();
     public static final Property P_BENSON = new PropertyBuilder().withName("Mayflower")
             .withSeller("Benson Meier")
             .withPrice("654321")

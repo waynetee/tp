@@ -118,11 +118,11 @@ public class ModelManagerTest {
 
         // different filteredList -> returns false
         String[] keywords = P_ALICE.getName().fullName.split("\\s+");
-        modelManager.updateFiltedPropertyList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+        modelManager.updateFilteredPropertyList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFiltedPropertyList(PREDICATE_SHOW_ALL_PROPERTIES);
+        modelManager.updateFilteredPropertyList(PREDICATE_SHOW_ALL_PROPERTIES);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();

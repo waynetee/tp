@@ -84,5 +84,5 @@ public interface Model {
      * Updates the filter of the filtered property list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFiltedPropertyList(Predicate<Property> predicate);
+    void updateFilteredPropertyList(Predicate<Property> predicate);
 }
