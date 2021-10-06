@@ -10,3 +10,6 @@ find dee
 edit 1 n/new name
 edit 2 n/Olive Gardens a/Blk 11 Ang Mo Kio Street 74, #11-04 $/6457654 s/Charlotte Oliveiro p/93210283 e/charlotte@example.com t/Condo
 delete 3
+edit 1 ta/condo1 ta/condo2 ta/condo3 ta/condo4
+edit 1 td/condo2 td/condo3
+find t/condo1 t/condo4

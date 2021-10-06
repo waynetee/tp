@@ -1,5 +1,6 @@
 package seedu.address.model.field;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -12,6 +13,10 @@ import seedu.address.model.property.Property;
  */
 public class NameContainsKeywordsPredicate implements Predicate<Property> {
     private final List<String> keywords;
+
+    public NameContainsKeywordsPredicate() {
+        this.keywords = Collections.emptyList();
+    }
 
     public NameContainsKeywordsPredicate(List<String> keywords) {
         this.keywords = keywords;

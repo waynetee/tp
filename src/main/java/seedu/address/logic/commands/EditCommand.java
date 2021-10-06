@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import javafx.util.Pair;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
@@ -42,7 +43,8 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the property identified "
             + "by the index number used in the displayed property list. "
-            + "Existing values will be overwritten by the input values, with the exception of adding tags. "
+            + "Existing values will be overwritten by the input values,\n"
+            + "with the exception of adding tags. "
             + "Added tags will be appended to the current tags. \n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
@@ -76,9 +78,6 @@ public class EditCommand extends Command {
     private final Index index;
     private final EditPropertyDescriptor editPropertyDescriptor;
 
-    private String messageEditPropertyTags = "";
-
-
 
     /**
      * @param index of the property in the filtered property list to edit
@@ -102,7 +101,10 @@ public class EditCommand extends Command {
         }
 
         Property propertyToEdit = lastShownList.get(index.getZeroBased());
-        Property editedProperty = createdEditedProperty(propertyToEdit, editPropertyDescriptor);
+        Pair<Set<Tag>, String> tagInfo = getTags(propertyToEdit, editPropertyDescriptor);
+        Set<Tag> editTags = tagInfo.getKey();
+        Property editedProperty = createdEditedProperty(propertyToEdit, editPropertyDescriptor, editTags);
+
 
         if (!propertyToEdit.isSameProperty(editedProperty) && model.hasProperty(editedProperty)) {
             throw new CommandException(MESSAGE_DUPLICATE_PROPERTY);
@@ -110,13 +112,10 @@ public class EditCommand extends Command {
 
         model.setProperty(propertyToEdit, editedProperty);
         model.updateFilteredPropertyList(PREDICATE_SHOW_ALL_PROPERTIES);
-        String resultString = String.format(getCommandResultMessage(),
-                editedProperty);
+        String editTagDescription = tagInfo.getValue();
+        String resultString = StringUtil.joinLines(String.format(MESSAGE_EDIT_PROPERTY_SUCCESS, editedProperty),
+                editTagDescription);
         return new CommandResult(resultString);
-    }
-
-    public String getCommandResultMessage() {
-        return StringUtil.joinNonEmptyStrings(MESSAGE_EDIT_PROPERTY_SUCCESS, messageEditPropertyTags);
     }
 
     /**
@@ -124,7 +123,7 @@ public class EditCommand extends Command {
      * edited with {@code editPropertyDescriptor}.
      */
     private Property createdEditedProperty(Property propertyToEdit, EditPropertyDescriptor
-            editPropertyDescriptor) {
+            editPropertyDescriptor, Set<Tag> editedTags) {
         assert propertyToEdit != null;
 
         Name updatedName = editPropertyDescriptor.getPropertyName().orElse(propertyToEdit.getName());
@@ -136,6 +135,12 @@ public class EditCommand extends Command {
                 .orElse(propertyToEdit.getSeller().getEmail());
         Person updatedSeller = new Person(updatedSellerName, updatedSellerPhone, updatedSellerEmail);
         Price updatedPrice = editPropertyDescriptor.getPrice().orElse(propertyToEdit.getPrice());
+
+        return new Property(updatedName, updatedAddress, updatedSeller, updatedPrice, editedTags);
+    }
+
+    private Pair<Set<Tag>, String> getTags(Property propertyToEdit, EditPropertyDescriptor editPropertyDescriptor) {
+        String messageEditPropertyTags = "";
         Set<Tag> originalTags = editPropertyDescriptor.getTags().orElse(propertyToEdit.getTags());
         Set<Tag> tagsToAdd = editPropertyDescriptor.getTagsToAdd().orElse(Collections.emptySet());
         Set<Tag> tagsToDelete = editPropertyDescriptor.getTagsToDelete().orElse(Collections.emptySet());
@@ -165,8 +170,7 @@ public class EditCommand extends Command {
         mergedSet.addAll(tagsToAdd);
 
         Set<Tag> editedTags = Collections.unmodifiableSet(mergedSet);
-
-        return new Property(updatedName, updatedAddress, updatedSeller, updatedPrice, editedTags);
+        return new Pair<>(editedTags, messageEditPropertyTags);
     }
 
     @Override
@@ -232,7 +236,7 @@ public class EditCommand extends Command {
          * Returns true if tags are reset and tags are modified by addition or deletion.
          */
         public boolean isTagsBothResetAndModified() {
-            return CollectionUtil.isAnyNonNull(tags) && (CollectionUtil.isAnyNonNull(tagsToAdd, tagsToDelete));
+            return tags != null && (CollectionUtil.isAnyNonNull(tagsToAdd, tagsToDelete));
         }
 
         /**

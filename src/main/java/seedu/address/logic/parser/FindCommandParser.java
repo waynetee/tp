@@ -28,7 +28,7 @@ public class FindCommandParser implements Parser<FindCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public FindCommand parse(String args) throws ParseException {
-        if (args.trim().isEmpty()) {
+        if (args.isBlank()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
@@ -46,8 +46,6 @@ public class FindCommandParser implements Parser<FindCommand> {
 
     /**
      * Parses {@code Collection<String> tags} into a {@code Set<Tag>} if {@code tags} is non-empty.
-     * If {@code tags} contain only one element which is an empty string, it will be parsed into a
-     * {@code Set<Tag>} containing zero tags.
      */
     private Set<Tag> parseTags(Collection<String> tags) throws ParseException {
         assert tags != null;
@@ -55,8 +53,7 @@ public class FindCommandParser implements Parser<FindCommand> {
         if (tags.isEmpty()) {
             return Collections.emptySet();
         }
-        Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
-        return ParserUtil.parseTags(tagSet);
+        return ParserUtil.parseTags(tags);
     }
 
 }

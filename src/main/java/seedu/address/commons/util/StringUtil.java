@@ -68,12 +68,12 @@ public class StringUtil {
 
     /**
      * Filters nonempty strings from the given strings and concatenates them with newline.
-     * @param strings Strings to be joined.
+     * @param lines Lines to be joined.
      * @return Concatenated string.
      */
-    public static String joinNonEmptyStrings(String ...strings) {
+    public static String joinLines(String ...lines) {
         StringBuilder builder = new StringBuilder();
-        for (String s : strings) {
+        for (String s : lines) {
             if (s.length() > 0) {
                 builder.append(s.trim());
                 builder.append("\n");

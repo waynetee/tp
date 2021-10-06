@@ -36,6 +36,11 @@ public class FindCommand extends Command {
     private final NameContainsKeywordsPredicate namePredicate;
     private final ContainsTagsPredicate tagsPredicate;
 
+    /**
+     * Creates a FindCommand with only a name predicate.
+     *
+     * @param namePredicate Property predicate checking for name match.
+     */
     public FindCommand(NameContainsKeywordsPredicate namePredicate) {
         this(namePredicate, new ContainsTagsPredicate());
     }

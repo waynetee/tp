@@ -103,6 +103,26 @@ public class EditPropertyDescriptorBuilder {
         return this;
     }
 
+    /**
+     * Parses the {@code tagsToAdd} into a {@code Set<Tag>} and set it to the {@code EditPropertyDescriptor}
+     * that we are building.
+     */
+    public EditPropertyDescriptorBuilder withTagsToAdd(String... tagsToAdd) {
+        Set<Tag> tagSet = Stream.of(tagsToAdd).map(Tag::new).collect(Collectors.toSet());
+        descriptor.setTagsToAdd(tagSet);
+        return this;
+    }
+
+    /**
+     * Parses the {@code tagsToDelete} into a {@code Set<Tag>} and set it to the {@code EditPropertyDescriptor}
+     * that we are building.
+     */
+    public EditPropertyDescriptorBuilder withTagsToDelete(String... tagsToDelete) {
+        Set<Tag> tagSet = Stream.of(tagsToDelete).map(Tag::new).collect(Collectors.toSet());
+        descriptor.setTagsToDelete(tagSet);
+        return this;
+    }
+
     public EditCommand.EditPropertyDescriptor build() {
         return descriptor;
     }

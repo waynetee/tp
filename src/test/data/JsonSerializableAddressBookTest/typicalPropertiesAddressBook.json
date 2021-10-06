@@ -9,7 +9,7 @@
       "email" : "alice@example.com"
     },
     "price" : "654321",
-    "tagged" : [ "HDB" ]
+    "tagged" : [ "HDB", "condo" ]
   }, {
     "name" : "Mayflower",
     "address" : "311, Clementi Ave 2, #02-25",
