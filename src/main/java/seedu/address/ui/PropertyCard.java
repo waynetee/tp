@@ -54,10 +54,10 @@ public class PropertyCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(property.getName().fullName);
         price.setText('$' + property.getPrice().toString());
-        seller.setText(property.getSeller().fullName);
-        phone.setText(property.getPhone().value);
+        seller.setText(property.getSeller().getName().fullName);
+        phone.setText(property.getSeller().getPhone().value);
         address.setText(property.getAddress().value);
-        email.setText(property.getEmail().value);
+        email.setText(property.getSeller().getEmail().value);
         property.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

@@ -23,11 +23,11 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.field.Email;
 import seedu.address.model.field.Name;
+import seedu.address.model.field.Person;
 import seedu.address.model.field.Phone;
 import seedu.address.model.field.Price;
 import seedu.address.model.property.Address;
 import seedu.address.model.property.Property;
-import seedu.address.model.property.Seller;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -100,16 +100,18 @@ public class EditCommand extends Command {
             editPropertyDescriptor) {
         assert propertyToEdit != null;
 
-        Name updatedName = editPropertyDescriptor.getName().orElse(propertyToEdit.getName());
-        Seller updatedSeller = editPropertyDescriptor.getSeller().orElse(propertyToEdit.getSeller());
-        Price updatedPrice = editPropertyDescriptor.getPrice().orElse(propertyToEdit.getPrice());
-        Phone updatedPhone = editPropertyDescriptor.getPhone().orElse(propertyToEdit.getPhone());
-        Email updatedEmail = editPropertyDescriptor.getEmail().orElse(propertyToEdit.getEmail());
+        Name updatedName = editPropertyDescriptor.getPropertyName().orElse(propertyToEdit.getName());
         Address updatedAddress = editPropertyDescriptor.getAddress().orElse(propertyToEdit.getAddress());
+        Name updatedSellerName = editPropertyDescriptor.getSellerName().orElse(propertyToEdit.getSeller().getName());
+        Phone updatedSellerPhone = editPropertyDescriptor.getSellerPhone()
+                .orElse(propertyToEdit.getSeller().getPhone());
+        Email updatedSellerEmail = editPropertyDescriptor.getSellerEmail()
+                .orElse(propertyToEdit.getSeller().getEmail());
+        Person updatedSeller = new Person(updatedSellerName, updatedSellerPhone, updatedSellerEmail);
+        Price updatedPrice = editPropertyDescriptor.getPrice().orElse(propertyToEdit.getPrice());
         Set<Tag> updatedTags = editPropertyDescriptor.getTags().orElse(propertyToEdit.getTags());
 
-        return new Property(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags,
-                updatedSeller, updatedPrice);
+        return new Property(updatedName, updatedAddress, updatedSeller, updatedPrice, updatedTags);
     }
 
     @Override
@@ -135,12 +137,12 @@ public class EditCommand extends Command {
      * corresponding field value of the property.
      */
     public static class EditPropertyDescriptor {
-        private Name name;
-        private Seller seller;
+        private Name propertyName;
         private Address address;
+        private Name sellerName;
+        private Phone sellerPhone;
+        private Email sellerEmail;
         private Price price;
-        private Phone phone;
-        private Email email;
         private Set<Tag> tags;
 
         public EditPropertyDescriptor() {}
@@ -150,12 +152,12 @@ public class EditCommand extends Command {
          * A defensive copy of {@code tags} is used internally.
          */
         public EditPropertyDescriptor(EditPropertyDescriptor toCopy) {
-            setName(toCopy.name);
-            setSeller(toCopy.seller);
+            setPropertyName(toCopy.propertyName);
             setAddress(toCopy.address);
+            setSellerName(toCopy.sellerName);
+            setSellerPhone(toCopy.sellerPhone);
+            setSellerEmail(toCopy.sellerEmail);
             setPrice(toCopy.price);
-            setPhone(toCopy.phone);
-            setEmail(toCopy.email);
             setTags(toCopy.tags);
         }
 
@@ -163,31 +165,16 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags, seller, price);
+            return CollectionUtil.isAnyNonNull(propertyName, sellerPhone, sellerEmail,
+                    address, tags, sellerName, price);
         }
 
-        public void setName(Name name) {
-            this.name = name;
+        public void setPropertyName(Name propertyName) {
+            this.propertyName = propertyName;
         }
 
-        public Optional<Name> getName() {
-            return Optional.ofNullable(name);
-        }
-
-        public void setPhone(Phone phone) {
-            this.phone = phone;
-        }
-
-        public Optional<Phone> getPhone() {
-            return Optional.ofNullable(phone);
-        }
-
-        public void setEmail(Email email) {
-            this.email = email;
-        }
-
-        public Optional<Email> getEmail() {
-            return Optional.ofNullable(email);
+        public Optional<Name> getPropertyName() {
+            return Optional.ofNullable(propertyName);
         }
 
         public void setAddress(Address address) {
@@ -196,6 +183,38 @@ public class EditCommand extends Command {
 
         public Optional<Address> getAddress() {
             return Optional.ofNullable(address);
+        }
+
+        public void setSellerName(Name sellerName) {
+            this.sellerName = sellerName;
+        }
+
+        public Optional<Name> getSellerName() {
+            return Optional.ofNullable(sellerName);
+        }
+
+        public void setSellerPhone(Phone sellerPhone) {
+            this.sellerPhone = sellerPhone;
+        }
+
+        public Optional<Phone> getSellerPhone() {
+            return Optional.ofNullable(sellerPhone);
+        }
+
+        public void setSellerEmail(Email sellerEmail) {
+            this.sellerEmail = sellerEmail;
+        }
+
+        public Optional<Email> getSellerEmail() {
+            return Optional.ofNullable(sellerEmail);
+        }
+
+        public void setPrice(Price price) {
+            this.price = price;
+        }
+
+        public Optional<Price> getPrice() {
+            return Optional.ofNullable(price);
         }
 
         /**
@@ -215,22 +234,6 @@ public class EditCommand extends Command {
             return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
         }
 
-        public void setSeller(Seller seller) {
-            this.seller = seller;
-        }
-
-        public Optional<Seller> getSeller() {
-            return Optional.ofNullable(seller);
-        }
-
-        public void setPrice(Price price) {
-            this.price = price;
-        }
-
-        public Optional<Price> getPrice() {
-            return Optional.ofNullable(price);
-        }
-
         @Override
         public boolean equals(Object other) {
             // short circuit if same object
@@ -246,11 +249,11 @@ public class EditCommand extends Command {
             // state check
             EditPropertyDescriptor e = (EditPropertyDescriptor) other;
 
-            return getName().equals(e.getName())
-                    && getSeller().equals(e.getSeller())
-                    && getPhone().equals(e.getPhone())
-                    && getEmail().equals(e.getEmail())
+            return getPropertyName().equals(e.getPropertyName())
                     && getAddress().equals(e.getAddress())
+                    && getSellerName().equals(e.getSellerName())
+                    && getSellerPhone().equals(e.getSellerPhone())
+                    && getSellerEmail().equals(e.getSellerEmail())
                     && getPrice().equals(e.getPrice())
                     && getTags().equals(e.getTags());
         }

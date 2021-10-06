@@ -10,7 +10,7 @@ import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PRICE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.SELLER_DESC_AMY;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalProperties.AMY;
+import static seedu.address.testutil.TypicalProperties.P_AMY;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -83,7 +83,7 @@ public class LogicManagerTest {
         // Execute add command
         String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
                 + ADDRESS_DESC_AMY + SELLER_DESC_AMY + PRICE_DESC_AMY;
-        Property expectedProperty = new PropertyBuilder(AMY).withTags().build();
+        Property expectedProperty = new PropertyBuilder(P_AMY).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addProperty(expectedProperty);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;

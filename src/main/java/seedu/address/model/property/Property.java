@@ -7,9 +7,8 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.address.model.field.Email;
 import seedu.address.model.field.Name;
-import seedu.address.model.field.Phone;
+import seedu.address.model.field.Person;
 import seedu.address.model.field.Price;
 import seedu.address.model.tag.Tag;
 
@@ -19,45 +18,34 @@ import seedu.address.model.tag.Tag;
  */
 public class Property implements Listable {
 
-    // Identity fields
     private final Name name;
-    private final Phone phone;
-    private final Email email;
-    private final Seller seller;
-
-    // Data fields
     private final Address address;
+    private final Person seller;
     private final Price price;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Property(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Seller seller, Price min) {
-        requireAllNonNull(name, phone, email, address, tags, seller);
+    public Property(Name name, Address address, Person seller, Price min, Set<Tag> tags) {
+        requireAllNonNull(name, address, seller, min, tags);
         this.name = name;
-        this.phone = phone;
-        this.email = email;
         this.address = address;
-        this.tags.addAll(tags);
         this.seller = seller;
         this.price = min;
+        this.tags.addAll(tags);
     }
 
     public Name getName() {
         return name;
     }
 
-    public Phone getPhone() {
-        return phone;
-    }
-
-    public Email getEmail() {
-        return email;
-    }
-
     public Address getAddress() {
         return address;
+    }
+
+    public Person getSeller() {
+        return seller;
     }
 
     /**
@@ -66,10 +54,6 @@ public class Property implements Listable {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
-    }
-
-    public Seller getSeller() {
-        return seller;
     }
 
     public Price getPrice() {
@@ -117,10 +101,8 @@ public class Property implements Listable {
 
         Property otherProperty = (Property) other;
         return otherProperty.getName().equals(getName())
-                && otherProperty.getPhone().equals(getPhone())
-                && otherProperty.getSeller().equals(getSeller())
-                && otherProperty.getEmail().equals(getEmail())
                 && otherProperty.getAddress().equals(getAddress())
+                && otherProperty.getSeller().equals(getSeller())
                 && otherProperty.getPrice().equals(getPrice())
                 && otherProperty.getTags().equals(getTags());
     }
@@ -128,7 +110,7 @@ public class Property implements Listable {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags, seller, price);
+        return Objects.hash(name, address, seller, price, tags);
     }
 
     @Override
@@ -140,11 +122,7 @@ public class Property implements Listable {
                 .append("; Seller: ")
                 .append(getSeller())
                 .append("; Price: ")
-                .append(getPrice())
-                .append("; Phone: ")
-                .append(getPhone())
-                .append("; Email: ")
-                .append(getEmail());
+                .append(getPrice());
 
         Set<Tag> tags = getTags();
         if (!tags.isEmpty()) {
