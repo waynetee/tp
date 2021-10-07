@@ -54,8 +54,8 @@ public class BuyerBuilder extends PersonBuilder {
     /**
      * Sets the maximum {@code Price} of the {@code Buyer} that we are building.
      */
-    public BuyerBuilder withMaxPrice(String max) {
-        this.maxPrice = new Price(max);
+    public BuyerBuilder withMaxPrice(String maxPrice) {
+        this.maxPrice = new Price(maxPrice);
         return this;
     }
 
