@@ -20,7 +20,7 @@ import seedu.address.model.field.Email;
 import seedu.address.model.field.Name;
 import seedu.address.model.field.Phone;
 import seedu.address.model.field.Price;
-import seedu.address.model.property.Property;
+import seedu.address.model.property.Buyer;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -45,22 +45,22 @@ public class EditBuyerCommand extends EditCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Property> lastShownList = model.getFilteredPropertyList();
+        List<Buyer> lastShownList = model.getFilteredBuyerList();
         // TODO: Buyer edit
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PROPERTY_DISPLAYED_INDEX);
         }
 
-        Property propertyToEdit = lastShownList.get(index.getZeroBased());
-        Property editedProperty = createdEditedProperty(propertyToEdit, editPropertyDescriptor);
+        Buyer buyerToEdit = lastShownList.get(index.getZeroBased());
+        Buyer editedBuyer = createdEditedBuyer(buyerToEdit, editBuyerDescriptor);
 
-        if (!propertyToEdit.isSameProperty(editedProperty) && model.hasProperty(editedProperty)) {
+        if (!buyerToEdit.isSameBuyer(editedProperty) && model.hasBuyer(editedBuyer)) {
             throw new CommandException(MESSAGE_DUPLICATE_BUYER);
         }
 
-        model.setProperty(propertyToEdit, editedProperty);
-        model.updateFiltedPropertyList(PREDICATE_SHOW_ALL_PROPERTIES);
-        return new CommandResult(String.format(MESSAGE_EDIT_PROPERTY_SUCCESS, editedProperty));
+        model.setProperty(buyerToEdit, editedProperty);
+        model.updateFiltedBuyerList(PREDICATE_SHOW_ALL_PROPERTIES);
+        return new CommandResult(String.format(MESSAGE_EDIT_PROPERTY_SUCCESS, editedBuyer));
     }
 
     /**

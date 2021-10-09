@@ -6,6 +6,7 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.property.Buyer;
 
 public class AddBuyerCommand extends AddCommand {
     public static final String MESSAGE_SUCCESS = "New buyer added: %1$s";
