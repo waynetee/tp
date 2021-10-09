@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.property.Buyer;
 import seedu.address.model.property.Property;
 
 /**
@@ -14,4 +15,9 @@ public interface ReadOnlyAddressBook {
      */
     ObservableList<Property> getPropertyList();
 
+    /**
+     * Returns an unmodifiable view of the buyers list.
+     * This list will not contain any duplicate buyers.
+     */
+    ObservableList<Buyer> getBuyerList();
 }

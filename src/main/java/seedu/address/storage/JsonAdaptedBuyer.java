@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.field.Person;
 import seedu.address.model.field.Price;
+import seedu.address.model.property.Buyer;
 
 /**
  * Jackson-friendly version of {@link Buyer}.
@@ -17,7 +18,7 @@ class JsonAdaptedBuyer extends JsonAdaptedPerson {
     private final String maxPrice;
 
     /**
-     * Constructs a {@code JsonAdaptedBuyer} with the given person details.
+     * Constructs a {@code JsonAdaptedBuyer} with the given buyer details.
      */
     @JsonCreator
     public JsonAdaptedBuyer(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
@@ -31,14 +32,13 @@ class JsonAdaptedBuyer extends JsonAdaptedPerson {
      */
     public JsonAdaptedBuyer(Buyer source) {
         super(source);
-        this.maxPrice = source.getMaxPrice().value;
+        this.maxPrice = source.getMaxPrice().value.toString();
     }
 
     /**
-     * TODO
-     * Converts this Jackson-friendly adapted person object into the model's {@code Person} object.
+     * Converts this Jackson-friendly adapted buyer object into the model's {@code Buyer} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted buyer.
      */
     public Buyer toModelType() throws IllegalValueException {
         Person modelPerson = super.toModelType();
@@ -50,7 +50,6 @@ class JsonAdaptedBuyer extends JsonAdaptedPerson {
             throw new IllegalValueException(Price.MESSAGE_CONSTRAINTS);
         }
         final Price modelPrice = new Price(maxPrice);
-
         return new Buyer(modelPerson, modelPrice);
     }
 

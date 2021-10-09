@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.property.Buyer;
 import seedu.address.model.property.Property;
 
 /**
@@ -20,6 +21,7 @@ import seedu.address.model.property.Property;
 class JsonSerializableAddressBook {
 
     public static final String MESSAGE_DUPLICATE_PROPERTY = "Property list contains duplicate property(s).";
+    public static final String MESSAGE_DUPLICATE_BUYER = "Buyer list contains duplicate buyer(s).";
 
     private final List<JsonAdaptedProperty> properties = new ArrayList<>();
     private final List<JsonAdaptedBuyer> buyers = new ArrayList<>();
@@ -41,6 +43,7 @@ class JsonSerializableAddressBook {
      */
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
         properties.addAll(source.getPropertyList().stream().map(JsonAdaptedProperty::new).collect(Collectors.toList()));
+        buyers.addAll(source.getBuyerList().stream().map(JsonAdaptedBuyer::new).collect(Collectors.toList()));
     }
 
     /**
@@ -58,10 +61,13 @@ class JsonSerializableAddressBook {
             addressBook.addProperty(property);
         }
 
-        // TODO: Buyer list
+        // TODO: hasBuyer, addBuyer method missing
         for (JsonAdaptedBuyer jsonAdaptedBuyer : buyers) {
             Buyer buyer = jsonAdaptedBuyer.toModelType();
-            // add buyer to buyerlist
+            if (addressBook.hasBuyer(buyer)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_BUYER);
+            }
+            addressBook.addBuyer(buyer);
         }
         return addressBook;
     }
