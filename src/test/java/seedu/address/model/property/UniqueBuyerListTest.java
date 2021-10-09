@@ -1,22 +1,21 @@
 package seedu.address.model.property;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.model.property.exceptions.DuplicateBuyerException;
-import seedu.address.model.property.exceptions.BuyerNotFoundException;
-import seedu.address.testutil.BuyerBuilder;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalBuyers.B_ALICE;
+import static seedu.address.testutil.TypicalBuyers.B_BOB;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalBuyers.B_ALICE;
-import static seedu.address.testutil.TypicalBuyers.B_BOB;
+import org.junit.jupiter.api.Test;
+
+import seedu.address.model.property.exceptions.BuyerNotFoundException;
+import seedu.address.model.property.exceptions.DuplicateBuyerException;
+import seedu.address.testutil.BuyerBuilder;
 
 public class UniqueBuyerListTest {
 

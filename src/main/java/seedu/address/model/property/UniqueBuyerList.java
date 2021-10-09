@@ -1,11 +1,12 @@
 package seedu.address.model.property;
 
+import java.util.List;
+
 import seedu.address.model.property.exceptions.BuyerNotFoundException;
 import seedu.address.model.property.exceptions.DuplicateBuyerException;
 import seedu.address.model.property.exceptions.DuplicateListableException;
 import seedu.address.model.property.exceptions.ListableNotFoundException;
 
-import java.util.List;
 
 /**
  * A list of buyers that enforces uniqueness between its elements and does not allow nulls.
