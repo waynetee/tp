@@ -18,7 +18,8 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EditCommand.EditPropertyDescriptor;
+import seedu.address.logic.commands.property.EditPropertyCommand;
+import seedu.address.logic.commands.property.EditPropertyCommand.EditPropertyDescriptor;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -38,7 +39,7 @@ public class EditCommandTest {
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Property editedProperty = new PropertyBuilder().build();
         EditPropertyDescriptor descriptor = new EditPropertyDescriptorBuilder(editedProperty).build();
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PROPERTY, descriptor);
+        EditPropertyCommand editCommand = new EditPropertyCommand(INDEX_FIRST_PROPERTY, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PROPERTY_SUCCESS, editedProperty);
 
@@ -58,7 +59,7 @@ public class EditCommandTest {
 
         EditPropertyDescriptor descriptor = new EditPropertyDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();
-        EditCommand editCommand = new EditCommand(indexLastProperty, descriptor);
+        EditPropertyCommand editCommand = new EditPropertyCommand(indexLastProperty, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PROPERTY_SUCCESS, editedProperty);
 
@@ -70,7 +71,8 @@ public class EditCommandTest {
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PROPERTY, new EditCommand.EditPropertyDescriptor());
+        EditCommand editCommand = new EditPropertyCommand(INDEX_FIRST_PROPERTY,
+                new EditPropertyCommand.EditPropertyDescriptor());
         Property editedProperty = model.getFilteredPropertyList().get(INDEX_FIRST_PROPERTY.getZeroBased());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PROPERTY_SUCCESS, editedProperty);
@@ -86,7 +88,7 @@ public class EditCommandTest {
 
         Property propertyInFilteredList = model.getFilteredPropertyList().get(INDEX_FIRST_PROPERTY.getZeroBased());
         Property editedProperty = new PropertyBuilder(propertyInFilteredList).withName(VALID_NAME_BOB).build();
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PROPERTY,
+        EditCommand editCommand = new EditPropertyCommand(INDEX_FIRST_PROPERTY,
                 new EditPropertyDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PROPERTY_SUCCESS, editedProperty);
@@ -101,7 +103,7 @@ public class EditCommandTest {
     public void execute_duplicatePropertyUnfilteredList_failure() {
         Property firstProperty = model.getFilteredPropertyList().get(INDEX_FIRST_PROPERTY.getZeroBased());
         EditPropertyDescriptor descriptor = new EditPropertyDescriptorBuilder(firstProperty).build();
-        EditCommand editCommand = new EditCommand(INDEX_SECOND_PROPERTY, descriptor);
+        EditPropertyCommand editCommand = new EditPropertyCommand(INDEX_SECOND_PROPERTY, descriptor);
 
         assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_PROPERTY);
     }
@@ -112,18 +114,18 @@ public class EditCommandTest {
 
         // edit property in filtered list into a duplicate in address book
         Property propertyInList = model.getAddressBook().getPropertyList().get(INDEX_SECOND_PROPERTY.getZeroBased());
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PROPERTY,
+        EditPropertyCommand editCommand = new EditPropertyCommand(INDEX_FIRST_PROPERTY,
                 new EditPropertyDescriptorBuilder(propertyInList).build());
 
-        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_PROPERTY);
+        assertCommandFailure(editCommand, model, EditPropertyCommand.MESSAGE_DUPLICATE_PROPERTY);
     }
 
     @Test
     public void execute_invalidPropertyIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPropertyList().size() + 1);
-        EditCommand.EditPropertyDescriptor descriptor = new EditPropertyDescriptorBuilder()
+        EditPropertyCommand.EditPropertyDescriptor descriptor = new EditPropertyDescriptorBuilder()
                 .withName(VALID_NAME_BOB).build();
-        EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
+        EditPropertyCommand editCommand = new EditPropertyCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_PROPERTY_DISPLAYED_INDEX);
     }
@@ -139,7 +141,7 @@ public class EditCommandTest {
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPropertyList().size());
 
-        EditCommand editCommand = new EditCommand(outOfBoundIndex,
+        EditPropertyCommand editCommand = new EditPropertyCommand(outOfBoundIndex,
                 new EditPropertyDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_PROPERTY_DISPLAYED_INDEX);
@@ -147,11 +149,11 @@ public class EditCommandTest {
 
     @Test
     public void equals() {
-        final EditCommand standardCommand = new EditCommand(INDEX_FIRST_PROPERTY, DESC_AMY);
+        final EditPropertyCommand standardCommand = new EditPropertyCommand(INDEX_FIRST_PROPERTY, DESC_AMY);
 
         // same values -> returns true
         EditPropertyDescriptor copyDescriptor = new EditPropertyDescriptor(DESC_AMY);
-        EditCommand commandWithSameValues = new EditCommand(INDEX_FIRST_PROPERTY, copyDescriptor);
+        EditPropertyCommand commandWithSameValues = new EditPropertyCommand(INDEX_FIRST_PROPERTY, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -164,10 +166,10 @@ public class EditCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_PROPERTY, DESC_AMY)));
+        assertFalse(standardCommand.equals(new EditPropertyCommand(INDEX_SECOND_PROPERTY, DESC_AMY)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_PROPERTY, DESC_BOB)));
+        assertFalse(standardCommand.equals(new EditPropertyCommand(INDEX_FIRST_PROPERTY, DESC_BOB)));
     }
 
 }

@@ -10,29 +10,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SELLER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PROPERTIES;
-
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-
-import javafx.util.Pair;
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.commons.util.CollectionUtil;
-import seedu.address.commons.util.StringUtil;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-import seedu.address.model.field.Email;
-import seedu.address.model.field.Name;
-import seedu.address.model.field.Person;
-import seedu.address.model.field.Phone;
-import seedu.address.model.field.Price;
-import seedu.address.model.property.Address;
-import seedu.address.model.property.Property;
-import seedu.address.model.tag.Tag;
 
 /**
  * Edits the details of an existing property in the address book.

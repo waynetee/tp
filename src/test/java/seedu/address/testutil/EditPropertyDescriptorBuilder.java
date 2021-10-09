@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.property.EditPropertyCommand;
 import seedu.address.model.field.Email;
 import seedu.address.model.field.Name;
 import seedu.address.model.field.Phone;
@@ -18,21 +19,21 @@ import seedu.address.model.tag.Tag;
  */
 public class EditPropertyDescriptorBuilder {
 
-    private EditCommand.EditPropertyDescriptor descriptor;
+    private EditPropertyCommand.EditPropertyDescriptor descriptor;
 
     public EditPropertyDescriptorBuilder() {
-        descriptor = new EditCommand.EditPropertyDescriptor();
+        descriptor = new EditPropertyCommand.EditPropertyDescriptor();
     }
 
-    public EditPropertyDescriptorBuilder(EditCommand.EditPropertyDescriptor descriptor) {
-        this.descriptor = new EditCommand.EditPropertyDescriptor(descriptor);
+    public EditPropertyDescriptorBuilder(EditPropertyCommand.EditPropertyDescriptor descriptor) {
+        this.descriptor = new EditPropertyCommand.EditPropertyDescriptor(descriptor);
     }
 
     /**
      * Returns an {@code EditPropertyDescriptor} with fields containing {@code property}'s details
      */
     public EditPropertyDescriptorBuilder(Property property) {
-        descriptor = new EditCommand.EditPropertyDescriptor();
+        descriptor = new EditPropertyCommand.EditPropertyDescriptor();
         descriptor.setPropertyName(property.getName());
         descriptor.setAddress(property.getAddress());
         descriptor.setSellerName(property.getSeller().getName());
@@ -123,7 +124,7 @@ public class EditPropertyDescriptorBuilder {
         return this;
     }
 
-    public EditCommand.EditPropertyDescriptor build() {
+    public EditPropertyCommand.EditPropertyDescriptor build() {
         return descriptor;
     }
 }

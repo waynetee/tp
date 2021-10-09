@@ -58,6 +58,8 @@ public class AddCommandParser implements Parser<AddCommand> {
         case BUYER:
             Buyer buyer = getBuyer(argMultimap);
             return new AddBuyerCommand(buyer);
+        default:
+            throw new ParseException(PreambleData.MESSAGE_INVALID_ACTOR);
         }
 
     }

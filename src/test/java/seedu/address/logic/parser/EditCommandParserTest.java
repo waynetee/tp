@@ -43,6 +43,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.property.EditPropertyCommand;
 import seedu.address.model.field.Email;
 import seedu.address.model.field.Name;
 import seedu.address.model.field.Phone;
@@ -128,11 +129,11 @@ public class EditCommandParserTest {
                 + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + NAME_DESC_AMY
                 + SELLER_DESC_AMY + PRICE_DESC_AMY + TAG_DESC_FRIEND;
 
-        EditCommand.EditPropertyDescriptor descriptor = new EditPropertyDescriptorBuilder().withName(VALID_NAME_AMY)
+        EditPropertyCommand.EditPropertyDescriptor descriptor = new EditPropertyDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
                 .withPrice(VALID_PRICE_AMY).withSeller(VALID_SELLER_AMY)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        EditCommand expectedCommand = new EditPropertyCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -142,9 +143,9 @@ public class EditCommandParserTest {
         Index targetIndex = INDEX_FIRST_PROPERTY;
         String userInput = targetIndex.getOneBased() + PHONE_DESC_BOB + EMAIL_DESC_AMY;
 
-        EditCommand.EditPropertyDescriptor descriptor = new EditPropertyDescriptorBuilder().withPhone(VALID_PHONE_BOB)
+        EditPropertyCommand.EditPropertyDescriptor descriptor = new EditPropertyDescriptorBuilder().withPhone(VALID_PHONE_BOB)
                 .withEmail(VALID_EMAIL_AMY).build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        EditCommand expectedCommand = new EditPropertyCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -154,45 +155,45 @@ public class EditCommandParserTest {
         // name
         Index targetIndex = INDEX_THIRD_PROPERTY;
         String userInput = targetIndex.getOneBased() + NAME_DESC_AMY;
-        EditCommand.EditPropertyDescriptor descriptor = new EditPropertyDescriptorBuilder()
+        EditPropertyCommand.EditPropertyDescriptor descriptor = new EditPropertyDescriptorBuilder()
                 .withName(VALID_NAME_AMY).build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        EditCommand expectedCommand = new EditPropertyCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // phone
         userInput = targetIndex.getOneBased() + PHONE_DESC_AMY;
         descriptor = new EditPropertyDescriptorBuilder().withPhone(VALID_PHONE_AMY).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
+        expectedCommand = new EditPropertyCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // email
         userInput = targetIndex.getOneBased() + EMAIL_DESC_AMY;
         descriptor = new EditPropertyDescriptorBuilder().withEmail(VALID_EMAIL_AMY).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
+        expectedCommand = new EditPropertyCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // address
         userInput = targetIndex.getOneBased() + ADDRESS_DESC_AMY;
         descriptor = new EditPropertyDescriptorBuilder().withAddress(VALID_ADDRESS_AMY).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
+        expectedCommand = new EditPropertyCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // seller
         userInput = targetIndex.getOneBased() + SELLER_DESC_AMY;
         descriptor = new EditPropertyDescriptorBuilder().withSeller(VALID_SELLER_AMY).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
+        expectedCommand = new EditPropertyCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // price
         userInput = targetIndex.getOneBased() + PRICE_DESC_AMY;
         descriptor = new EditPropertyDescriptorBuilder().withPrice(VALID_PRICE_AMY).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
+        expectedCommand = new EditPropertyCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // tags
         userInput = targetIndex.getOneBased() + TAG_DESC_FRIEND;
         descriptor = new EditPropertyDescriptorBuilder().withTags(VALID_TAG_FRIEND).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
+        expectedCommand = new EditPropertyCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
@@ -203,10 +204,10 @@ public class EditCommandParserTest {
                 + TAG_DESC_FRIEND + PHONE_DESC_AMY + ADDRESS_DESC_AMY + EMAIL_DESC_AMY + TAG_DESC_FRIEND
                 + PHONE_DESC_BOB + ADDRESS_DESC_BOB + EMAIL_DESC_BOB + TAG_DESC_HUSBAND;
 
-        EditCommand.EditPropertyDescriptor descriptor = new EditPropertyDescriptorBuilder().withPhone(VALID_PHONE_BOB)
+        EditPropertyCommand.EditPropertyDescriptor descriptor = new EditPropertyDescriptorBuilder().withPhone(VALID_PHONE_BOB)
                 .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND).build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        EditCommand expectedCommand = new EditPropertyCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -216,9 +217,9 @@ public class EditCommandParserTest {
         // no other valid values specified
         Index targetIndex = INDEX_FIRST_PROPERTY;
         String userInput = targetIndex.getOneBased() + INVALID_PHONE_DESC + PHONE_DESC_BOB;
-        EditCommand.EditPropertyDescriptor descriptor = new EditPropertyDescriptorBuilder()
+        EditPropertyCommand.EditPropertyDescriptor descriptor = new EditPropertyDescriptorBuilder()
                 .withPhone(VALID_PHONE_BOB).build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        EditPropertyCommand expectedCommand = new EditPropertyCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // other valid values specified
@@ -226,7 +227,7 @@ public class EditCommandParserTest {
                 + PHONE_DESC_BOB;
         descriptor = new EditPropertyDescriptorBuilder().withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
                 .withAddress(VALID_ADDRESS_BOB).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
+        expectedCommand = new EditPropertyCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
@@ -235,8 +236,8 @@ public class EditCommandParserTest {
         Index targetIndex = INDEX_THIRD_PROPERTY;
         String userInput = targetIndex.getOneBased() + TAG_EMPTY;
 
-        EditCommand.EditPropertyDescriptor descriptor = new EditPropertyDescriptorBuilder().withTags().build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        EditPropertyCommand.EditPropertyDescriptor descriptor = new EditPropertyDescriptorBuilder().withTags().build();
+        EditPropertyCommand expectedCommand = new EditPropertyCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -246,9 +247,9 @@ public class EditCommandParserTest {
         Index targetIndex = INDEX_THIRD_PROPERTY;
         String userInput = targetIndex.getOneBased() + TAG_ADD_CONDO + TAG_DELETE_NEAR_SCHOOL;
 
-        EditCommand.EditPropertyDescriptor descriptor = new EditPropertyDescriptorBuilder()
+        EditPropertyCommand.EditPropertyDescriptor descriptor = new EditPropertyDescriptorBuilder()
                 .withTagsToAdd(T_CONDO).withTagsToDelete(T_NEAR_SCHOOL).build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        EditPropertyCommand expectedCommand = new EditPropertyCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }

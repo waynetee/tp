@@ -40,6 +40,7 @@ import static seedu.address.testutil.TypicalProperties.P_BOB;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.property.AddPropertyCommand;
 import seedu.address.model.field.Email;
 import seedu.address.model.field.Name;
 import seedu.address.model.field.Phone;
@@ -59,44 +60,44 @@ public class AddCommandParserTest {
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + SELLER_DESC_BOB + PRICE_DESC_BOB
-                + TAG_DESC_FRIEND, new AddCommand(expectedProperty));
+                + TAG_DESC_FRIEND, new AddPropertyCommand(expectedProperty));
 
         // multiple names - last name accepted
         assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + SELLER_DESC_BOB + PRICE_DESC_BOB
-                + TAG_DESC_FRIEND, new AddCommand(expectedProperty));
+                + TAG_DESC_FRIEND, new AddPropertyCommand(expectedProperty));
 
         // multiple phones - last phone accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + SELLER_DESC_BOB + PRICE_DESC_BOB
-                + TAG_DESC_FRIEND, new AddCommand(expectedProperty));
+                + TAG_DESC_FRIEND, new AddPropertyCommand(expectedProperty));
 
         // multiple emails - last email accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + SELLER_DESC_BOB + PRICE_DESC_BOB
-                + TAG_DESC_FRIEND, new AddCommand(expectedProperty));
+                + TAG_DESC_FRIEND, new AddPropertyCommand(expectedProperty));
 
         // multiple addresses - last address accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_AMY
                 + ADDRESS_DESC_BOB + SELLER_DESC_BOB + PRICE_DESC_BOB
-                + TAG_DESC_FRIEND, new AddCommand(expectedProperty));
+                + TAG_DESC_FRIEND, new AddPropertyCommand(expectedProperty));
 
         // multiple sellers - last sellers accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
                 + SELLER_DESC_AMY + SELLER_DESC_BOB + PRICE_DESC_BOB
-                + TAG_DESC_FRIEND, new AddCommand(expectedProperty));
+                + TAG_DESC_FRIEND, new AddPropertyCommand(expectedProperty));
 
         // multiple price - last price accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
                 + SELLER_DESC_BOB + PRICE_DESC_AMY + PRICE_DESC_BOB
-                + TAG_DESC_FRIEND, new AddCommand(expectedProperty));
+                + TAG_DESC_FRIEND, new AddPropertyCommand(expectedProperty));
 
         // multiple tags - all accepted
         Property expectedPropertyMultipleTags = new PropertyBuilder(P_BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
                 + SELLER_DESC_BOB + PRICE_DESC_BOB
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new AddCommand(expectedPropertyMultipleTags));
+                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new AddPropertyCommand(expectedPropertyMultipleTags));
     }
 
     @Test
@@ -104,7 +105,7 @@ public class AddCommandParserTest {
         // zero tags
         Property expectedProperty = new PropertyBuilder(P_AMY).withTags().build();
         assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
-                + SELLER_DESC_AMY + PRICE_DESC_AMY, new AddCommand(expectedProperty));
+                + SELLER_DESC_AMY + PRICE_DESC_AMY, new AddPropertyCommand(expectedProperty));
     }
 
     @Test

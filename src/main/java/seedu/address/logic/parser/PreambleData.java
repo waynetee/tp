@@ -14,6 +14,12 @@ public class PreambleData {
     private final Actor actor;
     private final Index index;
 
+    /**
+     * Constructs a PreambleData object using given string representing {@code actor} and Index {@code index}.
+     * @param actor String that represents an {@code actor}.
+     * @param index Index of object in a list.
+     * @throws ParseException
+     */
     public PreambleData(String actor, Index index) throws ParseException {
         if (actor.equals("property")) {
             this.actor = Actor.PROPERTY;
@@ -25,6 +31,12 @@ public class PreambleData {
         this.index = index;
     }
 
+    /**
+     * Constructs a PreambleData object using given {@code actor} and {@code index}.
+     * @param actor Actor object.
+     * @param index Index of object in a list.
+     * @throws ParseException
+     */
     public PreambleData(Actor actor, Index index) {
         this.actor = actor;
         this.index = index;
