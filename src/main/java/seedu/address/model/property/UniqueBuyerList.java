@@ -32,7 +32,7 @@ public class UniqueBuyerList extends UniqueList<Buyer> {
     }
 
     @Override
-    public void remove(Listable toRemove) {
+    public void remove(Buyer toRemove) {
         try {
             super.remove(toRemove);
         } catch (ListableNotFoundException e) {

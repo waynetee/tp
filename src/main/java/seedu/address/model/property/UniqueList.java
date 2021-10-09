@@ -73,7 +73,7 @@ public class UniqueList<Item extends Listable> implements Iterable<Item> {
      * Removes the equivalent property from the list.
      * The property must exist in the list.
      */
-    public void remove(Listable toRemove) {
+    public void remove(Item toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
             throw new ListableNotFoundException();

@@ -32,7 +32,7 @@ public class UniquePropertyList extends UniqueList<Property> {
     }
 
     @Override
-    public void remove(Listable toRemove) {
+    public void remove(Property toRemove) {
         try {
             super.remove(toRemove);
         } catch (ListableNotFoundException e) {
