@@ -4,6 +4,8 @@ import java.util.List;
 
 import seedu.address.model.property.exceptions.DuplicateListableException;
 import seedu.address.model.property.exceptions.DuplicatePropertyException;
+import seedu.address.model.property.exceptions.ListableNotFoundException;
+import seedu.address.model.property.exceptions.PropertyNotFoundException;
 
 
 /**
@@ -19,6 +21,24 @@ import seedu.address.model.property.exceptions.DuplicatePropertyException;
  * @see Property#isSameProperty(Property)
  */
 public class UniquePropertyList extends UniqueList<Property> {
+
+    @Override
+    public void add(Property toAdd) {
+        try {
+            super.add(toAdd);
+        } catch (DuplicateListableException e) {
+            throw new DuplicatePropertyException();
+        }
+    }
+
+    @Override
+    public void remove(Listable toRemove) {
+        try {
+            super.remove(toRemove);
+        } catch (ListableNotFoundException e) {
+            throw new PropertyNotFoundException();
+        }
+    }
 
     public void setProperties(List<Property> properties) {
         try {
@@ -41,6 +61,8 @@ public class UniquePropertyList extends UniqueList<Property> {
             super.setListable(target, editedProperty);
         } catch (DuplicateListableException e) {
             throw new DuplicatePropertyException();
+        } catch (ListableNotFoundException e) {
+            throw new PropertyNotFoundException();
         }
     }
 }

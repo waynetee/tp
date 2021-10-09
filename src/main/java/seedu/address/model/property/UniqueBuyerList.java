@@ -1,30 +1,67 @@
 package seedu.address.model.property;
 
+import seedu.address.model.property.exceptions.BuyerNotFoundException;
+import seedu.address.model.property.exceptions.DuplicateBuyerException;
+import seedu.address.model.property.exceptions.DuplicateListableException;
+import seedu.address.model.property.exceptions.ListableNotFoundException;
+
 import java.util.List;
 
 /**
- * A list of properties that enforces uniqueness between its elements and does not allow nulls.
- * A property is considered unique by comparing using {@code Property#isSameProperty(Property)}.
- * As such, adding and updating of properties uses Property#isSameProperty(Property) for equality
- * so as to ensure that the property being added or updated is unique in terms of identity in the
- * UniquePropertyList. However, the removal of a property uses Property#equals(Object) so
- * as to ensure that the property with exactly the same fields will be removed.
+ * A list of buyers that enforces uniqueness between its elements and does not allow nulls.
+ * A buyer is considered unique by comparing using {@code Buyer#isSameBuyer(Buyer)}.
+ * As such, adding and updating of buyers uses Buyer#isSameBuyer(Buyer) for equality
+ * so as to ensure that the buyer being added or updated is unique in terms of identity in the
+ * UniqueBuyerList. However, the removal of a buyer uses Buyer#equals(Object) so
+ * as to ensure that the buyer with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
- * @see Property#isSameProperty(Property)
+ * @see Buyer#isSameBuyer(Buyer)
  */
 public class UniqueBuyerList extends UniqueList<Buyer> {
 
-    public void setBuyers(List<Buyer> buyers) {
-        super.setListables(buyers);
+    @Override
+    public void add(Buyer toAdd) {
+        try {
+            super.add(toAdd);
+        } catch (DuplicateListableException e) {
+            throw new DuplicateBuyerException();
+        }
+    }
+
+    @Override
+    public void remove(Listable toRemove) {
+        try {
+            super.remove(toRemove);
+        } catch (ListableNotFoundException e) {
+            throw new BuyerNotFoundException();
+        }
+    }
+
+    public void setBuyers(List<Buyer> properties) {
+        try {
+            super.setListables(properties);
+        } catch (DuplicateListableException e) {
+            throw new DuplicateBuyerException();
+        }
     }
 
     public void setBuyers(UniqueBuyerList replacement) {
-        super.setListables(replacement);
+        try {
+            super.setListables(replacement);
+        } catch (DuplicateListableException e) {
+            throw new DuplicateBuyerException();
+        }
     }
 
     public void setBuyer(Buyer target, Buyer editedBuyer) {
-        super.setListable(target, editedBuyer);
+        try {
+            super.setListable(target, editedBuyer);
+        } catch (DuplicateListableException e) {
+            throw new DuplicateBuyerException();
+        } catch (ListableNotFoundException e) {
+            throw new BuyerNotFoundException();
+        }
     }
 }
