@@ -14,7 +14,7 @@ import seedu.address.model.property.exceptions.ListableNotFoundException;
 /**
  * A abstract list that enforces uniqueness between its elements and does not allow nulls.
  * A {@code Listable} item is considered unique by comparing using {@code Listable#isSameListable(Listable)}.
- * As such, adding and updating of properties uses Listable#isSameListable(Listable) for equality
+ * As such, adding and updating of listables uses Listable#isSameListable(Listable) for equality
  * so as to ensure that the property being added or updated is unique in terms of identity in the
  * UniqueListableList. However, the removal of a property uses Listable#equals(Object) so
  * as to ensure that the property with exactly the same fields will be removed.
@@ -86,16 +86,16 @@ public class UniqueList<Item extends Listable> implements Iterable<Item> {
     }
 
     /**
-     * Replaces the contents of this list with {@code properties}.
-     * {@code properties} must not contain duplicate properties.
+     * Replaces the contents of this list with {@code listables}.
+     * {@code listables} must not contain duplicate listables.
      */
-    public void setListables(List<Item> properties) {
-        requireAllNonNull(properties);
-        if (!propertiesAreUnique(properties)) {
+    public void setListables(List<Item> listables) {
+        requireAllNonNull(listables);
+        if (!listablesAreUnique(listables)) {
             throw new DuplicateListableException();
         }
 
-        internalList.setAll(properties);
+        internalList.setAll(listables);
     }
 
     /**
@@ -123,12 +123,12 @@ public class UniqueList<Item extends Listable> implements Iterable<Item> {
     }
 
     /**
-     * Returns true if {@code properties} contains only unique properties.
+     * Returns true if {@code listables} contains only unique listables.
      */
-    private boolean propertiesAreUnique(List<Item> properties) {
-        for (int i = 0; i < properties.size() - 1; i++) {
-            for (int j = i + 1; j < properties.size(); j++) {
-                if (properties.get(i).isSameListable(properties.get(j))) {
+    private boolean listablesAreUnique(List<Item> listables) {
+        for (int i = 0; i < listables.size() - 1; i++) {
+            for (int j = i + 1; j < listables.size(); j++) {
+                if (listables.get(i).isSameListable(listables.get(j))) {
                     return false;
                 }
             }
