@@ -27,18 +27,18 @@ public class UniqueBuyerListTest {
     }
 
     @Test
-    public void contains_propertyNotInList_returnsFalse() {
+    public void contains_buyerNotInList_returnsFalse() {
         assertFalse(uniqueBuyerList.contains(B_ALICE));
     }
 
     @Test
-    public void contains_propertyInList_returnsTrue() {
+    public void contains_buyerInList_returnsTrue() {
         uniqueBuyerList.add(B_ALICE);
         assertTrue(uniqueBuyerList.contains(B_ALICE));
     }
 
     @Test
-    public void contains_propertyWithSameIdentityFieldsInList_returnsTrue() {
+    public void contains_buyerWithSameIdentityFieldsInList_returnsTrue() {
         uniqueBuyerList.add(B_ALICE);
         Buyer editedAlice = new BuyerBuilder(B_ALICE).withMaxPrice("500000").build();
         assertTrue(uniqueBuyerList.contains(editedAlice));
@@ -112,7 +112,7 @@ public class UniqueBuyerListTest {
     }
 
     @Test
-    public void remove_propertyDoesNotExist_throwsBuyerNotFoundException() {
+    public void remove_buyerDoesNotExist_throwsBuyerNotFoundException() {
         assertThrows(BuyerNotFoundException.class, () -> uniqueBuyerList.remove(B_ALICE));
     }
 

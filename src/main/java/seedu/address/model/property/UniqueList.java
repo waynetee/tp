@@ -13,11 +13,11 @@ import seedu.address.model.property.exceptions.ListableNotFoundException;
 
 /**
  * A abstract list that enforces uniqueness between its elements and does not allow nulls.
- * A {@code Listable} item is considered unique by comparing using {@code Listable#isSameListable(Listable)}.
- * As such, adding and updating of listables uses Listable#isSameListable(Listable) for equality
- * so as to ensure that the property being added or updated is unique in terms of identity in the
- * UniqueListableList. However, the removal of a property uses Listable#equals(Object) so
- * as to ensure that the property with exactly the same fields will be removed.
+ * A {@code Listable} element is considered unique by comparing using {@code Listable#isSameListable(Listable)}.
+ * As such, adding and updating of elements uses Listable#isSameListable(Listable) for equality
+ * so as to ensure that the element being added or updated is unique in terms of identity in the
+ * UniqueListableList. However, the removal of an element uses Listable#equals(Object) so
+ * as to ensure that the element with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
@@ -38,8 +38,8 @@ public class UniqueList<Item extends Listable> implements Iterable<Item> {
     }
 
     /**
-     * Adds a property to the list.
-     * The property must not already exist in the list.
+     * Adds an element to the list.
+     * The element must not already exist in the list.
      */
     public void add(Item toAdd) {
         requireNonNull(toAdd);
@@ -50,9 +50,9 @@ public class UniqueList<Item extends Listable> implements Iterable<Item> {
     }
 
     /**
-     * Replaces the property {@code target} in the list with {@code editedListable}.
+     * Replaces the element {@code target} in the list with {@code editedListable}.
      * {@code target} must exist in the list.
-     * The property identity of {@code editedListable} must not be the same as another existing property in the list.
+     * The element identity of {@code editedListable} must not be the same as another existing element in the list.
      */
     public void setListable(Item target, Item editedListable) {
         requireAllNonNull(target, editedListable);
@@ -70,8 +70,8 @@ public class UniqueList<Item extends Listable> implements Iterable<Item> {
     }
 
     /**
-     * Removes the equivalent property from the list.
-     * The property must exist in the list.
+     * Removes the equivalent element from the list.
+     * The element must exist in the list.
      */
     public void remove(Item toRemove) {
         requireNonNull(toRemove);
@@ -87,7 +87,7 @@ public class UniqueList<Item extends Listable> implements Iterable<Item> {
 
     /**
      * Replaces the contents of this list with {@code listables}.
-     * {@code listables} must not contain duplicate listables.
+     * {@code listables} must not contain duplicate elements.
      */
     public void setListables(List<Item> listables) {
         requireAllNonNull(listables);
@@ -123,7 +123,7 @@ public class UniqueList<Item extends Listable> implements Iterable<Item> {
     }
 
     /**
-     * Returns true if {@code listables} contains only unique listables.
+     * Returns true if {@code listables} contains only unique elements.
      */
     private boolean listablesAreUnique(List<Item> listables) {
         for (int i = 0; i < listables.size() - 1; i++) {
