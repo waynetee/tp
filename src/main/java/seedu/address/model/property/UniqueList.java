@@ -12,7 +12,7 @@ import seedu.address.model.property.exceptions.DuplicateListableException;
 import seedu.address.model.property.exceptions.ListableNotFoundException;
 
 /**
- * A abstract list that enforces uniqueness between its elements and does not allow nulls.
+ * A generic list that enforces uniqueness between its elements and does not allow nulls.
  * A {@code Listable} element is considered unique by comparing using {@code Listable#isSameListable(Listable)}.
  * As such, adding and updating of elements uses Listable#isSameListable(Listable) for equality
  * so as to ensure that the element being added or updated is unique in terms of identity in the
