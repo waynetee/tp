@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.property.Buyer;
 import seedu.address.model.property.Property;
 
 /**
@@ -22,6 +23,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Property> filteredProperties;
+    private final FilteredList<Buyer> filteredBuyers;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -35,6 +37,7 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredProperties = new FilteredList<>(this.addressBook.getPropertyList());
+        filteredBuyers = new FilteredList<>(this.addressBook.getBuyerList());
     }
 
     public ModelManager() {
@@ -112,6 +115,30 @@ public class ModelManager implements Model {
         addressBook.addProperty(target, editedProperty);
     }
 
+    @Override
+    public boolean hasBuyer(Buyer buyer) {
+        requireNonNull(buyer);
+        return addressBook.hasBuyer(buyer);
+    }
+
+    @Override
+    public void deleteBuyer(Buyer target) {
+        addressBook.removeBuyer(target);
+    }
+
+    @Override
+    public void addBuyer(Buyer buyer) {
+        addressBook.addBuyer(buyer);
+        updateFilteredBuyerList(PREDICATE_SHOW_ALL_BUYERS);
+    }
+
+    @Override
+    public void setBuyer(Buyer target, Buyer editedBuyer) {
+        requireAllNonNull(target, editedBuyer);
+
+        addressBook.addBuyer(target, editedBuyer);
+    }
+
     //=========== Filtered Property List Accessors =============================================================
 
     /**
@@ -127,6 +154,23 @@ public class ModelManager implements Model {
     public void updateFilteredPropertyList(Predicate<Property> predicate) {
         requireNonNull(predicate);
         filteredProperties.setPredicate(predicate);
+    }
+
+    //=========== Filtered Buyer List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Buyer} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Buyer> getFilteredBuyerList() {
+        return filteredBuyers;
+    }
+
+    @Override
+    public void updateFilteredBuyerList(Predicate<Buyer> predicate) {
+        requireNonNull(predicate);
+        filteredBuyers.setPredicate(predicate);
     }
 
     @Override

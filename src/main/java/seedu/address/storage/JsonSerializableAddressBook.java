@@ -61,7 +61,6 @@ class JsonSerializableAddressBook {
             addressBook.addProperty(property);
         }
 
-        // TODO: hasBuyer, addBuyer method missing
         for (JsonAdaptedBuyer jsonAdaptedBuyer : buyers) {
             Buyer buyer = jsonAdaptedBuyer.toModelType();
             if (addressBook.hasBuyer(buyer)) {

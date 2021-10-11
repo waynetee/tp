@@ -7,6 +7,7 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.address.model.property.Buyer;
 import seedu.address.model.property.Property;
+import seedu.address.model.property.UniqueBuyerList;
 import seedu.address.model.property.UniquePropertyList;
 
 /**
@@ -16,7 +17,6 @@ import seedu.address.model.property.UniquePropertyList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePropertyList properties;
-    // TODO: buyerlist integration into AddressBook
     private final UniqueBuyerList buyers;
 
     /*
@@ -133,7 +133,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void addBuyer(Buyer target, Buyer editedBuyer) {
         requireNonNull(editedBuyer);
 
-        buyer.setBuyer(target, editedBuyer);
+        buyers.setBuyer(target, editedBuyer);
     }
 
     /**
