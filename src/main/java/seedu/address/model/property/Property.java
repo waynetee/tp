@@ -16,7 +16,7 @@ import seedu.address.model.tag.Tag;
  * Represents a Property in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Property {
+public class Property implements Listable {
 
     private final Name name;
     private final Address address;
@@ -58,6 +58,18 @@ public class Property {
 
     public Price getPrice() {
         return price;
+    }
+
+    /**
+     * Returns true if the {@code Listable} item is a {@code Property} and has the same name.
+     * Used by the UniqueList to identify unique properties as a Listable.
+     */
+    @Override
+    public boolean isSameListable(Listable item) {
+        if (!(item instanceof Property)) {
+            return false;
+        }
+        return isSameProperty((Property) item);
     }
 
     /**
