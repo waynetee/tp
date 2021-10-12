@@ -1,9 +1,6 @@
 package seedu.address.ui;
 
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.logging.Logger;
 
@@ -79,11 +76,12 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     private void setAccelerators() {
-            setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
+        setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
     }
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -156,7 +154,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Exports Properties.
      */
-    public File getSaveCsvFile(String title){
+    public File getSaveCsvFile(String title) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle(title);
         fileChooser.getExtensionFilters().addAll(
