@@ -1,5 +1,7 @@
 package seedu.address.logic;
 
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
@@ -15,6 +17,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.property.Property;
+import seedu.address.storage.CsvManager;
 import seedu.address.storage.Storage;
 
 /**
@@ -27,6 +30,7 @@ public class LogicManager implements Logic {
     private final Model model;
     private final Storage storage;
     private final AddressBookParser addressBookParser;
+    private final CsvManager csvManager;
 
     /**
      * Constructs a {@code LogicManager} with the given {@code Model} and {@code Storage}.
@@ -35,6 +39,7 @@ public class LogicManager implements Logic {
         this.model = model;
         this.storage = storage;
         addressBookParser = new AddressBookParser();
+        csvManager = new CsvManager();
     }
 
     @Override
@@ -52,6 +57,12 @@ public class LogicManager implements Logic {
         }
 
         return commandResult;
+    }
+
+    @Override
+    public void exportProperties(File file) {
+        ObservableList<Property> properties = model.getAddressBook().getPropertyList();
+        csvManager.exportProperties(file, properties);
     }
 
     @Override

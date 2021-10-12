@@ -1,5 +1,6 @@
 package seedu.address.logic;
 
+import java.io.File;
 import java.nio.file.Path;
 
 import javafx.collections.ObservableList;
@@ -22,6 +23,11 @@ public interface Logic {
      * @throws ParseException If an error occurs during parsing.
      */
     CommandResult execute(String commandText) throws CommandException, ParseException;
+
+    /**
+     * Exports properties to csv file.
+     */
+    void exportProperties(File file);
 
     /**
      * Returns the AddressBook.
