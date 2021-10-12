@@ -18,5 +18,6 @@
       "email" : "pauline@example.com"
     },
     "price" : "10000"
-  } ]
+  } ],
+  "buyers": []
 }

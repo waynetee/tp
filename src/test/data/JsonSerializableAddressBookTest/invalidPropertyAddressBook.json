@@ -8,5 +8,6 @@
       "email" : "invalid@email!3e"
     },
     "price" : "571000"
-  } ]
+  } ],
+  "buyers": []
 }

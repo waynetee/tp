@@ -5,7 +5,9 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.property.Buyer;
 import seedu.address.model.property.Property;
+import seedu.address.model.property.UniqueBuyerList;
 import seedu.address.model.property.UniquePropertyList;
 
 /**
@@ -15,6 +17,7 @@ import seedu.address.model.property.UniquePropertyList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePropertyList properties;
+    private final UniqueBuyerList buyers;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -25,6 +28,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         properties = new UniquePropertyList();
+        buyers = new UniqueBuyerList();
     }
 
     public AddressBook() {}
@@ -45,6 +49,14 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setProperties(List<Property> properties) {
         this.properties.setProperties(properties);
+    }
+
+    /**
+     * Replaces the contents of the buyer list with {@code buyers}.
+     * {@code buyers} must not contain duplicate buyers.
+     */
+    public void setBuyers(List<Buyer> buyers) {
+        this.buyers.setBuyers(buyers);
     }
 
     /**
@@ -94,6 +106,44 @@ public class AddressBook implements ReadOnlyAddressBook {
         properties.remove(key);
     }
 
+    //// buyer level operations
+
+    /**
+     * Returns true if a buyer with the same identity as {@code buyer} exists in the address book.
+     */
+    public boolean hasBuyer(Buyer buyer) {
+        requireNonNull(buyer);
+        return buyers.contains(buyer);
+    }
+
+    /**
+     * Adds a buyer to the address book.
+     * The buyer must not already exist in the address book.
+     */
+    public void addBuyer(Buyer b) {
+        buyers.add(b);
+    }
+
+    /**
+     * Replaces the given buyer {@code target} in the list with {@code editedBuyer}.
+     * {@code target} must exist in the address book.
+     * The buyer identity of {@code editedBuyer} must not be the same as another existing buyer
+     * in the address book.
+     */
+    public void addBuyer(Buyer target, Buyer editedBuyer) {
+        requireNonNull(editedBuyer);
+
+        buyers.setBuyer(target, editedBuyer);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeBuyer(Buyer key) {
+        buyers.remove(key);
+    }
+
     //// util methods
 
     @Override
@@ -105,6 +155,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Property> getPropertyList() {
         return properties.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Buyer> getBuyerList() {
+        return buyers.asUnmodifiableObservableList();
     }
 
     @Override

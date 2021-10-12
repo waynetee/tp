@@ -20,6 +20,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.property.Buyer;
 import seedu.address.model.property.Property;
 import seedu.address.testutil.PropertyBuilder;
 
@@ -146,6 +147,36 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredPropertyList(Predicate<Property> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasBuyer(Buyer buyer) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteBuyer(Buyer buyer) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addBuyer(Buyer buyer) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setBuyer(Buyer target, Buyer editedBuyer) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Buyer> getFilteredBuyerList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredBuyerList(Predicate<Buyer> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }
