@@ -11,7 +11,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.property.Buyer;
 
 /**
- * Panel containing the list of properties.
+ * Panel containing the list of buyers.
  */
 public class BuyerListPanel extends UiPart<Region> {
     private static final String FXML = "BuyerListPanel.fxml";
