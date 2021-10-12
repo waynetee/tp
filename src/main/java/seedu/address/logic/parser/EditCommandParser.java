@@ -6,12 +6,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MAX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SELLER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_ACTOR;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -22,6 +22,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.buyer.EditBuyerCommand;
 import seedu.address.logic.commands.property.EditPropertyCommand;
+import seedu.address.logic.parser.PreambleData.Actor;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.tag.Tag;
 
@@ -43,7 +44,7 @@ public class EditCommandParser implements Parser<EditCommand> {
                 PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG, PREFIX_SELLER, PREFIX_PRICE, PREFIX_ADD_TAG,
                 PREFIX_DELETE_TAG);
 
-        PreambleData.Actor actor;
+        Actor actor;
         Index index;
         try {
             PreambleData preambleData = ParserUtil.parsePreamble(argMultimap.getPreamble(),
@@ -66,7 +67,7 @@ public class EditCommandParser implements Parser<EditCommand> {
             editCommand = new EditBuyerCommand(index, editBuyerDescriptor);
             break;
         default:
-            throw new ParseException(PreambleData.MESSAGE_INVALID_ACTOR);
+            throw new ParseException(MESSAGE_INVALID_ACTOR);
         }
         return editCommand;
     }
@@ -127,7 +128,7 @@ public class EditCommandParser implements Parser<EditCommand> {
             editBuyerDescriptor.setEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));
         }
 
-        if (argMultimap.getValue(PREFIX_MAX_PRICE).isPresent()) {
+        if (argMultimap.getValue(PREFIX_PRICE).isPresent()) {
             editBuyerDescriptor.setMaxPrice(ParserUtil.parsePrice(argMultimap.getValue(PREFIX_PRICE).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG), true)

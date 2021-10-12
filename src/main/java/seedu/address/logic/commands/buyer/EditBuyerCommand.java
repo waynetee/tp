@@ -24,7 +24,7 @@ import seedu.address.model.property.Buyer;
 import seedu.address.model.tag.Tag;
 
 /**
- * Edits the details of an existing property in the address book.
+ * Edits the details of an existing buyer in the address book.
  */
 public class EditBuyerCommand extends EditCommand {
     public static final String MESSAGE_EDIT_BUYER_SUCCESS = "Edited Buyer: %1$s";
@@ -34,7 +34,7 @@ public class EditBuyerCommand extends EditCommand {
     private final EditBuyerDescriptor editBuyerDescriptor;
 
     /**
-     * @param index of the property in the filtered property list to edit
+     * @param index of the buyer in the filtered buyer list to edit
      * @param editBuyerDescriptor details to edit the buyer with
      */
     public EditBuyerCommand(Index index, EditBuyerDescriptor editBuyerDescriptor) {
@@ -46,7 +46,6 @@ public class EditBuyerCommand extends EditCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Buyer> lastShownList = model.getFilteredBuyerList();
-        // TODO: Buyer edit
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_BUYER_DISPLAYED_INDEX);
         }

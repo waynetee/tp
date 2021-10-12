@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MAX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
@@ -10,7 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SELLER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 /**
- * Adds a property to the address book.
+ * Adds an entity (property or buyer) to the address book.
  */
 public abstract class AddCommand extends Command {
 
@@ -31,7 +30,7 @@ public abstract class AddCommand extends Command {
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
             + PREFIX_EMAIL + "EMAIL "
-            + PREFIX_MAX_PRICE + "MAX_PRICE "
+            + PREFIX_PRICE + "MAX_PRICE "
             + "[" + PREFIX_TAG + "TAG]..."
             + ")"
             + "\n"

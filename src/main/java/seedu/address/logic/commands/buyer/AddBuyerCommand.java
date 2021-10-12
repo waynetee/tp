@@ -8,6 +8,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.property.Buyer;
 
+/**
+ * Adds a buyer to the address book.
+ */
 public class AddBuyerCommand extends AddCommand {
     public static final String MESSAGE_SUCCESS = "New buyer added: %1$s";
     public static final String MESSAGE_DUPLICATE_BUYER = "This buyer already exists in the address book";

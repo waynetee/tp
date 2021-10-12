@@ -3,12 +3,12 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MAX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SELLER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_ACTOR;
 
 import java.util.Set;
 import java.util.stream.Stream;
@@ -16,6 +16,7 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.buyer.AddBuyerCommand;
 import seedu.address.logic.commands.property.AddPropertyCommand;
+import seedu.address.logic.parser.PreambleData.Actor;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.field.Email;
 import seedu.address.model.field.Name;
@@ -44,27 +45,34 @@ public class AddCommandParser implements Parser<AddCommand> {
                 PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG, PREFIX_SELLER, PREFIX_PRICE);
 
         PreambleData preambleData = ParserUtil.parsePreamble(argMultimap.getPreamble(), NUMBER_OF_PREAMBLE_ARGUMENTS);
-        PreambleData.Actor actor = preambleData.getActor();
+        Actor actor = preambleData.getActor();
         switch (actor) {
         case PROPERTY:
-            if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS,
-                    PREFIX_PHONE, PREFIX_EMAIL, PREFIX_SELLER, PREFIX_PRICE)) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        AddCommand.MESSAGE_USAGE));
-            }
-            Property property = getProperty(argMultimap);
-            return new AddPropertyCommand(property);
+            return getAddPropertyCommand(argMultimap);
         case BUYER:
-            if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_PRICE)) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        AddCommand.MESSAGE_USAGE));
-            }
-            Buyer buyer = getBuyer(argMultimap);
-            return new AddBuyerCommand(buyer);
+            return getAddBuyerCommand(argMultimap);
         default:
-            throw new ParseException(PreambleData.MESSAGE_INVALID_ACTOR);
+            throw new ParseException(MESSAGE_INVALID_ACTOR);
         }
+    }
 
+    private AddPropertyCommand getAddPropertyCommand(ArgumentMultimap argMultimap) throws ParseException {
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS,
+                PREFIX_PHONE, PREFIX_EMAIL, PREFIX_SELLER, PREFIX_PRICE)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddCommand.MESSAGE_USAGE));
+        }
+        Property property = getProperty(argMultimap);
+        return new AddPropertyCommand(property);
+    }
+
+    private AddBuyerCommand getAddBuyerCommand(ArgumentMultimap argMultimap) throws ParseException {
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_PRICE)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddCommand.MESSAGE_USAGE));
+        }
+        Buyer buyer = getBuyer(argMultimap);
+        return new AddBuyerCommand(buyer);
     }
 
     private Property getProperty(ArgumentMultimap argMultimap) throws ParseException {
@@ -85,7 +93,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-        Price maxPrice = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_MAX_PRICE).get());
+        Price maxPrice = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_PRICE).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         Buyer buyer = new Buyer(name, phone, email, maxPrice, tagList);

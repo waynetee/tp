@@ -1,11 +1,13 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_ACTOR;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.buyer.DeleteBuyerCommand;
 import seedu.address.logic.commands.property.DeletePropertyCommand;
+import seedu.address.logic.parser.PreambleData.Actor;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -20,7 +22,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public DeleteCommand parse(String args) throws ParseException {
-        PreambleData.Actor actor;
+        Actor actor;
         Index index;
 
         try {
@@ -34,7 +36,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
             case BUYER:
                 return new DeleteBuyerCommand(index);
             default:
-                throw new ParseException(PreambleData.MESSAGE_INVALID_ACTOR);
+                throw new ParseException(MESSAGE_INVALID_ACTOR);
             }
 
         } catch (ParseException pe) {

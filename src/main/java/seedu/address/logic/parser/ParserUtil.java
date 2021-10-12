@@ -8,6 +8,7 @@ import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.parser.PreambleData.Actor;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.field.Email;
 import seedu.address.model.field.Name;
@@ -21,33 +22,67 @@ import seedu.address.model.tag.Tag;
  */
 public class ParserUtil {
 
+    public static final String MESSAGE_INVALID_ACTOR = "Only property or buyer can be specified as target.";
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
-    public static final String MESSAGE_EMPTY_PREAMBLE = "Incorrect number of arguments in preamble.";
+    public static final String MESSAGE_INVALID_PREAMBLE = "Incorrect number of arguments in preamble."
+            + "The following fields are expected:"
+            + "\n";
+    public static final String[] MESSAGE_PREAMBLE_FIELDS = {"property/buyer", "INDEX"};
+
+    public static final int ACTOR_POSITIONAL_INDEX = 0;
+    public static final int INDEX_POSITIONAL_INDEX = 1;
 
     /**
      * Parses {@code preamble} into varying fields depending on the specified numFields.
      * The fields are, in order of index,
      * 0. Actor (property or buyer)
      * 1. Index (used by edit etc.)
-     * @param preamble Positional arguments in a command.
+     *
+     * @param preamble  Positional arguments in a command.
      * @param numFields Number of positional arguments expected.
      * @throws ParseException if the number of positional arguments is different from {@code numFields}
-     * or if subsequent parsing of each individual argument throws a ParseException.
+     *                        or if subsequent parsing of each individual argument throws a ParseException.
      */
     public static PreambleData parsePreamble(String preamble, int numFields) throws ParseException {
         String[] preambleArray = preamble.trim().split(" ");
         if (preambleArray.length != numFields) {
-            throw new ParseException(MESSAGE_EMPTY_PREAMBLE);
+            String expectedFields = "";
+            for (int i = 0; i < numFields; i++) {
+                expectedFields += MESSAGE_PREAMBLE_FIELDS[i] + " ";
+            }
+            throw new ParseException(MESSAGE_INVALID_PREAMBLE + expectedFields);
         }
-        String actor = preambleArray[0];
-        Index index = numFields >= 2 ? parseIndex(preambleArray[1]) : null;
+
+        Actor actor = numFields >= ACTOR_POSITIONAL_INDEX + 1
+                ? parseActor(preambleArray[ACTOR_POSITIONAL_INDEX])
+                : null;
+        Index index = numFields >= INDEX_POSITIONAL_INDEX + 1
+                ? parseIndex(preambleArray[INDEX_POSITIONAL_INDEX])
+                : null;
 
         return new PreambleData(actor, index);
     }
 
     /**
+     * Parses {@code actor} into an {@code Preamble.Actor} using given string.
+     *
+     * @param actor String that represents an {@code actor}.
+     * @throws ParseException if the given string does not match any of the actors.
+     */
+    public static Actor parseActor(String actor) throws ParseException {
+        if (actor.equals("property")) {
+            return Actor.PROPERTY;
+        } else if (actor.equals("buyer")) {
+            return Actor.BUYER;
+        } else {
+            throw new ParseException(MESSAGE_INVALID_ACTOR);
+        }
+    }
+
+    /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {

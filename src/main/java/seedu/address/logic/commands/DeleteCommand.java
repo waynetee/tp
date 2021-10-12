@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import seedu.address.commons.core.index.Index;
 
 /**
- * Deletes a property identified using it's displayed index from the address book.
+ * Deletes an entity (property or buyer) identified using it's displayed index from the address book.
  */
 public abstract class DeleteCommand extends Command {
 
