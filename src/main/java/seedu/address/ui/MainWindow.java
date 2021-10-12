@@ -1,5 +1,10 @@
 package seedu.address.ui;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -9,6 +14,7 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -73,7 +79,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     private void setAccelerators() {
-        setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
+            setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
     }
 
     /**
@@ -144,6 +150,30 @@ public class MainWindow extends UiPart<Stage> {
             helpWindow.show();
         } else {
             helpWindow.focus();
+        }
+    }
+
+    /**
+     * Exports Properties.
+     */
+    public File getSaveCsvFile(String title){
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle(title);
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Csv Files", "*.csv"));
+        String currentPath = Paths.get(".").toAbsolutePath().normalize().toString();
+        fileChooser.setInitialDirectory(new File(currentPath));
+        return fileChooser.showSaveDialog(primaryStage);
+    }
+
+    /**
+     * Exports Properties.
+     */
+    @FXML
+    public void handleExportProperties() {
+        File file = getSaveCsvFile("Save Properties to CSV");
+        if (file != null) {
+            logic.exportProperties(file);
         }
     }
 
