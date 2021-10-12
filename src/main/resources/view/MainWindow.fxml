@@ -48,14 +48,14 @@
         </StackPane>
 
         <HBox VBox.vgrow="ALWAYS">
-          <VBox fx:id="propertyList" styleClass="pane-with-border" minWidth="340" prefWidth="340" HBox.hgrow="ALWAYS">
+          <VBox fx:id="propertyList" styleClass="pane-with-border" prefWidth="340" HBox.hgrow="ALWAYS">
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
             <StackPane fx:id="propertyListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
 
-          <VBox fx:id="buyerList" styleClass="pane-with-border" minWidth="340" prefWidth="340" HBox.hgrow="ALWAYS">
+          <VBox fx:id="buyerList" styleClass="pane-with-border" prefWidth="340" HBox.hgrow="ALWAYS">
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
