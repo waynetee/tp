@@ -1,7 +1,7 @@
 package seedu.address.logic.commands.buyer;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PROPERTIES;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_BUYERS;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -27,7 +27,7 @@ import seedu.address.model.tag.Tag;
  * Edits the details of an existing property in the address book.
  */
 public class EditBuyerCommand extends EditCommand {
-    public static final String MESSAGE_EDIT_PROPERTY_SUCCESS = "Edited Buyer: %1$s";
+    public static final String MESSAGE_EDIT_BUYER_SUCCESS = "Edited Buyer: %1$s";
     public static final String MESSAGE_DUPLICATE_BUYER = "This buyer already exists in the address book.";
 
     private final Index index;
@@ -48,26 +48,26 @@ public class EditBuyerCommand extends EditCommand {
         List<Buyer> lastShownList = model.getFilteredBuyerList();
         // TODO: Buyer edit
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PROPERTY_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_BUYER_DISPLAYED_INDEX);
         }
 
         Buyer buyerToEdit = lastShownList.get(index.getZeroBased());
         Buyer editedBuyer = createdEditedBuyer(buyerToEdit, editBuyerDescriptor);
 
-        if (!buyerToEdit.isSameBuyer(editedProperty) && model.hasBuyer(editedBuyer)) {
+        if (!buyerToEdit.isSameBuyer(editedBuyer) && model.hasBuyer(editedBuyer)) {
             throw new CommandException(MESSAGE_DUPLICATE_BUYER);
         }
 
-        model.setProperty(buyerToEdit, editedProperty);
-        model.updateFiltedBuyerList(PREDICATE_SHOW_ALL_PROPERTIES);
-        return new CommandResult(String.format(MESSAGE_EDIT_PROPERTY_SUCCESS, editedBuyer));
+        model.setBuyer(buyerToEdit, editedBuyer);
+        model.updateFilteredBuyerList(PREDICATE_SHOW_ALL_BUYERS);
+        return new CommandResult(String.format(MESSAGE_EDIT_BUYER_SUCCESS, editedBuyer));
     }
 
     /**
      * Creates and returns a {@code Buyer} with the details of {@code buyerToEdit}
      * edited with {@code editBuyerDescriptor}.
      */
-    private static Buyer createdEditBuyer(Buyer buyerToEdit, EditBuyerDescriptor editBuyerDescriptor) {
+    private static Buyer createdEditedBuyer(Buyer buyerToEdit, EditBuyerDescriptor editBuyerDescriptor) {
         assert buyerToEdit != null;
 
         Name updatedName = editBuyerDescriptor.getName().orElse(buyerToEdit.getName());
@@ -105,7 +105,7 @@ public class EditBuyerCommand extends EditCommand {
         private Phone phone;
         private Email email;
         private Price maxPrice;
-        // TODO
+        // TODO: Tags
         private Set<Tag> tags;
 
         public EditBuyerDescriptor() {}

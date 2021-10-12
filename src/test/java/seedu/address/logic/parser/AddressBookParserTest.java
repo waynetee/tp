@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_PROPERTY;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PROPERTY;
 
@@ -17,7 +18,10 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditPropertyDescriptor;
+import seedu.address.logic.commands.property.AddPropertyCommand;
+import seedu.address.logic.commands.property.DeletePropertyCommand;
+import seedu.address.logic.commands.property.EditPropertyCommand;
+import seedu.address.logic.commands.property.EditPropertyCommand.EditPropertyDescriptor;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -36,8 +40,8 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_add() throws Exception {
         Property property = new PropertyBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(PropertyUtil.getAddCommand(property));
-        assertEquals(new AddCommand(property), command);
+        AddPropertyCommand command = (AddPropertyCommand) parser.parseCommand(PropertyUtil.getAddCommand(property));
+        assertEquals(new AddPropertyCommand(property), command);
     }
 
     @Test
@@ -48,18 +52,19 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_delete() throws Exception {
-        DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PROPERTY.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_PROPERTY), command);
+        DeletePropertyCommand command = (DeletePropertyCommand) parser.parseCommand(
+                DeleteCommand.COMMAND_WORD + " " + PREAMBLE_PROPERTY + " " + INDEX_FIRST_PROPERTY.getOneBased());
+        assertEquals(new DeletePropertyCommand(INDEX_FIRST_PROPERTY), command);
     }
 
     @Test
     public void parseCommand_edit() throws Exception {
         Property property = new PropertyBuilder().build();
         EditPropertyDescriptor descriptor = new EditPropertyDescriptorBuilder(property).build();
-        EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_PROPERTY.getOneBased() + " " + PropertyUtil.getEditPropertyDescriptorDetails(descriptor));
-        assertEquals(new EditCommand(INDEX_FIRST_PROPERTY, descriptor), command);
+        EditPropertyCommand command = (EditPropertyCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
+                + PREAMBLE_PROPERTY + " " + INDEX_FIRST_PROPERTY.getOneBased() + " "
+                + PropertyUtil.getEditPropertyDescriptorDetails(descriptor));
+        assertEquals(new EditPropertyCommand(INDEX_FIRST_PROPERTY, descriptor), command);
     }
 
     @Test

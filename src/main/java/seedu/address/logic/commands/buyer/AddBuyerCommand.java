@@ -25,7 +25,6 @@ public class AddBuyerCommand extends AddCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        // TODO: buyer add
         if (model.hasBuyer(buyerToAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_BUYER);
         }

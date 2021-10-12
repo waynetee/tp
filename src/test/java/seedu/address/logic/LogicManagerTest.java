@@ -7,6 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_PROPERTY;
 import static seedu.address.logic.commands.CommandTestUtil.PRICE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.SELLER_DESC_AMY;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -60,7 +61,7 @@ public class LogicManagerTest {
 
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
-        String deleteCommand = "delete 9";
+        String deleteCommand = "delete property 9";
         assertCommandException(deleteCommand, MESSAGE_INVALID_PROPERTY_DISPLAYED_INDEX);
     }
 
@@ -81,7 +82,7 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
+        String addCommand = AddCommand.COMMAND_WORD  + " " + PREAMBLE_PROPERTY + " " + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
                 + ADDRESS_DESC_AMY + SELLER_DESC_AMY + PRICE_DESC_AMY;
         Property expectedProperty = new PropertyBuilder(P_AMY).withTags().build();
         ModelManager expectedModel = new ModelManager();

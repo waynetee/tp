@@ -67,6 +67,8 @@ public class CommandTestUtil {
     public static final String INVALID_PRICE_DESC = " " + PREFIX_PRICE + "1000k"; // 'k' not allowed in price
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
+    public static final String PREAMBLE_PROPERTY = "property";
+    public static final String PREAMBLE_BUYER = "buyer";
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
