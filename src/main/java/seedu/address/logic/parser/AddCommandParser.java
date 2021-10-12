@@ -43,18 +43,22 @@ public class AddCommandParser implements Parser<AddCommand> {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE,
                 PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG, PREFIX_SELLER, PREFIX_PRICE);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS,
-                PREFIX_PHONE, PREFIX_EMAIL, PREFIX_SELLER, PREFIX_PRICE)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-        }
-
         PreambleData preambleData = ParserUtil.parsePreamble(argMultimap.getPreamble(), NUMBER_OF_PREAMBLE_ARGUMENTS);
         PreambleData.Actor actor = preambleData.getActor();
         switch (actor) {
         case PROPERTY:
+            if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS,
+                    PREFIX_PHONE, PREFIX_EMAIL, PREFIX_SELLER, PREFIX_PRICE)) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        AddCommand.MESSAGE_USAGE));
+            }
             Property property = getProperty(argMultimap);
             return new AddPropertyCommand(property);
         case BUYER:
+            if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_PRICE)) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        AddCommand.MESSAGE_USAGE));
+            }
             Buyer buyer = getBuyer(argMultimap);
             return new AddBuyerCommand(buyer);
         default:
