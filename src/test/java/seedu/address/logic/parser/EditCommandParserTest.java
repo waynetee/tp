@@ -15,7 +15,6 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_BUYER;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_PROPERTY;
 import static seedu.address.logic.commands.CommandTestUtil.PRICE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.SELLER_DESC_AMY;
@@ -84,13 +83,16 @@ public class EditCommandParserTest {
     @Test
     public void parse_invalidPreamble_failure() {
         // negative index
-        assertParseFailure(parser, PREAMBLE_PROPERTY + " " + "-5" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, PREAMBLE_PROPERTY + " " + "-5"
+                + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
 
         // zero index
-        assertParseFailure(parser, PREAMBLE_PROPERTY + " " + "0" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, PREAMBLE_PROPERTY + " " + "0"
+                + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
 
         // invalid arguments being parsed as preamble
-        assertParseFailure(parser, PREAMBLE_PROPERTY + " " + "1 some random string", MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, PREAMBLE_PROPERTY + " " + "1 some random string",
+                MESSAGE_INVALID_FORMAT);
 
         // invalid prefix being parsed as preamble
         assertParseFailure(parser, "1 i/ string", MESSAGE_INVALID_FORMAT);
@@ -98,40 +100,55 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() {
-        assertParseFailure(parser, PREAMBLE_PROPERTY + " " + "1" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
-        assertParseFailure(parser, PREAMBLE_PROPERTY + " " + "1" + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS); // invalid phone
-        assertParseFailure(parser, PREAMBLE_PROPERTY + " " + "1" + INVALID_EMAIL_DESC, Email.MESSAGE_CONSTRAINTS); // invalid email
-        assertParseFailure(parser, PREAMBLE_PROPERTY + " " + "1" + INVALID_ADDRESS_DESC, Address.MESSAGE_CONSTRAINTS); // invalid address
-        assertParseFailure(parser, PREAMBLE_PROPERTY + " " + "1" + INVALID_SELLER_DESC, Name.MESSAGE_CONSTRAINTS); // invalid seller
-        assertParseFailure(parser, PREAMBLE_PROPERTY + " " + "1" + INVALID_PRICE_DESC, Price.MESSAGE_CONSTRAINTS); // invalid price
-        assertParseFailure(parser, PREAMBLE_PROPERTY + " " + "1" + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
+        assertParseFailure(parser, PREAMBLE_PROPERTY + " " + "1"
+                + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
+        assertParseFailure(parser, PREAMBLE_PROPERTY + " " + "1"
+                + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS); // invalid phone
+        assertParseFailure(parser, PREAMBLE_PROPERTY + " " + "1"
+                + INVALID_EMAIL_DESC, Email.MESSAGE_CONSTRAINTS); // invalid email
+        assertParseFailure(parser, PREAMBLE_PROPERTY + " " + "1"
+                + INVALID_ADDRESS_DESC, Address.MESSAGE_CONSTRAINTS); // invalid address
+        assertParseFailure(parser, PREAMBLE_PROPERTY + " " + "1"
+                + INVALID_SELLER_DESC, Name.MESSAGE_CONSTRAINTS); // invalid seller
+        assertParseFailure(parser, PREAMBLE_PROPERTY + " " + "1"
+                + INVALID_PRICE_DESC, Price.MESSAGE_CONSTRAINTS); // invalid price
+        assertParseFailure(parser, PREAMBLE_PROPERTY + " " + "1"
+                + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
 
         // invalid phone followed by valid email
-        assertParseFailure(parser, PREAMBLE_PROPERTY + " " + "1" + INVALID_PHONE_DESC + EMAIL_DESC_AMY, Phone.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, PREAMBLE_PROPERTY + " " + "1"
+                + INVALID_PHONE_DESC + EMAIL_DESC_AMY, Phone.MESSAGE_CONSTRAINTS);
 
         // valid phone followed by invalid phone. The test case for invalid phone followed by valid phone
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
-        assertParseFailure(parser, PREAMBLE_PROPERTY + " " + "1" + PHONE_DESC_BOB + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, PREAMBLE_PROPERTY + " " + "1"
+                + PHONE_DESC_BOB + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS);
 
         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Property} being edited,
         // parsing it together with a valid tag results in error
-        assertParseFailure(parser, PREAMBLE_PROPERTY + " " + "1" + TAG_DESC_FRIEND + TAG_DESC_HUSBAND + TAG_EMPTY, Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, PREAMBLE_PROPERTY + " " + "1" + TAG_DESC_FRIEND + TAG_EMPTY + TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, PREAMBLE_PROPERTY + " " + "1" + TAG_EMPTY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, PREAMBLE_PROPERTY + " " + "1"
+                + TAG_DESC_FRIEND + TAG_DESC_HUSBAND + TAG_EMPTY, Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, PREAMBLE_PROPERTY + " " + "1"
+                + TAG_DESC_FRIEND + TAG_EMPTY + TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, PREAMBLE_PROPERTY + " " + "1"
+                + TAG_EMPTY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, PREAMBLE_PROPERTY + " " + "1" + INVALID_NAME_DESC + INVALID_EMAIL_DESC + VALID_ADDRESS_AMY + VALID_PHONE_AMY,
+        assertParseFailure(parser, PREAMBLE_PROPERTY + " " + "1"
+                        + INVALID_NAME_DESC + INVALID_EMAIL_DESC + VALID_ADDRESS_AMY + VALID_PHONE_AMY,
                 Name.MESSAGE_CONSTRAINTS);
     }
 
     @Test
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_PROPERTY;
-        String userInput = PREAMBLE_PROPERTY + " " + targetIndex.getOneBased() + PHONE_DESC_BOB + TAG_DESC_HUSBAND
+        String userInput = PREAMBLE_PROPERTY + " " + targetIndex.getOneBased()
+                + PHONE_DESC_BOB + TAG_DESC_HUSBAND
                 + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + NAME_DESC_AMY
                 + SELLER_DESC_AMY + PRICE_DESC_AMY + TAG_DESC_FRIEND;
 
-        EditPropertyCommand.EditPropertyDescriptor descriptor = new EditPropertyDescriptorBuilder().withName(VALID_NAME_AMY)
+        EditPropertyCommand.EditPropertyDescriptor descriptor = new EditPropertyDescriptorBuilder()
+                .withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
                 .withPrice(VALID_PRICE_AMY).withSeller(VALID_SELLER_AMY)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
@@ -143,9 +160,11 @@ public class EditCommandParserTest {
     @Test
     public void parse_someFieldsSpecified_success() {
         Index targetIndex = INDEX_FIRST_PROPERTY;
-        String userInput = PREAMBLE_PROPERTY + " " + targetIndex.getOneBased() + PHONE_DESC_BOB + EMAIL_DESC_AMY;
+        String userInput = PREAMBLE_PROPERTY + " " + targetIndex.getOneBased()
+                + PHONE_DESC_BOB + EMAIL_DESC_AMY;
 
-        EditPropertyCommand.EditPropertyDescriptor descriptor = new EditPropertyDescriptorBuilder().withPhone(VALID_PHONE_BOB)
+        EditPropertyCommand.EditPropertyDescriptor descriptor = new EditPropertyDescriptorBuilder()
+                .withPhone(VALID_PHONE_BOB)
                 .withEmail(VALID_EMAIL_AMY).build();
         EditCommand expectedCommand = new EditPropertyCommand(targetIndex, descriptor);
 
@@ -202,11 +221,13 @@ public class EditCommandParserTest {
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
         Index targetIndex = INDEX_FIRST_PROPERTY;
-        String userInput = PREAMBLE_PROPERTY + " " + targetIndex.getOneBased() + PHONE_DESC_AMY + ADDRESS_DESC_AMY + EMAIL_DESC_AMY
+        String userInput = PREAMBLE_PROPERTY + " " + targetIndex.getOneBased()
+                + PHONE_DESC_AMY + ADDRESS_DESC_AMY + EMAIL_DESC_AMY
                 + TAG_DESC_FRIEND + PHONE_DESC_AMY + ADDRESS_DESC_AMY + EMAIL_DESC_AMY + TAG_DESC_FRIEND
                 + PHONE_DESC_BOB + ADDRESS_DESC_BOB + EMAIL_DESC_BOB + TAG_DESC_HUSBAND;
 
-        EditPropertyCommand.EditPropertyDescriptor descriptor = new EditPropertyDescriptorBuilder().withPhone(VALID_PHONE_BOB)
+        EditPropertyCommand.EditPropertyDescriptor descriptor = new EditPropertyDescriptorBuilder()
+                .withPhone(VALID_PHONE_BOB)
                 .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND).build();
         EditCommand expectedCommand = new EditPropertyCommand(targetIndex, descriptor);
@@ -218,14 +239,16 @@ public class EditCommandParserTest {
     public void parse_invalidValueFollowedByValidValue_success() {
         // no other valid values specified
         Index targetIndex = INDEX_FIRST_PROPERTY;
-        String userInput = PREAMBLE_PROPERTY + " " + targetIndex.getOneBased() + INVALID_PHONE_DESC + PHONE_DESC_BOB;
+        String userInput = PREAMBLE_PROPERTY + " " + targetIndex.getOneBased()
+                + INVALID_PHONE_DESC + PHONE_DESC_BOB;
         EditPropertyCommand.EditPropertyDescriptor descriptor = new EditPropertyDescriptorBuilder()
                 .withPhone(VALID_PHONE_BOB).build();
         EditPropertyCommand expectedCommand = new EditPropertyCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // other valid values specified
-        userInput = PREAMBLE_PROPERTY + " " + targetIndex.getOneBased() + EMAIL_DESC_BOB + INVALID_PHONE_DESC + ADDRESS_DESC_BOB
+        userInput = PREAMBLE_PROPERTY + " " + targetIndex.getOneBased()
+                + EMAIL_DESC_BOB + INVALID_PHONE_DESC + ADDRESS_DESC_BOB
                 + PHONE_DESC_BOB;
         descriptor = new EditPropertyDescriptorBuilder().withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
                 .withAddress(VALID_ADDRESS_BOB).build();
@@ -247,7 +270,8 @@ public class EditCommandParserTest {
     @Test
     public void parse_addAndDeleteTags_success() {
         Index targetIndex = INDEX_THIRD_PROPERTY;
-        String userInput = PREAMBLE_PROPERTY + " " + targetIndex.getOneBased() + TAG_ADD_CONDO + TAG_DELETE_NEAR_SCHOOL;
+        String userInput = PREAMBLE_PROPERTY + " " + targetIndex.getOneBased()
+                + TAG_ADD_CONDO + TAG_DELETE_NEAR_SCHOOL;
 
         EditPropertyCommand.EditPropertyDescriptor descriptor = new EditPropertyDescriptorBuilder()
                 .withTagsToAdd(T_CONDO).withTagsToDelete(T_NEAR_SCHOOL).build();
@@ -259,7 +283,8 @@ public class EditCommandParserTest {
     @Test
     public void parse_addAndDeleteSameTag_failure() {
         Index targetIndex = INDEX_THIRD_PROPERTY;
-        String userInput = PREAMBLE_PROPERTY + " " + targetIndex.getOneBased() + TAG_ADD_CONDO + TAG_DELETE_CONDO;
+        String userInput = PREAMBLE_PROPERTY + " " + targetIndex.getOneBased()
+                + TAG_ADD_CONDO + TAG_DELETE_CONDO;
 
         assertParseFailure(parser, userInput, EditCommand.MESSAGE_DUPLICATE_ADD_AND_DELETE_TAG);
     }
@@ -267,7 +292,8 @@ public class EditCommandParserTest {
     @Test
     public void parse_resetAndModifyTagsSimultaneously_failure() {
         Index targetIndex = INDEX_THIRD_PROPERTY;
-        String userInput = PREAMBLE_PROPERTY + " " + targetIndex.getOneBased() + TAG_EMPTY + TAG_DELETE_CONDO;
+        String userInput = PREAMBLE_PROPERTY + " " + targetIndex.getOneBased()
+                + TAG_EMPTY + TAG_DELETE_CONDO;
 
         assertParseFailure(parser, userInput, EditCommand.MESSAGE_RESET_TAG_TOGETHER_WITH_MODIFY_TAG);
     }

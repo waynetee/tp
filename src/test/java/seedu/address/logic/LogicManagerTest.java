@@ -82,7 +82,8 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD  + " " + PREAMBLE_PROPERTY + " " + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
+        String addCommand = AddCommand.COMMAND_WORD + " " + PREAMBLE_PROPERTY + " "
+                + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
                 + ADDRESS_DESC_AMY + SELLER_DESC_AMY + PRICE_DESC_AMY;
         Property expectedProperty = new PropertyBuilder(P_AMY).withTags().build();
         ModelManager expectedModel = new ModelManager();
