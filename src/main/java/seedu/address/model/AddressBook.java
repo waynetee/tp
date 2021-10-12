@@ -125,7 +125,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Replaces the given buyer {@code target} in the list with {@code editedProperty}.
+     * Replaces the given buyer {@code target} in the list with {@code editedBuyer}.
      * {@code target} must exist in the address book.
      * The buyer identity of {@code editedBuyer} must not be the same as another existing buyer
      * in the address book.
