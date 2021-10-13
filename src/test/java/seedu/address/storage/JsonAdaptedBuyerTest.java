@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.storage.JsonAdaptedBuyer.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalBuyers.B_BENSON;
-import static seedu.address.testutil.TypicalProperties.P_BENSON;
 
 import java.util.ArrayList;
 import java.util.List;
