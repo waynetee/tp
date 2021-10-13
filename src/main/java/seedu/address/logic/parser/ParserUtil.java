@@ -14,6 +14,7 @@ import seedu.address.model.field.Email;
 import seedu.address.model.field.Name;
 import seedu.address.model.field.Phone;
 import seedu.address.model.field.Price;
+import seedu.address.model.field.SortDirection;
 import seedu.address.model.field.SortType;
 import seedu.address.model.property.Address;
 import seedu.address.model.tag.Tag;
@@ -211,6 +212,24 @@ public class ParserUtil {
             return SortType.NAME;
         } else {
             throw new ParseException(SortType.MESSAGE_CONSTRAINTS);
+        }
+    }
+
+    /**
+     * Parse a {@code String sortDir} into a {@code SortDir}
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code sortDir} is invalid.
+     */
+    public static SortDirection parseSortDir(String sortDir) throws ParseException {
+        requireNonNull(sortDir);
+        String trimmedSortType = sortDir.trim();
+        if (trimmedSortType.equals("asc")) {
+            return SortDirection.ASC;
+        } else if (trimmedSortType.equals("desc")) {
+            return SortDirection.DESC;
+        } else {
+            throw new ParseException(SortDirection.MESSAGE_CONSTRAINTS);
         }
     }
 }

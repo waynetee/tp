@@ -145,31 +145,59 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Sorts properties by price.
+     * Sorts properties by price in ascending order.
      */
     public void sortPropertiesPrice() {
         properties.sortPrice();
     }
 
     /**
-     * Sorts buyers by price.
+     * Sort properties by price in descending order.
+     */
+    public void sortPropertiesPriceDesc() {
+        properties.sortPriceDesc();
+    }
+
+    /**
+     * Sorts buyers by price in ascending order.
      */
     public void sortBuyersPrice() {
         buyers.sortPrice();
     }
 
     /**
-     * Sorts properties by name.
+     * Sorts buyers by price in descending order.
+     */
+    public void sortBuyersPriceDesc() {
+        buyers.sortPriceDesc();
+    }
+
+    /**
+     * Sorts properties by name in ascending order.
      */
     public void sortPropertiesName() {
         properties.sortName();
     }
 
     /**
-     * Sorts buyers by name.
+     * Sorts properties by name in descending order.
+     */
+    public void sortPropertiesNameDesc() {
+        properties.sortNameDesc();
+    }
+
+    /**
+     * Sorts buyers by name in ascending order.
      */
     public void sortBuyersName() {
         buyers.sortName();
+    }
+
+    /**
+     * Sorts buyers by name in descending order.
+     */
+    public void sortBuyersNameDesc() {
+        buyers.sortNameDesc();
     }
 
     //// util methods

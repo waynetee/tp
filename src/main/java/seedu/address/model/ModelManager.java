@@ -146,8 +146,20 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void sortPropertiesPriceDesc() {
+        addressBook.sortPropertiesPriceDesc();
+        updateFilteredPropertyList(PREDICATE_SHOW_ALL_PROPERTIES);
+    }
+
+    @Override
     public void sortBuyersPrice() {
         addressBook.sortBuyersPrice();
+        updateFilteredBuyerList(PREDICATE_SHOW_ALL_BUYERS);
+    }
+
+    @Override
+    public void sortBuyersPriceDesc() {
+        addressBook.sortBuyersPriceDesc();
         updateFilteredBuyerList(PREDICATE_SHOW_ALL_BUYERS);
     }
 
@@ -158,8 +170,20 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void sortPropertiesNameDesc() {
+        addressBook.sortPropertiesNameDesc();
+        updateFilteredPropertyList(PREDICATE_SHOW_ALL_PROPERTIES);
+    }
+
+    @Override
     public void sortBuyersName() {
         addressBook.sortBuyersName();
+        updateFilteredBuyerList(PREDICATE_SHOW_ALL_BUYERS);
+    }
+
+    @Override
+    public void sortBuyersNameDesc() {
+        addressBook.sortBuyersNameDesc();
         updateFilteredBuyerList(PREDICATE_SHOW_ALL_BUYERS);
     }
 

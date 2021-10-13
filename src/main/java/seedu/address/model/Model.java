@@ -92,14 +92,24 @@ public interface Model {
     void updateFilteredPropertyList(Predicate<Property> predicate);
 
     /**
-     * Sorts the property list by price.
+     * Sorts the property list by price in ascending order.
      */
     void sortPropertiesPrice();
 
     /**
-     * Sorts the property list by name.
+     * Sorts the property list by price in descending order.
+     */
+    void sortPropertiesPriceDesc();
+
+    /**
+     * Sorts the property list by name in ascending order.
      */
     void sortPropertiesName();
+
+    /**
+     * Sorts the property list by name in descending order.
+     */
+    void sortPropertiesNameDesc();
 
     /**
      * Returns true if a buyer with the same identity as {@code buyer} exists in the address book.
@@ -136,12 +146,22 @@ public interface Model {
     void updateFilteredBuyerList(Predicate<Buyer> predicate);
 
     /**
-     * Sorts the buyer list by price.
+     * Sorts the buyer list by price in increasing order.
      */
     void sortBuyersPrice();
 
     /**
-     * Sorts the buyer list by name.
+     * Sorts the buyer list by price in decreasing order.
+     */
+    void sortBuyersPriceDesc();
+
+    /**
+     * Sorts the buyer list by name in ascending order.
      */
     void sortBuyersName();
+
+    /**
+     * Sorts the buyer list by name in descending order.
+     */
+    void sortBuyersNameDesc();
 }

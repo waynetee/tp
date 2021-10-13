@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import seedu.address.model.field.SortDirection;
 import seedu.address.model.field.SortType;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SORT_TYPE;
@@ -15,12 +16,18 @@ public abstract class SortCommand extends Command {
             + PREFIX_SORT_TYPE + "(name/price)]";
 
     private final SortType sortType;
+    private final SortDirection sortDirection;
 
-    public SortCommand(SortType sortType) {
+    public SortCommand(SortType sortType, SortDirection sortDirection) {
         this.sortType = sortType;
+        this.sortDirection = sortDirection;
     }
 
     public SortType getSortType() {
         return sortType;
+    }
+
+    public SortDirection getSortDirection() {
+        return sortDirection;
     }
 }

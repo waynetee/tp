@@ -3,6 +3,7 @@ package seedu.address.model.property;
 import java.util.Comparator;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import seedu.address.model.property.exceptions.DuplicateListableException;
 import seedu.address.model.property.exceptions.DuplicatePropertyException;
 import seedu.address.model.property.exceptions.ListableNotFoundException;
@@ -77,8 +78,27 @@ public class UniquePropertyList extends UniqueList<Property> {
         super.sortListables(priceComparator);
     }
 
+    /**
+     * Sorts the list by price in descending order. If two {@code Property} have the same price,
+     * the {@code Property} which has a lexically smaller name will have a higher priority.
+     */
+    public void sortPriceDesc() {
+        Comparator<Property> priceComparator = (b1, b2) -> {
+            if (b1.getPrice().compareTo(b2.getPrice()) == 0) {
+                return b1.getName().compareTo(b2.getName());
+            }
+            return -b1.getPrice().compareTo(b2.getPrice());
+        };
+        super.sortListables(priceComparator);
+    }
+
     public void sortName() {
         Comparator<Property> nameComparator = Comparator.comparing(Property::getName);
+        super.sortListables(nameComparator);
+    }
+
+    public void sortNameDesc() {
+        Comparator<Property> nameComparator = Comparator.comparing(Property::getName).reversed();
         super.sortListables(nameComparator);
     }
 }
