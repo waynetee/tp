@@ -1,15 +1,9 @@
 package seedu.address.storage;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalProperties.P_ALICE;
-import static seedu.address.testutil.TypicalProperties.P_HOON;
-import static seedu.address.testutil.TypicalProperties.P_IDA;
 import static seedu.address.testutil.TypicalProperties.getTypicalAddressBook;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -17,8 +11,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import javafx.collections.ObservableList;
-import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.property.Buyer;
 import seedu.address.model.property.Property;

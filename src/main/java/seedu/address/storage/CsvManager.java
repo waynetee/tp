@@ -1,6 +1,5 @@
 package seedu.address.storage;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.io.File;
