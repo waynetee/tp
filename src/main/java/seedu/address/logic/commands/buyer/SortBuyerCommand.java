@@ -10,16 +10,15 @@ import static java.util.Objects.requireNonNull;
 public class SortBuyerCommand extends SortCommand {
     public static final String MESSAGE_SUCCESS = "Sorted all buyers by %s";
 
-    private final SortType sortType;
-
     public SortBuyerCommand(SortType sortType) {
-        this.sortType = sortType;
+        super(sortType);
     }
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        switch (sortType) {
+        SortType sortType = getSortType();
+        switch (getSortType()) {
         case PRICE:
             model.sortBuyersPrice();
             break;
@@ -29,6 +28,6 @@ public class SortBuyerCommand extends SortCommand {
         default:
             assert false;
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS, sortType.name().toLowerCase()));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, sortType));
     }
 }

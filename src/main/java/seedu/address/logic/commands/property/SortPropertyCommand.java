@@ -10,15 +10,14 @@ import static java.util.Objects.requireNonNull;
 public class SortPropertyCommand extends SortCommand {
     public static final String MESSAGE_SUCCESS = "Sorted all properties by %s";
 
-    private final SortType sortType;
-
     public SortPropertyCommand(SortType sortType) {
-        this.sortType = sortType;
+        super(sortType);
     }
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+        SortType sortType = getSortType();
         switch (sortType) {
         case PRICE:
             model.sortPropertiesPrice();
@@ -29,6 +28,6 @@ public class SortPropertyCommand extends SortCommand {
         default:
             assert false;
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS, sortType.name().toLowerCase()));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, sortType));
     }
 }
