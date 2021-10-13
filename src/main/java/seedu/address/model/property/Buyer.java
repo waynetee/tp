@@ -3,11 +3,17 @@ package seedu.address.model.property;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
+<<<<<<< HEAD
 import java.util.HashSet;
+=======
+>>>>>>> master
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.field.Email;
+import seedu.address.model.field.Name;
 import seedu.address.model.field.Person;
+import seedu.address.model.field.Phone;
 import seedu.address.model.field.Price;
 import seedu.address.model.tag.Tag;
 
@@ -21,6 +27,16 @@ public class Buyer extends Person implements Listable {
      */
     public Buyer(Person person, Price maxPrice, Set<Tag> tags) {
         super(person.getName(), person.getPhone(), person.getEmail());
+        requireAllNonNull(maxPrice, tags);
+        this.maxPrice = maxPrice;
+        this.tags.addAll(tags);
+    }
+
+    /**
+     * Every field must be present and not null.
+     */
+    public Buyer(Name name, Phone phone, Email email, Price maxPrice, Set<Tag> tags) {
+        super(name, phone, email);
         requireAllNonNull(maxPrice, tags);
         this.maxPrice = maxPrice;
         this.tags.addAll(tags);
