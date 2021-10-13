@@ -92,6 +92,16 @@ public interface Model {
     void updateFilteredPropertyList(Predicate<Property> predicate);
 
     /**
+     * Sorts the property list by price.
+     */
+    void sortPropertiesPrice();
+
+    /**
+     * Sorts the property list by name.
+     */
+    void sortPropertiesName();
+
+    /**
      * Returns true if a buyer with the same identity as {@code buyer} exists in the address book.
      */
     boolean hasBuyer(Buyer buyer);
@@ -124,4 +134,14 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredBuyerList(Predicate<Buyer> predicate);
+
+    /**
+     * Sorts the buyer list by price.
+     */
+    void sortBuyersPrice();
+
+    /**
+     * Sorts the buyer list by name.
+     */
+    void sortBuyersName();
 }

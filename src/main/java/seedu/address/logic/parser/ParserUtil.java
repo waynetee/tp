@@ -14,6 +14,7 @@ import seedu.address.model.field.Email;
 import seedu.address.model.field.Name;
 import seedu.address.model.field.Phone;
 import seedu.address.model.field.Price;
+import seedu.address.model.field.SortType;
 import seedu.address.model.property.Address;
 import seedu.address.model.tag.Tag;
 
@@ -193,5 +194,23 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parse a {@code String sortType} into a {@code SortType}
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code sortType} is invalid.
+     */
+    public static SortType parseSortType(String sortType) throws ParseException {
+        requireNonNull(sortType);
+        String trimmedSortType = sortType.trim();
+        if (trimmedSortType.equals("price")) {
+            return SortType.PRICE;
+        } else if (trimmedSortType.equals("name")) {
+            return SortType.NAME;
+        } else {
+            throw new ParseException(SortType.MESSAGE_CONSTRAINTS);
+        }
     }
 }

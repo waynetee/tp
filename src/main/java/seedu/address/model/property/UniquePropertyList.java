@@ -1,5 +1,6 @@
 package seedu.address.model.property;
 
+import java.util.Comparator;
 import java.util.List;
 
 import seedu.address.model.property.exceptions.DuplicateListableException;
@@ -64,5 +65,20 @@ public class UniquePropertyList extends UniqueList<Property> {
         } catch (ListableNotFoundException e) {
             throw new PropertyNotFoundException();
         }
+    }
+
+    public void sortPrice() {
+        Comparator<Property> priceComparator = (b1, b2) -> {
+            if (b1.getPrice().compareTo(b2.getPrice()) == 0) {
+                return b1.getName().compareTo(b2.getName());
+            }
+            return b1.getPrice().compareTo(b2.getPrice());
+        };
+        super.sortListables(priceComparator);
+    }
+
+    public void sortName() {
+        Comparator<Property> nameComparator = Comparator.comparing(Property::getName);
+        super.sortListables(nameComparator);
     }
 }

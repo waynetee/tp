@@ -1,5 +1,6 @@
 package seedu.address.model.property;
 
+import java.util.Comparator;
 import java.util.List;
 
 import seedu.address.model.property.exceptions.BuyerNotFoundException;
@@ -64,5 +65,20 @@ public class UniqueBuyerList extends UniqueList<Buyer> {
         } catch (ListableNotFoundException e) {
             throw new BuyerNotFoundException();
         }
+    }
+
+    public void sortPrice() {
+        Comparator<Buyer> priceComparator = (b1, b2) -> {
+            if (b1.getMaxPrice().compareTo(b2.getMaxPrice()) == 0) {
+                return b1.getName().compareTo(b2.getName());
+            }
+            return b1.getMaxPrice().compareTo(b2.getMaxPrice());
+        };
+        super.sortListables(priceComparator);
+    }
+
+    public void sortName() {
+        Comparator<Buyer> nameComparator = Comparator.comparing(Buyer::getName);
+        super.sortListables(nameComparator);
     }
 }

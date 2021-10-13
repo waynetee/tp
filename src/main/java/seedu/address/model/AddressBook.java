@@ -144,6 +144,34 @@ public class AddressBook implements ReadOnlyAddressBook {
         buyers.remove(key);
     }
 
+    /**
+     * Sorts properties by price.
+     */
+    public void sortPropertiesPrice() {
+        properties.sortPrice();
+    }
+
+    /**
+     * Sorts buyers by price.
+     */
+    public void sortBuyersPrice() {
+        buyers.sortPrice();
+    }
+
+    /**
+     * Sorts properties by name.
+     */
+    public void sortPropertiesName() {
+        properties.sortName();
+    }
+
+    /**
+     * Sorts buyers by name.
+     */
+    public void sortBuyersName() {
+        buyers.sortName();
+    }
+
     //// util methods
 
     @Override

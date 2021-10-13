@@ -139,6 +139,30 @@ public class ModelManager implements Model {
         addressBook.addBuyer(target, editedBuyer);
     }
 
+    @Override
+    public void sortPropertiesPrice() {
+        addressBook.sortPropertiesPrice();
+        updateFilteredPropertyList(PREDICATE_SHOW_ALL_PROPERTIES);
+    }
+
+    @Override
+    public void sortBuyersPrice() {
+        addressBook.sortBuyersPrice();
+        updateFilteredBuyerList(PREDICATE_SHOW_ALL_BUYERS);
+    }
+
+    @Override
+    public void sortPropertiesName() {
+        addressBook.sortPropertiesName();
+        updateFilteredPropertyList(PREDICATE_SHOW_ALL_PROPERTIES);
+    }
+
+    @Override
+    public void sortBuyersName() {
+        addressBook.sortBuyersName();
+        updateFilteredBuyerList(PREDICATE_SHOW_ALL_BUYERS);
+    }
+
     //=========== Filtered Property List Accessors =============================================================
 
     /**
