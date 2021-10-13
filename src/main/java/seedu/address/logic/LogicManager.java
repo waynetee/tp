@@ -15,6 +15,7 @@ import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.property.Buyer;
 import seedu.address.model.property.Property;
 import seedu.address.storage.CsvManager;
 import seedu.address.storage.Storage;
@@ -62,6 +63,12 @@ public class LogicManager implements Logic {
     public void exportProperties(File file) {
         ObservableList<Property> properties = model.getAddressBook().getPropertyList();
         csvManager.exportProperties(file, properties);
+    }
+
+    @Override
+    public void exportBuyers(File file) {
+        ObservableList<Buyer> buyers = model.getAddressBook().getBuyerList();
+        csvManager.exportBuyers(file, buyers);
     }
 
     @Override

@@ -175,6 +175,17 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Exports Buyers.
+     */
+    @FXML
+    public void handleExportBuyers() {
+        File file = getSaveCsvFile("Save Buyers to CSV");
+        if (file != null) {
+            logic.exportBuyers(file);
+        }
+    }
+
     void show() {
         primaryStage.show();
     }

@@ -30,6 +30,11 @@ public interface Logic {
     void exportProperties(File file);
 
     /**
+     * Exports buyers to csv file.
+     */
+    void exportBuyers(File file);
+
+    /**
      * Returns the AddressBook.
      *
      * @see seedu.address.model.Model#getAddressBook()
