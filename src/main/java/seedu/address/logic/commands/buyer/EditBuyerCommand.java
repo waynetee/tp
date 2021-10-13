@@ -3,8 +3,6 @@ package seedu.address.logic.commands.buyer;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_BUYERS;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -66,7 +64,7 @@ public class EditBuyerCommand extends EditCommand {
         model.setBuyer(buyerToEdit, editedBuyer);
         model.updateFilteredBuyerList(PREDICATE_SHOW_ALL_BUYERS);
         String editTagDescription = tagInfo.getValue();
-        String resultString = StringUtil.joinLines(String.format(MESSAGE_EDIT_PROPERTY_SUCCESS, editedBuyer),
+        String resultString = StringUtil.joinLines(String.format(MESSAGE_EDIT_BUYER_SUCCESS, editedBuyer),
                 editTagDescription);
         return new CommandResult(resultString);
     }
@@ -118,7 +116,6 @@ public class EditBuyerCommand extends EditCommand {
 
         /**
          * Copy constructor.
-         * A defensive copy of {@code tags} is used internally.
          */
         public EditBuyerDescriptor(EditBuyerDescriptor toCopy) {
             super(toCopy);

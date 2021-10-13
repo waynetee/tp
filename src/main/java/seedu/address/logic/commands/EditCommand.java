@@ -1,19 +1,5 @@
 package seedu.address.logic.commands;
 
-import javafx.util.Pair;
-import seedu.address.commons.util.CollectionUtil;
-import seedu.address.logic.commands.buyer.EditBuyerCommand;
-import seedu.address.logic.commands.property.EditPropertyCommand;
-import seedu.address.model.property.Listable;
-import seedu.address.model.property.Property;
-import seedu.address.model.property.Taggable;
-import seedu.address.model.tag.Tag;
-
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
-
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE_TAG;
@@ -23,6 +9,16 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SELLER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
+
+import javafx.util.Pair;
+import seedu.address.commons.util.CollectionUtil;
+import seedu.address.model.property.Taggable;
+import seedu.address.model.tag.Tag;
 
 /**
  * Edits the details of an existing entity (property or buyer) in the address book.
@@ -115,6 +111,10 @@ public abstract class EditCommand extends Command {
 
         public EditTaggableDescriptor() {}
 
+        /**
+         * Copy constructor.
+         * A defense copy of {@code tags}, {@tagsToAdd} and {@tagsToSDelete} is used internally.
+         */
         public EditTaggableDescriptor(EditTaggableDescriptor toCopy) {
             setTags(toCopy.tags);
             setTagsToAdd(toCopy.tagsToAdd);
