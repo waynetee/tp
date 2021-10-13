@@ -32,6 +32,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private PropertyListPanel propertyListPanel;
+    private BuyerListPanel buyerListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -43,6 +44,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane propertyListPanelPlaceholder;
+
+    @FXML
+    private StackPane buyerListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -112,6 +116,9 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         propertyListPanel = new PropertyListPanel(logic.getFilteredPropertyList());
         propertyListPanelPlaceholder.getChildren().add(propertyListPanel.getRoot());
+
+        buyerListPanel = new BuyerListPanel(logic.getFilteredBuyerList());
+        buyerListPanelPlaceholder.getChildren().add(buyerListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
