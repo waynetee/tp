@@ -17,6 +17,7 @@ import java.util.List;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.property.EditPropertyCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.field.NameContainsKeywordsPredicate;
@@ -66,11 +67,13 @@ public class CommandTestUtil {
     public static final String INVALID_PRICE_DESC = " " + PREFIX_PRICE + "1000k"; // 'k' not allowed in price
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
+    public static final String PREAMBLE_PROPERTY = "property";
+    public static final String PREAMBLE_BUYER = "buyer";
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditPropertyDescriptor DESC_AMY;
-    public static final EditCommand.EditPropertyDescriptor DESC_BOB;
+    public static final EditPropertyCommand.EditPropertyDescriptor DESC_AMY;
+    public static final EditPropertyCommand.EditPropertyDescriptor DESC_BOB;
 
     static {
         DESC_AMY = new EditPropertyDescriptorBuilder().withName(VALID_NAME_AMY)

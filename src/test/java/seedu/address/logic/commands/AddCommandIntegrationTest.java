@@ -7,6 +7,7 @@ import static seedu.address.testutil.TypicalProperties.getTypicalAddressBook;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.property.AddPropertyCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -32,14 +33,15 @@ public class AddCommandIntegrationTest {
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.addProperty(validProperty);
 
-        assertCommandSuccess(new AddCommand(validProperty), model,
-                String.format(AddCommand.MESSAGE_SUCCESS, validProperty), expectedModel);
+        assertCommandSuccess(new AddPropertyCommand(validProperty), model,
+                String.format(AddPropertyCommand.MESSAGE_SUCCESS, validProperty), expectedModel);
     }
 
     @Test
     public void execute_duplicateProperty_throwsCommandException() {
         Property propertyInList = model.getAddressBook().getPropertyList().get(0);
-        assertCommandFailure(new AddCommand(propertyInList), model, AddCommand.MESSAGE_DUPLICATE_PROPERTY);
+        assertCommandFailure(new AddPropertyCommand(propertyInList), model,
+                AddPropertyCommand.MESSAGE_DUPLICATE_PROPERTY);
     }
 
 }
