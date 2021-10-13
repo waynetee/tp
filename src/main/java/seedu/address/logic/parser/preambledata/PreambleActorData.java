@@ -23,4 +23,18 @@ public class PreambleActorData {
     public Actor getActor() {
         return actor;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof PreambleActorData)) {
+            return false;
+        }
+
+        PreambleActorData otherPreamble = (PreambleActorData) other;
+        return getActor().equals(otherPreamble.getActor());
+    }
 }

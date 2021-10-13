@@ -20,4 +20,18 @@ public class PreambleIndexData extends PreambleActorData {
     public Index getIndex(){
         return index;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof PreambleIndexData)) {
+            return false;
+        }
+
+        PreambleIndexData otherPreamble = (PreambleIndexData) other;
+        return getIndex().equals(otherPreamble.getIndex()) && super.equals(other);
+    }
 }

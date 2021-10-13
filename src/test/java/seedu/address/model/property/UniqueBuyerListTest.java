@@ -6,6 +6,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalBuyers.B_ALICE;
 import static seedu.address.testutil.TypicalBuyers.B_BOB;
+import static seedu.address.testutil.TypicalBuyers.getTypicalBuyersSortedNameAsc;
+import static seedu.address.testutil.TypicalBuyers.getTypicalBuyersSortedNameDesc;
+import static seedu.address.testutil.TypicalBuyers.getTypicalBuyersSortedPriceAsc;
+import static seedu.address.testutil.TypicalBuyers.getTypicalBuyersSortedPriceDesc;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -164,5 +168,41 @@ public class UniqueBuyerListTest {
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, ()
             -> uniqueBuyerList.asUnmodifiableObservableList().remove(0));
+    }
+
+    @Test
+    public void sortPrice_sortListInAscOrder() {
+        uniqueBuyerList.setBuyers(getTypicalBuyersSortedPriceDesc());
+        uniqueBuyerList.sortPrice();
+        UniqueBuyerList expectedUniqueBuyerList = new UniqueBuyerList();
+        expectedUniqueBuyerList.setBuyers(getTypicalBuyersSortedPriceAsc());
+        assertEquals(expectedUniqueBuyerList, uniqueBuyerList);
+    }
+
+    @Test
+    public void sortPriceDesc_sortListInDescOrder() {
+        uniqueBuyerList.setBuyers(getTypicalBuyersSortedPriceAsc());
+        uniqueBuyerList.sortPriceDesc();
+        UniqueBuyerList expectedUniqueBuyerList = new UniqueBuyerList();
+        expectedUniqueBuyerList.setBuyers(getTypicalBuyersSortedPriceDesc());
+        assertEquals(expectedUniqueBuyerList, uniqueBuyerList);
+    }
+
+    @Test
+    public void sortName_sortListInAscOrder() {
+        uniqueBuyerList.setBuyers(getTypicalBuyersSortedNameDesc());
+        uniqueBuyerList.sortName();
+        UniqueBuyerList expectedUniqueBuyerList = new UniqueBuyerList();
+        expectedUniqueBuyerList.setBuyers(getTypicalBuyersSortedNameAsc());
+        assertEquals(expectedUniqueBuyerList, uniqueBuyerList);
+    }
+
+    @Test
+    public void sortNameDesc_sortListInDescOrder() {
+        uniqueBuyerList.setBuyers(getTypicalBuyersSortedNameAsc());
+        uniqueBuyerList.sortNameDesc();
+        UniqueBuyerList expectedUniqueBuyerList = new UniqueBuyerList();
+        expectedUniqueBuyerList.setBuyers(getTypicalBuyersSortedNameDesc());
+        assertEquals(expectedUniqueBuyerList, uniqueBuyerList);
     }
 }

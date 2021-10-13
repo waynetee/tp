@@ -15,8 +15,6 @@ import seedu.address.logic.parser.preambledata.PreambleIndexData;
  * Parses input arguments and creates a new DeleteCommand object
  */
 public class DeleteCommandParser implements Parser<DeleteCommand> {
-    private static final int NUMBER_OF_PREAMBLE_ARGUMENTS = 2;
-
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteCommand
      * and returns a DeleteCommand object for execution.

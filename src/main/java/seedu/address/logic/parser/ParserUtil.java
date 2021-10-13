@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -8,6 +9,7 @@ import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.parser.preambledata.PreambleActorData;
 import seedu.address.logic.parser.preambledata.PreambleActorData.Actor;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -57,10 +59,12 @@ public class ParserUtil {
         return new PreambleIndexData(actor, index);
     }
 
-    public static PreambleSortData parseSortPreamble(String preamble) throws ParseException {
+    public static PreambleSortData parseSortPreamble(String preamble, String helpMessage) throws ParseException {
         String[] preambleArray = preamble.trim().split(" ");
         if (preambleArray.length != PreambleSortData.PREAMBLE_FIELD_COUNT) {
-            throw new ParseException(MESSAGE_INVALID_PREAMBLE + PreambleSortData.MESSAGE_PREAMBLE_FIELD);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    MESSAGE_INVALID_PREAMBLE + PreambleSortData.MESSAGE_PREAMBLE_FIELD
+                    + "\n" + helpMessage));
         }
         Actor actor = parseActor(preambleArray[ACTOR_POSITIONAL_INDEX]);
         SortType sortType = parseSortType(preambleArray[SORT_TYPE_POSITIONAL_INDEX]);
@@ -75,9 +79,10 @@ public class ParserUtil {
      * @throws ParseException if the given string does not match any of the actors.
      */
     public static Actor parseActor(String actor) throws ParseException {
-        if (actor.equals("property")) {
+        String trimmedActor = actor.trim();
+        if (trimmedActor.equals("property")) {
             return Actor.PROPERTY;
-        } else if (actor.equals("buyer")) {
+        } else if (trimmedActor.equals("buyer")) {
             return Actor.BUYER;
         } else {
             throw new ParseException(MESSAGE_INVALID_ACTOR);

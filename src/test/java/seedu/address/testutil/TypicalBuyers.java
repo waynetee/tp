@@ -8,6 +8,11 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 
 import seedu.address.model.property.Buyer;
+import seedu.address.model.property.Property;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * A utility class containing a list of {@code Buyer} objects to be used in tests.
@@ -27,6 +32,8 @@ public class TypicalBuyers {
             .withMaxPrice("999000").build();
     public static final Buyer B_FIONA = new BuyerBuilder(TypicalPersons.FIONA)
             .withMaxPrice("999999").build();
+    public static final Buyer B_GEORGE = new BuyerBuilder(TypicalPersons.GEORGE)
+            .withMaxPrice("999999").build();
 
     // Manually added
 
@@ -43,4 +50,23 @@ public class TypicalBuyers {
     private TypicalBuyers() {
     } // prevents instantiation
 
+    public static List<Buyer> getTypicalBuyers() {
+        return new ArrayList<>(Arrays.asList(B_ALICE, B_BENSON, B_CARL, B_DANIEL, B_ELLE, B_FIONA));
+    }
+
+    public static List<Buyer> getTypicalBuyersSortedNameAsc() {
+        return new ArrayList<>(Arrays.asList(B_ALICE, B_BENSON, B_CARL, B_DANIEL, B_ELLE, B_FIONA, B_GEORGE));
+    }
+
+    public static List<Buyer> getTypicalBuyersSortedNameDesc() {
+        return new ArrayList<>(Arrays.asList(B_GEORGE, B_FIONA, B_ELLE, B_DANIEL, B_CARL, B_BENSON, B_ALICE));
+    }
+
+    public static List<Buyer> getTypicalBuyersSortedPriceAsc() {
+        return new ArrayList<>(Arrays.asList(B_DANIEL, B_ALICE, B_CARL, B_ELLE, B_FIONA, B_GEORGE, B_BENSON));
+    }
+
+    public static List<Buyer> getTypicalBuyersSortedPriceDesc() {
+        return new ArrayList<>(Arrays.asList(B_BENSON, B_FIONA, B_GEORGE, B_ELLE, B_CARL, B_ALICE, B_DANIEL));
+    }
 }

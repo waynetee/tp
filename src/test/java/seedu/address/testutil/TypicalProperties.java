@@ -20,6 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.property.Buyer;
 import seedu.address.model.property.Property;
 
 /**
@@ -40,15 +41,20 @@ public class TypicalProperties {
             .withEmail("johnd@example.com").withPhone("98765432")
             .withTags("condo").build();
     public static final Property P_CARL = new PropertyBuilder().withName("Carl Kurz").withPhone("95352563")
-            .withEmail("heinz@example.com").withAddress("wall street").build();
+            .withEmail("heinz@example.com").withAddress("wall street")
+            .withPrice("123456").build();
     public static final Property P_DANIEL = new PropertyBuilder().withName("Daniel Meier").withPhone("87652533")
-            .withEmail("cornelia@example.com").withAddress("10th street").withTags("friends").build();
+            .withEmail("cornelia@example.com").withAddress("10th street")
+            .withPrice("234561").withTags("friends").build();
     public static final Property P_ELLE = new PropertyBuilder().withName("Elle Meyer").withPhone("9482224")
-            .withEmail("werner@example.com").withAddress("michegan ave").build();
+            .withEmail("werner@example.com").withAddress("michegan ave")
+            .withPrice("345612").build();
     public static final Property P_FIONA = new PropertyBuilder().withName("Fiona Kunz").withPhone("9482427")
-            .withEmail("lydia@example.com").withAddress("little tokyo").build();
+            .withEmail("lydia@example.com").withAddress("little tokyo")
+            .withPrice("456123").build();
     public static final Property P_GEORGE = new PropertyBuilder().withName("George Best").withPhone("9482442")
-            .withEmail("anna@example.com").withAddress("4th street").build();
+            .withEmail("anna@example.com").withAddress("4th street")
+            .withPrice("561234").build();
 
     // Manually added
     public static final Property P_HOON = new PropertyBuilder().withName("Hoon Meier").withPhone("8482424")
@@ -68,18 +74,23 @@ public class TypicalProperties {
 
     private TypicalProperties() {} // prevents instantiation
 
-    /**
-     * Returns an {@code AddressBook} with all the typical properties.
-     */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
-        for (Property property : getTypicalProperties()) {
-            ab.addProperty(property);
-        }
-        return ab;
-    }
-
     public static List<Property> getTypicalProperties() {
         return new ArrayList<>(Arrays.asList(P_ALICE, P_BENSON, P_CARL, P_DANIEL, P_ELLE, P_FIONA, P_GEORGE));
+    }
+
+    public static List<Property> getTypicalPropertiesSortedNameAsc() {
+        return new ArrayList<>(Arrays.asList(P_CARL, P_DANIEL, P_ELLE, P_FIONA, P_GEORGE, P_ALICE, P_BENSON));
+    }
+
+    public static List<Property> getTypicalPropertiesSortedNameDesc() {
+        return new ArrayList<>(Arrays.asList(P_BENSON, P_ALICE, P_GEORGE, P_FIONA, P_ELLE, P_DANIEL, P_CARL));
+    }
+
+    public static List<Property> getTypicalPropertiesSortedPriceAsc() {
+        return new ArrayList<>(Arrays.asList(P_CARL, P_DANIEL, P_ELLE, P_FIONA, P_GEORGE, P_ALICE, P_BENSON));
+    }
+
+    public static List<Property> getTypicalPropertiesSortedPriceDesc() {
+        return new ArrayList<>(Arrays.asList(P_ALICE, P_BENSON, P_GEORGE, P_FIONA, P_ELLE, P_DANIEL, P_CARL));
     }
 }

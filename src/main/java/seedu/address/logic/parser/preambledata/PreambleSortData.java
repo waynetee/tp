@@ -23,4 +23,20 @@ public class PreambleSortData extends PreambleActorData {
     public SortDirection getSortDirection() {
         return sortDirection;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof PreambleSortData)) {
+            return false;
+        }
+
+        PreambleSortData otherPreamble = (PreambleSortData) other;
+        return getSortDirection().equals(otherPreamble.getSortDirection())
+                && getSortType().equals(otherPreamble.getSortType())
+                && super.equals(other);
+    }
 }

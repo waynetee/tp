@@ -10,6 +10,7 @@ import seedu.address.model.field.SortDirection;
 import seedu.address.model.field.SortType;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_ACTOR;
 
 /**
@@ -20,7 +21,8 @@ public class SortCommandParser implements Parser<SortCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args);
 
-        PreambleSortData preambleData = ParserUtil.parseSortPreamble(argMultimap.getPreamble());
+        PreambleSortData preambleData = ParserUtil.parseSortPreamble(argMultimap.getPreamble(),
+                SortCommand.MESSAGE_USAGE);
         Actor actor = preambleData.getActor();
         SortType sortType = preambleData.getSortType();
         SortDirection sortDirection = preambleData.getSortDirection();

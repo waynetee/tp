@@ -6,6 +6,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalProperties.getTypicalPropertiesSortedNameAsc;
+import static seedu.address.testutil.TypicalProperties.getTypicalPropertiesSortedNameDesc;
+import static seedu.address.testutil.TypicalProperties.getTypicalPropertiesSortedPriceAsc;
+import static seedu.address.testutil.TypicalProperties.getTypicalPropertiesSortedPriceDesc;
 import static seedu.address.testutil.TypicalProperties.P_ALICE;
 import static seedu.address.testutil.TypicalProperties.P_BOB;
 
@@ -167,5 +171,41 @@ public class UniquePropertyListTest {
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, ()
             -> uniquePropertyList.asUnmodifiableObservableList().remove(0));
+    }
+
+    @Test
+    public void sortPrice_sortListInAscOrder() {
+        uniquePropertyList.setProperties(getTypicalPropertiesSortedPriceDesc());
+        uniquePropertyList.sortPrice();
+        UniquePropertyList expectedUniquePropertyList = new UniquePropertyList();
+        expectedUniquePropertyList.setProperties(getTypicalPropertiesSortedPriceAsc());
+        assertEquals(expectedUniquePropertyList, uniquePropertyList);
+    }
+
+    @Test
+    public void sortPriceDesc_sortListInDescOrder() {
+        uniquePropertyList.setProperties(getTypicalPropertiesSortedPriceAsc());
+        uniquePropertyList.sortPriceDesc();
+        UniquePropertyList expectedUniquePropertyList = new UniquePropertyList();
+        expectedUniquePropertyList.setProperties(getTypicalPropertiesSortedPriceDesc());
+        assertEquals(expectedUniquePropertyList, uniquePropertyList);
+    }
+
+    @Test
+    public void sortName_sortListInAscOrder() {
+        uniquePropertyList.setProperties(getTypicalPropertiesSortedNameDesc());
+        uniquePropertyList.sortName();
+        UniquePropertyList expectedUniquePropertyList = new UniquePropertyList();
+        expectedUniquePropertyList.setProperties(getTypicalPropertiesSortedNameAsc());
+        assertEquals(expectedUniquePropertyList, uniquePropertyList);
+    }
+
+    @Test
+    public void sortNameDesc_sortListInDescOrder() {
+        uniquePropertyList.setProperties(getTypicalPropertiesSortedNameAsc());
+        uniquePropertyList.sortNameDesc();
+        UniquePropertyList expectedUniquePropertyList = new UniquePropertyList();
+        expectedUniquePropertyList.setProperties(getTypicalPropertiesSortedNameDesc());
+        assertEquals(expectedUniquePropertyList, uniquePropertyList);
     }
 }

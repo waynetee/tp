@@ -2,6 +2,7 @@ package seedu.address.logic.commands.buyer;
 
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.SortCommand;
+import seedu.address.logic.commands.property.SortPropertyCommand;
 import seedu.address.model.Model;
 import seedu.address.model.field.SortDirection;
 import seedu.address.model.field.SortType;
@@ -34,5 +35,18 @@ public class SortBuyerCommand extends SortCommand {
         }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, sortType, sortDirection));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof SortBuyerCommand)) {
+            return false;
+        }
+
+        return super.equals(other);
     }
 }
