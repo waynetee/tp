@@ -153,6 +153,26 @@ public class AddCommandTest {
         }
 
         @Override
+        public void sortPropertiesPrice() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortPropertiesPriceDesc() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortPropertiesName() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortPropertiesNameDesc() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasBuyer(Buyer buyer) {
             throw new AssertionError("This method should not be called.");
         }
@@ -179,6 +199,26 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredBuyerList(Predicate<Buyer> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortBuyersPrice() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortBuyersPriceDesc() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortBuyersName() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortBuyersNameDesc() {
             throw new AssertionError("This method should not be called.");
         }
     }

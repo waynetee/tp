@@ -8,8 +8,11 @@ import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.logic.parser.PreambleData.Actor;
+import seedu.address.logic.parser.preambledata.PreambleActorData;
+import seedu.address.logic.parser.preambledata.PreambleActorData.Actor;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.preambledata.PreambleIndexData;
+import seedu.address.logic.parser.preambledata.PreambleSortData;
 import seedu.address.model.field.Email;
 import seedu.address.model.field.Name;
 import seedu.address.model.field.Phone;
@@ -29,40 +32,40 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_PREAMBLE = "Incorrect number of arguments in preamble."
             + "The following fields are expected:"
             + "\n";
-    public static final String[] MESSAGE_PREAMBLE_FIELDS = {"property/buyer", "INDEX"};
 
     public static final int ACTOR_POSITIONAL_INDEX = 0;
     public static final int INDEX_POSITIONAL_INDEX = 1;
+    public static final int SORT_TYPE_POSITIONAL_INDEX = 1;
+    public static final int SORT_DIR_POSITIONAL_INDEX = 2;
 
-    /**
-     * Parses {@code preamble} into varying fields depending on the specified numFields.
-     * The fields are, in order of index,
-     * 0. Actor (property or buyer)
-     * 1. Index (used by edit etc.)
-     *
-     * @param preamble  Positional arguments in a command.
-     * @param numFields Number of positional arguments expected.
-     * @throws ParseException if the number of positional arguments is different from {@code numFields}
-     *                        or if subsequent parsing of each individual argument throws a ParseException.
-     */
-    public static PreambleData parsePreamble(String preamble, int numFields) throws ParseException {
+    public static PreambleActorData parseActorPreamble(String preamble) throws ParseException {
         String[] preambleArray = preamble.trim().split(" ");
-        if (preambleArray.length != numFields) {
-            String expectedFields = "";
-            for (int i = 0; i < numFields; i++) {
-                expectedFields += MESSAGE_PREAMBLE_FIELDS[i] + " ";
-            }
-            throw new ParseException(MESSAGE_INVALID_PREAMBLE + expectedFields);
+        if (preambleArray.length != PreambleActorData.PREAMBLE_FIELD_COUNT) {
+            throw new ParseException(MESSAGE_INVALID_PREAMBLE + PreambleActorData.MESSAGE_PREAMBLE_FIELD);
         }
+        Actor actor = parseActor(preambleArray[ACTOR_POSITIONAL_INDEX]);
+        return new PreambleActorData(actor);
+    }
 
-        Actor actor = numFields >= ACTOR_POSITIONAL_INDEX + 1
-                ? parseActor(preambleArray[ACTOR_POSITIONAL_INDEX])
-                : null;
-        Index index = numFields >= INDEX_POSITIONAL_INDEX + 1
-                ? parseIndex(preambleArray[INDEX_POSITIONAL_INDEX])
-                : null;
+    public static PreambleIndexData parseIndexPreamble(String preamble) throws ParseException {
+        String[] preambleArray = preamble.trim().split(" ");
+        if (preambleArray.length != PreambleIndexData.PREAMBLE_FIELD_COUNT) {
+            throw new ParseException(MESSAGE_INVALID_PREAMBLE + PreambleIndexData.MESSAGE_PREAMBLE_FIELD);
+        }
+        Actor actor = parseActor(preambleArray[ACTOR_POSITIONAL_INDEX]);
+        Index index = parseIndex(preambleArray[INDEX_POSITIONAL_INDEX]);
+        return new PreambleIndexData(actor, index);
+    }
 
-        return new PreambleData(actor, index);
+    public static PreambleSortData parseSortPreamble(String preamble) throws ParseException {
+        String[] preambleArray = preamble.trim().split(" ");
+        if (preambleArray.length != PreambleSortData.PREAMBLE_FIELD_COUNT) {
+            throw new ParseException(MESSAGE_INVALID_PREAMBLE + PreambleSortData.MESSAGE_PREAMBLE_FIELD);
+        }
+        Actor actor = parseActor(preambleArray[ACTOR_POSITIONAL_INDEX]);
+        SortType sortType = parseSortType(preambleArray[SORT_TYPE_POSITIONAL_INDEX]);
+        SortDirection sortDirection = parseSortDir(preambleArray[SORT_DIR_POSITIONAL_INDEX]);
+        return new PreambleSortData(actor, sortType, sortDirection);
     }
 
     /**
