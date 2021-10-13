@@ -16,7 +16,7 @@ import seedu.address.model.tag.Tag;
  * Represents a Property in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Property implements Listable {
+public class Property implements Listable, Taggable {
 
     private final Name name;
     private final Address address;
@@ -48,10 +48,7 @@ public class Property implements Listable {
         return seller;
     }
 
-    /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
+    @Override
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
     }

@@ -9,9 +9,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import javafx.util.Pair;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -51,7 +53,11 @@ public class EditBuyerCommand extends EditCommand {
         }
 
         Buyer buyerToEdit = lastShownList.get(index.getZeroBased());
-        Buyer editedBuyer = createdEditedBuyer(buyerToEdit, editBuyerDescriptor);
+
+        Pair<Set<Tag>, String> tagInfo = super.getTags(buyerToEdit, editBuyerDescriptor);
+        Set<Tag> editTags = tagInfo.getKey();
+
+        Buyer editedBuyer = createdEditedBuyer(buyerToEdit, editBuyerDescriptor, editTags);
 
         if (!buyerToEdit.isSameBuyer(editedBuyer) && model.hasBuyer(editedBuyer)) {
             throw new CommandException(MESSAGE_DUPLICATE_BUYER);
@@ -59,14 +65,18 @@ public class EditBuyerCommand extends EditCommand {
 
         model.setBuyer(buyerToEdit, editedBuyer);
         model.updateFilteredBuyerList(PREDICATE_SHOW_ALL_BUYERS);
-        return new CommandResult(String.format(MESSAGE_EDIT_BUYER_SUCCESS, editedBuyer));
+        String editTagDescription = tagInfo.getValue();
+        String resultString = StringUtil.joinLines(String.format(MESSAGE_EDIT_PROPERTY_SUCCESS, editedBuyer),
+                editTagDescription);
+        return new CommandResult(resultString);
     }
 
     /**
      * Creates and returns a {@code Buyer} with the details of {@code buyerToEdit}
      * edited with {@code editBuyerDescriptor}.
      */
-    private static Buyer createdEditedBuyer(Buyer buyerToEdit, EditBuyerDescriptor editBuyerDescriptor) {
+    private static Buyer createdEditedBuyer(Buyer buyerToEdit, EditBuyerDescriptor editBuyerDescriptor,
+                                            Set<Tag> editedTags) {
         assert buyerToEdit != null;
 
         Name updatedName = editBuyerDescriptor.getName().orElse(buyerToEdit.getName());
@@ -76,9 +86,8 @@ public class EditBuyerCommand extends EditCommand {
         Email updatedEmail = editBuyerDescriptor.getEmail()
                 .orElse(buyerToEdit.getEmail());
         Price updatedPrice = editBuyerDescriptor.getMaxPrice().orElse(buyerToEdit.getMaxPrice());
-        Set<Tag> updatedTags = editBuyerDescriptor.getTags().orElse(buyerToEdit.getTags());
 
-        return new Buyer(updatedName, updatedPhone, updatedEmail, updatedPrice, updatedTags);
+        return new Buyer(updatedName, updatedPhone, updatedEmail, updatedPrice, editedTags);
     }
 
     @Override
@@ -99,13 +108,11 @@ public class EditBuyerCommand extends EditCommand {
                 && editBuyerDescriptor.equals(e.editBuyerDescriptor);
     }
 
-    public static class EditBuyerDescriptor {
+    public static class EditBuyerDescriptor extends EditTaggableDescriptor {
         private Name name;
         private Phone phone;
         private Email email;
         private Price maxPrice;
-        // TODO: Tags
-        private Set<Tag> tags;
 
         public EditBuyerDescriptor() {}
 
@@ -114,18 +121,18 @@ public class EditBuyerCommand extends EditCommand {
          * A defensive copy of {@code tags} is used internally.
          */
         public EditBuyerDescriptor(EditBuyerDescriptor toCopy) {
+            super(toCopy);
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
             setMaxPrice(toCopy.maxPrice);
-            setTags(toCopy.tags);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, maxPrice, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, maxPrice) || super.isAnyFieldEdited();
         }
 
         public void setName(Name name) {
@@ -160,23 +167,6 @@ public class EditBuyerCommand extends EditCommand {
             return Optional.ofNullable(maxPrice);
         }
 
-        /**
-         * Sets {@code tags} to this object's {@code tags}.
-         * A defensive copy of {@code tags} is used internally.
-         */
-        public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : null;
-        }
-
-        /**
-         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
-         * if modification is attempted.
-         * Returns {@code Optional#empty()} if {@code tags} is null.
-         */
-        public Optional<Set<Tag>> getTags() {
-            return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
-        }
-
         @Override
         public boolean equals(Object other) {
             // short circuit if same object
@@ -192,11 +182,11 @@ public class EditBuyerCommand extends EditCommand {
             // state check
             EditBuyerDescriptor e = (EditBuyerDescriptor) other;
 
-            return getName().equals(e.getName())
+            return super.equals(e)
+                    && getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail())
-                    && getMaxPrice().equals(e.getMaxPrice())
-                    && getTags().equals(e.getTags());
+                    && getMaxPrice().equals(e.getMaxPrice());
         }
     }
 }

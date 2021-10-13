@@ -3,10 +3,7 @@ package seedu.address.model.property;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
-<<<<<<< HEAD
 import java.util.HashSet;
-=======
->>>>>>> master
 import java.util.Objects;
 import java.util.Set;
 
@@ -17,7 +14,7 @@ import seedu.address.model.field.Phone;
 import seedu.address.model.field.Price;
 import seedu.address.model.tag.Tag;
 
-public class Buyer extends Person implements Listable {
+public class Buyer extends Person implements Listable, Taggable {
 
     private final Price maxPrice;
     private final Set<Tag> tags = new HashSet<>();
@@ -46,10 +43,7 @@ public class Buyer extends Person implements Listable {
         return maxPrice;
     }
 
-    /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
+    @Override
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
     }

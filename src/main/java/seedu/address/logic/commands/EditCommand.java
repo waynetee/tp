@@ -1,5 +1,19 @@
 package seedu.address.logic.commands;
 
+import javafx.util.Pair;
+import seedu.address.commons.util.CollectionUtil;
+import seedu.address.logic.commands.buyer.EditBuyerCommand;
+import seedu.address.logic.commands.property.EditPropertyCommand;
+import seedu.address.model.property.Listable;
+import seedu.address.model.property.Property;
+import seedu.address.model.property.Taggable;
+import seedu.address.model.tag.Tag;
+
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
+
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE_TAG;
@@ -59,12 +73,149 @@ public abstract class EditCommand extends Command {
     public static final String MESSAGE_DUPLICATE_ADD_AND_DELETE_TAG = "A tag cannot be both added and deleted.";
 
 
+    protected Pair<Set<Tag>, String> getTags(Taggable taggableToEdit,
+                                             EditCommand.EditTaggableDescriptor editTaggableDescriptor) {
+        String messageEditTaggableTags = "";
+        Set<Tag> originalTags = editTaggableDescriptor.getTags().orElse(taggableToEdit.getTags());
+        Set<Tag> tagsToAdd = editTaggableDescriptor.getTagsToAdd().orElse(Collections.emptySet());
+        Set<Tag> tagsToDelete = editTaggableDescriptor.getTagsToDelete().orElse(Collections.emptySet());
 
+        Set<Tag> tagsAlreadyPresent = new HashSet<>(tagsToAdd);
+        tagsAlreadyPresent.retainAll(originalTags);
+        if (!tagsAlreadyPresent.isEmpty()) {
+            messageEditTaggableTags += "These tags were already present:\n";
+            for (Tag t : tagsAlreadyPresent) {
+                messageEditTaggableTags += t + " ";
+            }
+            messageEditTaggableTags += "\n";
+        }
 
+        Set<Tag> tagsAlreadyAbsent = new HashSet<>(tagsToDelete);
+        tagsAlreadyAbsent.removeAll(originalTags);
+        if (!tagsAlreadyAbsent.isEmpty()) {
+            messageEditTaggableTags += "These tags were not present:\n";
+            for (Tag t : tagsAlreadyAbsent) {
+                messageEditTaggableTags += t + " ";
+            }
+            messageEditTaggableTags += "\n";
+        }
 
+        Set<Tag> mergedSet = new HashSet<>(originalTags);
+        mergedSet.removeAll(tagsToDelete);
+        mergedSet.addAll(tagsToAdd);
 
+        Set<Tag> editedTags = Collections.unmodifiableSet(mergedSet);
+        return new Pair<>(editedTags, messageEditTaggableTags);
+    }
 
+    public static class EditTaggableDescriptor {
+        private Set<Tag> tags;
+        private Set<Tag> tagsToAdd;
+        private Set<Tag> tagsToDelete;
 
+        public EditTaggableDescriptor() {}
 
+        public EditTaggableDescriptor(EditTaggableDescriptor toCopy) {
+            setTags(toCopy.tags);
+            setTagsToAdd(toCopy.tagsToAdd);
+            setTagsToDelete(toCopy.tagsToDelete);
+        }
 
+        /**
+         * Returns true if at least one field is edited.
+         */
+        public boolean isAnyFieldEdited() {
+            return CollectionUtil.isAnyNonNull(tags, tagsToAdd, tagsToDelete);
+        }
+
+        /**
+         * Returns true if tags are reset and tags are modified by addition or deletion.
+         */
+        public boolean isTagsBothResetAndModified() {
+            return tags != null && (CollectionUtil.isAnyNonNull(tagsToAdd, tagsToDelete));
+        }
+
+        /**
+         * Returns true if the same tag is both to be added and deleted.
+         */
+        public boolean isAddAndDeleteTagsOverlapping() {
+            if (tagsToAdd == null || tagsToDelete == null) {
+                return false;
+            }
+            Set<Tag> intersection = new HashSet<>(tagsToAdd);
+            intersection.retainAll(tagsToDelete);
+            return !intersection.isEmpty();
+        }
+
+        /**
+         * Sets {@code tags} to this object's {@code tags}.
+         * A defensive copy of {@code tags} is used internally.
+         */
+        public void setTags(Set<Tag> tags) {
+            this.tags = (tags != null) ? new HashSet<>(tags) : null;
+        }
+
+        /**
+         * Sets {@code tags} to this object's {@code tagsToAppend}.
+         * A defensive copy of {@code tags} is used internally.
+         */
+        public void setTagsToAdd(Set<Tag> tags) {
+            this.tagsToAdd = (tags != null) ? new HashSet<>(tags) : null;
+        }
+
+        /**
+         * Sets {@code tags} to this object's {@code tagsToDelete}.
+         * A defensive copy of {@code tags} is used internally.
+         */
+        public void setTagsToDelete(Set<Tag> tags) {
+            this.tagsToDelete = (tags != null) ? new HashSet<>(tags) : null;
+        }
+
+        /**
+         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
+         * if modification is attempted.
+         * Returns {@code Optional#empty()} if {@code tags} is null.
+         */
+        public Optional<Set<Tag>> getTags() {
+            return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
+        }
+
+        /**
+         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
+         * if modification is attempted.
+         * Returns {@code Optional#empty()} if {@code tagsToAdd} is null.
+         */
+        public Optional<Set<Tag>> getTagsToAdd() {
+            return (tagsToAdd != null) ? Optional.of(Collections.unmodifiableSet(tagsToAdd)) : Optional.empty();
+        }
+
+        /**
+         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
+         * if modification is attempted.
+         * Returns {@code Optional#empty()} if {@code tagsToDelete} is null.
+         */
+        public Optional<Set<Tag>> getTagsToDelete() {
+            return (tagsToDelete != null) ? Optional.of(Collections.unmodifiableSet(tagsToDelete)) : Optional.empty();
+        }
+
+        @Override
+        public boolean equals(Object other) {
+            // short circuit if same object
+            if (other == this) {
+                return true;
+            }
+
+            // instanceof handles nulls
+            if (!(other instanceof EditCommand.EditTaggableDescriptor)) {
+                return false;
+            }
+
+            // state check
+            EditCommand.EditTaggableDescriptor e = (EditCommand.EditTaggableDescriptor) other;
+
+            return getTags().equals(e.getTags())
+                    && getTagsToAdd().equals(e.getTagsToAdd())
+                    && getTagsToDelete().equals(e.getTagsToDelete());
+        }
+    }
 }
