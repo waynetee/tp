@@ -1,5 +1,11 @@
 package seedu.address.storage;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -7,6 +13,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.field.Person;
 import seedu.address.model.field.Price;
 import seedu.address.model.property.Buyer;
+import seedu.address.model.tag.Tag;
 
 /**
  * Jackson-friendly version of {@link Buyer}.
@@ -16,15 +23,20 @@ class JsonAdaptedBuyer extends JsonAdaptedPerson {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Buyer's %s field is missing!";
 
     private final String maxPrice;
+    private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedBuyer} with the given buyer details.
      */
     @JsonCreator
     public JsonAdaptedBuyer(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-                             @JsonProperty("email") String email, @JsonProperty("maxPrice") String maxPrice) {
+                            @JsonProperty("email") String email, @JsonProperty("maxPrice") String maxPrice,
+                            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         super(name, phone, email);
         this.maxPrice = maxPrice;
+        if (tagged != null) {
+            this.tagged.addAll(tagged);
+        }
     }
 
     /**
@@ -33,6 +45,9 @@ class JsonAdaptedBuyer extends JsonAdaptedPerson {
     public JsonAdaptedBuyer(Buyer source) {
         super(source);
         this.maxPrice = source.getMaxPrice().value.toString();
+        tagged.addAll(source.getTags().stream()
+                .map(JsonAdaptedTag::new)
+                .collect(Collectors.toList()));
     }
 
     /**
@@ -50,7 +65,14 @@ class JsonAdaptedBuyer extends JsonAdaptedPerson {
             throw new IllegalValueException(Price.MESSAGE_CONSTRAINTS);
         }
         final Price modelPrice = new Price(maxPrice);
-        return new Buyer(modelPerson, modelPrice);
+
+        final List<Tag> buyerTags = new ArrayList<>();
+        for (JsonAdaptedTag tag : tagged) {
+            buyerTags.add(tag.toModelType());
+        }
+
+        final Set<Tag> modelTags = new HashSet<>(buyerTags);
+        return new Buyer(modelPerson, modelPrice, modelTags);
     }
 
 }

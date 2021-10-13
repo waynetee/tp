@@ -1,41 +1,41 @@
 package seedu.address.model.property;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
-import seedu.address.model.field.Email;
-import seedu.address.model.field.Name;
 import seedu.address.model.field.Person;
-import seedu.address.model.field.Phone;
 import seedu.address.model.field.Price;
+import seedu.address.model.tag.Tag;
 
 public class Buyer extends Person implements Listable {
 
     private final Price maxPrice;
-    // TODO: add Set<Tags> tags
+    private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Buyer(Person person, Price maxPrice) {
+    public Buyer(Person person, Price maxPrice, Set<Tag> tags) {
         super(person.getName(), person.getPhone(), person.getEmail());
-        requireNonNull(maxPrice);
+        requireAllNonNull(maxPrice, tags);
         this.maxPrice = maxPrice;
-    }
-
-    /**
-     * Every field must be present and not null.
-     */
-    public Buyer(Name name, Phone phone, Email email, Price maxPrice) {
-        super(name, phone, email);
-        requireAllNonNull(maxPrice);
-        this.maxPrice = maxPrice;
+        this.tags.addAll(tags);
     }
 
     public Price getMaxPrice() {
         return maxPrice;
+    }
+
+    /**
+     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<Tag> getTags() {
+        return Collections.unmodifiableSet(tags);
     }
 
     /**
@@ -80,16 +80,27 @@ public class Buyer extends Person implements Listable {
 
         Buyer otherBuyer = (Buyer) other;
         return super.equals(otherBuyer)
-                && otherBuyer.getMaxPrice().equals(getMaxPrice());
+                && otherBuyer.getMaxPrice().equals(getMaxPrice())
+                && otherBuyer.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getName(), getPhone(), getEmail(), maxPrice);
+        return Objects.hash(getName(), getPhone(), getEmail(), getMaxPrice(), getTags());
     }
 
     @Override
     public String toString() {
-        return String.format("%s; Maximum Price: %s", super.toString(), maxPrice);
+        final StringBuilder builder = new StringBuilder();
+        builder.append(super.toString())
+                .append("; Maximum Price: ")
+                .append(getMaxPrice());
+
+        Set<Tag> tags = getTags();
+        if (!tags.isEmpty()) {
+            builder.append("; Tags: ");
+            tags.forEach(builder::append);
+        }
+        return builder.toString();
     }
 }

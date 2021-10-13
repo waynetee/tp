@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.TypicalBuyers.B_ALICE;
 import static seedu.address.testutil.TypicalBuyers.B_BOB;
 
@@ -68,6 +69,10 @@ public class BuyerTest {
 
         // different email -> returns false
         editedAlice = new BuyerBuilder(B_ALICE).withEmail(VALID_EMAIL_BOB).build();
+        assertFalse(B_ALICE.equals(editedAlice));
+
+        // different tags -> returns false
+        editedAlice = new BuyerBuilder(B_ALICE).withTags(VALID_TAG_HUSBAND).build();
         assertFalse(B_ALICE.equals(editedAlice));
     }
 
