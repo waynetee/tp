@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.property.AddPropertyCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -28,7 +29,7 @@ public class AddCommandTest {
 
     @Test
     public void constructor_nullProperty_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddCommand(null));
+        assertThrows(NullPointerException.class, () -> new AddPropertyCommand(null));
     }
 
     @Test
@@ -36,34 +37,35 @@ public class AddCommandTest {
         ModelStubAcceptingPropertyAdded modelStub = new ModelStubAcceptingPropertyAdded();
         Property validProperty = new PropertyBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validProperty).execute(modelStub);
+        CommandResult commandResult = new AddPropertyCommand(validProperty).execute(modelStub);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validProperty), commandResult.getFeedbackToUser());
+        assertEquals(String.format(AddPropertyCommand.MESSAGE_SUCCESS, validProperty),
+                commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validProperty), modelStub.propertiesAdded);
     }
 
     @Test
     public void execute_duplicateProperty_throwsCommandException() {
         Property validProperty = new PropertyBuilder().build();
-        AddCommand addCommand = new AddCommand(validProperty);
+        AddCommand addCommand = new AddPropertyCommand(validProperty);
         ModelStub modelStub = new ModelStubWithProperty(validProperty);
 
         assertThrows(CommandException.class,
-                AddCommand.MESSAGE_DUPLICATE_PROPERTY, () -> addCommand.execute(modelStub));
+                AddPropertyCommand.MESSAGE_DUPLICATE_PROPERTY, () -> addCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
         Property alice = new PropertyBuilder().withName("Alice").build();
         Property bob = new PropertyBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        AddPropertyCommand addAliceCommand = new AddPropertyCommand(alice);
+        AddPropertyCommand addBobCommand = new AddPropertyCommand(bob);
 
         // same object -> returns true
         assertTrue(addAliceCommand.equals(addAliceCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
+        AddPropertyCommand addAliceCommandCopy = new AddPropertyCommand(alice);
         assertTrue(addAliceCommand.equals(addAliceCommandCopy));
 
         // different types -> returns false

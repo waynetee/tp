@@ -8,11 +8,15 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SELLER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_ACTOR;
 
 import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.buyer.AddBuyerCommand;
+import seedu.address.logic.commands.property.AddPropertyCommand;
+import seedu.address.logic.parser.PreambleData.Actor;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.field.Email;
 import seedu.address.model.field.Name;
@@ -20,6 +24,7 @@ import seedu.address.model.field.Person;
 import seedu.address.model.field.Phone;
 import seedu.address.model.field.Price;
 import seedu.address.model.property.Address;
+import seedu.address.model.property.Buyer;
 import seedu.address.model.property.Property;
 import seedu.address.model.tag.Tag;
 
@@ -27,6 +32,7 @@ import seedu.address.model.tag.Tag;
  * Parses input arguments and creates a new AddCommand object
  */
 public class AddCommandParser implements Parser<AddCommand> {
+    private static final int NUMBER_OF_PREAMBLE_ARGUMENTS = 1;
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
@@ -38,12 +44,38 @@ public class AddCommandParser implements Parser<AddCommand> {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE,
                 PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG, PREFIX_SELLER, PREFIX_PRICE);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS,
-                PREFIX_PHONE, PREFIX_EMAIL, PREFIX_SELLER, PREFIX_PRICE)
-                || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        PreambleData preambleData = ParserUtil.parsePreamble(argMultimap.getPreamble(), NUMBER_OF_PREAMBLE_ARGUMENTS);
+        Actor actor = preambleData.getActor();
+        switch (actor) {
+        case PROPERTY:
+            return getAddPropertyCommand(argMultimap);
+        case BUYER:
+            return getAddBuyerCommand(argMultimap);
+        default:
+            throw new ParseException(MESSAGE_INVALID_ACTOR);
         }
+    }
 
+    private AddPropertyCommand getAddPropertyCommand(ArgumentMultimap argMultimap) throws ParseException {
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS,
+                PREFIX_PHONE, PREFIX_EMAIL, PREFIX_SELLER, PREFIX_PRICE)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddCommand.MESSAGE_USAGE));
+        }
+        Property property = getProperty(argMultimap);
+        return new AddPropertyCommand(property);
+    }
+
+    private AddBuyerCommand getAddBuyerCommand(ArgumentMultimap argMultimap) throws ParseException {
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_PRICE)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddCommand.MESSAGE_USAGE));
+        }
+        Buyer buyer = getBuyer(argMultimap);
+        return new AddBuyerCommand(buyer);
+    }
+
+    private Property getProperty(ArgumentMultimap argMultimap) throws ParseException {
         Name propertyName = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Name sellerName = ParserUtil.parseName(argMultimap.getValue(PREFIX_SELLER).get());
@@ -54,9 +86,20 @@ public class AddCommandParser implements Parser<AddCommand> {
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         Property property = new Property(propertyName, address, seller, price, tagList);
-
-        return new AddCommand(property);
+        return property;
     }
+
+    private Buyer getBuyer(ArgumentMultimap argMultimap) throws ParseException {
+        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+        Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
+        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
+        Price maxPrice = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_PRICE).get());
+        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+
+        Buyer buyer = new Buyer(name, phone, email, maxPrice, tagList);
+        return buyer;
+    }
+
 
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
