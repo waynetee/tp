@@ -8,16 +8,20 @@ public class PreambleIndexData extends PreambleActorData {
     private final Index index;
 
     /**
-     * Constructs a PreambleData object using given {@code actor}.
+     * Constructs a PreambleIndexData object using given {@code actor} and {@code index}.
      *
      * @param actor Actor object.
+     * @param index Index object.
      */
     public PreambleIndexData(Actor actor, Index index) {
         super(actor);
         this.index = index;
     }
 
-    public Index getIndex(){
+    /**
+     * Returns the {@code Index} of the PreambleIndexData object.
+     */
+    public Index getIndex() {
         return index;
     }
 

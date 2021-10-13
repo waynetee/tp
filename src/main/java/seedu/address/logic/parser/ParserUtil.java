@@ -9,10 +9,9 @@ import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.logic.commands.SortCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.preambledata.PreambleActorData;
 import seedu.address.logic.parser.preambledata.PreambleActorData.Actor;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.preambledata.PreambleIndexData;
 import seedu.address.logic.parser.preambledata.PreambleSortData;
 import seedu.address.model.field.Email;
@@ -40,6 +39,15 @@ public class ParserUtil {
     public static final int SORT_TYPE_POSITIONAL_INDEX = 1;
     public static final int SORT_DIR_POSITIONAL_INDEX = 2;
 
+    /**
+     * Parses the preamble, which contains the actor only,
+     * and return a {@code PreambleActorData} that represents
+     * the actor in the {@code preamble}.
+     *
+     * @param preamble String that represents an {@code actor}.
+     * @return a {@code PreambleActorData} object.
+     * @throws ParseException if the given string contains the wrong number of keywords or an invalid actor.
+     */
     public static PreambleActorData parseActorPreamble(String preamble) throws ParseException {
         String[] preambleArray = preamble.trim().split(" ");
         if (preambleArray.length != PreambleActorData.PREAMBLE_FIELD_COUNT) {
@@ -49,6 +57,15 @@ public class ParserUtil {
         return new PreambleActorData(actor);
     }
 
+    /**
+     * Parses the preamble, which contains the actor and index only,
+     * and return a {@code PreambleIndexData} that represents
+     * the actor and index in the {@code preamble}.
+     *
+     * @param preamble String that represents an {@code actor} and {@code index}.
+     * @return a {@code PreambleIndexData} object.
+     * @throws ParseException if the given string contains the wrong number of keywords or an invalid actor or index.
+     */
     public static PreambleIndexData parseIndexPreamble(String preamble) throws ParseException {
         String[] preambleArray = preamble.trim().split(" ");
         if (preambleArray.length != PreambleIndexData.PREAMBLE_FIELD_COUNT) {
@@ -59,6 +76,16 @@ public class ParserUtil {
         return new PreambleIndexData(actor, index);
     }
 
+    /**
+     * Parses the preamble, which contains the actor, sort type and sort direction only,
+     * and return a {@code PreambleSortData} that represents
+     * the actor, sort type and sort direction in the {@code preamble}.
+     *
+     * @param preamble String that represents an {@code actor}, {@code sortType} and {@code sortDirection}.
+     * @return a {@code PreambleSortData} object.
+     * @throws ParseException if the given string contains the wrong number of keywords
+     *                        or an invalid actor, sort type or sort direction.
+     */
     public static PreambleSortData parseSortPreamble(String preamble, String helpMessage) throws ParseException {
         String[] preambleArray = preamble.trim().split(" ");
         if (preambleArray.length != PreambleSortData.PREAMBLE_FIELD_COUNT) {

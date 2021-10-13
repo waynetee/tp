@@ -357,15 +357,14 @@ public class ParserUtilTest {
 
     @Test
     public void parseSortPreamble_null_throwsNullPointerExceptions() {
-        assertThrows(NullPointerException.class,
-                () -> ParserUtil.parseSortPreamble((String) null, SORT_COMMAND_HELP_MESSAGE));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseSortPreamble(
+                (String) null, SORT_COMMAND_HELP_MESSAGE));
     }
 
     @Test
     public void parseSortPreamble_invalidValueTooManyPreamble_throwsParseException() {
-        assertThrows(ParseException.class,
-                () -> ParserUtil.parseSortPreamble(
-                        VALID_ACTOR + " 1 " + VALID_SORT_TYPE + " " + VALID_SORT_DIR,
+        assertThrows(ParseException.class, () -> ParserUtil.parseSortPreamble(
+                VALID_ACTOR + " 1 " + VALID_SORT_TYPE + " " + VALID_SORT_DIR,
                         SORT_COMMAND_HELP_MESSAGE));
     }
 
@@ -376,10 +375,9 @@ public class ParserUtilTest {
 
     @Test
     public void parseSortPreamble_invalidValueWrongOrderPreamble_throwsParseException() {
-        assertThrows(ParseException.class,
-                () -> ParserUtil.parseSortPreamble(
-                        VALID_ACTOR + " " + VALID_SORT_DIR + " " + VALID_SORT_TYPE,
-                        SORT_COMMAND_HELP_MESSAGE));
+        assertThrows(ParseException.class, () -> ParserUtil.parseSortPreamble(
+                VALID_ACTOR + " " + VALID_SORT_DIR + " " + VALID_SORT_TYPE,
+                SORT_COMMAND_HELP_MESSAGE));
     }
 
     @Test

@@ -10,16 +10,30 @@ public class PreambleSortData extends PreambleActorData {
     private final SortType sortType;
     private final SortDirection sortDirection;
 
+    /**
+     * Constructs a PreambleIndexData object using given {@code actor},
+     * {@code sortType} and {@code sortDirection}.
+     *
+     * @param actor Actor object.
+     * @param sortType SortType object.
+     * @param sortDirection SortDirection object.
+     */
     public PreambleSortData(Actor actor, SortType sortType, SortDirection sortDirection) {
         super(actor);
         this.sortType = sortType;
         this.sortDirection = sortDirection;
     }
 
+    /**
+     * Returns the sortType.
+     */
     public SortType getSortType() {
         return sortType;
     }
 
+    /**
+     * Returns the sortDirection.
+     */
     public SortDirection getSortDirection() {
         return sortDirection;
     }

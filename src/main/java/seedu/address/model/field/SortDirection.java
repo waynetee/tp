@@ -1,5 +1,8 @@
 package seedu.address.model.field;
 
+/**
+ * Enum class to represent the sorting direction of a {@code SortCommand}.
+ */
 public enum SortDirection {
     ASC, DESC;
 

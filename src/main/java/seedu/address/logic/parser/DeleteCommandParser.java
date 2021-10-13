@@ -7,8 +7,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.buyer.DeleteBuyerCommand;
 import seedu.address.logic.commands.property.DeletePropertyCommand;
-import seedu.address.logic.parser.preambledata.PreambleActorData.Actor;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.preambledata.PreambleActorData.Actor;
 import seedu.address.logic.parser.preambledata.PreambleIndexData;
 
 /**

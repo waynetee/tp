@@ -1,14 +1,16 @@
 package seedu.address.logic.commands.buyer;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.SortCommand;
-import seedu.address.logic.commands.property.SortPropertyCommand;
 import seedu.address.model.Model;
 import seedu.address.model.field.SortDirection;
 import seedu.address.model.field.SortType;
 
-import static java.util.Objects.requireNonNull;
-
+/**
+ * Sorts the buyer list with the given sort type and direction.
+ */
 public class SortBuyerCommand extends SortCommand {
     public static final String MESSAGE_SUCCESS = "Sorted all buyers by %s in %s order.";
 

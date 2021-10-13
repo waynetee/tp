@@ -13,6 +13,12 @@ public abstract class SortCommand extends Command {
     private final SortType sortType;
     private final SortDirection sortDirection;
 
+    /**
+     * Creates a SortCommand with sort type and direction.
+     *
+     * @param sortType A {@code SortType} enum.
+     * @param sortDirection A {@code SortDirection} enum.
+     */
     public SortCommand(SortType sortType, SortDirection sortDirection) {
         this.sortType = sortType;
         this.sortDirection = sortDirection;

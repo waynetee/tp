@@ -1,5 +1,8 @@
 package seedu.address.model.field;
 
+/**
+ * Enum class to represent the sort type of {@code SortCommand}.
+ */
 public enum SortType {
     NAME, PRICE;
 

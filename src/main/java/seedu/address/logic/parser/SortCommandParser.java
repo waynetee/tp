@@ -1,5 +1,8 @@
 package seedu.address.logic.parser;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_ACTOR;
+
 import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.commands.buyer.SortBuyerCommand;
 import seedu.address.logic.commands.property.SortPropertyCommand;
@@ -9,14 +12,16 @@ import seedu.address.logic.parser.preambledata.PreambleSortData;
 import seedu.address.model.field.SortDirection;
 import seedu.address.model.field.SortType;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_ACTOR;
 
 /**
  * Parses input arguments and creates a new SortCommand object
  */
 public class SortCommandParser implements Parser<SortCommand> {
+    /**
+     * Parses the given {@code String} of arguments in the context of the SortCommand
+     * and returns a SortCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
     public SortCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args);

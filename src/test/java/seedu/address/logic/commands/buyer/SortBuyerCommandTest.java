@@ -1,13 +1,5 @@
 package seedu.address.logic.commands.buyer;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
-import seedu.address.model.field.SortDirection;
-import seedu.address.model.field.SortType;
-
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
@@ -15,6 +7,15 @@ import static seedu.address.testutil.TypicalBuyers.getTypicalBuyersSortedNameAsc
 import static seedu.address.testutil.TypicalBuyers.getTypicalBuyersSortedNameDesc;
 import static seedu.address.testutil.TypicalBuyers.getTypicalBuyersSortedPriceAsc;
 import static seedu.address.testutil.TypicalBuyers.getTypicalBuyersSortedPriceDesc;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.address.model.AddressBook;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.UserPrefs;
+import seedu.address.model.field.SortDirection;
+import seedu.address.model.field.SortType;
 
 public class SortBuyerCommandTest {
     private AddressBook addressBook = new AddressBook();

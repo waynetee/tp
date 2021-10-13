@@ -20,7 +20,7 @@ import seedu.address.model.field.SortType;
 public class SortPropertyCommandTest {
     private AddressBook addressBook = new AddressBook();
     private Model model = new ModelManager(addressBook, new UserPrefs());
-    
+
     @Test
     public void equals() {
         SortPropertyCommand sortPriceAscCommand = new SortPropertyCommand(SortType.PRICE, SortDirection.ASC);

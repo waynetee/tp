@@ -22,8 +22,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.buyer.EditBuyerCommand;
 import seedu.address.logic.commands.property.EditPropertyCommand;
-import seedu.address.logic.parser.preambledata.PreambleActorData.Actor;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.preambledata.PreambleActorData.Actor;
 import seedu.address.logic.parser.preambledata.PreambleIndexData;
 import seedu.address.model.tag.Tag;
 

@@ -67,6 +67,10 @@ public class UniqueBuyerList extends UniqueList<Buyer> {
         }
     }
 
+    /**
+     * Sorts the list by price in ascending order. If two {@code Buyer} have the same price,
+     * the {@code Buyer} which has a lexically smaller name will have a lower priority.
+     */
     public void sortPrice() {
         Comparator<Buyer> priceComparator = (b1, b2) -> {
             if (b1.getMaxPrice().compareTo(b2.getMaxPrice()) == 0) {
@@ -79,7 +83,7 @@ public class UniqueBuyerList extends UniqueList<Buyer> {
 
     /**
      * Sorts the list by price in descending order. If two {@code Buyer} have the same price,
-     * the {@code Buyer} which has a lexically smaller name will have a higher priority.
+     * the {@code Buyer} which has a lexically smaller name will have a lower priority.
      */
     public void sortPriceDesc() {
         Comparator<Buyer> priceComparator = (b1, b2) -> {
@@ -91,11 +95,17 @@ public class UniqueBuyerList extends UniqueList<Buyer> {
         super.sortListables(priceComparator);
     }
 
+    /**
+     * Sorts the list by name in ascending order.
+     */
     public void sortName() {
         Comparator<Buyer> nameComparator = Comparator.comparing(Buyer::getName);
         super.sortListables(nameComparator);
     }
 
+    /**
+     * Sorts the list by name in descending order.
+     */
     public void sortNameDesc() {
         Comparator<Buyer> nameComparator = Comparator.comparing(Buyer::getName).reversed();
         super.sortListables(nameComparator);
