@@ -66,12 +66,10 @@ class JsonAdaptedBuyer extends JsonAdaptedPerson {
         }
         final Price modelPrice = new Price(maxPrice);
 
-        final List<Tag> buyerTags = new ArrayList<>();
+        final Set<Tag> modelTags = new HashSet<>();
         for (JsonAdaptedTag tag : tagged) {
-            buyerTags.add(tag.toModelType());
+            modelTags.add(tag.toModelType());
         }
-
-        final Set<Tag> modelTags = new HashSet<>(buyerTags);
         return new Buyer(modelPerson, modelPrice, modelTags);
     }
 
