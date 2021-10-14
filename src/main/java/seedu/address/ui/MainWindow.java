@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import java.io.File;
+import java.nio.file.Paths;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -9,6 +11,7 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -82,6 +85,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -151,6 +155,43 @@ public class MainWindow extends UiPart<Stage> {
             helpWindow.show();
         } else {
             helpWindow.focus();
+        }
+    }
+
+    /**
+     * Gets user to select a destination for saving csv.
+     *
+     * @param title Title of fileChooser dialog box
+     * @return File object chosen by user
+     */
+    public File getSaveCsvFile(String title) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle(title);
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Csv Files", "*.csv"));
+        fileChooser.setInitialDirectory(Paths.get(".").toFile());
+        return fileChooser.showSaveDialog(primaryStage);
+    }
+
+    /**
+     * Exports Properties.
+     */
+    @FXML
+    public void handleExportProperties() {
+        File file = getSaveCsvFile("Save Properties to CSV");
+        if (file != null) {
+            logic.exportProperties(file);
+        }
+    }
+
+    /**
+     * Exports Buyers.
+     */
+    @FXML
+    public void handleExportBuyers() {
+        File file = getSaveCsvFile("Save Buyers to CSV");
+        if (file != null) {
+            logic.exportBuyers(file);
         }
     }
 

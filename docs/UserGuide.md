@@ -148,8 +148,8 @@ Examples:
 
 ### Deleting a property : `delete`
 
-
 Deletes the specified property from PropertyWhiz.
+
 Format: `delete INDEX`
 
 * Deletes the property at the specified `INDEX`.
@@ -159,6 +159,37 @@ Format: `delete INDEX`
 Examples:
 * `list` followed by `delete 2` deletes the 2nd property in PropertyWhiz.
 * `find East Coast` followed by `delete 1` deletes the 1st property in the results of the `find` command.
+
+### Import data from csv file : `import`
+
+Imports buyers or properties from csv file.
+
+Format: `import buyers` or `import properties`
+
+* You can select the import file location from a pop-up dialog box.
+
+TODO: Add example of valid csv
+
+### Export data to csv file : `export`
+
+Exports buyers or properties from csv file.
+
+Format: `export buyers` or `export properties`
+
+* You can select the export file location from a pop-up dialog box.
+
+Example result of  `export property`
+```
+"Name","Address","Seller Name","Phone","Email","Price","Tags"
+"Geylang St 29","Blk 30 Geylang Street 29, #06-40","Alex Yeoh","87438807","alexyeoh@example.com","654321","hdb,4-rm"
+"Dee Gardens","Blk 30 Lorong 3 Serangoon Gardens, #07-18","Beatrice Yu","99272758","berniceyu@example.com","654321","hdb,5-rm"
+```
+
+Example result of `export buyer`
+```
+"Name","Phone","Email","Budget","Tags"
+"Alibaba","61234567","alibaba@baba.com","1999999","condo,landed"
+```
 
 ### Clearing all entries : `clear`
 

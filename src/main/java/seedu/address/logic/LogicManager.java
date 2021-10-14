@@ -1,5 +1,6 @@
 package seedu.address.logic;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
@@ -53,6 +54,24 @@ public class LogicManager implements Logic {
         }
 
         return commandResult;
+    }
+
+    @Override
+    public void exportProperties(File file) {
+        try {
+            storage.exportProperties(model.getAddressBook(), file);
+        } catch (IOException ioe) {
+            logger.warning("Problem while exporting Properties.");
+        }
+    }
+
+    @Override
+    public void exportBuyers(File file) {
+        try {
+            storage.exportBuyers(model.getAddressBook(), file);
+        } catch (IOException ioe) {
+            logger.warning("Problem while exporting Buyers.");
+        }
     }
 
     @Override
