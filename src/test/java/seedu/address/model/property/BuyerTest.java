@@ -27,6 +27,14 @@ public class BuyerTest {
         Buyer editedAlice = new BuyerBuilder(B_ALICE).withMaxPrice("100").build();
         assertTrue(B_ALICE.isSameBuyer(editedAlice));
 
+        // different tag, all other attributes same -> returns true
+        editedAlice = new BuyerBuilder(B_ALICE).withTags(VALID_TAG_HUSBAND).build();
+        assertTrue(B_ALICE.isSameBuyer(editedAlice));
+
+        // same name, all different attributes -> returns true
+        editedAlice = new BuyerBuilder(B_ALICE).withMaxPrice("100").withTags(VALID_TAG_HUSBAND).build();
+        assertTrue(B_ALICE.isSameBuyer(editedAlice));
+
         // different name, all other attributes same -> returns false
         editedAlice = new BuyerBuilder(B_ALICE).withName(VALID_NAME_BOB).build();
         assertFalse(B_ALICE.isSameBuyer(editedAlice));
