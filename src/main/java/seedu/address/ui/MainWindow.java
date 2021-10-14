@@ -159,15 +159,17 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Exports Properties.
+     * Gets user to select a destination for saving csv.
+     *
+     * @param title Title of fileChooser dialog box
+     * @return File object chosen by user
      */
     public File getSaveCsvFile(String title) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle(title);
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Csv Files", "*.csv"));
-        String currentPath = Paths.get(".").toAbsolutePath().normalize().toString();
-        fileChooser.setInitialDirectory(new File(currentPath));
+        fileChooser.setInitialDirectory(Paths.get(".").toFile());
         return fileChooser.showSaveDialog(primaryStage);
     }
 

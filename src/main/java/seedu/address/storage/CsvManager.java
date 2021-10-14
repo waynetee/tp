@@ -5,12 +5,12 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import com.opencsv.CSVWriter;
 
-import javafx.collections.ObservableList;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.property.Buyer;
 import seedu.address.model.property.Property;
@@ -24,7 +24,7 @@ public class CsvManager {
     /**
      * Exports properties to csv file.
      */
-    public void exportProperties(File file, ObservableList<Property> properties) {
+    public void exportProperties(File file, List<Property> properties) {
         requireAllNonNull(file, properties);
         try {
             CSVWriter writer = new CSVWriter(new FileWriter(file));
@@ -48,13 +48,13 @@ public class CsvManager {
     /**
      * Exports buyers to csv file.
      */
-    public void exportBuyers(File file, ObservableList<Buyer> properties) {
-        requireAllNonNull(file, properties);
+    public void exportBuyers(File file, List<Buyer> buyers) {
+        requireAllNonNull(file, buyers);
         try {
             CSVWriter writer = new CSVWriter(new FileWriter(file));
-            String[] header = {"Name", "Phone", "Email", "MaxPrice", "Tags"};
+            String[] header = {"Name", "Phone", "Email", "Budget", "Tags"};
             writer.writeNext(header);
-            for (Buyer buyer : properties) {
+            for (Buyer buyer : buyers) {
                 String tagString = buyer.getTags().stream()
                         .map(x -> x.tagName)
                         .collect(Collectors.joining(","));
@@ -64,7 +64,7 @@ public class CsvManager {
             }
             writer.close();
         } catch (IOException ioe) {
-            logger.warning("Problem while exporting Properties.");
+            logger.warning("Problem while exporting Buyers.");
         }
     }
 }

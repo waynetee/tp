@@ -162,22 +162,20 @@ Examples:
 
 ### Import data from csv file : `import`
 
-Imports all entries of given `OBJECT_TYPE`.
+Imports buyers or properties from csv file.
 
-Format: `import OBJECT_TYPE`
+Format: `import buyers` or `import properties`
 
-* `OBJECT_TYPE` must be `property` or `buyer`.
 * You can select the import file location from a pop-up dialog box.
 
 TODO: Add example of valid csv
 
 ### Export data to csv file : `export`
 
-Exports all entries of given `OBJECT_TYPE`.
+Exports buyers or properties from csv file.
 
-Format: `export OBJECT_TYPE`
+Format: `export buyers` or `export properties`
 
-* `OBJECT_TYPE` must be `property` or `buyer`.
 * You can select the export file location from a pop-up dialog box.
 
 Example result of  `export property`
@@ -189,7 +187,7 @@ Example result of  `export property`
 
 Example result of `export buyer`
 ```
-"Name","Phone","Email","MaxPrice","Tags"
+"Name","Phone","Email","Budget","Tags"
 "Alibaba","61234567","alibaba@baba.com","1999999","condo,landed"
 ```
 
