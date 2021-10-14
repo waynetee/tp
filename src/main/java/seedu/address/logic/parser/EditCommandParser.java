@@ -131,12 +131,26 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_PRICE).isPresent()) {
             editBuyerDescriptor.setMaxPrice(ParserUtil.parsePrice(argMultimap.getValue(PREFIX_PRICE).get()));
         }
+
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG), true)
                 .ifPresent(editBuyerDescriptor::setTags);
+        parseTagsForEdit(argMultimap.getAllValues(PREFIX_ADD_TAG), false)
+                .ifPresent(editBuyerDescriptor::setTagsToAdd);
+        parseTagsForEdit(argMultimap.getAllValues(PREFIX_DELETE_TAG), false)
+                .ifPresent(editBuyerDescriptor::setTagsToDelete);
 
         if (!editBuyerDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditBuyerCommand.MESSAGE_NOT_EDITED);
         }
+
+        if (editBuyerDescriptor.isTagsBothResetAndModified()) {
+            throw new ParseException(EditCommand.MESSAGE_RESET_TAG_TOGETHER_WITH_MODIFY_TAG);
+        }
+
+        if (editBuyerDescriptor.isAddAndDeleteTagsOverlapping()) {
+            throw new ParseException(EditCommand.MESSAGE_DUPLICATE_ADD_AND_DELETE_TAG);
+        }
+
         return editBuyerDescriptor;
     }
 

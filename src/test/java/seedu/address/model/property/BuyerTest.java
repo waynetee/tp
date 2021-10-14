@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.TypicalBuyers.B_ALICE;
 import static seedu.address.testutil.TypicalBuyers.B_BOB;
 
@@ -24,6 +25,14 @@ public class BuyerTest {
 
         // different price, all other attributes same -> returns true
         Buyer editedAlice = new BuyerBuilder(B_ALICE).withMaxPrice("100").build();
+        assertTrue(B_ALICE.isSameBuyer(editedAlice));
+
+        // different tag, all other attributes same -> returns true
+        editedAlice = new BuyerBuilder(B_ALICE).withTags(VALID_TAG_HUSBAND).build();
+        assertTrue(B_ALICE.isSameBuyer(editedAlice));
+
+        // same name, all different attributes -> returns true
+        editedAlice = new BuyerBuilder(B_ALICE).withMaxPrice("100").withTags(VALID_TAG_HUSBAND).build();
         assertTrue(B_ALICE.isSameBuyer(editedAlice));
 
         // different name, all other attributes same -> returns false
@@ -68,6 +77,10 @@ public class BuyerTest {
 
         // different email -> returns false
         editedAlice = new BuyerBuilder(B_ALICE).withEmail(VALID_EMAIL_BOB).build();
+        assertFalse(B_ALICE.equals(editedAlice));
+
+        // different tags -> returns false
+        editedAlice = new BuyerBuilder(B_ALICE).withTags(VALID_TAG_HUSBAND).build();
         assertFalse(B_ALICE.equals(editedAlice));
     }
 
