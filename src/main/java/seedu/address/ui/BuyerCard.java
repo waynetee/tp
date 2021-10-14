@@ -1,7 +1,6 @@
 package seedu.address.ui;
 
 import java.util.Comparator;
-import java.util.stream.Stream;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -9,7 +8,6 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.property.Buyer;
-import seedu.address.model.tag.Tag;
 
 /**
  * An UI component that displays information of a {@code Buyer}.
@@ -54,9 +52,8 @@ public class BuyerCard extends UiPart<Region> {
         price.setText('$' + buyer.getMaxPrice().toString());
         phone.setText(buyer.getPhone().value);
         email.setText(buyer.getEmail().value);
-        // TODO: Use actual tags
-        //buyer.getTags().stream()
-        Stream.of(new Tag("hdb"), new Tag("near mrt"), new Tag("good view"))
+
+        buyer.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }

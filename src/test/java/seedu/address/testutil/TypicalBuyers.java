@@ -22,7 +22,7 @@ public class TypicalBuyers {
     public static final Buyer B_ALICE = new BuyerBuilder(TypicalPersons.ALICE)
             .withMaxPrice("123000").build();
     public static final Buyer B_BENSON = new BuyerBuilder(TypicalPersons.BENSON)
-            .withMaxPrice("1231000").build();
+            .withMaxPrice("1231000").withTags("condo", "HDB").build();
     public static final Buyer B_CARL = new BuyerBuilder(TypicalPersons.CARL)
             .withMaxPrice("678000").build();
     public static final Buyer B_DANIEL = new BuyerBuilder(TypicalPersons.DANIEL)

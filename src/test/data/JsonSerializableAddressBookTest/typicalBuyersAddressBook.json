@@ -6,7 +6,8 @@
       "name": "Amy Bee",
       "phone": "9482427",
       "email": "lydia@example.com",
-      "maxPrice" : "42000"
+      "maxPrice" : "42000",
+      "tagged": [ "friends" ]
     },
     {
       "name" : "Benson Meier",
