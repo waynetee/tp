@@ -233,7 +233,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parse a {@code String sortType} into a {@code SortType}
+     * Parses a {@code String sortType} into a {@code SortType}
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code sortType} is invalid.
@@ -251,7 +251,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parse a {@code String sortDir} into a {@code SortDir}
+     * Parses a {@code String sortDir} into a {@code SortDir}
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code sortDir} is invalid.

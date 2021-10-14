@@ -83,7 +83,7 @@ public class UniquePropertyList extends UniqueList<Property> {
 
     /**
      * Sorts the list by price in descending order. If two {@code Property} have the same price,
-     * the {@code Property} which has a lexically smaller name will have a higher priority.
+     * the {@code Property} which has a lexically smaller name will have a lower priority.
      */
     public void sortPriceDesc() {
         Comparator<Property> priceComparator = (b1, b2) -> {
