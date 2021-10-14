@@ -17,7 +17,6 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.property.Buyer;
 import seedu.address.model.property.Property;
-import seedu.address.storage.CsvManager;
 import seedu.address.storage.Storage;
 
 /**
@@ -30,7 +29,6 @@ public class LogicManager implements Logic {
     private final Model model;
     private final Storage storage;
     private final AddressBookParser addressBookParser;
-    private final CsvManager csvManager;
 
     /**
      * Constructs a {@code LogicManager} with the given {@code Model} and {@code Storage}.
@@ -39,7 +37,6 @@ public class LogicManager implements Logic {
         this.model = model;
         this.storage = storage;
         addressBookParser = new AddressBookParser();
-        csvManager = new CsvManager();
     }
 
     @Override
@@ -61,14 +58,20 @@ public class LogicManager implements Logic {
 
     @Override
     public void exportProperties(File file) {
-        ObservableList<Property> properties = model.getAddressBook().getPropertyList();
-        csvManager.exportProperties(file, properties);
+        try {
+            storage.exportProperties(model.getAddressBook(), file);
+        } catch (IOException ioe) {
+            logger.warning("Problem while exporting Properties.");
+        }
     }
 
     @Override
     public void exportBuyers(File file) {
-        ObservableList<Buyer> buyers = model.getAddressBook().getBuyerList();
-        csvManager.exportBuyers(file, buyers);
+        try {
+            storage.exportBuyers(model.getAddressBook(), file);
+        } catch (IOException ioe) {
+            logger.warning("Problem while exporting Buyers.");
+        }
     }
 
     @Override

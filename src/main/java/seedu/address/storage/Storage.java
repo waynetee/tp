@@ -1,5 +1,6 @@
 package seedu.address.storage;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
@@ -29,4 +30,21 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
     @Override
     void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
 
+    /**
+     * Exports properties in the given {@link ReadOnlyAddressBook} to the csv file.
+     *
+     * @param addressBook cannot be null.
+     * @param file        cannot be null.
+     * @throws IOException if there was any problem writing to the file.
+     */
+    void exportProperties(ReadOnlyAddressBook addressBook, File file) throws IOException;
+
+    /**
+     * Exports buyers in the given {@link ReadOnlyAddressBook} to the csv file.
+     *
+     * @param addressBook cannot be null.
+     * @param file        cannot be null.
+     * @throws IOException if there was any problem writing to the file.
+     */
+    void exportBuyers(ReadOnlyAddressBook addressBook, File file) throws IOException;
 }
