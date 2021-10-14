@@ -97,7 +97,7 @@ public class StorageManagerTest {
      * Exports properties in {@code addressBook} at the specified {@code filePath}.
      */
     private void exportProperties(ReadOnlyAddressBook addressBook, String filePath) {
-        exportProperties(addressBook, new File(testFolder.resolve(filePath).toString()));
+        exportProperties(addressBook, testFolder.resolve(filePath).toFile());
     }
 
     // ================ Buyer tests ==============================
@@ -129,7 +129,7 @@ public class StorageManagerTest {
      * Exports buyers in {@code addressBook} at the specified {@code filePath}.
      */
     private void exportBuyers(ReadOnlyAddressBook addressBook, String filePath) {
-        exportBuyers(addressBook, new File(testFolder.resolve(filePath).toString()));
+        exportBuyers(addressBook, testFolder.resolve(filePath).toFile());
     }
 
 }
