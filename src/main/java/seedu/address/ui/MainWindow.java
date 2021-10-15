@@ -16,8 +16,13 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
+import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.UiCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.UiParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -146,16 +151,22 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+
     /**
      * Opens the help window or focuses on it if it's already opened.
+     *
+     * @return commandResult for HelpCommand
      */
     @FXML
-    public void handleHelp() {
+    public CommandResult handleHelp() {
         if (!helpWindow.isShowing()) {
             helpWindow.show();
         } else {
             helpWindow.focus();
         }
+        CommandResult commandResult = HelpCommand.execute();
+        resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+        return commandResult;
     }
 
     /**
@@ -201,14 +212,19 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Closes the application.
+     *
+     * @return commandResult for ExitCommand
      */
     @FXML
-    private void handleExit() {
+    private CommandResult handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
+        CommandResult commandResult = ExitCommand.execute();
+        resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+        return commandResult;
     }
 
     public PropertyListPanel getPropertyListPanel() {
@@ -222,17 +238,18 @@ public class MainWindow extends UiPart<Stage> {
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
+            // Handle commands that require a Ui handle function
+            UiCommand uiCommand = UiParser.parseCommand(commandText);
+            switch(uiCommand) {
+            case HELP:
+                return handleHelp();
+            case EXIT:
+                return handleExit();
+            }
+
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-
-            if (commandResult.isShowHelp()) {
-                handleHelp();
-            }
-
-            if (commandResult.isExit()) {
-                handleExit();
-            }
 
             return commandResult;
         } catch (CommandException | ParseException e) {

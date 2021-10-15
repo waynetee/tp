@@ -62,12 +62,6 @@ public class AddressBookParser {
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
 
-        case ExitCommand.COMMAND_WORD:
-            return new ExitCommand();
-
-        case HelpCommand.COMMAND_WORD:
-            return new HelpCommand();
-
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
