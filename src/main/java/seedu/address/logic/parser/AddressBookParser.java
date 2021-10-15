@@ -19,6 +19,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.UiAction;
+import seedu.address.logic.commands.property.ExportPropertiesCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -79,7 +80,7 @@ public class AddressBookParser {
         }
     }
 
-    public static Optional<CommandWithFile> parseCommandRequiresFile(String userInput) throws ParseException {
+    public static Optional<CommandWithFile> parseCommandWithFile(String userInput) throws ParseException {
         final Matcher matcher = COMMAND_WITH_FILE_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             return Optional.empty();
@@ -90,9 +91,9 @@ public class AddressBookParser {
         case ExportCommand.COMMAND_WORD:
             switch (objectType) {
             case ExportCommand.PROPERTIES:
-                return new ExportPropertiesCommand();
+                return Optional.of(new ExportPropertiesCommand());
             case ExportCommand.BUYERS:
-                return new ExportBuyersCommand();
+                return Optional.empty();//Optional.of(new ExportBuyersCommand());
             default:
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE));
             }
@@ -102,7 +103,7 @@ public class AddressBookParser {
     }
 
     public static boolean commandRequiresFile(String userInput) throws ParseException {
-        return parseCommandRequiresFile(userInput).isPresent();
+        return parseCommandWithFile(userInput).isPresent();
     }
 
 }

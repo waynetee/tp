@@ -80,16 +80,4 @@ public class StorageManager implements Storage {
     }
 
     // ================ Import/ Export Csv methods ==============================
-
-    @Override
-    public void exportProperties(ReadOnlyAddressBook addressBook, File file) throws IOException {
-        requireAllNonNull(file, addressBook);
-        CsvManager.exportProperties(addressBook.getPropertyList(), file);
-    }
-
-    @Override
-    public void exportBuyers(ReadOnlyAddressBook addressBook, File file) throws IOException {
-        requireAllNonNull(file, addressBook);
-        CsvManager.exportBuyers(addressBook.getBuyerList(), file);
-    }
 }

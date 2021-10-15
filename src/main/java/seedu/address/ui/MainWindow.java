@@ -17,14 +17,12 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.ExportCommand;
 import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.UiCommand;
+import seedu.address.logic.commands.UiAction;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.UiParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -160,15 +158,12 @@ public class MainWindow extends UiPart<Stage> {
      * @return commandResult for HelpCommand
      */
     @FXML
-    public CommandResult handleHelp() {
+    public void handleHelp() {
         if (!helpWindow.isShowing()) {
             helpWindow.show();
         } else {
             helpWindow.focus();
-        }
-        CommandResult commandResult = HelpCommand.execute();
-        resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-        return commandResult;
+        };
     }
 
     /**
@@ -242,15 +237,12 @@ public class MainWindow extends UiPart<Stage> {
      * @return commandResult for ExitCommand
      */
     @FXML
-    private CommandResult handleExit() {
+    private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
-        CommandResult commandResult = ExitCommand.execute();
-        resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-        return commandResult;
     }
 
     public PropertyListPanel getPropertyListPanel() {
@@ -264,20 +256,21 @@ public class MainWindow extends UiPart<Stage> {
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
-            // Handle commands that require Ui handle function.
-            UiCommand uiCommand = UiParser.parseCommand(commandText);
-            switch(uiCommand) {
-            case HELP:
-                return handleHelp();
-            case EXIT:
-                return handleExit();
-            case EXPORT_PROPERTIES:
-                return handleExportProperties();
-            case EXPORT_BUYERS:
-                return handleExportBuyers();
+            CommandResult commandResult;
+            if (logic.commandRequiresFile(commandText)) {
+                File file = getSaveCsvFile("Export");
+                commandResult = logic.execute(commandText, file);
             }
-
-            CommandResult commandResult = logic.execute(commandText);
+            else{
+                commandResult = logic.execute(commandText);
+            }
+            UiAction uiAction = commandResult.getUiAction();
+            switch(uiAction) {
+            case HELP:
+                handleHelp();
+            case EXIT:
+                handleExit();
+            }
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 

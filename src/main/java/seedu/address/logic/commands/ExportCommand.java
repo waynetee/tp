@@ -1,6 +1,6 @@
 package seedu.address.logic.commands;
 
-public class ExportCommand {
+public abstract class ExportCommand extends CommandWithFile {
     public static final String COMMAND_WORD = "export";
 
     public static final String PROPERTIES = "properties";

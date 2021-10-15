@@ -3,6 +3,7 @@ package seedu.address.logic;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -10,6 +11,8 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.CommandWithFile;
+import seedu.address.logic.commands.UiAction;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -57,13 +60,32 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public CommandResult execute(String commandText, File file) throws CommandException, ParseException {
+        logger.info("----------------[USER COMMAND][" + commandText + "]");
+
+        CommandResult commandResult;
+        Optional<CommandWithFile> command = addressBookParser.parseCommandWithFile(commandText);
+        if (command.isEmpty()) {
+            throw new CommandException("");
+        }
+        commandResult = command.get().execute(model, file);
+
+        return commandResult;
+    }
+
+    @Override
+    public boolean commandRequiresFile(String commandText) throws ParseException {
+        return addressBookParser.commandRequiresFile(commandText);
+    }
+
+    @Override
     public void exportProperties(File file) throws IOException {
-        storage.exportProperties(model.getAddressBook(), file);
+
     }
 
     @Override
     public void exportBuyers(File file) throws IOException {
-        storage.exportBuyers(model.getAddressBook(), file);
+        Storage.exportBuyers(model.getAddressBook(), file);
     }
 
     @Override

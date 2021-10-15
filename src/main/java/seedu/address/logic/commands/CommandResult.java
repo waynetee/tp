@@ -61,7 +61,7 @@ public class CommandResult {
 
     @Override
     public String toString() {
-        return String.format("%s showHelp:%b exit:%b", feedbackToUser, uiAction);
+        return String.format("%s showHelp:%s", feedbackToUser, uiAction);
     }
 
 }
