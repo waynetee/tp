@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.logging.Logger;
 
@@ -19,6 +20,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.ExportCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.UiCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -188,22 +190,46 @@ public class MainWindow extends UiPart<Stage> {
      * Exports Properties.
      */
     @FXML
-    public void handleExportProperties() {
+    public CommandResult handleExportProperties() {
         File file = getSaveCsvFile("Save Properties to CSV");
-        if (file != null) {
-            logic.exportProperties(file);
+        CommandResult commandResult;
+        if (file == null) {
+            commandResult =  ExportCommand.executePropertiesCancelled();
         }
+        else {
+            try {
+                logic.exportProperties(file);
+                commandResult = ExportCommand.executePropertiesSuccess();
+            } catch (IOException ioe) {
+                logger.warning("Problem while exporting Properties.");
+                commandResult = ExportCommand.executePropertiesFailure();
+            }
+        }
+        resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+        return ExportCommand.executePropertiesSuccess();
     }
 
     /**
      * Exports Buyers.
      */
     @FXML
-    public void handleExportBuyers() {
+    public CommandResult handleExportBuyers() {
         File file = getSaveCsvFile("Save Buyers to CSV");
-        if (file != null) {
-            logic.exportBuyers(file);
+        CommandResult commandResult;
+        if (file == null) {
+            commandResult = ExportCommand.executeBuyersCancelled();
         }
+        else {
+            try {
+                logic.exportBuyers(file);
+                commandResult = ExportCommand.executeBuyersSuccess();
+            } catch (IOException ioe) {
+                logger.warning("Problem while exporting Buyers.");
+                commandResult = ExportCommand.executeBuyersFailure();
+            }
+        }
+        resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+        return commandResult;
     }
 
     void show() {
@@ -238,13 +264,17 @@ public class MainWindow extends UiPart<Stage> {
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
-            // Handle commands that require a Ui handle function
+            // Handle commands that require Ui handle function.
             UiCommand uiCommand = UiParser.parseCommand(commandText);
             switch(uiCommand) {
             case HELP:
                 return handleHelp();
             case EXIT:
                 return handleExit();
+            case EXPORT_PROPERTIES:
+                return handleExportProperties();
+            case EXPORT_BUYERS:
+                return handleExportBuyers();
             }
 
             CommandResult commandResult = logic.execute(commandText);

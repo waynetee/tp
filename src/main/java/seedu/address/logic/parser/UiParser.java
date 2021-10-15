@@ -13,6 +13,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.ExportCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
@@ -50,6 +51,21 @@ public class UiParser {
 
         case HelpCommand.COMMAND_WORD:
             return UiCommand.HELP;
+
+        case ExportCommand.COMMAND_WORD:
+            final Matcher argumentMatcher = BASIC_COMMAND_FORMAT.matcher(arguments.trim());
+            if (!argumentMatcher.matches()) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE));
+            }
+            final String objectTypeWord = argumentMatcher.group("commandWord");
+            switch (objectTypeWord) {
+            case ExportCommand.PROPERTIES:
+                return UiCommand.EXPORT_PROPERTIES;
+            case ExportCommand.BUYERS:
+                return UiCommand.EXPORT_BUYERS;
+            default:
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE));
+            }
 
         default:
             return UiCommand.NONE;

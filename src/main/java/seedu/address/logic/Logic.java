@@ -1,6 +1,7 @@
 package seedu.address.logic;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Path;
 
 import javafx.collections.ObservableList;
@@ -27,13 +28,17 @@ public interface Logic {
 
     /**
      * Exports properties to csv file.
+     *
+     * @throws IOException If unable to save csv file.
      */
-    void exportProperties(File file);
+    void exportProperties(File file) throws IOException;
 
     /**
      * Exports buyers to csv file.
+     *
+     * @throws IOException If unable to save csv file.
      */
-    void exportBuyers(File file);
+    void exportBuyers(File file) throws IOException;
 
     /**
      * Returns the AddressBook.

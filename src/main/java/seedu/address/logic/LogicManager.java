@@ -57,21 +57,13 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public void exportProperties(File file) {
-        try {
-            storage.exportProperties(model.getAddressBook(), file);
-        } catch (IOException ioe) {
-            logger.warning("Problem while exporting Properties.");
-        }
+    public void exportProperties(File file) throws IOException {
+        storage.exportProperties(model.getAddressBook(), file);
     }
 
     @Override
-    public void exportBuyers(File file) {
-        try {
-            storage.exportBuyers(model.getAddressBook(), file);
-        } catch (IOException ioe) {
-            logger.warning("Problem while exporting Buyers.");
-        }
+    public void exportBuyers(File file) throws IOException {
+        storage.exportBuyers(model.getAddressBook(), file);
     }
 
     @Override
