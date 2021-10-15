@@ -65,7 +65,7 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         Optional<CommandWithFile> command = addressBookParser.parseCommandWithFile(commandText);
         if (command.isEmpty()) {
-            throw new CommandException("");
+            throw new CommandException("execute commandWithFile is empty!");
         }
         commandResult = command.get().execute(model, file);
 

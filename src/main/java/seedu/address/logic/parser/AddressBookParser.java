@@ -19,6 +19,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.UiAction;
+import seedu.address.logic.commands.buyer.ExportBuyersCommand;
 import seedu.address.logic.commands.property.ExportPropertiesCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -100,7 +101,7 @@ public class AddressBookParser {
             case ExportCommand.PROPERTIES:
                 return Optional.of(new ExportPropertiesCommand());
             case ExportCommand.BUYERS:
-                return Optional.empty();//Optional.of(new ExportBuyersCommand());
+                return Optional.of(new ExportBuyersCommand());
             default:
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE));
             }
