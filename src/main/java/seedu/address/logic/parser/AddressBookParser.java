@@ -80,6 +80,13 @@ public class AddressBookParser {
         }
     }
 
+    /**
+     * Parses user input into commandWithFile for execution.
+     *
+     * @param userInput full user input string
+     * @return the commandWithFile based on the user input
+     * @throws ParseException if the user input does not conform the expected format
+     */
     public static Optional<CommandWithFile> parseCommandWithFile(String userInput) throws ParseException {
         final Matcher matcher = COMMAND_WITH_FILE_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
@@ -104,6 +111,14 @@ public class AddressBookParser {
 
     public static boolean commandRequiresFile(String userInput) throws ParseException {
         return parseCommandWithFile(userInput).isPresent();
+    }
+
+    public static String getFileDialogPrompt(String commandText) throws ParseException {
+        return parseCommandWithFile(commandText).get().toString();
+    }
+
+    public static boolean isFileSave(String commandText) throws ParseException {
+        return parseCommandWithFile(commandText).get().toString().startsWith(ExportCommand.COMMAND_WORD);
     }
 
 }

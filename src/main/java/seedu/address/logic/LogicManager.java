@@ -12,7 +12,6 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.CommandWithFile;
-import seedu.address.logic.commands.UiAction;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -79,13 +78,13 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public void exportProperties(File file) throws IOException {
-
+    public String getFileDialogPrompt(String commandText) throws ParseException {
+        return addressBookParser.getFileDialogPrompt(commandText);
     }
 
     @Override
-    public void exportBuyers(File file) throws IOException {
-        Storage.exportBuyers(model.getAddressBook(), file);
+    public boolean isFileSave(String commandText) throws ParseException {
+        return addressBookParser.isFileSave(commandText);
     }
 
     @Override

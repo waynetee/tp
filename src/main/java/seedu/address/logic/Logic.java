@@ -46,19 +46,9 @@ public interface Logic {
      */
     boolean commandRequiresFile(String commandText) throws ParseException;
 
-    /**
-     * Exports properties to csv file.
-     *
-     * @throws IOException If unable to save csv file.
-     */
-    void exportProperties(File file) throws IOException;
+    String getFileDialogPrompt(String commandText) throws ParseException;
 
-    /**
-     * Exports buyers to csv file.
-     *
-     * @throws IOException If unable to save csv file.
-     */
-    void exportBuyers(File file) throws IOException;
+    boolean isFileSave(String commandText) throws ParseException;
 
     /**
      * Returns the AddressBook.
