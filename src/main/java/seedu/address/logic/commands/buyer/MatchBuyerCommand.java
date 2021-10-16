@@ -33,16 +33,20 @@ public class MatchBuyerCommand extends MatchCommand {
         requireNonNull(model);
         List<Buyer> buyerList = model.getFilteredBuyerList();
         Buyer buyer = buyerList.get(index.getZeroBased());
+        Predicate<Buyer> currentBuyerFilter = (b) -> b.equals(buyer);
+
         Set<Tag> buyerTags = buyer.getTags();
         Predicate<Property> propertyFilter = (property) -> {
             // TODO: Eliz's PR
             // return property.getPrice().compareTo(buyer.getMaxPrice());
-            return property.getPrice().value > buyer.getMaxPrice().value;
+            return property.getPrice().value < buyer.getMaxPrice().value;
         };
 
-        Comparator<Property> propertyComparator = Comparator.comparing(property ->
-                calculateTagIntersection(buyerTags, property.getTags()));
+        Comparator<Property> propertyComparator = Comparator.<Property, Integer>comparing(property ->
+                calculateTagIntersection(buyerTags, property.getTags())
+        ).reversed().thenComparingLong(property -> property.getPrice().value);
 
+        model.updateFilteredBuyerList(currentBuyerFilter);
         model.updateFilteredAndSortedPropertyList(propertyFilter, propertyComparator);
         return new CommandResult(MESSAGE_SUCCESS);
     }

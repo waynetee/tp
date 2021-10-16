@@ -32,6 +32,7 @@ public class MatchPropertyCommand extends MatchCommand {
         requireNonNull(model);
         List<Property> propertyList = model.getFilteredPropertyList();
         Property property = propertyList.get(index.getZeroBased());
+        Predicate<Property> currentPropertyFilter = (p) -> p.equals(property);
         Set<Tag> propertyTags = property.getTags();
         Predicate<Buyer> buyerFilter = (buyer) -> {
             // TODO: Eliz's PR
@@ -39,9 +40,11 @@ public class MatchPropertyCommand extends MatchCommand {
             return buyer.getMaxPrice().value > property.getPrice().value;
         };
 
-        Comparator<Buyer> buyerComparator = Comparator.comparing(buyer ->
-                calculateTagIntersection(propertyTags, buyer.getTags()));
+        Comparator<Buyer> buyerComparator = Comparator.<Buyer, Integer>comparing(buyer ->
+                calculateTagIntersection(propertyTags, buyer.getTags())
+        ).thenComparingLong(buyer -> buyer.getMaxPrice().value).reversed();
 
+        model.updateFilteredPropertyList(currentPropertyFilter);
         model.updateFilteredAndSortedBuyerList(buyerFilter, buyerComparator);
         return new CommandResult(MESSAGE_SUCCESS);
     }
