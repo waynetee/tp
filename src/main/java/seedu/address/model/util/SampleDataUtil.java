@@ -12,6 +12,7 @@ import seedu.address.model.field.Person;
 import seedu.address.model.field.Phone;
 import seedu.address.model.field.Price;
 import seedu.address.model.property.Address;
+import seedu.address.model.property.Buyer;
 import seedu.address.model.property.Property;
 import seedu.address.model.tag.Tag;
 
@@ -48,10 +49,31 @@ public class SampleDataUtil {
         };
     }
 
+    public static Buyer[] getSampleBuyers() {
+        return new Buyer[] {
+            new Buyer(new Person(new Name("Sally Focal"), new Phone("94420945"), new Email("focal@gmail.com")),
+                new Price("420000"),
+                getTagSet("near school")),
+            new Buyer(new Person(new Name("Duke Mason"), new Phone("93320325"), new Email("mason@example.com")),
+                new Price("420005"),
+                getTagSet("4rm")),
+            new Buyer(new Person(new Name("Mate Automaton"), new Phone("94423513"), new Email("auto@email.com")),
+                new Price("420010"),
+                getTagSet("near cdb")),
+            new Buyer(new Person(new Name("Neet Bitterman"), new Phone("91234567"), new Email("bit@bucket.com")),
+                new Price("240015"),
+                getTagSet("huge house", "friends")),
+        };
+    }
+
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
         for (Property sampleProperty : getSampleProperties()) {
             sampleAb.addProperty(sampleProperty);
+        }
+
+        for (Buyer sampleBuyer : getSampleBuyers()) {
+            sampleAb.addBuyer(sampleBuyer);
         }
         return sampleAb;
     }
