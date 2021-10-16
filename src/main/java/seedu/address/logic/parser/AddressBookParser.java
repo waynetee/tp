@@ -41,7 +41,7 @@ public class AddressBookParser {
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    public static Command parseCommand(String userInput) throws ParseException {
+    public Command parseCommand(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -84,41 +84,34 @@ public class AddressBookParser {
      * Parses user input into commandWithFile for execution.
      *
      * @param userInput full user input string
-     * @return the commandWithFile based on the user input
+     * @return commandWithFile if a match is found, empty otherwise.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public static Optional<CommandWithFile> parseCommandWithFile(String userInput) throws ParseException {
-        final Matcher matcher = COMMAND_WITH_FILE_FORMAT.matcher(userInput.trim());
+    public Optional<CommandWithFile> parseCommandWithFile(String userInput) throws ParseException {
+        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             return Optional.empty();
         }
         final String commandWord = matcher.group("commandWord");
-        final String objectType = matcher.group("objectType");
+        final String arguments = matcher.group("arguments");
         switch (commandWord) {
         case ExportCommand.COMMAND_WORD:
-            switch (objectType) {
-            case ExportCommand.PROPERTIES:
-                return Optional.of(new ExportPropertiesCommand());
-            case ExportCommand.BUYERS:
-                return Optional.of(new ExportBuyersCommand());
-            default:
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE));
-            }
+            return Optional.of(new ExportCommandParser().parse(arguments));
         default:
             return Optional.empty();
         }
     }
 
-    public static boolean commandRequiresFile(String userInput) throws ParseException {
+    public boolean commandRequiresFile(String userInput) throws ParseException {
         return parseCommandWithFile(userInput).isPresent();
     }
 
-    public static String getFileDialogPrompt(String commandText) throws ParseException {
-        return parseCommandWithFile(commandText).get().toString();
+    public String getFileDialogPrompt(String userInput) throws ParseException {
+        return parseCommandWithFile(userInput).get().toString();
     }
 
-    public static boolean isFileSave(String commandText) throws ParseException {
-        return parseCommandWithFile(commandText).get().toString().startsWith(ExportCommand.COMMAND_WORD);
+    public boolean isFileSave(String userInput) throws ParseException {
+        return parseCommandWithFile(userInput).get().toString().startsWith(ExportCommand.COMMAND_WORD);
     }
 
 }
