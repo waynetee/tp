@@ -3,6 +3,9 @@ package seedu.address.logic.commands;
 import seedu.address.model.field.SortDirection;
 import seedu.address.model.field.SortType;
 
+/**
+ * Sorts either the property or buyer list in the address book.
+ */
 public abstract class SortCommand extends Command {
     public static final String COMMAND_WORD = "sort";
 

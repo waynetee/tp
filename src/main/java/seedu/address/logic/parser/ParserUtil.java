@@ -257,8 +257,13 @@ public class ParserUtil {
         return parseSortDir(splitInputs[index]);
     }
 
-    public static void assertPreambleArgsCount(String arg, int numOfPreamble) throws ParseException {
-        String[] splitInputs = arg.trim().split("\\s+");
+    /**
+     * Asserts that the correct number of args separated by spaces are present in {@code args}.
+     *
+     * @throws ParseException if the given number of args separated by spaces is not equal to {@code numOfPreamble}.
+     */
+    public static void assertPreambleArgsCount(String args, int numOfPreamble) throws ParseException {
+        String[] splitInputs = args.trim().split("\\s+");
         if (numOfPreamble != splitInputs.length) {
             throw new ParseException(MESSAGE_INVALID_PREAMBLE);
         }
