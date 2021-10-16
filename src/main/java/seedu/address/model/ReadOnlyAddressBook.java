@@ -24,7 +24,7 @@ public interface ReadOnlyAddressBook {
 
     /**
      * Returns an unmodifiable view of the match list.
-     * This list will not contain any duplicate buyers.
+     * This list will not contain any duplicate matches.
      */
     ObservableList<Match> getMatchList();
 }
