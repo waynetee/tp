@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -92,6 +93,11 @@ public interface Model {
     void updateFilteredPropertyList(Predicate<Property> predicate);
 
     /**
+     * Updates and sorts the property list using the given {@code predicate} and {@code comparator}.
+     */
+    void updateFilteredAndSortedPropertyList(Predicate<Property> predicate, Comparator<Property> comparator);
+
+    /**
      * Returns true if a buyer with the same identity as {@code buyer} exists in the address book.
      */
     boolean hasBuyer(Buyer buyer);
@@ -124,4 +130,9 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredBuyerList(Predicate<Buyer> predicate);
+
+    /**
+     * Updates and sorts the buyer list using the given {@code predicate} and {@code comparator}.
+     */
+    void updateFilteredAndSortedBuyerList(Predicate<Buyer> predicate, Comparator<Buyer> comparator);
 }
