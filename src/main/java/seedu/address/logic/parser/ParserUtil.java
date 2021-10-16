@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -10,10 +11,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.logic.parser.preambledata.PreambleActorData;
-import seedu.address.logic.parser.preambledata.PreambleActorData.Actor;
-import seedu.address.logic.parser.preambledata.PreambleIndexData;
-import seedu.address.logic.parser.preambledata.PreambleSortData;
+import seedu.address.model.field.Actor;
 import seedu.address.model.field.Email;
 import seedu.address.model.field.Name;
 import seedu.address.model.field.Phone;
@@ -33,71 +31,9 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_PREAMBLE = "Incorrect number of arguments in preamble."
             + "The following fields are expected:"
             + "\n";
-
-    public static final int ACTOR_POSITIONAL_INDEX = 0;
-    public static final int INDEX_POSITIONAL_INDEX = 1;
-    public static final int SORT_TYPE_POSITIONAL_INDEX = 1;
-    public static final int SORT_DIR_POSITIONAL_INDEX = 2;
-
-    /**
-     * Parses the preamble, which contains the actor only,
-     * and return a {@code PreambleActorData} that represents
-     * the actor in the {@code preamble}.
-     *
-     * @param preamble String that represents an {@code actor}.
-     * @return a {@code PreambleActorData} object.
-     * @throws ParseException if the given string contains the wrong number of keywords or an invalid actor.
-     */
-    public static PreambleActorData parseActorPreamble(String preamble) throws ParseException {
-        String[] preambleArray = preamble.trim().split(" ");
-        if (preambleArray.length != PreambleActorData.PREAMBLE_FIELD_COUNT) {
-            throw new ParseException(MESSAGE_INVALID_PREAMBLE + PreambleActorData.MESSAGE_PREAMBLE_FIELD);
-        }
-        Actor actor = parseActor(preambleArray[ACTOR_POSITIONAL_INDEX]);
-        return new PreambleActorData(actor);
-    }
-
-    /**
-     * Parses the preamble, which contains the actor and index only,
-     * and return a {@code PreambleIndexData} that represents
-     * the actor and index in the {@code preamble}.
-     *
-     * @param preamble String that represents an {@code actor} and {@code index}.
-     * @return a {@code PreambleIndexData} object.
-     * @throws ParseException if the given string contains the wrong number of keywords or an invalid actor or index.
-     */
-    public static PreambleIndexData parseIndexPreamble(String preamble) throws ParseException {
-        String[] preambleArray = preamble.trim().split(" ");
-        if (preambleArray.length != PreambleIndexData.PREAMBLE_FIELD_COUNT) {
-            throw new ParseException(MESSAGE_INVALID_PREAMBLE + PreambleIndexData.MESSAGE_PREAMBLE_FIELD);
-        }
-        Actor actor = parseActor(preambleArray[ACTOR_POSITIONAL_INDEX]);
-        Index index = parseIndex(preambleArray[INDEX_POSITIONAL_INDEX]);
-        return new PreambleIndexData(actor, index);
-    }
-
-    /**
-     * Parses the preamble, which contains the actor, sort type and sort direction only,
-     * and return a {@code PreambleSortData} that represents
-     * the actor, sort type and sort direction in the {@code preamble}.
-     *
-     * @param preamble String that represents an {@code actor}, {@code sortType} and {@code sortDirection}.
-     * @return a {@code PreambleSortData} object.
-     * @throws ParseException if the given string contains the wrong number of keywords
-     *                        or an invalid actor, sort type or sort direction.
-     */
-    public static PreambleSortData parseSortPreamble(String preamble, String helpMessage) throws ParseException {
-        String[] preambleArray = preamble.trim().split(" ");
-        if (preambleArray.length != PreambleSortData.PREAMBLE_FIELD_COUNT) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    MESSAGE_INVALID_PREAMBLE + PreambleSortData.MESSAGE_PREAMBLE_FIELD
-                    + "\n" + helpMessage));
-        }
-        Actor actor = parseActor(preambleArray[ACTOR_POSITIONAL_INDEX]);
-        SortType sortType = parseSortType(preambleArray[SORT_TYPE_POSITIONAL_INDEX]);
-        SortDirection sortDirection = parseSortDir(preambleArray[SORT_DIR_POSITIONAL_INDEX]);
-        return new PreambleSortData(actor, sortType, sortDirection);
-    }
+    public static final String MESSAGE_INVALID_ACTOR_PREAMBLE = " (property/buyer)";
+    public static final String MESSAGE_INVALID_INDEX_PREAMBLE = " INDEX";
+    public static final String MESSAGE_INVALID_SORT_PREAMBLE = " (price/name) (asc/desc)";
 
     /**
      * Parses {@code actor} into an {@code Preamble.Actor} using given string.
@@ -117,6 +53,22 @@ public class ParserUtil {
     }
 
     /**
+     * Parses {@code actor} into an {@code Preamble.Actor} using given string and index.
+     *
+     * @param actor String that represents an {@code actor}.
+     * @param index Integer that represents the position of the actor in the string separated by spaces.
+     *
+     * @throws ParseException if the given string does not match any of the actors.
+     */
+    public static Actor parseActor(String actor, int index) throws ParseException {
+        String[] splitInputs = actor.trim().split("\\s+");
+        if (index >= splitInputs.length) {
+            throw new ParseException(MESSAGE_INVALID_PREAMBLE + MESSAGE_INVALID_ACTOR_PREAMBLE);
+        }
+        return parseActor(splitInputs[index]);
+    }
+
+    /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
      *
@@ -128,6 +80,21 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+    }
+
+    /**
+     * Parses string {@code oneBasedIndex} at the given index into an {@code Index} and returns it.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
+     */
+    public static Index parseIndex(String oneBasedIndex, int index) throws ParseException {
+        String[] splitInputs = oneBasedIndex.split("\\s+");
+        if (index >= splitInputs.length) {
+            throw new ParseException(MESSAGE_INVALID_PREAMBLE
+                    + MESSAGE_INVALID_ACTOR_PREAMBLE + MESSAGE_INVALID_INDEX_PREAMBLE);
+        }
+        return parseIndex(splitInputs[index]);
     }
 
     /**
@@ -251,6 +218,21 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String sortType} at the given index into a {@code SortType}
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code sortType} is invalid.
+     */
+    public static SortType parseSortType(String sortType, int index) throws ParseException {
+        String[] splitInputs = sortType.trim().split("\\s+");
+        if (index >= splitInputs.length) {
+            throw new ParseException(MESSAGE_INVALID_PREAMBLE
+                    + MESSAGE_INVALID_ACTOR_PREAMBLE + MESSAGE_INVALID_SORT_PREAMBLE);
+        }
+        return parseSortType(splitInputs[index]);
+    }
+
+    /**
      * Parses a {@code String sortDir} into a {@code SortDir}
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -266,5 +248,20 @@ public class ParserUtil {
         } else {
             throw new ParseException(SortDirection.MESSAGE_CONSTRAINTS);
         }
+    }
+
+    /**
+     * Parses a {@code String sortDir} at the given index into a {@code SortDir}
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code sortDir} is invalid.
+     */
+    public static SortDirection parseSortDir(String sortDir, int index) throws ParseException {
+        String[] splitInputs = sortDir.trim().split("\\s+");
+        if (index >= splitInputs.length) {
+            throw new ParseException(MESSAGE_INVALID_PREAMBLE
+                    + MESSAGE_INVALID_ACTOR_PREAMBLE + MESSAGE_INVALID_SORT_PREAMBLE);
+        }
+        return parseSortDir(splitInputs[index]);
     }
 }

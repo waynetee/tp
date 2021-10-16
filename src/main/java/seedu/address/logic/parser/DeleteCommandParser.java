@@ -8,13 +8,14 @@ import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.buyer.DeleteBuyerCommand;
 import seedu.address.logic.commands.property.DeletePropertyCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.logic.parser.preambledata.PreambleActorData.Actor;
-import seedu.address.logic.parser.preambledata.PreambleIndexData;
+import seedu.address.model.field.Actor;
 
 /**
  * Parses input arguments and creates a new DeleteCommand object
  */
 public class DeleteCommandParser implements Parser<DeleteCommand> {
+    public static final int ACTOR_POSITIONAL_INDEX = 0;
+    public static final int INDEX_POSITIONAL_INDEX = 1;
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteCommand
      * and returns a DeleteCommand object for execution.
@@ -25,9 +26,8 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         Index index;
 
         try {
-            PreambleIndexData preambleData = ParserUtil.parseIndexPreamble(args);
-            actor = preambleData.getActor();
-            index = preambleData.getIndex();
+            actor = ParserUtil.parseActor(args, ACTOR_POSITIONAL_INDEX);
+            index = ParserUtil.parseIndex(args, INDEX_POSITIONAL_INDEX);
             switch (actor) {
             case PROPERTY:
                 return new DeletePropertyCommand(index);

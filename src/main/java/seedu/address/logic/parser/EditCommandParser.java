@@ -23,14 +23,15 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.buyer.EditBuyerCommand;
 import seedu.address.logic.commands.property.EditPropertyCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.logic.parser.preambledata.PreambleActorData.Actor;
-import seedu.address.logic.parser.preambledata.PreambleIndexData;
+import seedu.address.model.field.Actor;
 import seedu.address.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new EditCommand object
  */
 public class EditCommandParser implements Parser<EditCommand> {
+    public static final int ACTOR_POSITIONAL_INDEX = 0;
+    public static final int INDEX_POSITIONAL_INDEX = 1;
 
     /**
      * Parses the given {@code String} of arguments in the context of the EditCommand
@@ -46,9 +47,9 @@ public class EditCommandParser implements Parser<EditCommand> {
         Actor actor;
         Index index;
         try {
-            PreambleIndexData preambleData = ParserUtil.parseIndexPreamble(argMultimap.getPreamble());
-            actor = preambleData.getActor();
-            index = preambleData.getIndex();
+            String preamble = argMultimap.getPreamble();
+            actor = ParserUtil.parseActor(preamble, ACTOR_POSITIONAL_INDEX);
+            index = ParserUtil.parseIndex(preamble, INDEX_POSITIONAL_INDEX);
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
         }

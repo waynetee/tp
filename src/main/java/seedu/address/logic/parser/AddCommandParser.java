@@ -17,8 +17,7 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.buyer.AddBuyerCommand;
 import seedu.address.logic.commands.property.AddPropertyCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.logic.parser.preambledata.PreambleActorData;
-import seedu.address.logic.parser.preambledata.PreambleActorData.Actor;
+import seedu.address.model.field.Actor;
 import seedu.address.model.field.Email;
 import seedu.address.model.field.Name;
 import seedu.address.model.field.Person;
@@ -33,7 +32,7 @@ import seedu.address.model.tag.Tag;
  * Parses input arguments and creates a new AddCommand object
  */
 public class AddCommandParser implements Parser<AddCommand> {
-
+    public static final int ACTOR_POSITIONAL_INDEX = 0;
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
@@ -44,8 +43,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE,
                 PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG, PREFIX_SELLER, PREFIX_PRICE);
 
-        PreambleActorData preambleData = ParserUtil.parseActorPreamble(argMultimap.getPreamble());
-        Actor actor = preambleData.getActor();
+        Actor actor = ParserUtil.parseActor(argMultimap.getPreamble(), ACTOR_POSITIONAL_INDEX);
         switch (actor) {
         case PROPERTY:
             return getAddPropertyCommand(argMultimap);

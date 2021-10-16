@@ -11,12 +11,11 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import javafx.scene.control.TableColumn;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.logic.parser.preambledata.PreambleActorData;
-import seedu.address.logic.parser.preambledata.PreambleIndexData;
-import seedu.address.logic.parser.preambledata.PreambleSortData;
+import seedu.address.model.field.Actor;
 import seedu.address.model.field.Email;
 import seedu.address.model.field.Name;
 import seedu.address.model.field.Phone;
@@ -246,14 +245,14 @@ public class ParserUtilTest {
 
     @Test
     public void parseActor_validValueWithoutWhitespace_returnsActor() throws Exception {
-        PreambleActorData.Actor expectedActor = PreambleActorData.Actor.PROPERTY;
+        Actor expectedActor = Actor.PROPERTY;
         assertEquals(expectedActor, ParserUtil.parseActor(VALID_ACTOR));
     }
 
     @Test
     public void parseActor_validValueWithWhitespace_returnsTrimmedActor() throws Exception {
         String actorWithWhitespace = WHITESPACE + VALID_ACTOR + WHITESPACE;
-        PreambleActorData.Actor expectedActor = PreambleActorData.Actor.PROPERTY;
+        Actor expectedActor = Actor.PROPERTY;
         assertEquals(expectedActor, ParserUtil.parseActor(actorWithWhitespace));
     }
 
@@ -304,88 +303,79 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseActorPreamble_null_throwsNullPointerExceptions() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseActorPreamble((String) null));
+    public void parseActorWithIndex_null_throwsNullPointerExceptions() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseActor((String) null, 0));
     }
 
     @Test
-    public void parseActorPreamble_invalidValueTooManyPreamble_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseActorPreamble(VALID_ACTOR + " " + VALID_SORT_TYPE));
+    public void parseActorWithIndex_invalidValueInvalidIndex_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseActor("1 " + VALID_ACTOR, 0));
     }
 
     @Test
-    public void parseActorPreamble_invalidValueEmptyPreamble_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseActorPreamble(""));
+    public void parseActorWithIndex_invalidValueEmptyActor_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseActor("", 0));
     }
 
     @Test
-    public void parseActorPreamble_invalidValueInvalidActor_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseActorPreamble(INVALID_ACTOR));
+    public void parseActorWithIndex_validValue_returnActor() throws Exception {
+        assertEquals(Actor.PROPERTY, ParserUtil.parseActor(VALID_ACTOR, 0));
     }
 
     @Test
-    public void parseActorPreamble_validValue_returnPreambleActorData() throws Exception {
-        assertEquals(new PreambleActorData(PreambleActorData.Actor.PROPERTY),
-                ParserUtil.parseActorPreamble(VALID_ACTOR));
+    public void parseActorWithIndex_validValueWithWhitespace_returnActor() throws Exception {
+        assertEquals(Actor.PROPERTY, ParserUtil.parseActor(WHITESPACE + VALID_ACTOR + WHITESPACE, 0));
     }
 
     @Test
-    public void parseIndexPreamble_null_throwsNullPointerExceptions() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseIndexPreamble((String) null));
+    public void parseSortTypeWithIndex_null_throwsNullPointerExceptions() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseSortType((String) null, 0));
     }
 
     @Test
-    public void parseIndexPreamble_invalidValueTooManyPreamble_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseIndexPreamble(VALID_ACTOR + " 1 " + VALID_SORT_TYPE));
+    public void parseSortTypeWithIndex_invalidValueInvalidIndex_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseSortType("1 " + VALID_SORT_TYPE, 0));
     }
 
     @Test
-    public void parseIndexPreamble_invalidValueEmptyPreamble_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseIndexPreamble(""));
+    public void parseSortTypeWithIndex_invalidValueEmptyActor_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseSortType("", 0));
     }
 
     @Test
-    public void parseIndexPreamble_invalidValueInvalidIndex_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseActorPreamble(VALID_ACTOR + " a"));
+    public void parseSortTypeWithIndex_validValue_returnSortType() throws Exception {
+        assertEquals(SortType.PRICE, ParserUtil.parseSortType(VALID_ACTOR + " " + VALID_SORT_TYPE, 1));
     }
 
     @Test
-    public void parseIndexPreamble_validValue_returnPreambleIndexData() throws Exception {
-        assertEquals(new PreambleIndexData(PreambleActorData.Actor.PROPERTY, INDEX_FIRST_PROPERTY),
-                ParserUtil.parseIndexPreamble(VALID_ACTOR + " 1"));
+    public void parseSortTypeWithIndex_validValueWithWhitespace_returnSortType() throws Exception {
+        assertEquals(SortType.PRICE, ParserUtil.parseSortType(
+                WHITESPACE + VALID_SORT_TYPE + "     1" + WHITESPACE, 0));
     }
 
     @Test
-    public void parseSortPreamble_null_throwsNullPointerExceptions() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseSortPreamble(
-                (String) null, SORT_COMMAND_HELP_MESSAGE));
+    public void parseSortDirWithIndex_null_throwsNullPointerExceptions() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseSortDir((String) null, 0));
     }
 
     @Test
-    public void parseSortPreamble_invalidValueTooManyPreamble_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseSortPreamble(
-                VALID_ACTOR + " 1 " + VALID_SORT_TYPE + " " + VALID_SORT_DIR,
-                        SORT_COMMAND_HELP_MESSAGE));
+    public void parseSortDirWithIndex_invalidValueInvalidIndex_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseSortDir("1 " + VALID_SORT_TYPE, 0));
     }
 
     @Test
-    public void parseSortPreamble_invalidValueEmptyPreamble_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseSortPreamble("", SORT_COMMAND_HELP_MESSAGE));
+    public void parseSortDirWithIndex_invalidValueEmptyActor_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseSortDir("", 0));
     }
 
     @Test
-    public void parseSortPreamble_invalidValueWrongOrderPreamble_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseSortPreamble(
-                VALID_ACTOR + " " + VALID_SORT_DIR + " " + VALID_SORT_TYPE,
-                SORT_COMMAND_HELP_MESSAGE));
+    public void parseSortDirWithIndex_validValue_returnSortDir() throws Exception {
+        assertEquals(SortDirection.ASC, ParserUtil.parseSortDir(VALID_ACTOR + " " + VALID_SORT_DIR, 1));
     }
 
     @Test
-    public void parseSortPreamble_validValue_returnPreambleIndexData() throws Exception {
-        assertEquals(new PreambleSortData(PreambleActorData.Actor.PROPERTY, SortType.PRICE, SortDirection.ASC),
-                ParserUtil.parseSortPreamble(
-                        VALID_ACTOR + " " + VALID_SORT_TYPE + " " + VALID_SORT_DIR,
-                        SORT_COMMAND_HELP_MESSAGE));
+    public void parseSortDirWithIndex_validValueWithWhitespace_returnSortDir() throws Exception {
+        assertEquals(SortDirection.ASC, ParserUtil.parseSortDir(
+                WHITESPACE + VALID_SORT_DIR + "     1" + WHITESPACE, 0));
     }
-
 }

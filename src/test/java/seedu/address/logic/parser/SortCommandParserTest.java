@@ -3,13 +3,11 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_PREAMBLE;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.commands.property.SortPropertyCommand;
-import seedu.address.logic.parser.preambledata.PreambleSortData;
 import seedu.address.model.field.SortDirection;
 import seedu.address.model.field.SortType;
 
@@ -24,9 +22,8 @@ public class SortCommandParserTest {
     private static final String INVALID_COMMAND_MISSING_SORT_TYPE = VALID_ACTOR + VALID_SORT_DIR;
     private static final String INVALID_COMMAND_MISSING_SORT_DIR = VALID_ACTOR + VALID_SORT_TYPE;
 
-    private static final String MESSAGE_INVALID_FORMAT =
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_INVALID_PREAMBLE
-                    + PreambleSortData.MESSAGE_PREAMBLE_FIELD + "\n" + SortCommand.MESSAGE_USAGE);
+    private static final String MESSAGE_INVALID_FORMAT = String.format(
+            MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE);
 
     private SortCommandParser parser = new SortCommandParser();
 
