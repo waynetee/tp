@@ -40,7 +40,7 @@ public class MatchPropertyCommand extends MatchCommand {
         };
 
         Comparator<Buyer> buyerComparator = Comparator.comparing(buyer ->
-                calculateTagDistance(propertyTags, buyer.getTags()));
+                calculateTagIntersection(propertyTags, buyer.getTags()));
 
         model.updateFilteredAndSortedBuyerList(buyerFilter, buyerComparator);
         return new CommandResult(MESSAGE_SUCCESS);

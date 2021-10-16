@@ -1,22 +1,12 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SELLER;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_ACTOR;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.MatchCommand;
 import seedu.address.logic.commands.buyer.MatchBuyerCommand;
 import seedu.address.logic.commands.property.MatchPropertyCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.property.Buyer;
-import seedu.address.model.property.Property;
 
 public class MatchCommandParser {
     private static final int NUMBER_OF_PREAMBLE_ARGUMENTS = 2;

@@ -18,7 +18,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Match buyer to properties in the address book.
  */
-public class MatchBuyerCommand extends MatchCommand  {
+public class MatchBuyerCommand extends MatchCommand {
 
     public static final String MESSAGE_SUCCESS = "Matched buyer to properties.";
 
@@ -41,7 +41,7 @@ public class MatchBuyerCommand extends MatchCommand  {
         };
 
         Comparator<Property> propertyComparator = Comparator.comparing(property ->
-                calculateTagDistance(buyerTags, property.getTags()));
+                calculateTagIntersection(buyerTags, property.getTags()));
 
         model.updateFilteredAndSortedPropertyList(propertyFilter, propertyComparator);
         return new CommandResult(MESSAGE_SUCCESS);
