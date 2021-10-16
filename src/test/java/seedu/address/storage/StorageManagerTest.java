@@ -87,7 +87,7 @@ public class StorageManagerTest {
 
     private void exportProperties(ReadOnlyAddressBook addressBook, File file) {
         try {
-            storageManager.exportProperties(addressBook, file);
+            Storage.exportProperties(addressBook, file);
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }
@@ -119,7 +119,7 @@ public class StorageManagerTest {
 
     private void exportBuyers(ReadOnlyAddressBook addressBook, File file) {
         try {
-            storageManager.exportBuyers(addressBook, file);
+            Storage.exportBuyers(addressBook, file);
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }
