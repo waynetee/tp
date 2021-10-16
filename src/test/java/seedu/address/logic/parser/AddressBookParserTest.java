@@ -106,10 +106,10 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommandWithFile_export() throws Exception {
-        assertThrows(ParseException.class, MESSAGE_INVALID_ACTOR,
-                () -> parser.parseCommandWithFile(ExportCommand.COMMAND_WORD));
-        assertThrows(ParseException.class, MESSAGE_INVALID_ACTOR,
-                () -> parser.parseCommandWithFile(ExportCommand.COMMAND_WORD + " 1"));
+        assertThrows(ParseException.class, MESSAGE_INVALID_ACTOR, () ->
+                parser.parseCommandWithFile(ExportCommand.COMMAND_WORD));
+        assertThrows(ParseException.class, MESSAGE_INVALID_ACTOR, () ->
+                parser.parseCommandWithFile(ExportCommand.COMMAND_WORD + " 1"));
         assertTrue(parser.parseCommandWithFile(ExportCommand.COMMAND_WORD + " " + ExportCommand.PROPERTIES)
                 .get() instanceof ExportPropertiesCommand);
         assertTrue(parser.parseCommandWithFile(ExportCommand.COMMAND_WORD + " " + ExportCommand.BUYERS)
@@ -125,10 +125,10 @@ public class AddressBookParserTest {
 
     @Test
     public void getCommandPreAction_export() throws Exception {
-        assertThrows(ParseException.class, MESSAGE_INVALID_ACTOR,
-                () -> parser.getCommandPreAction(ExportCommand.COMMAND_WORD));
-        assertThrows(ParseException.class, MESSAGE_INVALID_ACTOR,
-                () -> parser.getCommandPreAction(ExportCommand.COMMAND_WORD + " 1"));
+        assertThrows(ParseException.class, MESSAGE_INVALID_ACTOR, () ->
+                parser.getCommandPreAction(ExportCommand.COMMAND_WORD));
+        assertThrows(ParseException.class, MESSAGE_INVALID_ACTOR, () ->
+                parser.getCommandPreAction(ExportCommand.COMMAND_WORD + " 1"));
         assertTrue(parser.getCommandPreAction(ExportCommand.COMMAND_WORD + " " + ExportCommand.PROPERTIES)
                 .equals(new CommandPreAction(ExportCommand.COMMAND_WORD + " " + ExportCommand.PROPERTIES, true)));
         assertTrue(parser.getCommandPreAction(ExportCommand.COMMAND_WORD + " " + ExportCommand.BUYERS)
