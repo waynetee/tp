@@ -5,6 +5,7 @@ import java.nio.file.Path;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.commands.CommandPreAction;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -43,21 +44,7 @@ public interface Logic {
      * @return True if the command requires a file to be executed.
      * @throws ParseException If commandText does not fit expected format.
      */
-    boolean commandRequiresFile(String commandText) throws ParseException;
-
-    /**
-     * @param commandText The command as entered by the user.
-     * @return FileDialog title required by command.
-     * @throws ParseException If commandText does not fit expected format.
-     */
-    String getFileDialogPrompt(String commandText) throws ParseException;
-
-    /**
-     * @param commandText The command as entered by the user.
-     * @return True if the command requires a file to be saved.
-     * @throws ParseException
-     */
-    boolean isFileSave(String commandText) throws ParseException;
+    CommandPreAction getCommandPreAction(String commandText) throws ParseException;
 
     /**
      * Returns the AddressBook.

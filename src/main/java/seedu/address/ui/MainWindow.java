@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
+import seedu.address.logic.commands.CommandPreAction;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ExportCommand;
 import seedu.address.logic.commands.UiAction;
@@ -231,8 +232,9 @@ public class MainWindow extends UiPart<Stage> {
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
             CommandResult commandResult;
-            if (logic.commandRequiresFile(commandText)) {
-                File file = getCsvFile(logic.getFileDialogPrompt(commandText), logic.isFileSave(commandText));
+            CommandPreAction commandPreAction = logic.getCommandPreAction(commandText);
+            if (commandPreAction.requiresFile()) {
+                File file = getCsvFile(commandPreAction.getFileDialogPrompt(), commandPreAction.isFileSave());
                 commandResult = logic.execute(commandText, file);
             } else {
                 commandResult = logic.execute(commandText);

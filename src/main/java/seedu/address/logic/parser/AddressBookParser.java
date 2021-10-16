@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandPreAction;
 import seedu.address.logic.commands.CommandWithFile;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
@@ -100,16 +101,12 @@ public class AddressBookParser {
         }
     }
 
-    public boolean commandRequiresFile(String userInput) throws ParseException {
-        return parseCommandWithFile(userInput).isPresent();
+    public CommandPreAction getCommandPreAction(String commandText) throws ParseException {
+        Optional<CommandWithFile> command = parseCommandWithFile(commandText);
+        if (command.isEmpty()) {
+            return new CommandPreAction();
+        }
+        return new CommandPreAction(command.get().toString(),
+                command.get().toString().startsWith(ExportCommand.COMMAND_WORD));
     }
-
-    public String getFileDialogPrompt(String userInput) throws ParseException {
-        return parseCommandWithFile(userInput).get().toString();
-    }
-
-    public boolean isFileSave(String userInput) throws ParseException {
-        return parseCommandWithFile(userInput).get().toString().startsWith(ExportCommand.COMMAND_WORD);
-    }
-
 }

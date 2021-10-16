@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandPreAction;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.CommandWithFile;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -73,18 +74,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public boolean commandRequiresFile(String commandText) throws ParseException {
-        return addressBookParser.commandRequiresFile(commandText);
-    }
-
-    @Override
-    public String getFileDialogPrompt(String commandText) throws ParseException {
-        return addressBookParser.getFileDialogPrompt(commandText);
-    }
-
-    @Override
-    public boolean isFileSave(String commandText) throws ParseException {
-        return addressBookParser.isFileSave(commandText);
+    public CommandPreAction getCommandPreAction(String commandText) throws ParseException {
+        return addressBookParser.getCommandPreAction(commandText);
     }
 
     @Override
