@@ -9,6 +9,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -153,6 +154,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void updateFilteredAndSortedPropertyList(Predicate<Property> predicate, Comparator<Property> comparator) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasBuyer(Buyer buyer) {
             throw new AssertionError("This method should not be called.");
         }
@@ -179,6 +185,11 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredBuyerList(Predicate<Buyer> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredAndSortedBuyerList(Predicate<Buyer> predicate, Comparator<Buyer> comparator) {
             throw new AssertionError("This method should not be called.");
         }
     }

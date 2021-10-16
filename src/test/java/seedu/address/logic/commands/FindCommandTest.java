@@ -10,7 +10,7 @@ import static seedu.address.testutil.TypicalProperties.P_BENSON;
 import static seedu.address.testutil.TypicalProperties.P_CARL;
 import static seedu.address.testutil.TypicalProperties.P_ELLE;
 import static seedu.address.testutil.TypicalProperties.P_FIONA;
-import static seedu.address.testutil.TypicalProperties.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 
 import java.util.Arrays;
 import java.util.Collections;
