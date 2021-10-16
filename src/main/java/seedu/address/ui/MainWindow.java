@@ -1,7 +1,6 @@
 package seedu.address.ui;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.logging.Logger;
 
@@ -18,12 +17,9 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.ExportCommand;
-import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.UiAction;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.property.ExportPropertiesCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -152,11 +148,8 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-
     /**
      * Opens the help window or focuses on it if it's already opened.
-     *
-     * @return commandResult for HelpCommand
      */
     @FXML
     public void handleHelp() {
@@ -164,7 +157,7 @@ public class MainWindow extends UiPart<Stage> {
             helpWindow.show();
         } else {
             helpWindow.focus();
-        };
+        }
     }
 
     /**
@@ -173,7 +166,7 @@ public class MainWindow extends UiPart<Stage> {
      * @param title Title of fileChooser dialog box
      * @return File object chosen by user
      */
-    public File getSaveCsvFile(String title, boolean isFileSave) {
+    public File getCsvFile(String title, boolean isFileSave) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle(title);
         fileChooser.getExtensionFilters().addAll(
@@ -181,8 +174,7 @@ public class MainWindow extends UiPart<Stage> {
         fileChooser.setInitialDirectory(Paths.get(".").toFile());
         if (isFileSave) {
             return fileChooser.showSaveDialog(primaryStage);
-        }
-        else {
+        } else {
             return fileChooser.showOpenDialog(primaryStage);
         }
     }
@@ -194,8 +186,7 @@ public class MainWindow extends UiPart<Stage> {
     public void handleExportProperties() {
         try {
             executeCommand(ExportCommand.COMMAND_WORD + " " + ExportCommand.PROPERTIES);
-        }
-        catch (CommandException | ParseException e) {
+        } catch (CommandException | ParseException e) {
             logger.warning("handleExportProperties failed!");
         }
     }
@@ -207,8 +198,7 @@ public class MainWindow extends UiPart<Stage> {
     public void handleExportBuyers() {
         try {
             executeCommand(ExportCommand.COMMAND_WORD + " " + ExportCommand.BUYERS);
-        }
-        catch (CommandException | ParseException e) {
+        } catch (CommandException | ParseException e) {
             logger.warning("handleExportBuyers failed!");
         }
     }
@@ -219,8 +209,6 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Closes the application.
-     *
-     * @return commandResult for ExitCommand
      */
     @FXML
     private void handleExit() {
@@ -244,18 +232,21 @@ public class MainWindow extends UiPart<Stage> {
         try {
             CommandResult commandResult;
             if (logic.commandRequiresFile(commandText)) {
-                File file = getSaveCsvFile(logic.getFileDialogPrompt(commandText), logic.isFileSave(commandText));
+                File file = getCsvFile(logic.getFileDialogPrompt(commandText), logic.isFileSave(commandText));
                 commandResult = logic.execute(commandText, file);
-            }
-            else{
+            } else {
                 commandResult = logic.execute(commandText);
             }
             UiAction uiAction = commandResult.getUiAction();
-            switch(uiAction) {
+            switch (uiAction) {
             case HELP:
                 handleHelp();
+                break;
             case EXIT:
                 handleExit();
+                break;
+            default:
+                break;
             }
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());

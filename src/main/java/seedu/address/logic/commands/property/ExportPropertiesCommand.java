@@ -13,6 +13,7 @@ import seedu.address.storage.Storage;
  * Exports properties to csv file.
  */
 public class ExportPropertiesCommand extends ExportCommand {
+    @Override
     public CommandResult execute(Model model, File file) throws CommandException {
         if (file == null) {
             return new CommandResult(String.format(MESSAGE_CANCELLED, PROPERTIES));
@@ -20,8 +21,7 @@ public class ExportPropertiesCommand extends ExportCommand {
         try {
             Storage.exportProperties(model.getAddressBook(), file);
             return new CommandResult(String.format(MESSAGE_SUCCESS, PROPERTIES));
-        }
-        catch (IOException ioe){
+        } catch (IOException ioe) {
             return new CommandResult(String.format(MESSAGE_FAILURE, PROPERTIES));
         }
     }

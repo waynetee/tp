@@ -1,7 +1,6 @@
 package seedu.address.logic;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Path;
 
 import javafx.collections.ObservableList;
@@ -42,7 +41,7 @@ public interface Logic {
     /**
      * @param commandText The command as entered by the user.
      * @return True if the command reuqires a file to be executed.
-     * @throws ParseException   If an error occurs during parsing.
+     * @throws ParseException If an error occurs during parsing.
      */
     boolean commandRequiresFile(String commandText) throws ParseException;
 

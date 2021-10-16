@@ -18,7 +18,6 @@ import seedu.address.logic.commands.ExportCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.UiAction;
 import seedu.address.logic.commands.buyer.ExportBuyersCommand;
 import seedu.address.logic.commands.property.ExportPropertiesCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
