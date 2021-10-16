@@ -6,8 +6,10 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.property.Buyer;
+import seedu.address.model.property.Match;
 import seedu.address.model.property.Property;
 import seedu.address.model.property.UniqueBuyerList;
+import seedu.address.model.property.UniqueMatchList;
 import seedu.address.model.property.UniquePropertyList;
 
 /**
@@ -18,6 +20,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePropertyList properties;
     private final UniqueBuyerList buyers;
+    private final UniqueMatchList matches;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -29,6 +32,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     {
         properties = new UniquePropertyList();
         buyers = new UniqueBuyerList();
+        matches = new UniqueMatchList();
     }
 
     public AddressBook() {}
@@ -144,12 +148,40 @@ public class AddressBook implements ReadOnlyAddressBook {
         buyers.remove(key);
     }
 
+
+    //// match level operations
+
+    /**
+     * Returns true if a match with the same identity as {@code match} exists in the address book.
+     */
+    public boolean hasMatch(Match match) {
+        requireNonNull(match);
+        return matches.contains(match);
+    }
+
+    /**
+     * Adds a match to the address book.
+     * The match must not already exist in the address book.
+     */
+    public void addMatch(Match m) {
+        matches.add(m);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeMatch(Match key) {
+        matches.remove(key);
+    }
+
     //// util methods
 
     @Override
     public String toString() {
         return properties.asUnmodifiableObservableList().size() + " properties";
         // TODO: refine later
+        // TODO: add representation of the other buyer and match lists
     }
 
     @Override
@@ -163,10 +195,17 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
+    public ObservableList<Match> getMatchList() {
+        return matches.asUnmodifiableObservableList();
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
-                && properties.equals(((AddressBook) other).properties));
+                && properties.equals(((AddressBook) other).properties)
+                && buyers.equals(((AddressBook) other).buyers)
+                && matches.equals(((AddressBook) other).matches));
     }
 
     @Override

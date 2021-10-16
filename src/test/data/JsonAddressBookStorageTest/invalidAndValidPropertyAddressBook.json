@@ -13,5 +13,7 @@
     "address": "4th street",
     "price": "10000",
     "seller": "Valid Seller"
-  } ]
+  } ],
+  "buyers": [],
+  "matches": []
 }
