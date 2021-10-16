@@ -1,10 +1,12 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -13,8 +15,21 @@ import seedu.address.model.tag.Tag;
 public abstract class MatchCommand extends Command {
     public static final String COMMAND_WORD = "match";
 
+    protected final Index index;
+
+    /**
+     * Constructs a Match command with the entity at the given {@code index}.
+     *
+     * @param index Index the entity is displayed at.
+     */
+    public MatchCommand(Index index) {
+        requireNonNull(index);
+        this.index = index;
+    }
+
     /**
      * Calculates the intersection between {@code otherTagSet} and {@code tagSet}.
+     *
      * @param tagSet A set of tags to be intersected with {@code otherTagSet}.
      * @param otherTagSet A set of tags to be intersected with {@code tagSet}.
      * @return Number of tags in the intersection.

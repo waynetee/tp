@@ -35,8 +35,8 @@ public class JsonSerializableAddressBookTest {
         assertEquals(addressBookFromFile, typicalPropertiesAddressBook);
     }
 
+    // TODO: This helper should be removed or disabled when no longer necessary
     // Helper method to write the current typicalAddressBook to a temporary file
-    // Disabled as this is meant to be run manually.
     @Test
     public void writeAddressBook() throws IOException {
         JsonUtil.saveJsonFile(new JsonSerializableAddressBook(TypicalAddressBook.getTypicalAddressBook()),

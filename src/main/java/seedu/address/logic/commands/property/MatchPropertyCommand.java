@@ -21,10 +21,8 @@ import seedu.address.model.tag.Tag;
 public class MatchPropertyCommand extends MatchCommand {
     public static final String MESSAGE_SUCCESS = "Matched property to buyers.";
 
-    private final Index index;
-
     public MatchPropertyCommand(Index index) {
-        this.index = index;
+        super(index);
     }
 
     @Override
@@ -37,7 +35,7 @@ public class MatchPropertyCommand extends MatchCommand {
         Predicate<Buyer> buyerFilter = (buyer) -> {
             // TODO: Eliz's PR
             // return buyer.getMaxPrice().compareTo(property.getPrice());
-            return buyer.getMaxPrice().value > property.getPrice().value;
+            return buyer.getMaxPrice().value >= property.getPrice().value;
         };
 
         Comparator<Buyer> buyerComparator = Comparator.<Buyer, Integer>comparing(buyer ->

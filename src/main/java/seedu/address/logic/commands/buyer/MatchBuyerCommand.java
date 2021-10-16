@@ -22,10 +22,8 @@ public class MatchBuyerCommand extends MatchCommand {
 
     public static final String MESSAGE_SUCCESS = "Matched buyer to properties.";
 
-    private final Index index;
-
     public MatchBuyerCommand(Index index) {
-        this.index = index;
+        super(index);
     }
 
     @Override
@@ -39,7 +37,7 @@ public class MatchBuyerCommand extends MatchCommand {
         Predicate<Property> propertyFilter = (property) -> {
             // TODO: Eliz's PR
             // return property.getPrice().compareTo(buyer.getMaxPrice());
-            return property.getPrice().value < buyer.getMaxPrice().value;
+            return property.getPrice().value <= buyer.getMaxPrice().value;
         };
 
         Comparator<Property> propertyComparator = Comparator.<Property, Integer>comparing(property ->
