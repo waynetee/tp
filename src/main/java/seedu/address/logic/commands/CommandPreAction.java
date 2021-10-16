@@ -37,4 +37,16 @@ public class CommandPreAction {
     public boolean isFileSave() {
         return isFileSave;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+        if (!(other instanceof CommandPreAction)) {
+            return false;
+        }
+        CommandPreAction e = (CommandPreAction) other;
+        return requiresFile == e.requiresFile && fileDialogPrompt == e.fileDialogPrompt && isFileSave == e.isFileSave;
+    }
 }

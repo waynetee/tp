@@ -28,11 +28,8 @@ public class CommandResultTest {
         // different feedbackToUser value -> returns false
         assertFalse(commandResult.equals(new CommandResult("different")));
 
-        // different showHelp value -> returns false
+        // different uiAction value -> returns false
         assertFalse(commandResult.equals(new CommandResult("feedback", UiAction.HELP)));
-
-        // different exit value -> returns false
-        assertFalse(commandResult.equals(new CommandResult("feedback", UiAction.EXIT)));
     }
 
     @Test
@@ -45,10 +42,7 @@ public class CommandResultTest {
         // different feedbackToUser value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new CommandResult("different").hashCode());
 
-        // different showHelp value -> returns different hashcode
+        // different uiAction value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", UiAction.HELP).hashCode());
-
-        // different exit value -> returns different hashcode
-        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", UiAction.EXIT).hashCode());
     }
 }

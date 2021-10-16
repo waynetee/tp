@@ -101,8 +101,8 @@ public class AddressBookParser {
         }
     }
 
-    public CommandPreAction getCommandPreAction(String commandText) throws ParseException {
-        Optional<CommandWithFile> command = parseCommandWithFile(commandText);
+    public CommandPreAction getCommandPreAction(String userInput) throws ParseException {
+        Optional<CommandWithFile> command = parseCommandWithFile(userInput);
         if (command.isEmpty()) {
             return new CommandPreAction();
         }
