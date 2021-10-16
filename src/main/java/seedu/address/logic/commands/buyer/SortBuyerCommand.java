@@ -24,17 +24,7 @@ public class SortBuyerCommand extends SortCommand {
         SortType sortType = getSortType();
         SortDirection sortDirection = getSortDirection();
 
-        if (sortType == SortType.PRICE && sortDirection == SortDirection.ASC) {
-            model.sortBuyersPrice();
-        } else if (sortType == SortType.PRICE && sortDirection == SortDirection.DESC) {
-            model.sortBuyersPriceDesc();
-        } else if (sortType == SortType.NAME && sortDirection == SortDirection.ASC) {
-            model.sortBuyersName();
-        } else if (sortType == SortType.NAME && sortDirection == SortDirection.DESC) {
-            model.sortBuyersNameDesc();
-        } else {
-            assert false;
-        }
+        model.sortBuyers(sortType, sortDirection);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, sortType, sortDirection));
     }

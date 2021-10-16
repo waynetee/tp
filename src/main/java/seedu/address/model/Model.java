@@ -5,6 +5,8 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.field.SortDirection;
+import seedu.address.model.field.SortType;
 import seedu.address.model.property.Buyer;
 import seedu.address.model.property.Property;
 
@@ -92,24 +94,9 @@ public interface Model {
     void updateFilteredPropertyList(Predicate<Property> predicate);
 
     /**
-     * Sorts the property list by price in ascending order.
+     * Sorts the property list by the {@code SortType} and {@code SortDirection}.
      */
-    void sortPropertiesPrice();
-
-    /**
-     * Sorts the property list by price in descending order.
-     */
-    void sortPropertiesPriceDesc();
-
-    /**
-     * Sorts the property list by name in ascending order.
-     */
-    void sortPropertiesName();
-
-    /**
-     * Sorts the property list by name in descending order.
-     */
-    void sortPropertiesNameDesc();
+    void sortProperties(SortType sortType, SortDirection sortDirection);
 
     /**
      * Returns true if a buyer with the same identity as {@code buyer} exists in the address book.
@@ -146,22 +133,7 @@ public interface Model {
     void updateFilteredBuyerList(Predicate<Buyer> predicate);
 
     /**
-     * Sorts the buyer list by price in increasing order.
+     * Sorts the buyer list by the {@code SortType} and {@code SortDirection}.
      */
-    void sortBuyersPrice();
-
-    /**
-     * Sorts the buyer list by price in decreasing order.
-     */
-    void sortBuyersPriceDesc();
-
-    /**
-     * Sorts the buyer list by name in ascending order.
-     */
-    void sortBuyersName();
-
-    /**
-     * Sorts the buyer list by name in descending order.
-     */
-    void sortBuyersNameDesc();
+    void sortBuyers(SortType sortType, SortDirection sortDirection);
 }

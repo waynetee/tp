@@ -3,8 +3,11 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Objects;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.field.SortDirection;
+import seedu.address.model.field.SortType;
 import seedu.address.model.property.Buyer;
 import seedu.address.model.property.Property;
 import seedu.address.model.property.UniqueBuyerList;
@@ -145,59 +148,17 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Sorts properties by price in ascending order.
+     * Sorts properties by the given {@code sortType} and {@code sortDirection}.
      */
-    public void sortPropertiesPrice() {
-        properties.sortPrice();
+    public void sortProperties(SortType sortType, SortDirection sortDirection) {
+        properties.sort(sortType, sortDirection);
     }
 
     /**
-     * Sort properties by price in descending order.
+     * Sorts buyers  by the given {@code sortType} and {@code sortDirection}.
      */
-    public void sortPropertiesPriceDesc() {
-        properties.sortPriceDesc();
-    }
-
-    /**
-     * Sorts buyers by price in ascending order.
-     */
-    public void sortBuyersPrice() {
-        buyers.sortPrice();
-    }
-
-    /**
-     * Sorts buyers by price in descending order.
-     */
-    public void sortBuyersPriceDesc() {
-        buyers.sortPriceDesc();
-    }
-
-    /**
-     * Sorts properties by name in ascending order.
-     */
-    public void sortPropertiesName() {
-        properties.sortName();
-    }
-
-    /**
-     * Sorts properties by name in descending order.
-     */
-    public void sortPropertiesNameDesc() {
-        properties.sortNameDesc();
-    }
-
-    /**
-     * Sorts buyers by name in ascending order.
-     */
-    public void sortBuyersName() {
-        buyers.sortName();
-    }
-
-    /**
-     * Sorts buyers by name in descending order.
-     */
-    public void sortBuyersNameDesc() {
-        buyers.sortNameDesc();
+    public void sortBuyers(SortType sortType, SortDirection sortDirection) {
+        buyers.sort(sortType, sortDirection);
     }
 
     //// util methods
@@ -228,6 +189,6 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public int hashCode() {
-        return properties.hashCode();
+        return Objects.hash(buyers, properties);
     }
 }

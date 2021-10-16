@@ -3,6 +3,8 @@ package seedu.address.model.property;
 import java.util.Comparator;
 import java.util.List;
 
+import seedu.address.model.field.SortDirection;
+import seedu.address.model.field.SortType;
 import seedu.address.model.property.exceptions.BuyerNotFoundException;
 import seedu.address.model.property.exceptions.DuplicateBuyerException;
 import seedu.address.model.property.exceptions.DuplicateListableException;
@@ -68,46 +70,25 @@ public class UniqueBuyerList extends UniqueList<Buyer> {
     }
 
     /**
-     * Sorts the list by price in ascending order. If two {@code Buyer} have the same price,
-     * the {@code Buyer} which has a lexically smaller name will have a lower priority.
+     * Sorts the list by the given {@code sortType} and {@code sortDirection}.
      */
-    public void sortPrice() {
-        Comparator<Buyer> priceComparator = (b1, b2) -> {
-            if (b1.getMaxPrice().compareTo(b2.getMaxPrice()) == 0) {
-                return b1.getName().compareTo(b2.getName());
-            }
-            return b1.getMaxPrice().compareTo(b2.getMaxPrice());
-        };
-        super.sortListables(priceComparator);
-    }
+    public void sort(SortType sortType, SortDirection sortDirection) {
+        Comparator<Buyer> comparator = null;
 
-    /**
-     * Sorts the list by price in descending order. If two {@code Buyer} have the same price,
-     * the {@code Buyer} which has a lexically smaller name will have a lower priority.
-     */
-    public void sortPriceDesc() {
-        Comparator<Buyer> priceComparator = (b1, b2) -> {
-            if (b1.getMaxPrice().compareTo(b2.getMaxPrice()) == 0) {
-                return b1.getName().compareTo(b2.getName());
-            }
-            return -b1.getMaxPrice().compareTo(b2.getMaxPrice());
-        };
-        super.sortListables(priceComparator);
-    }
+        switch (sortType) {
+        case PRICE:
+            comparator = Buyer.getPriceComparator();
+            break;
+        case NAME:
+            comparator = Buyer.getNameComparator();
+            break;
+        default:
+            assert false;
+        }
 
-    /**
-     * Sorts the list by name in ascending order.
-     */
-    public void sortName() {
-        Comparator<Buyer> nameComparator = Comparator.comparing(Buyer::getName);
-        super.sortListables(nameComparator);
-    }
-
-    /**
-     * Sorts the list by name in descending order.
-     */
-    public void sortNameDesc() {
-        Comparator<Buyer> nameComparator = Comparator.comparing(Buyer::getName).reversed();
-        super.sortListables(nameComparator);
+        if (sortDirection == SortDirection.DESC) {
+            comparator = comparator.reversed();
+        }
+        super.sortListables(comparator);
     }
 }

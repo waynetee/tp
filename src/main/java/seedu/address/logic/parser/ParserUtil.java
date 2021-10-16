@@ -89,7 +89,7 @@ public class ParserUtil {
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex, int index) throws ParseException {
-        String[] splitInputs = oneBasedIndex.split("\\s+");
+        String[] splitInputs = oneBasedIndex.trim().split("\\s+");
         if (index >= splitInputs.length) {
             throw new ParseException(MESSAGE_INVALID_PREAMBLE
                     + MESSAGE_INVALID_ACTOR_PREAMBLE + MESSAGE_INVALID_INDEX_PREAMBLE);

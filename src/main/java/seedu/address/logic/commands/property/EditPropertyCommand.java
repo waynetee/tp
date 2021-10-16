@@ -144,6 +144,7 @@ public class EditPropertyCommand extends EditCommand {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
+            System.out.println(propertyName);
             return CollectionUtil.isAnyNonNull(propertyName, sellerPhone, sellerEmail,
                     address, sellerName, price) || super.isAnyFieldEdited();
         }

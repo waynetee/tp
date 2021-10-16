@@ -21,6 +21,8 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.field.SortDirection;
+import seedu.address.model.field.SortType;
 import seedu.address.model.property.Buyer;
 import seedu.address.model.property.Property;
 import seedu.address.testutil.PropertyBuilder;
@@ -153,22 +155,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void sortPropertiesPrice() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void sortPropertiesPriceDesc() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void sortPropertiesName() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void sortPropertiesNameDesc() {
+        public void sortProperties(SortType sortType, SortDirection sortDirection) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -203,22 +190,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void sortBuyersPrice() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void sortBuyersPriceDesc() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void sortBuyersName() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void sortBuyersNameDesc() {
+        public void sortBuyers(SortType sortType, SortDirection sortDirection) {
             throw new AssertionError("This method should not be called.");
         }
     }

@@ -17,6 +17,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.field.SortDirection;
+import seedu.address.model.field.SortType;
 import seedu.address.model.property.exceptions.BuyerNotFoundException;
 import seedu.address.model.property.exceptions.DuplicateBuyerException;
 import seedu.address.testutil.BuyerBuilder;
@@ -171,36 +173,36 @@ public class UniqueBuyerListTest {
     }
 
     @Test
-    public void sortPrice_sortListInAscOrder() {
+    public void sort_sortListByPriceInAscOrder() {
         uniqueBuyerList.setBuyers(getTypicalBuyersSortedPriceDesc());
-        uniqueBuyerList.sortPrice();
+        uniqueBuyerList.sort(SortType.PRICE, SortDirection.ASC);
         UniqueBuyerList expectedUniqueBuyerList = new UniqueBuyerList();
         expectedUniqueBuyerList.setBuyers(getTypicalBuyersSortedPriceAsc());
         assertEquals(expectedUniqueBuyerList, uniqueBuyerList);
     }
 
     @Test
-    public void sortPriceDesc_sortListInDescOrder() {
+    public void sort_sortListByPriceInDescOrder() {
         uniqueBuyerList.setBuyers(getTypicalBuyersSortedPriceAsc());
-        uniqueBuyerList.sortPriceDesc();
+        uniqueBuyerList.sort(SortType.PRICE, SortDirection.DESC);
         UniqueBuyerList expectedUniqueBuyerList = new UniqueBuyerList();
         expectedUniqueBuyerList.setBuyers(getTypicalBuyersSortedPriceDesc());
         assertEquals(expectedUniqueBuyerList, uniqueBuyerList);
     }
 
     @Test
-    public void sortName_sortListInAscOrder() {
+    public void sort_sortListByNameInAscOrder() {
         uniqueBuyerList.setBuyers(getTypicalBuyersSortedNameDesc());
-        uniqueBuyerList.sortName();
+        uniqueBuyerList.sort(SortType.NAME, SortDirection.ASC);
         UniqueBuyerList expectedUniqueBuyerList = new UniqueBuyerList();
         expectedUniqueBuyerList.setBuyers(getTypicalBuyersSortedNameAsc());
         assertEquals(expectedUniqueBuyerList, uniqueBuyerList);
     }
 
     @Test
-    public void sortNameDesc_sortListInDescOrder() {
+    public void sort_sortListByNameInDescOrder() {
         uniqueBuyerList.setBuyers(getTypicalBuyersSortedNameAsc());
-        uniqueBuyerList.sortNameDesc();
+        uniqueBuyerList.sort(SortType.NAME, SortDirection.DESC);
         UniqueBuyerList expectedUniqueBuyerList = new UniqueBuyerList();
         expectedUniqueBuyerList.setBuyers(getTypicalBuyersSortedNameDesc());
         assertEquals(expectedUniqueBuyerList, uniqueBuyerList);

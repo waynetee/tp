@@ -11,6 +11,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.field.SortDirection;
+import seedu.address.model.field.SortType;
 import seedu.address.model.property.Buyer;
 import seedu.address.model.property.Property;
 
@@ -140,51 +142,13 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void sortPropertiesPrice() {
-        addressBook.sortPropertiesPrice();
-        updateFilteredPropertyList(PREDICATE_SHOW_ALL_PROPERTIES);
+    public void sortProperties(SortType sortType, SortDirection sortDirection) {
+        addressBook.sortProperties(sortType, sortDirection);
     }
 
     @Override
-    public void sortPropertiesPriceDesc() {
-        addressBook.sortPropertiesPriceDesc();
-        updateFilteredPropertyList(PREDICATE_SHOW_ALL_PROPERTIES);
-    }
-
-    @Override
-    public void sortBuyersPrice() {
-        addressBook.sortBuyersPrice();
-        updateFilteredBuyerList(PREDICATE_SHOW_ALL_BUYERS);
-    }
-
-    @Override
-    public void sortBuyersPriceDesc() {
-        addressBook.sortBuyersPriceDesc();
-        updateFilteredBuyerList(PREDICATE_SHOW_ALL_BUYERS);
-    }
-
-    @Override
-    public void sortPropertiesName() {
-        addressBook.sortPropertiesName();
-        updateFilteredPropertyList(PREDICATE_SHOW_ALL_PROPERTIES);
-    }
-
-    @Override
-    public void sortPropertiesNameDesc() {
-        addressBook.sortPropertiesNameDesc();
-        updateFilteredPropertyList(PREDICATE_SHOW_ALL_PROPERTIES);
-    }
-
-    @Override
-    public void sortBuyersName() {
-        addressBook.sortBuyersName();
-        updateFilteredBuyerList(PREDICATE_SHOW_ALL_BUYERS);
-    }
-
-    @Override
-    public void sortBuyersNameDesc() {
-        addressBook.sortBuyersNameDesc();
-        updateFilteredBuyerList(PREDICATE_SHOW_ALL_BUYERS);
+    public void sortBuyers(SortType sortType, SortDirection sortDirection) {
+        addressBook.sortBuyers(sortType, sortDirection);;
     }
 
     //=========== Filtered Property List Accessors =============================================================
