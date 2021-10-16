@@ -40,13 +40,23 @@ public interface Logic {
 
     /**
      * @param commandText The command as entered by the user.
-     * @return True if the command reuqires a file to be executed.
-     * @throws ParseException If an error occurs during parsing.
+     * @return True if the command requires a file to be executed.
+     * @throws ParseException If commandText does not fit expected format.
      */
     boolean commandRequiresFile(String commandText) throws ParseException;
 
+    /**
+     * @param commandText The command as entered by the user.
+     * @return FileDialog title required by command.
+     * @throws ParseException If commandText does not fit expected format.
+     */
     String getFileDialogPrompt(String commandText) throws ParseException;
 
+    /**
+     * @param commandText The command as entered by the user.
+     * @return True if the command requires a file to be saved.
+     * @throws ParseException
+     */
     boolean isFileSave(String commandText) throws ParseException;
 
     /**

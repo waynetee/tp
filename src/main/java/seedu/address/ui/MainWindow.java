@@ -237,6 +237,7 @@ public class MainWindow extends UiPart<Stage> {
             } else {
                 commandResult = logic.execute(commandText);
             }
+            // Perform post command UI actions
             UiAction uiAction = commandResult.getUiAction();
             switch (uiAction) {
             case HELP:
