@@ -1,9 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -31,9 +29,6 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_PREAMBLE = "Incorrect number of arguments in preamble."
             + "The following fields are expected:"
             + "\n";
-    public static final String MESSAGE_INVALID_ACTOR_PREAMBLE = " (property/buyer)";
-    public static final String MESSAGE_INVALID_INDEX_PREAMBLE = " INDEX";
-    public static final String MESSAGE_INVALID_SORT_PREAMBLE = " (price/name) (asc/desc)";
 
     /**
      * Parses {@code actor} into an {@code Preamble.Actor} using given string.
@@ -63,7 +58,7 @@ public class ParserUtil {
     public static Actor parseActor(String actor, int index) throws ParseException {
         String[] splitInputs = actor.trim().split("\\s+");
         if (index >= splitInputs.length) {
-            throw new ParseException(MESSAGE_INVALID_PREAMBLE + MESSAGE_INVALID_ACTOR_PREAMBLE);
+            throw new ParseException(MESSAGE_INVALID_PREAMBLE);
         }
         return parseActor(splitInputs[index]);
     }
@@ -91,8 +86,7 @@ public class ParserUtil {
     public static Index parseIndex(String oneBasedIndex, int index) throws ParseException {
         String[] splitInputs = oneBasedIndex.trim().split("\\s+");
         if (index >= splitInputs.length) {
-            throw new ParseException(MESSAGE_INVALID_PREAMBLE
-                    + MESSAGE_INVALID_ACTOR_PREAMBLE + MESSAGE_INVALID_INDEX_PREAMBLE);
+            throw new ParseException(MESSAGE_INVALID_PREAMBLE);
         }
         return parseIndex(splitInputs[index]);
     }
@@ -226,8 +220,7 @@ public class ParserUtil {
     public static SortType parseSortType(String sortType, int index) throws ParseException {
         String[] splitInputs = sortType.trim().split("\\s+");
         if (index >= splitInputs.length) {
-            throw new ParseException(MESSAGE_INVALID_PREAMBLE
-                    + MESSAGE_INVALID_ACTOR_PREAMBLE + MESSAGE_INVALID_SORT_PREAMBLE);
+            throw new ParseException(MESSAGE_INVALID_PREAMBLE);
         }
         return parseSortType(splitInputs[index]);
     }
@@ -259,9 +252,15 @@ public class ParserUtil {
     public static SortDirection parseSortDir(String sortDir, int index) throws ParseException {
         String[] splitInputs = sortDir.trim().split("\\s+");
         if (index >= splitInputs.length) {
-            throw new ParseException(MESSAGE_INVALID_PREAMBLE
-                    + MESSAGE_INVALID_ACTOR_PREAMBLE + MESSAGE_INVALID_SORT_PREAMBLE);
+            throw new ParseException(MESSAGE_INVALID_PREAMBLE);
         }
         return parseSortDir(splitInputs[index]);
+    }
+
+    public static void assertPreambleArgsCount(String arg, int numOfPreamble) throws ParseException {
+        String[] splitInputs = arg.trim().split("\\s+");
+        if (numOfPreamble != splitInputs.length) {
+            throw new ParseException(MESSAGE_INVALID_PREAMBLE);
+        }
     }
 }

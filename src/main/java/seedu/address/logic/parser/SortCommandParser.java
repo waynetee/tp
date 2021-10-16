@@ -22,7 +22,7 @@ public class SortCommandParser implements Parser<SortCommand> {
     public static final int ACTOR_POSITIONAL_INDEX = 0;
     public static final int SORT_TYPE_POSITIONAL_INDEX = 1;
     public static final int SORT_DIR_POSITIONAL_INDEX = 2;
-
+    public static final int NUM_OF_PREAMBLE_ARGS = 3;
     /**
      * Parses the given {@code String} of arguments in the context of the SortCommand
      * and returns a SortCommand object for execution.
@@ -35,6 +35,7 @@ public class SortCommandParser implements Parser<SortCommand> {
         SortDirection sortDirection;
 
         try {
+            ParserUtil.assertPreambleArgsCount(args, NUM_OF_PREAMBLE_ARGS);
             actor = ParserUtil.parseActor(args, ACTOR_POSITIONAL_INDEX);
             sortType = ParserUtil.parseSortType(args, SORT_TYPE_POSITIONAL_INDEX);
             sortDirection = ParserUtil.parseSortDir(args, SORT_DIR_POSITIONAL_INDEX);

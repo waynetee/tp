@@ -32,6 +32,7 @@ import seedu.address.model.tag.Tag;
 public class EditCommandParser implements Parser<EditCommand> {
     public static final int ACTOR_POSITIONAL_INDEX = 0;
     public static final int INDEX_POSITIONAL_INDEX = 1;
+    public static final int NUM_OF_PREAMBLE_ARGS = 2;
 
     /**
      * Parses the given {@code String} of arguments in the context of the EditCommand
@@ -48,6 +49,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         Index index;
         try {
             String preamble = argMultimap.getPreamble();
+            ParserUtil.assertPreambleArgsCount(preamble, NUM_OF_PREAMBLE_ARGS);
             actor = ParserUtil.parseActor(preamble, ACTOR_POSITIONAL_INDEX);
             index = ParserUtil.parseIndex(preamble, INDEX_POSITIONAL_INDEX);
         } catch (ParseException pe) {

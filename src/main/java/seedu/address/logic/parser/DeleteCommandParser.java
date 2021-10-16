@@ -16,6 +16,8 @@ import seedu.address.model.field.Actor;
 public class DeleteCommandParser implements Parser<DeleteCommand> {
     public static final int ACTOR_POSITIONAL_INDEX = 0;
     public static final int INDEX_POSITIONAL_INDEX = 1;
+    public static final int NUM_OF_PREAMBLE_ARGS = 2;
+
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteCommand
      * and returns a DeleteCommand object for execution.
@@ -26,6 +28,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         Index index;
 
         try {
+            ParserUtil.assertPreambleArgsCount(args, NUM_OF_PREAMBLE_ARGS);
             actor = ParserUtil.parseActor(args, ACTOR_POSITIONAL_INDEX);
             index = ParserUtil.parseIndex(args, INDEX_POSITIONAL_INDEX);
             switch (actor) {

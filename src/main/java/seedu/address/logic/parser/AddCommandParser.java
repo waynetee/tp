@@ -9,6 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SELLER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_ACTOR;
+import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_PREAMBLE;
 
 import java.util.Set;
 import java.util.stream.Stream;
@@ -33,6 +34,8 @@ import seedu.address.model.tag.Tag;
  */
 public class AddCommandParser implements Parser<AddCommand> {
     public static final int ACTOR_POSITIONAL_INDEX = 0;
+    public static final int NUM_OF_PREAMBLE_ARGS = 1;
+    public static final String INVALID_PREAMBLE = MESSAGE_INVALID_PREAMBLE + "(property/buyer)";
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
@@ -43,7 +46,15 @@ public class AddCommandParser implements Parser<AddCommand> {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE,
                 PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG, PREFIX_SELLER, PREFIX_PRICE);
 
-        Actor actor = ParserUtil.parseActor(argMultimap.getPreamble(), ACTOR_POSITIONAL_INDEX);
+        Actor actor;
+
+        try {
+            ParserUtil.assertPreambleArgsCount(argMultimap.getPreamble(), NUM_OF_PREAMBLE_ARGS);
+            actor = ParserUtil.parseActor(argMultimap.getPreamble(), ACTOR_POSITIONAL_INDEX);
+        } catch (ParseException e) {
+            throw new ParseException(INVALID_PREAMBLE);
+        }
+
         switch (actor) {
         case PROPERTY:
             return getAddPropertyCommand(argMultimap);
