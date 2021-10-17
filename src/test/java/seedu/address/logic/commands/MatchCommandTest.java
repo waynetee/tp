@@ -41,7 +41,8 @@ public class MatchCommandTest {
         assertEquals(List.of(P_CARL), model.getFilteredPropertyList());
         // ordered from the highest maxPrice to the lowest maxPrice
         // furthermore, B_ALICE and B_BENSON's maxPrices are strictly lower than P_CARL's selling price
-        assertEquals(Arrays.asList(B_GEORGE, B_FIONA, B_ELLE, B_DANIEL, B_CARL) ,model.getFilteredBuyerList());
+        assertEquals(Arrays.asList(B_GEORGE, B_FIONA, B_ELLE, B_DANIEL, B_CARL),
+                model.getFilteredBuyerList());
     }
 
     @Test
@@ -51,7 +52,7 @@ public class MatchCommandTest {
         assertEquals(List.of(B_CARL), model.getFilteredBuyerList());
         // ordered from the lowest selling price to the highest price
         // furthermore, P_DANIEL to P_GEORGE's selling prices are all strictly higher than B_CARL's maxPrice
-        assertEquals(Arrays.asList(P_ALICE, P_BENSON, P_CARL) ,model.getFilteredPropertyList());
+        assertEquals(Arrays.asList(P_ALICE, P_BENSON, P_CARL), model.getFilteredPropertyList());
     }
 
 }

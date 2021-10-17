@@ -28,9 +28,11 @@ public class MatchTest {
         assertFalse(M_P_ALICE_B_ALICE.isSameMatch(null));
 
         // same property name, all other attributes different -> returns true
-        Property editedAliceProperty = new PropertyBuilder(P_ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
+        Property editedAliceProperty = new PropertyBuilder(P_ALICE)
+                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
                 .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
-        Match editedMatch = Match.createMatch(editedAliceProperty, new BuyerBuilder(M_P_ALICE_B_ALICE.getBuyer()).build());
+        Match editedMatch = Match.createMatch(editedAliceProperty,
+                new BuyerBuilder(M_P_ALICE_B_ALICE.getBuyer()).build());
         assertTrue(M_P_ALICE_B_ALICE.isSameMatch(editedMatch));
 
         // same buyer name, all other attributes different -> returns true

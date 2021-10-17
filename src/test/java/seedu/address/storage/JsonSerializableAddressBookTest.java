@@ -10,8 +10,6 @@ import java.nio.file.Paths;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.AddressBook;

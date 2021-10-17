@@ -19,7 +19,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.property.Buyer;
-import seedu.address.model.property.Property;
 
 /**
  * A utility class containing a list of {@code Buyer} objects to be used in tests.
