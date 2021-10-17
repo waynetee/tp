@@ -22,15 +22,15 @@ public class MatchBuyerCommand extends MatchCommand {
 
     public static final String MESSAGE_SUCCESS = "Matched buyer to properties.";
 
-    public MatchBuyerCommand(Index index) {
-        super(index);
+    public MatchBuyerCommand(Index targetIndex) {
+        super(targetIndex);
     }
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
         List<Buyer> buyerList = model.getFilteredBuyerList();
-        Buyer buyer = buyerList.get(index.getZeroBased());
+        Buyer buyer = buyerList.get(targetIndex.getZeroBased());
         Predicate<Buyer> currentBuyerFilter = (b) -> b.equals(buyer);
 
         Set<Tag> buyerTags = buyer.getTags();

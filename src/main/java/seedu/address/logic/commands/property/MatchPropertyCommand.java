@@ -21,15 +21,15 @@ import seedu.address.model.tag.Tag;
 public class MatchPropertyCommand extends MatchCommand {
     public static final String MESSAGE_SUCCESS = "Matched property to buyers.";
 
-    public MatchPropertyCommand(Index index) {
-        super(index);
+    public MatchPropertyCommand(Index targetIndex) {
+        super(targetIndex);
     }
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
         List<Property> propertyList = model.getFilteredPropertyList();
-        Property property = propertyList.get(index.getZeroBased());
+        Property property = propertyList.get(targetIndex.getZeroBased());
         Predicate<Property> currentPropertyFilter = (p) -> p.equals(property);
         Set<Tag> propertyTags = property.getTags();
         Predicate<Buyer> buyerFilter = (buyer) -> {
@@ -46,6 +46,4 @@ public class MatchPropertyCommand extends MatchCommand {
         model.updateFilteredAndSortedBuyerList(buyerFilter, buyerComparator);
         return new CommandResult(MESSAGE_SUCCESS);
     }
-
-
 }

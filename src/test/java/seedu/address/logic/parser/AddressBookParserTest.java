@@ -21,10 +21,12 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.MatchCommand;
 import seedu.address.logic.commands.property.AddPropertyCommand;
 import seedu.address.logic.commands.property.DeletePropertyCommand;
 import seedu.address.logic.commands.property.EditPropertyCommand;
 import seedu.address.logic.commands.property.EditPropertyCommand.EditPropertyDescriptor;
+import seedu.address.logic.commands.property.MatchPropertyCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.field.NameContainsKeywordsPredicate;
 import seedu.address.model.property.Property;
@@ -64,6 +66,14 @@ public class AddressBookParserTest {
                 + PREAMBLE_PROPERTY + " " + INDEX_FIRST_PROPERTY.getOneBased() + " "
                 + PropertyUtil.getEditPropertyDescriptorDetails(descriptor));
         assertEquals(new EditPropertyCommand(INDEX_FIRST_PROPERTY, descriptor), command);
+    }
+
+    @Test
+    public void parseCommand_match() throws Exception {
+        MatchPropertyCommand command = (MatchPropertyCommand) parser.parseCommand(
+                MatchCommand.COMMAND_WORD + " " + PREAMBLE_PROPERTY + " " + INDEX_FIRST_PROPERTY.getOneBased());
+        MatchPropertyCommand expected = new MatchPropertyCommand(INDEX_FIRST_PROPERTY);
+        assertEquals(expected, command);
     }
 
     @Test

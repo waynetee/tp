@@ -25,10 +25,18 @@ public class Match implements Listable {
      * @return Match object that is created.
      */
     public static Match createMatch(Property property, Buyer buyer) {
+        if (!validateMatch(property, buyer)) {
+            throw new IllegalStateException("Invalid matching attempted");
+        }
         Match match = new Match(property, buyer);
         property.addMatch(match);
         buyer.addMatch(match);
         return match;
+    }
+
+    private static boolean validateMatch(Property property, Buyer buyer) {
+        // TODO: ELiz's PR
+        return property.getPrice().value <= buyer.getMaxPrice().value;
     }
 
     public Property getProperty() {
@@ -56,6 +64,14 @@ public class Match implements Listable {
      * This defines a weaker notion of equality between two matches.
      */
     public boolean isSameMatch(Match match) {
+        if (match == this) {
+            return true;
+        }
+
+        if (match == null) {
+            return false;
+        }
+
         return this.property.isSameProperty(match.getProperty())
                 && this.buyer.isSameBuyer(match.getBuyer());
     }

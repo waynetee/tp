@@ -15,16 +15,16 @@ import seedu.address.model.tag.Tag;
 public abstract class MatchCommand extends Command {
     public static final String COMMAND_WORD = "match";
 
-    protected final Index index;
+    protected final Index targetIndex;
 
     /**
      * Constructs a Match command with the entity at the given {@code index}.
      *
-     * @param index Index the entity is displayed at.
+     * @param targetIndex Index the entity is displayed at.
      */
-    public MatchCommand(Index index) {
-        requireNonNull(index);
-        this.index = index;
+    public MatchCommand(Index targetIndex) {
+        requireNonNull(targetIndex);
+        this.targetIndex = targetIndex;
     }
 
     /**
@@ -39,5 +39,12 @@ public abstract class MatchCommand extends Command {
         Set<Tag> copy = new HashSet<>(otherTagSet);
         copy.retainAll(tagSet);
         return copy.size();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof MatchCommand // instanceof handles nulls
+                && targetIndex.equals(((MatchCommand) other).targetIndex)); // state check
     }
 }

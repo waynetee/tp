@@ -27,25 +27,32 @@ import seedu.address.model.property.Property;
 public class TypicalBuyers {
 
     // Uses TypicalPersons to build TypicalBuyers
+    // Price matches with P_ALICE only
     public static final Buyer B_ALICE = new BuyerBuilder(TypicalPersons.ALICE)
             .withMaxPrice(MICROSCOPIC_PRICE)
             .build();
+    // Price matches with P_ALICE, P_BENSON
     public static final Buyer B_BENSON = new BuyerBuilder(TypicalPersons.BENSON)
             .withMaxPrice(VERY_SMALL_PRICE)
             .withTags("condo", "HDB")
             .build();
+    // Price matches with P_ALICE, P_BENSON, P_CARL
     public static final Buyer B_CARL = new BuyerBuilder(TypicalPersons.CARL)
             .withMaxPrice(SMALL_PRICE)
             .build();
+    // Price matches with P_ALICE to P_DANIEL
     public static final Buyer B_DANIEL = new BuyerBuilder(TypicalPersons.DANIEL)
             .withMaxPrice(MEDIUM_PRICE)
             .build();
+    // Price matches with P_ALICE to P_ELLE
     public static final Buyer B_ELLE = new BuyerBuilder(TypicalPersons.ELLE)
             .withMaxPrice(LARGE_PRICE)
             .build();
+    // Price matches with P_ALICE to P_FIONA
     public static final Buyer B_FIONA = new BuyerBuilder(TypicalPersons.FIONA)
             .withMaxPrice(VERY_LARGE_PRICE)
             .build();
+    // Price matches with P_ALICE to P_GEORGE
     public static final Buyer B_GEORGE = new BuyerBuilder(TypicalPersons.GEORGE)
             .withMaxPrice(LUDICROUS_PRICE)
             .build();
