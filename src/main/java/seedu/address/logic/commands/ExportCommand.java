@@ -13,7 +13,8 @@ public abstract class ExportCommand extends CommandWithFile {
 
     public static final String MESSAGE_CANCELLED = "Export %s was cancelled.";
 
-    public static final String MESSAGE_FAILURE = "Export %s failed to save the file. Try closing other apps that might have this file opened.";
+    public static final String MESSAGE_FAILURE = "Export %s failed to save the file. "
+            + "Try closing other apps that might have this file opened.";
 
     public static final String MESSAGE_SUCCESS = "Successfully exported %s";
 

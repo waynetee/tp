@@ -27,6 +27,7 @@ import seedu.address.storage.Storage;
  */
 public class LogicManager implements Logic {
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
+    public static final String COMMANDTEXT_INVALID_MESSAGE = "commandText is invalid";
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
@@ -61,11 +62,11 @@ public class LogicManager implements Logic {
 
     @Override
     public CommandResult execute(String commandText, File file) throws CommandException, ParseException {
-        logger.info("----------------[USER COMMAND][" + commandText + "]");
+        logger.info("----------------[USER COMMAND WITH FILE][" + commandText + "]");
 
         CommandResult commandResult;
         Optional<CommandWithFile> command = addressBookParser.parseCommandWithFile(commandText);
-        assert !command.isEmpty() : "commandText is invalid";
+        assert !command.isEmpty() : COMMANDTEXT_INVALID_MESSAGE;
         commandResult = command.get().execute(model, file);
 
         return commandResult;

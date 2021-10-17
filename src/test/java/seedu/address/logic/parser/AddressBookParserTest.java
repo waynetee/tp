@@ -99,6 +99,23 @@ public class AddressBookParserTest {
     }
 
     @Test
+    public void parseCommand_unrecognisedInput_throwsParseException() {
+        assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), ()
+            -> parser.parseCommand(""));
+    }
+
+    @Test
+    public void parseCommand_unknownCommand_throwsParseException() {
+        assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () -> parser.parseCommand("unknownCommand"));
+    }
+
+    @Test
+    public void parseCommandWithFile_unrecognisedInput_throwsParseException() {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE);
+        assertThrows(ParseException.class, expectedMessage, () -> parser.parseCommandWithFile(""));
+    }
+
+    @Test
     public void parseCommandWithFile_help() throws Exception {
         assertTrue(parser.parseCommandWithFile(HelpCommand.COMMAND_WORD).isEmpty());
         assertTrue(parser.parseCommandWithFile(HelpCommand.COMMAND_WORD + " 3").isEmpty());
@@ -133,16 +150,5 @@ public class AddressBookParserTest {
                 .equals(new CommandPreAction(ExportCommand.COMMAND_WORD + " " + ExportCommand.PROPERTIES, true)));
         assertTrue(parser.getCommandPreAction(ExportCommand.COMMAND_WORD + " " + ExportCommand.BUYERS)
                 .equals(new CommandPreAction(ExportCommand.COMMAND_WORD + " " + ExportCommand.BUYERS, true)));
-    }
-
-    @Test
-    public void parseCommand_unrecognisedInput_throwsParseException() {
-        assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), ()
-            -> parser.parseCommand(""));
-    }
-
-    @Test
-    public void parseCommand_unknownCommand_throwsParseException() {
-        assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () -> parser.parseCommand("unknownCommand"));
     }
 }
