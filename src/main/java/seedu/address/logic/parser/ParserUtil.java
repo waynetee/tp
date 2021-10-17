@@ -2,8 +2,10 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
@@ -31,6 +33,10 @@ public class ParserUtil {
 
     public static final int ACTOR_POSITIONAL_INDEX = 0;
     public static final int INDEX_POSITIONAL_INDEX = 1;
+
+    public static final List<String> PROPERTY_PATTERN = Arrays.asList("property", "properties");
+
+    public static final List<String> BUYER_PATTERN = Arrays.asList("buyer", "buyers");
 
     /**
      * Parses {@code preamble} into varying fields depending on the specified numFields.
@@ -70,9 +76,9 @@ public class ParserUtil {
      * @throws ParseException if the given string does not match any of the actors.
      */
     public static Actor parseActor(String actor) throws ParseException {
-        if (actor.equals("property")) {
+        if (PROPERTY_PATTERN.contains(actor)) {
             return Actor.PROPERTY;
-        } else if (actor.equals("buyer")) {
+        } else if (BUYER_PATTERN.contains(actor)) {
             return Actor.BUYER;
         } else {
             throw new ParseException(MESSAGE_INVALID_ACTOR);

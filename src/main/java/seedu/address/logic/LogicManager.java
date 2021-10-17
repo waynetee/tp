@@ -3,13 +3,16 @@ package seedu.address.logic;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandPreAction;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.CommandWithFile;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -24,6 +27,7 @@ import seedu.address.storage.Storage;
  */
 public class LogicManager implements Logic {
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
+    public static final String COMMANDTEXT_INVALID_MESSAGE = "commandText is invalid";
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
@@ -57,21 +61,20 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public void exportProperties(File file) {
-        try {
-            storage.exportProperties(model.getAddressBook(), file);
-        } catch (IOException ioe) {
-            logger.warning("Problem while exporting Properties.");
-        }
+    public CommandResult execute(String commandText, File file) throws CommandException, ParseException {
+        logger.info("----------------[USER COMMAND WITH FILE][" + commandText + "]");
+
+        CommandResult commandResult;
+        Optional<CommandWithFile> command = addressBookParser.parseCommandWithFile(commandText);
+        assert !command.isEmpty() : COMMANDTEXT_INVALID_MESSAGE;
+        commandResult = command.get().execute(model, file);
+
+        return commandResult;
     }
 
     @Override
-    public void exportBuyers(File file) {
-        try {
-            storage.exportBuyers(model.getAddressBook(), file);
-        } catch (IOException ioe) {
-            logger.warning("Problem while exporting Buyers.");
-        }
+    public CommandPreAction getCommandPreAction(String commandText) throws ParseException {
+        return addressBookParser.getCommandPreAction(commandText);
     }
 
     @Override
