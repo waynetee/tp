@@ -37,6 +37,7 @@ public class JsonSerializableAddressBookTest {
 
     // TODO: This helper should be removed or disabled when no longer necessary
     // Helper method to write the current typicalAddressBook to a temporary file
+    @Disabled
     @Test
     public void writeAddressBook() throws IOException {
         JsonUtil.saveJsonFile(new JsonSerializableAddressBook(TypicalAddressBook.getTypicalAddressBook()),
