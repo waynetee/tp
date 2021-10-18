@@ -160,7 +160,7 @@ public class AddCommandTest {
                                                         Comparator<Property> comparator) {
             throw new AssertionError("This method should not be called.");
         }
-        
+
         @Override
         public void sortProperties(SortType sortType, SortDirection sortDirection) {
             throw new AssertionError("This method should not be called.");
@@ -200,7 +200,7 @@ public class AddCommandTest {
         public void updateFilteredAndSortedBuyerList(Predicate<Buyer> predicate, Comparator<Buyer> comparator) {
             throw new AssertionError("This method should not be called.");
         }
-        
+
         @Override
         public void sortBuyers(SortType sortType, SortDirection sortDirection) {
             throw new AssertionError("This method should not be called.");

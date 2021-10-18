@@ -1,6 +1,5 @@
 package seedu.address.model.property;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
@@ -53,7 +52,6 @@ public class Buyer extends Person implements Listable, Taggable {
         return Collections.unmodifiableSet(tags);
     }
 
- 
 
     /**
      * Returns true if both buyers have the same name.

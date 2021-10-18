@@ -29,8 +29,6 @@ public class Match implements Listable {
             throw new IllegalStateException("Invalid matching attempted");
         }
         Match match = new Match(property, buyer);
-        property.addMatch(match);
-        buyer.addMatch(match);
         return match;
     }
 

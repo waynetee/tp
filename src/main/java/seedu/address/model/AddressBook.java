@@ -38,7 +38,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         matches = new UniqueMatchList();
     }
 
-    public AddressBook() {}
+    public AddressBook() {
+    }
 
     /**
      * Creates an AddressBook using the Properties in the {@code toBeCopied}
@@ -177,7 +178,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void removeMatch(Match key) {
         matches.remove(key);
     }
-    
+
     /**
      * Sorts properties by the given {@code sortType} and {@code sortDirection}.
      */
