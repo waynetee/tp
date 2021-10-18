@@ -50,6 +50,11 @@ class JsonAdaptedMatch {
         }
         final Property modelProperty = propertyNameToPropertyMap.get(propertyName);
 
+        if (modelProperty == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Property.class.getSimpleName()));
+        }
+
         if (buyerName == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Buyer.class.getSimpleName()));
         }
