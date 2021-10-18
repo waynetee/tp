@@ -12,6 +12,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.MatchOneToManyCommand;
 import seedu.address.model.Model;
 import seedu.address.model.property.Buyer;
+import seedu.address.model.property.Match;
 import seedu.address.model.property.Property;
 import seedu.address.model.tag.Tag;
 
@@ -33,11 +34,10 @@ public class MatchBuyerCommand extends MatchOneToManyCommand {
         Buyer buyer = buyerList.get(targetIndex.getZeroBased());
         Predicate<Buyer> currentBuyerFilter = (b) -> b.equals(buyer);
 
-        Set<Tag> buyerTags = buyer.getTags();
         Predicate<Property> propertyFilter = (property) -> property.getPrice().isLessThanOrEqualTo(buyer.getMaxPrice());
 
         Comparator<Property> propertyComparator = Comparator.<Property, Integer>comparing(property ->
-                calculateTagIntersection(buyerTags, property.getTags())
+                Match.getNumCommonTags(buyer, property)
         ).reversed().thenComparingLong(property -> property.getPrice().value);
 
         model.updateFilteredBuyerList(currentBuyerFilter);

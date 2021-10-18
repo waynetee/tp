@@ -1,8 +1,11 @@
 package seedu.address.model.property;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.model.tag.Tag;
 
 /**
  * Represents a matching between Property and Buyer in the address book.
@@ -24,6 +27,16 @@ public class Match implements Listable {
     public Buyer getBuyer() {
         return buyer;
     }
+
+    /**
+     * Calculates number of tags that a buyer and property have in common
+     */
+    public static int getNumCommonTags(Buyer buyer, Property property) {
+        Set<Tag> intersection = new HashSet<>(buyer.getTags());
+        intersection.retainAll(property.getTags());
+        return intersection.size();
+    }
+
 
     /**
      * Returns true if the {@code Listable} item is a {@code Match} and has the same property and buyer.
@@ -78,4 +91,5 @@ public class Match implements Listable {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(property, buyer);
     }
+
 }
