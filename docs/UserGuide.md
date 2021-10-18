@@ -160,6 +160,20 @@ Examples:
 * `list` followed by `delete 2` deletes the 2nd property in PropertyWhiz.
 * `find East Coast` followed by `delete 1` deletes the 1st property in the results of the `find` command.
 
+### Sort properties/buyers: `sort`
+
+Sorts the properties / buyers in PropertyWhiz.
+
+Format: `sort (properties/buyers) (price/name) (asc/desc)`
+
+* Sort the properties in the current view based on properties price/name in `asc`(ascending) / `desc`(descending) order
+* Sort the buyers in the current view based on buyers price/name in `asc`(ascending) / `desc`(descending) order
+
+Examples:
+
+* `sort properties price asc` returns the property list sorted by price in ascending order
+* `sort buyers name desc` returns the buyer list sorted by name in descending order
+
 ### Import data from csv file : `import`
 
 Imports buyers or properties from csv file.
@@ -244,3 +258,4 @@ Action | Format, Examples
 **List** | `list`
 **Exit** | `exit`
 **Help** | `help`
+**Sort** | `sort (properties \| buyers) (price \| name) (asc \| desc)`
