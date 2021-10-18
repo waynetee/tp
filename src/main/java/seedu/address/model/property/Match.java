@@ -11,30 +11,10 @@ public class Match implements Listable {
     private final Property property;
     private final Buyer buyer;
 
-    private Match(Property property, Buyer buyer) {
+    public Match(Property property, Buyer buyer) {
         CollectionUtil.requireAllNonNull(property, buyer);
         this.property = property;
         this.buyer = buyer;
-    }
-
-    /**
-     * Constructs a Match object representing an association between a {@code property} and {@code buyer}.
-     *
-     * @param property Property that is to be matched with {@code buyer}.
-     * @param buyer    Buyer that is to be matched with {@code property}.
-     * @return Match object that is created.
-     */
-    public static Match createMatch(Property property, Buyer buyer) {
-        if (!validateMatch(property, buyer)) {
-            throw new IllegalStateException("Invalid matching attempted");
-        }
-        Match match = new Match(property, buyer);
-        return match;
-    }
-
-    private static boolean validateMatch(Property property, Buyer buyer) {
-        // TODO: ELiz's PR
-        return property.getPrice().value <= buyer.getMaxPrice().value;
     }
 
     public Property getProperty() {

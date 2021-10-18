@@ -64,7 +64,7 @@ class JsonAdaptedMatch {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Buyer.class.getSimpleName()));
         }
 
-        final Match match = Match.createMatch(modelProperty, modelBuyer);
+        final Match match = new Match(modelProperty, modelBuyer);
         return match;
     }
 

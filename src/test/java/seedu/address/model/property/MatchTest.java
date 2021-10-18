@@ -31,24 +31,24 @@ public class MatchTest {
         Property editedAliceProperty = new PropertyBuilder(P_ALICE)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
                 .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
-        Match editedMatch = Match.createMatch(editedAliceProperty,
+        Match editedMatch = new Match(editedAliceProperty,
                 new BuyerBuilder(M_P_ALICE_B_ALICE.getBuyer()).build());
         assertTrue(M_P_ALICE_B_ALICE.isSameMatch(editedMatch));
 
         // same buyer name, all other attributes different -> returns true
         Buyer editedAliceBuyer = new BuyerBuilder(B_ALICE).withMaxPrice(LUDICROUS_PRICE).withTags(VALID_TAG_HUSBAND)
                 .build();
-        editedMatch = Match.createMatch(new PropertyBuilder(M_P_ALICE_B_ALICE.getProperty()).build(), editedAliceBuyer);
+        editedMatch = new Match(new PropertyBuilder(M_P_ALICE_B_ALICE.getProperty()).build(), editedAliceBuyer);
         assertTrue(M_P_ALICE_B_ALICE.isSameMatch(editedMatch));
 
         // different property name, all other attributes same -> returns false
         editedAliceProperty = new PropertyBuilder(P_ALICE).withName(VALID_NAME_BOB).build();
-        editedMatch = Match.createMatch(editedAliceProperty, new BuyerBuilder(M_P_ALICE_B_ALICE.getBuyer()).build());
+        editedMatch = new Match(editedAliceProperty, new BuyerBuilder(M_P_ALICE_B_ALICE.getBuyer()).build());
         assertFalse(M_P_ALICE_B_ALICE.isSameMatch(editedMatch));
 
         // different buyer name, all other attributes same -> returns false
         editedAliceBuyer = new BuyerBuilder(B_ALICE).withName(VALID_NAME_BOB).build();
-        editedMatch = Match.createMatch(new PropertyBuilder(M_P_ALICE_B_ALICE.getProperty()).build(), editedAliceBuyer);
+        editedMatch = new Match(new PropertyBuilder(M_P_ALICE_B_ALICE.getProperty()).build(), editedAliceBuyer);
         assertFalse(M_P_ALICE_B_ALICE.isSameMatch(editedMatch));
     }
 
