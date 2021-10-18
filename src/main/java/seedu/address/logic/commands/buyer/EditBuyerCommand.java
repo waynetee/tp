@@ -1,6 +1,15 @@
 package seedu.address.logic.commands.buyer;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SELLER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_BUYERS;
 
 import java.util.List;
@@ -29,6 +38,21 @@ import seedu.address.model.tag.Tag;
 public class EditBuyerCommand extends EditCommand {
     public static final String MESSAGE_EDIT_BUYER_SUCCESS = "Edited Buyer: %1$s";
     public static final String MESSAGE_DUPLICATE_BUYER = "This buyer already exists in the address book.";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " buyer: Edits the details of the buyer identified "
+            + "by the index number used in the displayed property/buyer list. "
+            + "Existing values will be overwritten by the input values.\n"
+            + "with the exception of adding tags. "
+            + "Added tags will be appended to the current tags. \n"
+            + "Parameters: buyer INDEX (must be a positive integer) "
+            + "[" + PREFIX_NAME + "NAME] "
+            + "[" + PREFIX_PHONE + "PHONE] "
+            + "[" + PREFIX_EMAIL + "EMAIL] "
+            + "[" + PREFIX_PRICE + "MAX_PRICE] "
+            + "[" + PREFIX_TAG + "TAG]..."
+            + "\n"
+            + "Example: " + COMMAND_WORD + " buyer 1 "
+            + PREFIX_PHONE + "91234567 "
+            + PREFIX_EMAIL + "johndoe@example.com";
 
     private final Index index;
     private final EditBuyerDescriptor editBuyerDescriptor;
