@@ -6,6 +6,13 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.testutil.TypicalPrices.LARGE_PRICE;
+import static seedu.address.testutil.TypicalPrices.LUDICROUS_PRICE;
+import static seedu.address.testutil.TypicalPrices.MEDIUM_PRICE;
+import static seedu.address.testutil.TypicalPrices.MICROSCOPIC_PRICE;
+import static seedu.address.testutil.TypicalPrices.SMALL_PRICE;
+import static seedu.address.testutil.TypicalPrices.VERY_LARGE_PRICE;
+import static seedu.address.testutil.TypicalPrices.VERY_SMALL_PRICE;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,20 +26,35 @@ import seedu.address.model.property.Buyer;
 public class TypicalBuyers {
 
     // Uses TypicalPersons to build TypicalBuyers
+    // Price matches with P_ALICE only
     public static final Buyer B_ALICE = new BuyerBuilder(TypicalPersons.ALICE)
-            .withMaxPrice("123000").build();
+            .withMaxPrice(MICROSCOPIC_PRICE)
+            .build();
+    // Price matches with P_ALICE, P_BENSON
     public static final Buyer B_BENSON = new BuyerBuilder(TypicalPersons.BENSON)
-            .withMaxPrice("1231000").withTags("condo", "HDB").build();
+            .withMaxPrice(VERY_SMALL_PRICE)
+            .withTags("condo", "HDB")
+            .build();
+    // Price matches with P_ALICE, P_BENSON, P_CARL
     public static final Buyer B_CARL = new BuyerBuilder(TypicalPersons.CARL)
-            .withMaxPrice("678000").build();
+            .withMaxPrice(SMALL_PRICE)
+            .build();
+    // Price matches with P_ALICE to P_DANIEL
     public static final Buyer B_DANIEL = new BuyerBuilder(TypicalPersons.DANIEL)
-            .withMaxPrice("102200").build();
+            .withMaxPrice(MEDIUM_PRICE)
+            .build();
+    // Price matches with P_ALICE to P_ELLE
     public static final Buyer B_ELLE = new BuyerBuilder(TypicalPersons.ELLE)
-            .withMaxPrice("999000").build();
+            .withMaxPrice(LARGE_PRICE)
+            .build();
+    // Price matches with P_ALICE to P_FIONA
     public static final Buyer B_FIONA = new BuyerBuilder(TypicalPersons.FIONA)
-            .withMaxPrice("999999").build();
+            .withMaxPrice(VERY_LARGE_PRICE)
+            .build();
+    // Price matches with P_ALICE to P_GEORGE
     public static final Buyer B_GEORGE = new BuyerBuilder(TypicalPersons.GEORGE)
-            .withMaxPrice("999999").build();
+            .withMaxPrice(LUDICROUS_PRICE)
+            .build();
 
     // Manually added
 
@@ -50,7 +72,7 @@ public class TypicalBuyers {
     } // prevents instantiation
 
     public static List<Buyer> getTypicalBuyers() {
-        return new ArrayList<>(Arrays.asList(B_ALICE, B_BENSON, B_CARL, B_DANIEL, B_ELLE, B_FIONA));
+        return new ArrayList<>(Arrays.asList(B_ALICE, B_BENSON, B_CARL, B_DANIEL, B_ELLE, B_FIONA, B_GEORGE));
     }
 
     public static List<Buyer> getTypicalBuyersSortedNameAsc() {
@@ -62,10 +84,10 @@ public class TypicalBuyers {
     }
 
     public static List<Buyer> getTypicalBuyersSortedPriceAsc() {
-        return new ArrayList<>(Arrays.asList(B_DANIEL, B_ALICE, B_CARL, B_ELLE, B_FIONA, B_GEORGE, B_BENSON));
+        return new ArrayList<>(Arrays.asList(B_ALICE, B_BENSON, B_CARL, B_DANIEL, B_ELLE, B_FIONA, B_GEORGE));
     }
 
     public static List<Buyer> getTypicalBuyersSortedPriceDesc() {
-        return new ArrayList<>(Arrays.asList(B_BENSON, B_FIONA, B_GEORGE, B_ELLE, B_CARL, B_ALICE, B_DANIEL));
+        return new ArrayList<>(Arrays.asList(B_GEORGE, B_FIONA, B_ELLE, B_DANIEL, B_CARL, B_BENSON, B_ALICE));
     }
 }

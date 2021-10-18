@@ -15,6 +15,9 @@ import seedu.address.model.field.Phone;
 import seedu.address.model.field.Price;
 import seedu.address.model.tag.Tag;
 
+/**
+ * Represents a Buyer in the address book.
+ */
 public class Buyer extends Person implements Listable, Taggable {
 
     private final Price maxPrice;
@@ -48,6 +51,7 @@ public class Buyer extends Person implements Listable, Taggable {
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
     }
+
 
     /**
      * Returns true if both buyers have the same name.

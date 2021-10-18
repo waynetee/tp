@@ -1,75 +1,143 @@
 {
-  "_comment" : "AddressBook save file which contains the same Property values as in TypicalProperties#getTypicalAddressBook()",
-  "properties" : [ {
-    "name" : "Jurong West Ave 6",
-    "address" : "123, Jurong West Ave 6, #08-111",
-    "seller" : {
-      "name" : "Alice Pauline",
-      "phone" : "94351253",
-      "email" : "alice@example.com"
+  "_comment": "AddressBook save file which contains the same Property values as in TypicalProperties#getTypicalAddressBook()",
+  "properties": [
+    {
+      "name": "Jurong West Ave 6",
+      "address": "123, Jurong West Ave 6, #08-111",
+      "seller": {
+        "name": "Alice Pauline",
+        "phone": "94351253",
+        "email": "alice@example.com"
+      },
+      "price": "419999",
+      "tagged": [
+        "hdb",
+        "condo"
+      ]
     },
-    "price" : "654321",
-    "tagged" : [ "HDB", "condo" ]
-  }, {
-    "name" : "Mayflower",
-    "address" : "311, Clementi Ave 2, #02-25",
-    "seller" : {
-      "name" : "Benson Meier",
-      "phone" : "98765432",
-      "email" : "johnd@example.com"
+    {
+      "name": "Mayflower",
+      "address": "311, Clementi Ave 2, #02-25",
+      "seller": {
+        "name": "Benson Meier",
+        "phone": "98765432",
+        "email": "johnd@example.com"
+      },
+      "price": "420000",
+      "tagged": [
+        "condo"
+      ]
     },
-    "price" : "654321",
-    "tagged" : [ "condo" ]
-  }, {
-    "name" : "Carl Kurz",
-    "address" : "wall street",
-    "seller" : {
-      "name" : "Amy Bee",
-      "phone" : "95352563",
-      "email" : "heinz@example.com"
+    {
+      "name": "Carl Kurz",
+      "address": "wall street",
+      "seller": {
+        "name": "Amy Bee",
+        "phone": "95352563",
+        "email": "heinz@example.com"
+      },
+      "price": "420001",
+      "tagged": []
     },
-    "price" : "123456",
-    "tagged" : [ ]
-  }, {
-    "name" : "Daniel Meier",
-    "address" : "10th street",
-    "seller" : {
-      "name" : "Amy Bee",
-      "phone" : "87652533",
-      "email" : "cornelia@example.com"
+    {
+      "name": "Daniel Meier",
+      "address": "10th street",
+      "seller": {
+        "name": "Amy Bee",
+        "phone": "87652533",
+        "email": "cornelia@example.com"
+      },
+      "price": "420002",
+      "tagged": [
+        "friends"
+      ]
     },
-    "price" : "234561",
-    "tagged" : [ "friends" ]
-  }, {
-    "name" : "Elle Meyer",
-    "address" : "michegan ave",
-    "seller" : {
-      "name" : "Amy Bee",
-      "phone" : "9482224",
-      "email" : "werner@example.com"
+    {
+      "name": "Elle Meyer",
+      "address": "michegan ave",
+      "seller": {
+        "name": "Amy Bee",
+        "phone": "9482224",
+        "email": "werner@example.com"
+      },
+      "price": "420003",
+      "tagged": []
     },
-    "price" : "345612",
-    "tagged" : [ ]
-  }, {
-    "name" : "Fiona Kunz",
-    "address" : "little tokyo",
-    "seller" : {
-      "name" : "Amy Bee",
-      "phone" : "9482427",
-      "email" : "lydia@example.com"
+    {
+      "name": "Fiona Kunz",
+      "address": "little tokyo",
+      "seller": {
+        "name": "Amy Bee",
+        "phone": "9482427",
+        "email": "lydia@example.com"
+      },
+      "price": "420004",
+      "tagged": []
     },
-    "price" : "456123",
-    "tagged" : [ ]
-  }, {
-    "name" : "George Best",
-    "address" : "4th street",
-    "seller" : {
-      "name" : "Amy Bee",
-      "phone" : "9482442",
-      "email" : "anna@example.com"
+    {
+      "name": "George Best",
+      "address": "4th street",
+      "seller": {
+        "name": "Amy Bee",
+        "phone": "9482442",
+        "email": "anna@example.com"
+      },
+      "price": "420005",
+      "tagged": []
+    }
+  ],
+  "buyers": [
+    {
+      "name": "Alice Pauline",
+      "phone": "94351253",
+      "email": "alice@example.com",
+      "maxPrice": "419999",
+      "tagged": []
     },
-    "price" : "561234",
-    "tagged" : [ ]
-  } ],
-  "buyers": []
+    {
+      "name": "Benson Meier",
+      "phone": "98765432",
+      "email": "johnd@example.com",
+      "maxPrice": "420000",
+      "tagged": [
+        "hdb",
+        "condo"
+      ]
+    },
+    {
+      "name": "Carl Kurz",
+      "phone": "95352563",
+      "email": "heinz@example.com",
+      "maxPrice": "420001",
+      "tagged": []
+    },
+    {
+      "name": "Daniel Meier",
+      "phone": "87652533",
+      "email": "cornelia@example.com",
+      "maxPrice": "420002",
+      "tagged": []
+    },
+    {
+      "name": "Elle Meyer",
+      "phone": "9482224",
+      "email": "werner@example.com",
+      "maxPrice": "420003",
+      "tagged": []
+    },
+    {
+      "name": "Fiona Kunz",
+      "phone": "9482427",
+      "email": "lydia@example.com",
+      "maxPrice": "420004",
+      "tagged": []
+    },
+    {
+      "name": "George Best",
+      "phone": "9482442",
+      "email": "anna@example.com",
+      "maxPrice": "420005",
+      "tagged": []
+    }
+  ]
 }

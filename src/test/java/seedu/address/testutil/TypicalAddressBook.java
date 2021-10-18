@@ -1,10 +1,7 @@
 package seedu.address.testutil;
-
-import static seedu.address.testutil.TypicalProperties.getTypicalProperties;
-
 import seedu.address.model.AddressBook;
+import seedu.address.model.property.Buyer;
 import seedu.address.model.property.Property;
-
 
 public class TypicalAddressBook {
     private TypicalAddressBook() {} // prevents instantiation
@@ -14,9 +11,14 @@ public class TypicalAddressBook {
      */
     public static AddressBook getTypicalAddressBook() {
         AddressBook ab = new AddressBook();
-        for (Property property : getTypicalProperties()) {
+        for (Property property : TypicalProperties.getTypicalProperties()) {
             ab.addProperty(property);
         }
+
+        for (Buyer buyer : TypicalBuyers.getTypicalBuyers()) {
+            ab.addBuyer(buyer);
+        }
+
         return ab;
     }
 }

@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -14,10 +15,14 @@ import seedu.address.model.property.Property;
  * The API of the Model component.
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
     Predicate<Property> PREDICATE_SHOW_ALL_PROPERTIES = unused -> true;
 
-    /** {@code Predicate} that always evaluate to true */
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
     Predicate<Buyer> PREDICATE_SHOW_ALL_BUYERS = unused -> true;
 
 
@@ -56,7 +61,9 @@ public interface Model {
      */
     void setAddressBook(ReadOnlyAddressBook addressBook);
 
-    /** Returns the AddressBook */
+    /**
+     * Returns the AddressBook
+     */
     ReadOnlyAddressBook getAddressBook();
 
     /**
@@ -84,14 +91,22 @@ public interface Model {
      */
     void setProperty(Property target, Property editedProperty);
 
-    /** Returns an unmodifiable view of the filtered property list */
+    /**
+     * Returns an unmodifiable view of the filtered property list
+     */
     ObservableList<Property> getFilteredPropertyList();
 
     /**
      * Updates the filter of the filtered property list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPropertyList(Predicate<Property> predicate);
+
+    /**
+     * Updates and sorts the property list using the given {@code predicate} and {@code comparator}.
+     */
+    void updateFilteredAndSortedPropertyList(Predicate<Property> predicate, Comparator<Property> comparator);
 
     /**
      * Sorts the property list by the {@code SortType} and {@code SortDirection}.
@@ -123,14 +138,22 @@ public interface Model {
      */
     void setBuyer(Buyer target, Buyer editedBuyer);
 
-    /** Returns an unmodifiable view of the filtered buyer list */
+    /**
+     * Returns an unmodifiable view of the filtered buyer list
+     */
     ObservableList<Buyer> getFilteredBuyerList();
 
     /**
      * Updates the filter of the filtered buyer list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredBuyerList(Predicate<Buyer> predicate);
+
+    /**
+     * Updates and sorts the buyer list using the given {@code predicate} and {@code comparator}.
+     */
+    void updateFilteredAndSortedBuyerList(Predicate<Buyer> predicate, Comparator<Buyer> comparator);
 
     /**
      * Sorts the buyer list by the {@code SortType} and {@code SortDirection}.

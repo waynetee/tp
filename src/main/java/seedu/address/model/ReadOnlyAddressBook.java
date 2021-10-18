@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.property.Buyer;
+import seedu.address.model.property.Match;
 import seedu.address.model.property.Property;
 
 /**
@@ -20,4 +21,10 @@ public interface ReadOnlyAddressBook {
      * This list will not contain any duplicate buyers.
      */
     ObservableList<Buyer> getBuyerList();
+
+    /**
+     * Returns an unmodifiable view of the match list.
+     * This list will not contain any duplicate matches.
+     */
+    ObservableList<Match> getMatchList();
 }

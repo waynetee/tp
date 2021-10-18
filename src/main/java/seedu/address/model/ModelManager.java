@@ -4,11 +4,13 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.field.SortDirection;
@@ -26,6 +28,8 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Property> filteredProperties;
     private final FilteredList<Buyer> filteredBuyers;
+    private final SortedList<Property> filteredAndSortedProperties;
+    private final SortedList<Buyer> filteredAndSortedBuyers;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -40,6 +44,8 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredProperties = new FilteredList<>(this.addressBook.getPropertyList());
         filteredBuyers = new FilteredList<>(this.addressBook.getBuyerList());
+        filteredAndSortedProperties = new SortedList<>(filteredProperties);
+        filteredAndSortedBuyers = new SortedList<>(filteredBuyers);
     }
 
     public ModelManager() {
@@ -159,13 +165,20 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<Property> getFilteredPropertyList() {
-        return filteredProperties;
+        return filteredAndSortedProperties;
     }
 
     @Override
     public void updateFilteredPropertyList(Predicate<Property> predicate) {
         requireNonNull(predicate);
         filteredProperties.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredAndSortedPropertyList(Predicate<Property> predicate, Comparator<Property> comparator) {
+        requireAllNonNull(predicate, comparator);
+        filteredProperties.setPredicate(predicate);
+        filteredAndSortedProperties.setComparator(comparator);
     }
 
     //=========== Filtered Buyer List Accessors =============================================================
@@ -176,13 +189,20 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<Buyer> getFilteredBuyerList() {
-        return filteredBuyers;
+        return filteredAndSortedBuyers;
     }
 
     @Override
     public void updateFilteredBuyerList(Predicate<Buyer> predicate) {
         requireNonNull(predicate);
         filteredBuyers.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredAndSortedBuyerList(Predicate<Buyer> predicate, Comparator<Buyer> comparator) {
+        requireAllNonNull(predicate, comparator);
+        filteredBuyers.setPredicate(predicate);
+        filteredAndSortedBuyers.setComparator(comparator);
     }
 
     @Override
