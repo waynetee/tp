@@ -5,6 +5,8 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.field.SortDirection;
+import seedu.address.model.field.SortType;
 import seedu.address.model.property.Buyer;
 import seedu.address.model.property.Property;
 
@@ -92,6 +94,11 @@ public interface Model {
     void updateFilteredPropertyList(Predicate<Property> predicate);
 
     /**
+     * Sorts the property list by the {@code SortType} and {@code SortDirection}.
+     */
+    void sortProperties(SortType sortType, SortDirection sortDirection);
+
+    /**
      * Returns true if a buyer with the same identity as {@code buyer} exists in the address book.
      */
     boolean hasBuyer(Buyer buyer);
@@ -124,4 +131,9 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredBuyerList(Predicate<Buyer> predicate);
+
+    /**
+     * Sorts the buyer list by the {@code SortType} and {@code SortDirection}.
+     */
+    void sortBuyers(SortType sortType, SortDirection sortDirection);
 }

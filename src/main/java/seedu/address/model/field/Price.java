@@ -3,7 +3,7 @@ package seedu.address.model.field;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-public class Price {
+public class Price implements Comparable<Price> {
     public static final String MESSAGE_CONSTRAINTS =
             "Price (in dollars) should only contain numbers, and it should be 3-18 digits long";
     public static final String VALIDATION_REGEX = "\\d{3,18}";
@@ -44,4 +44,8 @@ public class Price {
         return value.hashCode();
     }
 
+    @Override
+    public int compareTo(Price otherPrice) {
+        return value.compareTo(otherPrice.value);
+    }
 }

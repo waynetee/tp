@@ -5,12 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_PROPERTIES_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalProperties.P_ALICE;
 import static seedu.address.testutil.TypicalProperties.P_BENSON;
 import static seedu.address.testutil.TypicalProperties.P_CARL;
 import static seedu.address.testutil.TypicalProperties.P_ELLE;
 import static seedu.address.testutil.TypicalProperties.P_FIONA;
-import static seedu.address.testutil.TypicalProperties.getTypicalAddressBook;
 
 import java.util.Arrays;
 import java.util.Collections;

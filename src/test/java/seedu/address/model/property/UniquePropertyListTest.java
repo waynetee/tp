@@ -8,6 +8,10 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalProperties.P_ALICE;
 import static seedu.address.testutil.TypicalProperties.P_BOB;
+import static seedu.address.testutil.TypicalProperties.getTypicalPropertiesSortedNameAsc;
+import static seedu.address.testutil.TypicalProperties.getTypicalPropertiesSortedNameDesc;
+import static seedu.address.testutil.TypicalProperties.getTypicalPropertiesSortedPriceAsc;
+import static seedu.address.testutil.TypicalProperties.getTypicalPropertiesSortedPriceDesc;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -15,6 +19,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.field.SortDirection;
+import seedu.address.model.field.SortType;
 import seedu.address.model.property.exceptions.DuplicatePropertyException;
 import seedu.address.model.property.exceptions.PropertyNotFoundException;
 import seedu.address.testutil.PropertyBuilder;
@@ -167,5 +173,41 @@ public class UniquePropertyListTest {
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, ()
             -> uniquePropertyList.asUnmodifiableObservableList().remove(0));
+    }
+
+    @Test
+    public void sort_sortListByPriceInAscOrder() {
+        uniquePropertyList.setProperties(getTypicalPropertiesSortedPriceDesc());
+        uniquePropertyList.sort(SortType.PRICE, SortDirection.ASC);
+        UniquePropertyList expectedUniquePropertyList = new UniquePropertyList();
+        expectedUniquePropertyList.setProperties(getTypicalPropertiesSortedPriceAsc());
+        assertEquals(expectedUniquePropertyList, uniquePropertyList);
+    }
+
+    @Test
+    public void sort_sortListByPriceInDescOrder() {
+        uniquePropertyList.setProperties(getTypicalPropertiesSortedPriceAsc());
+        uniquePropertyList.sort(SortType.PRICE, SortDirection.DESC);
+        UniquePropertyList expectedUniquePropertyList = new UniquePropertyList();
+        expectedUniquePropertyList.setProperties(getTypicalPropertiesSortedPriceDesc());
+        assertEquals(expectedUniquePropertyList, uniquePropertyList);
+    }
+
+    @Test
+    public void sort_sortListByNameInAscOrder() {
+        uniquePropertyList.setProperties(getTypicalPropertiesSortedNameDesc());
+        uniquePropertyList.sort(SortType.NAME, SortDirection.ASC);
+        UniquePropertyList expectedUniquePropertyList = new UniquePropertyList();
+        expectedUniquePropertyList.setProperties(getTypicalPropertiesSortedNameAsc());
+        assertEquals(expectedUniquePropertyList, uniquePropertyList);
+    }
+
+    @Test
+    public void sort_sortListByNameInDescOrder() {
+        uniquePropertyList.setProperties(getTypicalPropertiesSortedNameAsc());
+        uniquePropertyList.sort(SortType.NAME, SortDirection.DESC);
+        UniquePropertyList expectedUniquePropertyList = new UniquePropertyList();
+        expectedUniquePropertyList.setProperties(getTypicalPropertiesSortedNameDesc());
+        assertEquals(expectedUniquePropertyList, uniquePropertyList);
     }
 }

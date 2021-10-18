@@ -1,7 +1,7 @@
 package seedu.address.storage;
 
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalProperties.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 
 import java.io.File;
 import java.io.IOException;

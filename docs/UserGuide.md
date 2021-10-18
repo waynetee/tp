@@ -3,6 +3,7 @@ layout: page
 title: User Guide
 ---
 
+PropertyWhiz (PropertyWhiz) is a **desktop app for managing properties and property buyers, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, PropertyWhiz can get your property management tasks done faster than traditional GUI apps.
 
 * Table of Contents
   {:toc}
@@ -28,6 +29,7 @@ PropertyWhiz (PropertyWhiz) is a **desktop app for managing properties and prope
 1. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
    TODO: We may also want `clear` to delete all buyers
+   
 1. [**DEVELOPMENT IN PROGRESS**] Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
@@ -102,17 +104,20 @@ Format:
 * Adding a property: `add property n/PROPERTY_NAME a/PROPERTY_ADDRESS s/SELLER_NAME p/SELLER_PHONE e/SELLER_EMAIL $/PRICE_MIN [t/TAG]…`
 * Adding a buyer: `add buyer n/BUYER_NAME p/BUYER_PHONE e/BUYER_EMAIL $/PRICE_MAX [t/TAG]…`
 
+
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A property/buyer can have any number of tags (including 0). All tags will be converted to lowercase.
 </div>
 
+#### Adding a property
+
+Adds a property to PropertyWhiz
+
+Format: `add property n/PROPERTY_NAME a/PROPERTY_ADDRESS s/SELLER_NAME p/SELLER_PHONE e/SELLER_EMAIL $/PRICE_MIN`
+
 Examples:
 * `add property n/Blk 123 a/123, Clementi Rd, #04-20, 1234665 s/James Lee p/61234567 e/james@email.com $/100000 t/hdb t/3rm`
 * `add buyer n/Sam p/91234567 e/sam@email.com t/hdb t/3rm`
-
-
-------------------
-
 
 ### Listing all properties/buyers : `list`
 
@@ -124,23 +129,28 @@ Format: `list`
 
 Edits an existing property/buyer in PropertyWhiz.
 
-
 Format:
 * Editing a property: `edit property INDEX [n/PROPERTY_NAME] [a/PROPERTY_ADDRESS] [$/PRICE_MIN] [s/SELLER_NAME] [p/SELLER_PHONE] [e/SELLER_EMAIL] [([t/TAG]… | [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]`
 * Editing a buyer: `edit buyer INDEX [n/BUYER_NAME] [p/BUYER_PHONE] [e/BUYER_EMAIL] [([t/TAG]… | [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]`
 
 * Edits the property/buyer at the specified `INDEX`. The index refers to the index number shown in the displayed property/buyer list. The index **must be a positive integer** 1, 2, 3, …
+
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the property will be removed i.e adding of tags is not cumulative.
 * Like `add`, tags added via `edit` will be automatically converted to lower case.
 * You can remove all the property/buyer’s tags by typing `t/` without specifying any tags after it.
 
+#### Editing a property
+
+Format: `edit property INDEX [n/PROPERTY_NAME] [a/PROPERTY_ADDRESS] [$/PRICE_MIN] [s/SELLER_NAME] [p/SELLER_PHONE] [e/SELLER_EMAIL]`
+
 Examples:
 * `edit property 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st property to be `91234567` and `johndoe@example.com` respectively.
 * `edit property 2 n/Blk 298 Toa Payoh Central t/` Edits the name of the 2nd property to be `Blk 298 Toa Payoh Central` and clears all existing tags.
 * `edit buyer 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st buyer to be `91234567` and `johndoe@example.com` respectively.
   Tagging:
+
 * `edit property 1 ta/4rm ta/near mrt` Edits the tag list of the 1st property by adding two tags called "4rm" and "near mrt" if they are not already present in the original tag list.
 * `edit property 1 ta/4rm td/near mrt` Edits the tag list of the 1st property by adding a tag called "4rm" if it does not already exist in the original tag list and removing a tag called "near mrt" if it is present in the original tag list.
 * `edit property 1 ta/near MRT` Edits the tag list of the 1st property by adding a tag called `near mrt` if it does not already exist in the original tag list. Notice that the case of `MRT` is lowered to `mrt`.
@@ -152,12 +162,12 @@ The following example is invalid:
 
 </div>
 
-
 ### [IN PROGRESS] View price histogram of listed properties and/or buyers : `stat`
 
 Views the price histogram of the currently listed properties and/or buyers in the view.
 
 Format: `stat [(property | buyer)]`
+
 
 ### Locating properties by name: `find`
 **TODO:** Find command adapted for property/buyers
@@ -204,6 +214,7 @@ Format: `sort (properties | buyers) (price | name) (asc | desc)`
 * Sort the buyers in the current view based on buyers `price`/`name` in `asc`(ascending) / `desc`(descending) order
 
 Examples:
+
 
 * `sort properties price asc` returns the property list sorted by price in ascending order
 * `sort buyers name desc` returns the buyer list sorted by name in descending order
@@ -284,7 +295,6 @@ You may copy and paste multiple lines of commands into the command box. Press th
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add (property n/PROPERTY_NAME a/PROPERTY_ADDRESS s/SELLER_NAME p/SELLER_PHONE e/SELLER_EMAIL $/PRICE_MIN \| buyer n/BUYER_NAME p/BUYER_PHONE e/BUYER_EMAIL $/PRICE_MAX) [t/TAG]…` <br> e.g., `add property n/Blk 123 a/123, Clementi Rd, #04-20, 1234665 s/James Lee sp/61234567 $/100000 t/HDB t/3rm`
 **Add** | **Property** <br>`add property n/PROPERTY_NAME a/PROPERTY_ADDRESS s/SELLER_NAME p/SELLER_PHONE e/SELLER_EMAIL $/PRICE_MIN [t/TAG]…` <br> e.g., `add property n/Blk 123 a/123, Clementi Rd, #04-20, 1234665 s/James Lee sp/61234567 $/100000 t/HDB t/3rm` <br><br> **Buyer** <br>`add buyer n/BUYER_NAME p/BUYER_PHONE e/BUYER_EMAIL $/PRICE_MAX) [t/TAG]…` <br> e.g., `add buyer n/Sam p/91234567 e/sam@email.com t/hdb t/3rm`
 **Clear** | `clear`
 **Delete** | `delete (property \| buyer) INDEX`<br> e.g., `delete property 3`
@@ -296,3 +306,4 @@ Action | Format, Examples
 **Sort** | `sort (properties \| buyers) (price \| name) (asc \| desc)`
 **Import** | `import (properties \| buyers)`
 **Export** | `export (properties \| buyers)`
+

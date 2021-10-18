@@ -37,7 +37,7 @@ public class SampleDataUtil {
             new Property(new Name("Dee Gardens"), new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
                 new Person(new Name("Beatrice Yu"), new Phone("99272758"),
                 new Email("berniceyu@example.com")), new Price(VERY_SMALL_PRICE),
-                getTagSet( "quiet")),
+                getTagSet("quiet")),
             new Property(new Name("Olive Gardens"), new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
                 new Person(new Name("Charlotte Oliveiro"), new Phone("93210283"),
                 new Email("charlotte@example.com")), new Price(SMALL_PRICE),
