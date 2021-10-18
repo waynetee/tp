@@ -3,7 +3,7 @@ layout: page
 title: User Guide
 ---
 
-PropertyWhiz (PropertyWhiz) is a **desktop app for managing properties, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, PropertyWhiz can get your property management tasks done faster than traditional GUI apps.
+PropertyWhiz (PropertyWhiz) is a **desktop app for managing properties and property buyers, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, PropertyWhiz can get your property management tasks done faster than traditional GUI apps.
 
 * Table of Contents
 {:toc}
@@ -28,9 +28,12 @@ TODO: We may also want `clear` to delete all buyers
 
    * **`list`** : Lists all properties.
 
-   * **`add`** Adds a property. e.g. `add property n/Blk 123 a/123, Clementi Rd, #04-20, 1234665 s/James Lee sp/61234567 $/100000 max/100000 t/HDB t/3rm`
+   * **`add`** Adds a property.
+     * e.g. `add property n/Blk 123 a/123, Clementi Rd, #04-20, 1234665 s/James Lee p/61234567 $/100000 t/HDB t/3rm`
 
-   * **`delete`** `delete property 3` : Deletes the 3rd property shown in the current list.
+   * **`delete`** : Deletes a property shown in the current list.
+     * e.g. `delete property 2`
+     * e.g. `delete property 3`
 
    * **`clear`** : Deletes all properties.
 
@@ -82,7 +85,7 @@ Format: `help`
 
 Adds a property/buyer to PropertyWhiz.
 
-Format: `add (property PROPERTY_OPTIONS​ | buyer BUYER_OPTIONS​) [t/TAG]…` e.g., `add property n/Blk 123 a/123, Clementi Rd, #04-20, 1234665 s/James Lee sp/61234567 $/100000 max/100000 t/hdb t/3rm`
+Format: `add (property PROPERTY_OPTIONS​ | buyer BUYER_OPTIONS​) [t/TAG]…` e.g., `add property n/Blk 123 a/123, Clementi Rd, #04-20, 1234665 s/James Lee p/61234567 $/100000 t/hdb t/3rm`
 
 Format for `PROPERTY_OPTIONS`: `n/PROPERTY_NAME a/PROPERTY_ADDRESS s/SELLER_NAME p/SELLER_PHONE e/SELLER_EMAIL $/PRICE_MIN`
 
@@ -99,7 +102,7 @@ Adds a property to PropertyWhiz
 Format: `add property n/PROPERTY_NAME a/PROPERTY_ADDRESS s/SELLER_NAME p/SELLER_PHONE e/SELLER_EMAIL $/PRICE_MIN`
 
 Examples:
-* `add property n/Blk 123 a/123, Clementi Rd, #04-20, 1234665 s/James Lee p/61234567 e/james@email.com $/100000 max/100000 t/hdb t/3rm`
+* `add property n/Blk 123 a/123, Clementi Rd, #04-20, 1234665 s/James Lee p/61234567 e/james@email.com $/100000 t/hdb t/3rm`
 #### Adding a buyer
 
 Adds a buyer to PropertyWhiz
