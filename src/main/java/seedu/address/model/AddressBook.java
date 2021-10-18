@@ -3,8 +3,11 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Objects;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.field.SortDirection;
+import seedu.address.model.field.SortType;
 import seedu.address.model.property.Buyer;
 import seedu.address.model.property.Property;
 import seedu.address.model.property.UniqueBuyerList;
@@ -144,6 +147,20 @@ public class AddressBook implements ReadOnlyAddressBook {
         buyers.remove(key);
     }
 
+    /**
+     * Sorts properties by the given {@code sortType} and {@code sortDirection}.
+     */
+    public void sortProperties(SortType sortType, SortDirection sortDirection) {
+        properties.sort(sortType, sortDirection);
+    }
+
+    /**
+     * Sorts buyers  by the given {@code sortType} and {@code sortDirection}.
+     */
+    public void sortBuyers(SortType sortType, SortDirection sortDirection) {
+        buyers.sort(sortType, sortDirection);
+    }
+
     //// util methods
 
     @Override
@@ -166,11 +183,12 @@ public class AddressBook implements ReadOnlyAddressBook {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
-                && properties.equals(((AddressBook) other).properties));
+                && properties.equals(((AddressBook) other).properties)
+                && buyers.equals(((AddressBook) other).buyers));
     }
 
     @Override
     public int hashCode() {
-        return properties.hashCode();
+        return Objects.hash(buyers, properties);
     }
 }

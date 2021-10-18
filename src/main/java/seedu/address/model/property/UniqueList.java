@@ -3,6 +3,7 @@ package seedu.address.model.property;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -96,6 +97,10 @@ public class UniqueList<Item extends Listable> implements Iterable<Item> {
         }
 
         internalList.setAll(listables);
+    }
+
+    public void sortListables(Comparator<Item> comparator) {
+        internalList.sort(comparator);
     }
 
     /**
