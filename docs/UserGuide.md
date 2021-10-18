@@ -28,9 +28,9 @@ TODO: We may also want `clear` to delete all buyers
 
    * **`list`** : Lists all properties.
 
-   * **`add`** Adds a property. e.g. `property n/Blk 123 a/123, Clementi Rd, #04-20, 1234665 s/James Lee sp/61234567 $/100000 max/100000 t/HDB t/3rm`
+   * **`add`** Adds a property. e.g. `add property n/Blk 123 a/123, Clementi Rd, #04-20, 1234665 s/James Lee sp/61234567 $/100000 max/100000 t/HDB t/3rm`
 
-   * **`delete`** `property 3` : Deletes the 3rd property shown in the current list.
+   * **`delete`** `delete property 3` : Deletes the 3rd property shown in the current list.
 
    * **`clear`** : Deletes all properties.
 
@@ -92,8 +92,23 @@ Format for `BUYER_OPTIONS`: `n/BUYER_NAME p/BUYER_PHONE e/BUYER_EMAIL $/PRICE_MA
 A property/buyer can have any number of tags (including 0). All tags will be converted to lowercase.
 </div>
 
+#### Adding a property
+
+Adds a property to PropertyWhiz
+
+Format: `add property n/PROPERTY_NAME a/PROPERTY_ADDRESS s/SELLER_NAME p/SELLER_PHONE e/SELLER_EMAIL $/PRICE_MIN`
+
 Examples:
-* `add property n/Blk 123 a/123, Clementi Rd, #04-20, 1234665 s/James Lee sp/61234567 $/100000 max/100000 t/hdb t/3rm`
+* `add property n/Blk 123 a/123, Clementi Rd, #04-20, 1234665 s/James Lee p/61234567 e/james@email.com $/100000 max/100000 t/hdb t/3rm`
+#### Adding a buyer
+
+Adds a buyer to PropertyWhiz
+
+Format: `add buyer n/BUYER_NAME p/BUYER_PHONE e/BUYER_EMAIL $/PRICE_MAX`
+
+Examples:
+* `add buyer n/Sam p/91234567 e/sam@email.com t/hdb t/3rm`
+
 
 ### Listing all properties/buyers : `list`
 
@@ -103,7 +118,7 @@ Format: `list`
 
 ### Editing a property/buyer : `edit`
 
-Edits an existing property in PropertyWhiz.
+Edits an existing property/buyer in PropertyWhiz.
 
 Format: `edit (property INDEX PROPERTY_OPTIONS | buyer INDEX BUYER_OPTIONS) [([t/TAG]… |​ [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]`
 
@@ -111,13 +126,17 @@ Format for `PROPERTY_OPTIONS`: `[n/PROPERTY_NAME] [a/PROPERTY_ADDRESS] [$/PRICE_
 
 Format for `BUYER_OPTIONS`: `[n/BUYER_NAME] [p/BUYER_PHONE] [e/BUYER_EMAIL]`
 
-* Edits the property/buyer at the specified `INDEX`. The index refers to the index number shown in the displayed property list. The index **must be a positive integer** 1, 2, 3, …​
+* Edits the property/buyer at the specified `INDEX`. The index refers to the index number shown in the displayed property/buyer list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the property will be removed i.e adding of tags is not cumulative.
 * Like `add`, tags added via `edit` will be automatically converted to lower case.
 * You can remove all the property’s tags by typing `t/` without
     specifying any tags after it.
+
+#### Editing a property
+
+Format: `edit property INDEX [n/PROPERTY_NAME] [a/PROPERTY_ADDRESS] [$/PRICE_MIN] [s/SELLER_NAME] [p/SELLER_PHONE] [e/SELLER_EMAIL]`
 
 Examples:
 * `edit property 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st property to be `91234567` and `johndoe@example.com` respectively.
@@ -133,7 +152,14 @@ The following example is invalid:
 
 </div>
 
+#### Editing a buyer
 
+Format: `edit buyer INDEX [n/BUYER_NAME] [p/BUYER_PHONE] [e/BUYER_EMAIL]`
+
+Examples: 
+* `edit buyer 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st buyer to be `91234567` and `johndoe@example.com` respectively.
+
+TODO: Find command adapted for property/buyers
 ### Locating properties by name: `find`
 
 Finds properties whose names contain any of the given keywords and whose tag list contain all of the specified tags.
