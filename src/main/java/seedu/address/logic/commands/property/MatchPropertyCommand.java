@@ -9,7 +9,7 @@ import java.util.function.Predicate;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.MatchCommand;
+import seedu.address.logic.commands.MatchOneToManyCommand;
 import seedu.address.model.Model;
 import seedu.address.model.property.Buyer;
 import seedu.address.model.property.Property;
@@ -18,7 +18,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Match property to buyers in the address book.
  */
-public class MatchPropertyCommand extends MatchCommand {
+public class MatchPropertyCommand extends MatchOneToManyCommand {
     public static final String MESSAGE_SUCCESS = "Matched property to buyers.";
 
     public MatchPropertyCommand(Index targetIndex) {
