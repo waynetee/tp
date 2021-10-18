@@ -28,7 +28,7 @@ public abstract class MatchCommand extends Command {
     }
 
     /**
-     * Calculates the intersection between {@code otherTagSet} and {@code tagSet}.
+     * Calculates the size of the intersection between {@code otherTagSet} and {@code tagSet}.
      *
      * @param tagSet A set of tags to be intersected with {@code otherTagSet}.
      * @param otherTagSet A set of tags to be intersected with {@code tagSet}.

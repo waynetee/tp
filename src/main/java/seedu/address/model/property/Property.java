@@ -24,7 +24,6 @@ public class Property implements Listable, Taggable {
     private final Person seller;
     private final Price price;
     private final Set<Tag> tags = new HashSet<>();
-    private final Set<Match> matches = new HashSet<>();
 
     /**
      * Every field must be present and not null.
@@ -57,32 +56,6 @@ public class Property implements Listable, Taggable {
 
     public Price getPrice() {
         return price;
-    }
-
-    public Set<Match> getMatches() {
-        return Collections.unmodifiableSet(matches);
-    }
-
-    /**
-     * Adds a match to the current property's matches.
-     * @param match Match object to be added.
-     */
-    public void addMatch(Match match) {
-        requireNonNull(match);
-        if (this.matches.contains(match)) {
-            throw new IllegalStateException("This property is already matched with the same buyer.");
-        }
-        this.matches.add(match);
-    }
-
-    /**
-     * Matches the current property to a {@code buyer}.
-     * @param buyer Buyer to be matched to this property.
-     */
-    public void matchToBuyer(Buyer buyer) {
-        requireNonNull(buyer);
-        Match match = Match.createMatch(this, buyer);
-        assert(this.matches.contains(match));
     }
 
     /**

@@ -22,7 +22,6 @@ public class Buyer extends Person implements Listable, Taggable {
 
     private final Price maxPrice;
     private final Set<Tag> tags = new HashSet<>();
-    private final Set<Match> matches = new HashSet<>();
 
     /**
      * Every field must be present and not null.
@@ -53,31 +52,7 @@ public class Buyer extends Person implements Listable, Taggable {
         return Collections.unmodifiableSet(tags);
     }
 
-    public Set<Match> getMatches() {
-        return Collections.unmodifiableSet(matches);
-    }
-
-    /**
-     * Adds a match to the current buyer's matches.
-     * @param match Match object to be added.
-     */
-    public void addMatch(Match match) {
-        requireNonNull(match);
-        if (this.matches.contains(match)) {
-            throw new IllegalStateException("This buyer is already matched with the same property.");
-        }
-        this.matches.add(match);
-    }
-
-    /**
-     * Matches the current buyer to a {@code property}.
-     * @param property Property to be matched to this buyer.
-     */
-    public void matchToProperty(Property property) {
-        requireNonNull(property);
-        Match match = Match.createMatch(property, this);
-        assert(this.matches.contains(match));
-    }
+ 
 
     /**
      * Returns true if both buyers have the same name.

@@ -46,4 +46,17 @@ public class MatchPropertyCommand extends MatchCommand {
         model.updateFilteredAndSortedBuyerList(buyerFilter, buyerComparator);
         return new CommandResult(MESSAGE_SUCCESS);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof MatchPropertyCommand)) {
+            return false;
+        }
+
+        return super.equals(other);
+    }
 }

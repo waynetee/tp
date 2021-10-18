@@ -18,9 +18,7 @@ public class MatchCommandParser {
      * @throws ParseException if the user input does not conform the expected format
      */
     public MatchCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args);
-
-        PreambleData preambleData = ParserUtil.parsePreamble(argMultimap.getPreamble(), NUMBER_OF_PREAMBLE_ARGUMENTS);
+        PreambleData preambleData = ParserUtil.parsePreamble(args, NUMBER_OF_PREAMBLE_ARGUMENTS);
         PreambleData.Actor actor = preambleData.getActor();
         Index index = preambleData.getIndex();
         switch (actor) {

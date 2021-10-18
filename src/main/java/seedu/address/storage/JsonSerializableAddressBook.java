@@ -30,17 +30,15 @@ class JsonSerializableAddressBook {
 
     private final List<JsonAdaptedProperty> properties = new ArrayList<>();
     private final List<JsonAdaptedBuyer> buyers = new ArrayList<>();
-    private final List<JsonAdaptedMatch> matches = new ArrayList<>();
+
     /**
      * Constructs a {@code JsonSerializableAddressBook} with the given properties.
      */
     @JsonCreator
     public JsonSerializableAddressBook(@JsonProperty("properties") List<JsonAdaptedProperty> properties,
-                                       @JsonProperty("buyers") List<JsonAdaptedBuyer> buyers,
-                                       @JsonProperty("matches") List<JsonAdaptedMatch> matches) {
+                                       @JsonProperty("buyers") List<JsonAdaptedBuyer> buyers) {
         this.properties.addAll(properties);
         this.buyers.addAll(buyers);
-        this.matches.addAll(matches);
     }
 
     /**
@@ -51,7 +49,6 @@ class JsonSerializableAddressBook {
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
         properties.addAll(source.getPropertyList().stream().map(JsonAdaptedProperty::new).collect(Collectors.toList()));
         buyers.addAll(source.getBuyerList().stream().map(JsonAdaptedBuyer::new).collect(Collectors.toList()));
-        matches.addAll(source.getMatchList().stream().map(JsonAdaptedMatch::new).collect(Collectors.toList()));
     }
 
     /**
@@ -79,14 +76,6 @@ class JsonSerializableAddressBook {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_BUYER);
             }
             addressBook.addBuyer(buyer);
-        }
-
-        for (JsonAdaptedMatch jsonAdaptedMatch : matches) {
-            Match match = jsonAdaptedMatch.toModelType(propertyNameToPropertyMap, buyerNameToBuyerMap);
-            if (addressBook.hasMatch(match)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_MATCH);
-            }
-            addressBook.addMatch(match);
         }
 
         return addressBook;

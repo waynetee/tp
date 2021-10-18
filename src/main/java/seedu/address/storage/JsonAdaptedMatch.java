@@ -55,6 +55,10 @@ class JsonAdaptedMatch {
         }
         final Buyer modelBuyer = buyerNameToBuyerMap.get(buyerName);
 
+        if (modelBuyer == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Buyer.class.getSimpleName()));
+        }
+
         final Match match = Match.createMatch(modelProperty, modelBuyer);
         return match;
     }
