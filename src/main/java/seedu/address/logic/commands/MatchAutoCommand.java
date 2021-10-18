@@ -33,6 +33,7 @@ public class MatchAutoCommand extends MatchCommand {
     public CommandResult execute(Model model) throws CommandException {
         initialise(model);
         runMatching();
+        updateModel(model);
         return null;
     }
 
@@ -60,6 +61,10 @@ public class MatchAutoCommand extends MatchCommand {
                 confirmMatch(match);
             }
         }
+    }
+
+    private void updateModel(Model model) {
+        model.setMatchList(matches);
     }
 
     /**
