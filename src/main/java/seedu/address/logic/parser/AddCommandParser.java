@@ -33,9 +33,9 @@ import seedu.address.model.tag.Tag;
  * Parses input arguments and creates a new AddCommand object
  */
 public class AddCommandParser implements Parser<AddCommand> {
-    public static final int ACTOR_POSITIONAL_INDEX = 0;
-    public static final int NUM_OF_PREAMBLE_ARGS = 1;
-    public static final String INVALID_PREAMBLE = MESSAGE_INVALID_PREAMBLE + "(property/buyer)";
+    private static final int ACTOR_POSITIONAL_INDEX = 0;
+    private static final int NUM_OF_PREAMBLE_ARGS = 1;
+    private static final String INVALID_PREAMBLE = MESSAGE_INVALID_PREAMBLE + "(property | buyer)";
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.

@@ -17,10 +17,10 @@ import seedu.address.model.field.SortType;
  * Parses input arguments and creates a new SortCommand object
  */
 public class SortCommandParser implements Parser<SortCommand> {
-    public static final int ACTOR_POSITIONAL_INDEX = 0;
-    public static final int SORT_TYPE_POSITIONAL_INDEX = 1;
-    public static final int SORT_DIR_POSITIONAL_INDEX = 2;
-    public static final int NUM_OF_PREAMBLE_ARGS = 3;
+    private static final int ACTOR_POSITIONAL_INDEX = 0;
+    private static final int SORT_TYPE_POSITIONAL_INDEX = 1;
+    private static final int SORT_DIR_POSITIONAL_INDEX = 2;
+    private static final int NUM_OF_PREAMBLE_ARGS = 3;
     /**
      * Parses the given {@code String} of arguments in the context of the SortCommand
      * and returns a SortCommand object for execution.

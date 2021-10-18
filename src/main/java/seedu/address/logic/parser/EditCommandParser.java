@@ -30,9 +30,9 @@ import seedu.address.model.tag.Tag;
  * Parses input arguments and creates a new EditCommand object
  */
 public class EditCommandParser implements Parser<EditCommand> {
-    public static final int ACTOR_POSITIONAL_INDEX = 0;
-    public static final int INDEX_POSITIONAL_INDEX = 1;
-    public static final int NUM_OF_PREAMBLE_ARGS = 2;
+    private static final int ACTOR_POSITIONAL_INDEX = 0;
+    private static final int INDEX_POSITIONAL_INDEX = 1;
+    private static final int NUM_OF_PREAMBLE_ARGS = 2;
 
     /**
      * Parses the given {@code String} of arguments in the context of the EditCommand
