@@ -32,11 +32,7 @@ public class MatchPropertyCommand extends MatchCommand {
         Property property = propertyList.get(targetIndex.getZeroBased());
         Predicate<Property> currentPropertyFilter = (p) -> p.equals(property);
         Set<Tag> propertyTags = property.getTags();
-        Predicate<Buyer> buyerFilter = (buyer) -> {
-            // TODO: Eliz's PR
-            // return buyer.getMaxPrice().compareTo(property.getPrice());
-            return buyer.getMaxPrice().value >= property.getPrice().value;
-        };
+        Predicate<Buyer> buyerFilter = (buyer) -> buyer.getMaxPrice().isGreaterThanOrEqualTo(property.getPrice());
 
         Comparator<Buyer> buyerComparator = Comparator.<Buyer, Integer>comparing(buyer ->
                 calculateTagIntersection(propertyTags, buyer.getTags())
