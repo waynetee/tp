@@ -35,7 +35,7 @@ import seedu.address.model.tag.Tag;
 public class AddCommandParser implements Parser<AddCommand> {
     private static final int ACTOR_POSITIONAL_INDEX = 0;
     private static final int NUM_OF_PREAMBLE_ARGS = 1;
-    private static final String INVALID_PREAMBLE = MESSAGE_INVALID_PREAMBLE + "(property | buyer)";
+    private static final String EXPECTED_PREAMBLE = "(property | buyer)";
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
@@ -52,7 +52,8 @@ public class AddCommandParser implements Parser<AddCommand> {
             ParserUtil.assertPreambleArgsCount(argMultimap.getPreamble(), NUM_OF_PREAMBLE_ARGS);
             actor = ParserUtil.parseActor(argMultimap.getPreamble(), ACTOR_POSITIONAL_INDEX);
         } catch (ParseException e) {
-            throw new ParseException(INVALID_PREAMBLE);
+            throw new ParseException(String.format(MESSAGE_INVALID_PREAMBLE, argMultimap.getPreamble(),
+                    EXPECTED_PREAMBLE));
         }
 
         switch (actor) {
@@ -69,7 +70,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS,
                 PREFIX_PHONE, PREFIX_EMAIL, PREFIX_SELLER, PREFIX_PRICE)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    AddCommand.MESSAGE_USAGE));
+                    AddCommand.MESSAGE_USAGE_PROPERTY));
         }
         Property property = getProperty(argMultimap);
         return new AddPropertyCommand(property);
@@ -78,7 +79,7 @@ public class AddCommandParser implements Parser<AddCommand> {
     private AddBuyerCommand getAddBuyerCommand(ArgumentMultimap argMultimap) throws ParseException {
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_PRICE)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    AddCommand.MESSAGE_USAGE));
+                    AddCommand.MESSAGE_USAGE_BUYER));
         }
         Buyer buyer = getBuyer(argMultimap);
         return new AddBuyerCommand(buyer);

@@ -14,8 +14,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 public abstract class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a property or buyer to the address book. "
-            + "Parameters: (property "
+    public static final String MESSAGE_USAGE_PROPERTY = COMMAND_WORD + " property: Adds a property to the address book.\n"
+            + "Parameters: property "
             + PREFIX_NAME + "NAME "
             + PREFIX_ADDRESS + "ADDRESS "
             + PREFIX_PRICE + "PRICE "
@@ -23,16 +23,6 @@ public abstract class AddCommand extends Command {
             + PREFIX_PHONE + "PHONE "
             + PREFIX_EMAIL + "EMAIL "
             + "[" + PREFIX_TAG + "TAG]..."
-            + "\n"
-            + "|"
-            + "\n"
-            + "buyer "
-            + PREFIX_NAME + "NAME "
-            + PREFIX_PHONE + "PHONE "
-            + PREFIX_EMAIL + "EMAIL "
-            + PREFIX_PRICE + "MAX_PRICE "
-            + "[" + PREFIX_TAG + "TAG]..."
-            + ")"
             + "\n"
             + "Example: " + COMMAND_WORD + " property "
             + PREFIX_NAME + "Hasta La Vista "
@@ -46,4 +36,20 @@ public abstract class AddCommand extends Command {
             + PREFIX_TAG + "621 sqft "
             + PREFIX_TAG + "EW23 Clementi";
 
+    public static final String MESSAGE_USAGE_BUYER = COMMAND_WORD + " buyer: Adds a buyer to the address book.\n"
+            + "Parameters: buyer "
+            + PREFIX_NAME + "NAME "
+            + PREFIX_PHONE + "PHONE "
+            + PREFIX_EMAIL + "EMAIL "
+            + PREFIX_PRICE + "MAX_PRICE "
+            + "[" + PREFIX_TAG + "TAG]..."
+            + ""
+            + "\n"
+            + "Example: " + COMMAND_WORD + " buyer "
+            + PREFIX_NAME + "Lydia "
+            + PREFIX_PHONE + "9482427 "
+            + PREFIX_EMAIL + "lydia@example.com "
+            + PREFIX_PRICE + "1000000 "
+            + PREFIX_TAG + "Condo "
+            + PREFIX_TAG + "4 rm ";
 }
