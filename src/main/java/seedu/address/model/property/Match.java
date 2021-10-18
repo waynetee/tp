@@ -39,6 +39,15 @@ public class Match implements Listable {
 
 
     /**
+     * Returns a score representing how compatible a buyer is with a property
+     */
+    public int getMatchScore() {
+        int numCommonTags = getNumCommonTags(buyer, property);
+        int priceScore = buyer.getMaxPrice().isGreaterThanOrEqualTo(property.getPrice()) ? 2 : 0;
+        return numCommonTags + priceScore;
+    }
+
+    /**
      * Returns true if the {@code Listable} item is a {@code Match} and has the same property and buyer.
      * Used by the UniqueList to identify unique matches as a Listable.
      */
