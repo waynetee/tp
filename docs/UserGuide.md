@@ -292,4 +292,4 @@ Action | Format, Examples
 **List** | `list`
 **Exit** | `exit`
 **Help** | `help`
-**Sort** | `sort (properties \| buyers) (price \| name) (asc \| desc)`
+**Sort** | `sort (properties | buyers) (price | name) (asc | desc)`
