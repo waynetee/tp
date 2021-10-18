@@ -5,6 +5,7 @@ import java.nio.file.Path;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.commands.CommandPreAction;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -18,6 +19,7 @@ import seedu.address.model.property.Property;
 public interface Logic {
     /**
      * Executes the command and returns the result.
+     *
      * @param commandText The command as entered by the user.
      * @return the result of the command execution.
      * @throws CommandException If an error occurs during command execution.
@@ -25,15 +27,24 @@ public interface Logic {
      */
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
-    /**
-     * Exports properties to csv file.
-     */
-    void exportProperties(File file);
 
     /**
-     * Exports buyers to csv file.
+     * Executes the command and returns the result.
+     *
+     * @param commandText The command as entered by the user.
+     * @param file File chosen by the user.
+     * @return the result of the command execution.
+     * @throws CommandException If an error occurs during command execution.
+     * @throws ParseException If an error occurs during parsing.
      */
-    void exportBuyers(File file);
+    CommandResult execute(String commandText, File file) throws CommandException, ParseException;
+
+    /**
+     * @param commandText The command as entered by the user.
+     * @return True if the command requires a file to be executed.
+     * @throws ParseException If commandText does not fit expected format.
+     */
+    CommandPreAction getCommandPreAction(String commandText) throws ParseException;
 
     /**
      * Returns the AddressBook.

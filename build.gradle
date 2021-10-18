@@ -71,4 +71,8 @@ shadowJar {
     archiveName = 'propertywhiz.jar'
 }
 
+run {
+    enableAssertions = true
+}
+
 defaultTasks 'clean', 'test'

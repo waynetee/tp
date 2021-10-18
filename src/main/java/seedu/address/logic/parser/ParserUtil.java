@@ -2,8 +2,10 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
@@ -30,6 +32,10 @@ public class ParserUtil {
             + "The following fields are expected:"
             + "\n";
 
+    public static final List<String> PROPERTY_PATTERN = Arrays.asList("property", "properties");
+
+    public static final List<String> BUYER_PATTERN = Arrays.asList("buyer", "buyers");
+
     /**
      * Parses {@code actor} into an {@code Preamble.Actor} using given string.
      *
@@ -38,9 +44,10 @@ public class ParserUtil {
      */
     public static Actor parseActor(String actor) throws ParseException {
         String trimmedActor = actor.trim();
-        if (trimmedActor.equals("property")) {
+
+        if (PROPERTY_PATTERN.contains(trimmedActor)) {
             return Actor.PROPERTY;
-        } else if (trimmedActor.equals("buyer")) {
+        } else if (BUYER_PATTERN.contains(trimmedActor)) {
             return Actor.BUYER;
         } else {
             throw new ParseException(MESSAGE_INVALID_ACTOR);
