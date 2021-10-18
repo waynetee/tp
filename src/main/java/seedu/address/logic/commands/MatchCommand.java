@@ -2,10 +2,15 @@ package seedu.address.logic.commands;
 
 
 /**
- * Match entities (properties and buyers) in the address book.
+ * Matches entities (properties and buyers) in the address book.
  */
 public abstract class MatchCommand extends Command {
 
     public static final String COMMAND_WORD = "match";
+
+    public static final String MESSAGE_USAGE =
+            COMMAND_WORD + ": Matches buyers and properties based on tags and price\n"
+                    + "Parameters: ( auto | buyer INDEX | property INDEX )\n"
+                    + "Example: " + COMMAND_WORD + " auto";
 
 }
