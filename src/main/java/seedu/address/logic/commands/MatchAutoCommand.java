@@ -51,7 +51,7 @@ public class MatchAutoCommand extends MatchCommand {
     }
 
     /**
-     * Runs matching algorithm to find best matches
+     * Runs matching algorithm to find best matches.
      */
     private void runMatching() {
         List<Match> sortedMatchCandidates = getSortedMatchCandidates(); // Get all possible matches
@@ -63,7 +63,7 @@ public class MatchAutoCommand extends MatchCommand {
     }
 
     /**
-     * Returns possible matches in descending order of desirability
+     * Returns possible matches in descending order of desirability.
      */
     private List<Match> getSortedMatchCandidates() {
         buyers.sort(Buyer.getPriceComparator());  // Prefer matching low budget buyers first
@@ -79,7 +79,7 @@ public class MatchAutoCommand extends MatchCommand {
     }
 
     /**
-     * Returns true if the buyer and property in the match are both unmatched
+     * Returns true if the buyer and property in the match are both unmatched.
      */
     private boolean matchIsAvailable(Match match) {
         boolean buyerUnmatched = !matchedBuyers.contains(match.getBuyer());
@@ -88,7 +88,7 @@ public class MatchAutoCommand extends MatchCommand {
     }
 
     /**
-     * Confirms a match
+     * Confirms a match.
      */
     private void confirmMatch(Match match) {
         matchedProperties.add(match.getProperty());
