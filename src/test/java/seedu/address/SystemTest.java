@@ -52,7 +52,8 @@ public class SystemTest {
             } catch (CommandException | ParseException e) {
                 log.add(e.getMessage());
             }
-            log.add(logic.getFilteredPropertyList().toString() + '\n');
+            log.add(logic.getFilteredPropertyList().toString());
+            log.add(logic.getFilteredBuyerList().toString() + '\n');
         }
         return log;
     }
