@@ -29,7 +29,7 @@ public class Match implements Listable {
     }
 
     /**
-     * Calculates number of tags that a buyer and property have in common
+     * Returns number of tags that a buyer and property have in common
      */
     public static int getNumCommonTags(Buyer buyer, Property property) {
         Set<Tag> intersection = new HashSet<>(buyer.getTags());
