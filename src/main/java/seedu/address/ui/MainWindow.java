@@ -149,35 +149,12 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    /**
-     * Opens the help window or focuses on it if it's already opened.
-     */
-    @FXML
-    public void handleHelp() {
-        if (!helpWindow.isShowing()) {
-            helpWindow.show();
-        } else {
-            helpWindow.focus();
-        }
+    void show() {
+        primaryStage.show();
     }
 
-    /**
-     * Gets user to select a destination for saving csv.
-     *
-     * @param title Title of fileChooser dialog box
-     * @return File object chosen by user
-     */
-    public File getCsvFile(String title, boolean isFileSave) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle(title);
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Csv Files", "*.csv"));
-        fileChooser.setInitialDirectory(Paths.get(".").toFile());
-        if (isFileSave) {
-            return fileChooser.showSaveDialog(primaryStage);
-        } else {
-            return fileChooser.showOpenDialog(primaryStage);
-        }
+    public PropertyListPanel getPropertyListPanel() {
+        return propertyListPanel;
     }
 
     /**
@@ -204,8 +181,17 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    void show() {
-        primaryStage.show();
+
+    /**
+     * Opens the help window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleHelp() {
+        if (!helpWindow.isShowing()) {
+            helpWindow.show();
+        } else {
+            helpWindow.focus();
+        }
     }
 
     /**
@@ -218,10 +204,6 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
-    }
-
-    public PropertyListPanel getPropertyListPanel() {
-        return propertyListPanel;
     }
 
     /**
@@ -261,4 +243,24 @@ public class MainWindow extends UiPart<Stage> {
             throw e;
         }
     }
+
+    /**
+     * Gets user to select a destination for saving csv.
+     *
+     * @param title Title of fileChooser dialog box
+     * @return File object chosen by user
+     */
+    public File getCsvFile(String title, boolean isFileSave) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle(title);
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Csv Files", "*.csv"));
+        fileChooser.setInitialDirectory(Paths.get(".").toFile());
+        if (isFileSave) {
+            return fileChooser.showSaveDialog(primaryStage);
+        } else {
+            return fileChooser.showOpenDialog(primaryStage);
+        }
+    }
+
 }
