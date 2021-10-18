@@ -46,8 +46,8 @@ public class MatchAutoCommand extends MatchCommand {
         if (model.getFilteredBuyerList().isEmpty()) {
             throw new CommandException(MESSAGE_NO_BUYERS_LISTED);
         }
-        properties = List.copyOf(model.getFilteredPropertyList());
-        buyers = List.copyOf(model.getFilteredBuyerList());
+        properties = new ArrayList<>(model.getFilteredPropertyList());
+        buyers = new ArrayList<>(model.getFilteredBuyerList());
         matchedProperties = new HashSet<>();
         matchedBuyers = new HashSet<>();
         matches = new ArrayList<>();
