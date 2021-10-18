@@ -13,3 +13,14 @@ delete property 3
 edit property 1 ta/condo1 ta/condo2 ta/condo3 ta/condo4
 edit property 1 td/condo2 td/condo3
 find t/condo1 t/condo4
+add buyer n/Sam p/91234567 e/sam@email.com t/hdb t/3rm $/444
+add buyer n/bob p/91234567 e/sam@email.com t/hdb t/3rm $/222
+add buyer n/tim p/91234567 e/sam@email.com t/condo t/3rm $/444
+add buyer n/tom p/91234567 e/sam@email.com t/condo t/3rm $/100
+sort    buyer  price    asc
+sort    buyer  name    asc
+list
+sort    property  name    desc
+edit buyer  3 td/3rm ta/4rm
+delete buyer 2
+sort buyers price desc
