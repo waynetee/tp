@@ -221,18 +221,7 @@ public class MainWindow extends UiPart<Stage> {
             } else {
                 commandResult = logic.execute(commandText);
             }
-            // Perform post command UI actions
-            UiAction uiAction = commandResult.getUiAction();
-            switch (uiAction) {
-            case HELP:
-                handleHelp();
-                break;
-            case EXIT:
-                handleExit();
-                break;
-            default:
-                break;
-            }
+            handleUiAction(commandResult.getUiAction());
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
@@ -241,6 +230,19 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
+        }
+    }
+
+    private void handleUiAction(UiAction uiAction) {
+        switch (uiAction) {
+        case HELP:
+            handleHelp();
+            break;
+        case EXIT:
+            handleExit();
+            break;
+        default:
+            break;
         }
     }
 
