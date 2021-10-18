@@ -21,6 +21,8 @@ public class MatchAutoCommand extends MatchCommand {
     public static final String ARGUMENT_WORD = "auto";
     public static final String MESSAGE_NO_PROPERTIES_LISTED = "Error: No properties available for matching";
     public static final String MESSAGE_NO_BUYERS_LISTED = "Error: No buyers available for matching";
+    public static final String MESSAGE_ONE_MATCH_FOUND = "1 match found!";
+    public static final String MESSAGE_MATCHES_FOUND = "%1$d matches found!";
 
     private List<Property> properties; // Properties to match
     private List<Buyer> buyers; // Buyers to match
@@ -34,7 +36,7 @@ public class MatchAutoCommand extends MatchCommand {
         initialise(model);
         runMatching();
         updateModel(model);
-        return null;
+        return getCommandResult();
     }
 
     private void initialise(Model model) throws CommandException {
@@ -65,6 +67,16 @@ public class MatchAutoCommand extends MatchCommand {
 
     private void updateModel(Model model) {
         model.setMatchList(matches);
+    }
+
+    private CommandResult getCommandResult() {
+        String feedback;
+        if (matches.size() == 1) {
+            feedback = MESSAGE_ONE_MATCH_FOUND;
+        } else {
+            feedback = String.format(MESSAGE_MATCHES_FOUND, matches.size());
+        }
+        return new CommandResult(feedback, UiAction.SHOW_MATCHES);
     }
 
     /**
