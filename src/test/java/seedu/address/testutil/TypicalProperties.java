@@ -108,4 +108,20 @@ public class TypicalProperties {
     public static List<Property> getTypicalProperties() {
         return new ArrayList<>(Arrays.asList(P_ALICE, P_BENSON, P_CARL, P_DANIEL, P_ELLE, P_FIONA, P_GEORGE));
     }
+
+    public static List<Property> getTypicalPropertiesSortedNameAsc() {
+        return new ArrayList<>(Arrays.asList(P_CARL, P_DANIEL, P_ELLE, P_FIONA, P_GEORGE, P_ALICE, P_BENSON));
+    }
+
+    public static List<Property> getTypicalPropertiesSortedNameDesc() {
+        return new ArrayList<>(Arrays.asList(P_BENSON, P_ALICE, P_GEORGE, P_FIONA, P_ELLE, P_DANIEL, P_CARL));
+    }
+
+    public static List<Property> getTypicalPropertiesSortedPriceAsc() {
+        return new ArrayList<>(Arrays.asList(P_ALICE, P_BENSON, P_CARL, P_DANIEL, P_ELLE, P_FIONA, P_GEORGE));
+    }
+
+    public static List<Property> getTypicalPropertiesSortedPriceDesc() {
+        return new ArrayList<>(Arrays.asList(P_GEORGE, P_FIONA, P_ELLE, P_DANIEL, P_CARL, P_BENSON, P_ALICE));
+    }
 }

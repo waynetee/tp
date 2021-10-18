@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -118,5 +119,13 @@ public class Buyer extends Person implements Listable, Taggable {
             tags.forEach(builder::append);
         }
         return builder.toString();
+    }
+
+    public static Comparator<Buyer> getPriceComparator() {
+        return Comparator.comparing(Buyer::getMaxPrice);
+    }
+
+    public static Comparator<Buyer> getNameComparator() {
+        return Comparator.comparing(Buyer::getName);
     }
 }

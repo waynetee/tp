@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -130,4 +131,11 @@ public class Property implements Listable, Taggable {
         return builder.toString();
     }
 
+    public static Comparator<Property> getPriceComparator() {
+        return Comparator.comparing(Property::getPrice);
+    }
+
+    public static Comparator<Property> getNameComparator() {
+        return Comparator.comparing(Property::getName);
+    }
 }

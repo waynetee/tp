@@ -22,15 +22,15 @@ PropertyWhiz (PropertyWhiz) is a **desktop app for managing properties, optimize
 
 1. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
-
+TODO: We may also want `clear` to delete all buyers
 1. [**DEVELOPMENT IN PROGRESS**] Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
    * **`list`** : Lists all properties.
 
-   * **`add`** Adds a property. e.g. `n/Blk 123 a/123, Clementi Rd, #04-20, 1234665 s/James Lee sp/61234567 $/100000 max/100000 t/HDB t/3rm`
+   * **`add`** Adds a property. e.g. `add property n/Blk 123 a/123, Clementi Rd, #04-20, 1234665 s/James Lee sp/61234567 $/100000 max/100000 t/HDB t/3rm`
 
-   * **`delete`**`3` : Deletes the 3rd property shown in the current list.
+   * **`delete`** `delete property 3` : Deletes the 3rd property shown in the current list.
 
    * **`clear`** : Deletes all properties.
 
@@ -47,7 +47,7 @@ PropertyWhiz (PropertyWhiz) is a **desktop app for managing properties, optimize
 **:information_source: Notes about the command format:**<br>
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `add n/PROPERTY_NAME`, `PROPERTY_NAME` is a parameter which can be used as `add n/Beautiful Condo`.
+  e.g. in `add property n/PROPERTY_NAME`, `PROPERTY_NAME` is a parameter which can be used as `add property n/Beautiful Condo`.
 
 * Items in square brackets are optional.<br>
   e.g `n/PROPERTY_NAME [t/TAG]` can be used as `n/Beautiful Condo t/condo` or as `n/Beautiful Condo`.
@@ -78,32 +78,55 @@ Shows a message explaning how to access the help page.
 Format: `help`
 
 
-### Adding a property: `add`
+### Adding a property/buyer: `add`
 
-Adds a property to PropertyWhiz.
+Adds a property/buyer to PropertyWhiz.
 
-Format: `add n/PROPERTY_NAME a/PROPERTY_ADDRESS s/SELLER_NAME p/SELLER_PHONE $/PRICE_MIN [t/TAG]…​` e.g., `add n/Blk 123 a/123, Clementi Rd, #04-20, 1234665 s/James Lee sp/61234567 $/100000 max/100000 t/hdb t/3rm`
+Format: `add (property PROPERTY_OPTIONS​ | buyer BUYER_OPTIONS​) [t/TAG]…` e.g., `add property n/Blk 123 a/123, Clementi Rd, #04-20, 1234665 s/James Lee sp/61234567 $/100000 max/100000 t/hdb t/3rm`
+
+Format for `PROPERTY_OPTIONS`: `n/PROPERTY_NAME a/PROPERTY_ADDRESS s/SELLER_NAME p/SELLER_PHONE e/SELLER_EMAIL $/PRICE_MIN`
+
+Format for `BUYER_OPTIONS`: `n/BUYER_NAME p/BUYER_PHONE e/BUYER_EMAIL $/PRICE_MAX`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A property can have any number of tags (including 0). All tags will be converted to lowercase.
+A property/buyer can have any number of tags (including 0). All tags will be converted to lowercase.
 </div>
 
+#### Adding a property
+
+Adds a property to PropertyWhiz
+
+Format: `add property n/PROPERTY_NAME a/PROPERTY_ADDRESS s/SELLER_NAME p/SELLER_PHONE e/SELLER_EMAIL $/PRICE_MIN`
+
 Examples:
-* `add n/Blk 123 a/123, Clementi Rd, #04-20, 1234665 s/James Lee sp/61234567 $/100000 max/100000 t/hdb t/3rm`
+* `add property n/Blk 123 a/123, Clementi Rd, #04-20, 1234665 s/James Lee p/61234567 e/james@email.com $/100000 max/100000 t/hdb t/3rm`
+#### Adding a buyer
 
-### Listing all properties : `list`
+Adds a buyer to PropertyWhiz
 
-Shows a list of all properties in PropertyWhiz.
+Format: `add buyer n/BUYER_NAME p/BUYER_PHONE e/BUYER_EMAIL $/PRICE_MAX`
+
+Examples:
+* `add buyer n/Sam p/91234567 e/sam@email.com t/hdb t/3rm`
+
+
+### Listing all properties/buyers : `list`
+
+Shows a list of all properties and buyers in PropertyWhiz.
 
 Format: `list`
 
-### Editing a property : `edit`
+### Editing a property/buyer : `edit`
 
-Edits an existing property in PropertyWhiz.
+Edits an existing property/buyer in PropertyWhiz.
 
-Format: `edit INDEX [n/PROPERTY_NAME] [a/PROPERTY_ADDRESS] [$/PRICE_MIN] [s/SELLER_NAME] [p/SELLER_PHONE] [e/SELLER_EMAIL] [([t/TAG]… |​ [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]`
+Format: `edit (property INDEX PROPERTY_OPTIONS | buyer INDEX BUYER_OPTIONS) [([t/TAG]… |​ [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]`
 
-* Edits the property at the specified `INDEX`. The index refers to the index number shown in the displayed property list. The index **must be a positive integer** 1, 2, 3, …​
+Format for `PROPERTY_OPTIONS`: `[n/PROPERTY_NAME] [a/PROPERTY_ADDRESS] [$/PRICE_MIN] [s/SELLER_NAME] [p/SELLER_PHONE] [e/SELLER_EMAIL]`
+
+Format for `BUYER_OPTIONS`: `[n/BUYER_NAME] [p/BUYER_PHONE] [e/BUYER_EMAIL]`
+
+* Edits the property/buyer at the specified `INDEX`. The index refers to the index number shown in the displayed property/buyer list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the property will be removed i.e adding of tags is not cumulative.
@@ -111,21 +134,32 @@ Format: `edit INDEX [n/PROPERTY_NAME] [a/PROPERTY_ADDRESS] [$/PRICE_MIN] [s/SELL
 * You can remove all the property’s tags by typing `t/` without
     specifying any tags after it.
 
+#### Editing a property
+
+Format: `edit property INDEX [n/PROPERTY_NAME] [a/PROPERTY_ADDRESS] [$/PRICE_MIN] [s/SELLER_NAME] [p/SELLER_PHONE] [e/SELLER_EMAIL]`
+
 Examples:
-* `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st property to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Blk 298 Toa Payoh Central t/` Edits the name of the 2nd property to be `Blk 298 Toa Payoh Central` and clears all existing tags.
-* `edit 1 ta/4rm ta/near mrt` Edits the tag list of the 1st property by adding two tags called "4rm" and "near mrt" if they are not already present in the original tag list.
-* `edit 1 ta/4rm td/near mrt` Edits the tag list of the 1st property by adding a tag called "4rm" if it does not already exist in the original tag list and removing a tag called "near mrt" if it is present in the original tag list.
-* `edit 1 ta/near MRT` Edits the tag list of the 1st property by adding a tag called `near mrt` if it does not already exist in the original tag list. Notice that the case of `MRT` is lowered to `mrt`.
+* `edit property 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st property to be `91234567` and `johndoe@example.com` respectively.
+* `edit property 2 n/Blk 298 Toa Payoh Central t/` Edits the name of the 2nd property to be `Blk 298 Toa Payoh Central` and clears all existing tags.
+* `edit property 1 ta/4rm ta/near mrt` Edits the tag list of the 1st property by adding two tags called "4rm" and "near mrt" if they are not already present in the original tag list.
+* `edit property 1 ta/4rm td/near mrt` Edits the tag list of the 1st property by adding a tag called "4rm" if it does not already exist in the original tag list and removing a tag called "near mrt" if it is present in the original tag list.
+* `edit property 1 ta/near MRT` Edits the tag list of the 1st property by adding a tag called `near mrt` if it does not already exist in the original tag list. Notice that the case of `MRT` is lowered to `mrt`.
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 The following example is invalid:
 
-`edit 1 t/near school ta/4rm td/near mrt` You cannot reset the tag list of a property, in this case to ["near school"], *and* modify the resetted tag list by adding a tag called "4rm" and removing a tag called "near mrt". The rationale is that this may be potentially confusing.
+`edit property 1 t/near school ta/4rm td/near mrt` You cannot reset the tag list of a property, in this case to ["near school"], *and* modify the resetted tag list by adding a tag called "4rm" and removing a tag called "near mrt". The rationale is that this may be potentially confusing.
 
 </div>
 
+#### Editing a buyer
 
+Format: `edit buyer INDEX [n/BUYER_NAME] [p/BUYER_PHONE] [e/BUYER_EMAIL]`
+
+Examples: 
+* `edit buyer 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st buyer to be `91234567` and `johndoe@example.com` respectively.
+
+TODO: Find command adapted for property/buyers
 ### Locating properties by name: `find`
 
 Finds properties whose names contain any of the given keywords and whose tag list contain all of the specified tags.
@@ -146,19 +180,33 @@ Examples:
 * `find Jurong t/4rm t/near school` returns `jurong [4rm] [near school] [near mrt]` and `Jurong East [4rm] [near school] [near mrt]` but not `jurong [4rm] [near mrt]`
 * `find t/4rm t/near school` returns `jurong [4rm] [near school] [near mrt]` and `Clementi [4rm] [near school] [near mrt]`
 
-### Deleting a property : `delete`
+### Deleting a property/buyer : `delete`
 
-Deletes the specified property from PropertyWhiz.
+Deletes the specified property/buyer from PropertyWhiz.
 
-Format: `delete INDEX`
+Format: `delete (property|buyer) INDEX`
 
-* Deletes the property at the specified `INDEX`.
-* The index refers to the index number shown in the displayed property list.
+* Deletes the property/buyer at the specified `INDEX`.
+* The index refers to the index number shown in the displayed property/buyer list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd property in PropertyWhiz.
-* `find East Coast` followed by `delete 1` deletes the 1st property in the results of the `find` command.
+* `list` followed by `delete property 2` deletes the 2nd property in PropertyWhiz.
+* `find East Coast` followed by `delete property 1` deletes the 1st property in the results of the `find` command.
+
+### Sort properties/buyers: `sort`
+
+Sorts the properties / buyers in PropertyWhiz.
+
+Format: `sort (properties/buyers) (price/name) (asc/desc)`
+
+* Sort the properties in the current view based on properties price/name in `asc`(ascending) / `desc`(descending) order
+* Sort the buyers in the current view based on buyers price/name in `asc`(ascending) / `desc`(descending) order
+
+Examples:
+
+* `sort properties price asc` returns the property list sorted by price in ascending order
+* `sort buyers name desc` returns the buyer list sorted by name in descending order
 
 ### Import data from csv file : `import`
 
@@ -236,11 +284,12 @@ You may copy and paste multiple lines of commands into the command box. Press th
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add n/PROPERTY_NAME a/PROPERTY_ADDRESS s/SELLER_NAME p/SELLER_PHONE $/PRICE_MIN [t/TAG]…​` <br> e.g., `add n/Blk 123 a/123, Clementi Rd, #04-20, 1234665 s/James Lee sp/61234567 $/100000 t/HDB t/3rm`
+**Add** | `add (property n/PROPERTY_NAME a/PROPERTY_ADDRESS s/SELLER_NAME p/SELLER_PHONE e/SELLER_EMAIL $/PRICE_MIN \| buyer n/BUYER_NAME p/BUYER_PHONE e/BUYER_EMAIL $/PRICE_MAX) [t/TAG]…​` <br> e.g., `add property n/Blk 123 a/123, Clementi Rd, #04-20, 1234665 s/James Lee sp/61234567 $/100000 t/HDB t/3rm`
 **Clear** | `clear`
-**Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Edit** | `edit INDEX [n/PROPERTY_NAME] [a/PROPERTY_ADDRESS] [$/PRICE_MIN] [s/SELLER_NAME] [p/SELLER_PHONE] [e/SELLER_EMAIL] [([t/TAG]… \| [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]​`<br> e.g.,`edit 2 s/James Lee e/jameslee@example.com`
+**Delete** | `delete (property\|buyer) INDEX`<br> e.g., `delete property 3`
+**Edit** | `edit (property INDEX [n/PROPERTY_NAME] [a/PROPERTY_ADDRESS] [$/PRICE_MIN] [s/SELLER_NAME] [p/SELLER_PHONE] [e/SELLER_EMAIL] \| buyer INDEX [n/BUYER_NAME] [p/BUYER_PHONE] [e/BUYER_EMAIL]) [([t/TAG]… \|​ [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]​`<br> e.g.,`edit property 2 s/James Lee e/jameslee@example.com`
 **Find** | `find [KEYWORDS] [t/TAG_TO_MATCH]…`<br> e.g., `find James Jake`
 **List** | `list`
 **Exit** | `exit`
 **Help** | `help`
+**Sort** | `sort (properties \| buyers) (price \| name) (asc \| desc)`

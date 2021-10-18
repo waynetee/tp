@@ -18,6 +18,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import seedu.address.model.property.Buyer;
 
 /**
@@ -73,5 +77,21 @@ public class TypicalBuyers {
 
     public static List<Buyer> getTypicalBuyers() {
         return new ArrayList<>(Arrays.asList(B_ALICE, B_BENSON, B_CARL, B_DANIEL, B_ELLE, B_FIONA, B_GEORGE));
+    }
+
+    public static List<Buyer> getTypicalBuyersSortedNameAsc() {
+        return new ArrayList<>(Arrays.asList(B_ALICE, B_BENSON, B_CARL, B_DANIEL, B_ELLE, B_FIONA, B_GEORGE));
+    }
+
+    public static List<Buyer> getTypicalBuyersSortedNameDesc() {
+        return new ArrayList<>(Arrays.asList(B_GEORGE, B_FIONA, B_ELLE, B_DANIEL, B_CARL, B_BENSON, B_ALICE));
+    }
+
+    public static List<Buyer> getTypicalBuyersSortedPriceAsc() {
+        return new ArrayList<>(Arrays.asList(B_ALICE, B_BENSON, B_CARL, B_DANIEL, B_ELLE, B_FIONA, B_GEORGE));
+    }
+
+    public static List<Buyer> getTypicalBuyersSortedPriceDesc() {
+        return new ArrayList<>(Arrays.asList(B_GEORGE, B_FIONA, B_ELLE, B_DANIEL, B_CARL, B_BENSON, B_ALICE));
     }
 }

@@ -16,7 +16,10 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
+import seedu.address.logic.commands.CommandPreAction;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.ExportCommand;
+import seedu.address.logic.commands.UiAction;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -164,13 +167,17 @@ public class MainWindow extends UiPart<Stage> {
      * @param title Title of fileChooser dialog box
      * @return File object chosen by user
      */
-    public File getSaveCsvFile(String title) {
+    public File getCsvFile(String title, boolean isFileSave) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle(title);
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Csv Files", "*.csv"));
         fileChooser.setInitialDirectory(Paths.get(".").toFile());
-        return fileChooser.showSaveDialog(primaryStage);
+        if (isFileSave) {
+            return fileChooser.showSaveDialog(primaryStage);
+        } else {
+            return fileChooser.showOpenDialog(primaryStage);
+        }
     }
 
     /**
@@ -178,9 +185,10 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleExportProperties() {
-        File file = getSaveCsvFile("Save Properties to CSV");
-        if (file != null) {
-            logic.exportProperties(file);
+        try {
+            executeCommand(ExportCommand.COMMAND_WORD + " " + ExportCommand.PROPERTIES);
+        } catch (CommandException | ParseException e) {
+            logger.warning("handleExportProperties failed!");
         }
     }
 
@@ -189,9 +197,10 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleExportBuyers() {
-        File file = getSaveCsvFile("Save Buyers to CSV");
-        if (file != null) {
-            logic.exportBuyers(file);
+        try {
+            executeCommand(ExportCommand.COMMAND_WORD + " " + ExportCommand.BUYERS);
+        } catch (CommandException | ParseException e) {
+            logger.warning("handleExportBuyers failed!");
         }
     }
 
@@ -222,17 +231,28 @@ public class MainWindow extends UiPart<Stage> {
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
-            CommandResult commandResult = logic.execute(commandText);
+            CommandResult commandResult;
+            CommandPreAction commandPreAction = logic.getCommandPreAction(commandText);
+            if (commandPreAction.requiresFile()) {
+                File file = getCsvFile(commandPreAction.getFileDialogPrompt(), commandPreAction.isFileSave());
+                commandResult = logic.execute(commandText, file);
+            } else {
+                commandResult = logic.execute(commandText);
+            }
+            // Perform post command UI actions
+            UiAction uiAction = commandResult.getUiAction();
+            switch (uiAction) {
+            case HELP:
+                handleHelp();
+                break;
+            case EXIT:
+                handleExit();
+                break;
+            default:
+                break;
+            }
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-
-            if (commandResult.isShowHelp()) {
-                handleHelp();
-            }
-
-            if (commandResult.isExit()) {
-                handleExit();
-            }
 
             return commandResult;
         } catch (CommandException | ParseException e) {

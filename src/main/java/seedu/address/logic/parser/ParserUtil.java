@@ -2,18 +2,22 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.logic.parser.PreambleData.Actor;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.field.Actor;
 import seedu.address.model.field.Email;
 import seedu.address.model.field.Name;
 import seedu.address.model.field.Phone;
 import seedu.address.model.field.Price;
+import seedu.address.model.field.SortDirection;
+import seedu.address.model.field.SortType;
 import seedu.address.model.property.Address;
 import seedu.address.model.tag.Tag;
 
@@ -27,41 +31,10 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_PREAMBLE = "Incorrect number of arguments in preamble."
             + "The following fields are expected:"
             + "\n";
-    public static final String[] MESSAGE_PREAMBLE_FIELDS = {"property/buyer", "INDEX"};
 
-    public static final int ACTOR_POSITIONAL_INDEX = 0;
-    public static final int INDEX_POSITIONAL_INDEX = 1;
+    public static final List<String> PROPERTY_PATTERN = Arrays.asList("property", "properties");
 
-    /**
-     * Parses {@code preamble} into varying fields depending on the specified numFields.
-     * The fields are, in order of index,
-     * 0. Actor (property or buyer)
-     * 1. Index (used by edit etc.)
-     *
-     * @param preamble  Positional arguments in a command.
-     * @param numFields Number of positional arguments expected.
-     * @throws ParseException if the number of positional arguments is different from {@code numFields}
-     *                        or if subsequent parsing of each individual argument throws a ParseException.
-     */
-    public static PreambleData parsePreamble(String preamble, int numFields) throws ParseException {
-        String[] preambleArray = preamble.trim().split(" ");
-        if (preambleArray.length != numFields) {
-            String expectedFields = "";
-            for (int i = 0; i < numFields; i++) {
-                expectedFields += MESSAGE_PREAMBLE_FIELDS[i] + " ";
-            }
-            throw new ParseException(MESSAGE_INVALID_PREAMBLE + expectedFields);
-        }
-
-        Actor actor = numFields >= ACTOR_POSITIONAL_INDEX + 1
-                ? parseActor(preambleArray[ACTOR_POSITIONAL_INDEX])
-                : null;
-        Index index = numFields >= INDEX_POSITIONAL_INDEX + 1
-                ? parseIndex(preambleArray[INDEX_POSITIONAL_INDEX])
-                : null;
-
-        return new PreambleData(actor, index);
-    }
+    public static final List<String> BUYER_PATTERN = Arrays.asList("buyer", "buyers");
 
     /**
      * Parses {@code actor} into an {@code Preamble.Actor} using given string.
@@ -70,13 +43,31 @@ public class ParserUtil {
      * @throws ParseException if the given string does not match any of the actors.
      */
     public static Actor parseActor(String actor) throws ParseException {
-        if (actor.equals("property")) {
+        String trimmedActor = actor.trim();
+
+        if (PROPERTY_PATTERN.contains(trimmedActor)) {
             return Actor.PROPERTY;
-        } else if (actor.equals("buyer")) {
+        } else if (BUYER_PATTERN.contains(trimmedActor)) {
             return Actor.BUYER;
         } else {
             throw new ParseException(MESSAGE_INVALID_ACTOR);
         }
+    }
+
+    /**
+     * Parses {@code actor} into an {@code Preamble.Actor} using given string and index.
+     *
+     * @param actor String that represents an {@code actor}.
+     * @param index Integer that represents the position of the actor in the string separated by spaces.
+     *
+     * @throws ParseException if the given string does not match any of the actors.
+     */
+    public static Actor parseActor(String actor, int index) throws ParseException {
+        String[] splitInputs = actor.trim().split("\\s+");
+        if (index >= splitInputs.length) {
+            throw new ParseException(MESSAGE_INVALID_PREAMBLE);
+        }
+        return parseActor(splitInputs[index]);
     }
 
     /**
@@ -91,6 +82,20 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+    }
+
+    /**
+     * Parses string {@code oneBasedIndex} at the given index into an {@code Index} and returns it.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
+     */
+    public static Index parseIndex(String oneBasedIndex, int index) throws ParseException {
+        String[] splitInputs = oneBasedIndex.trim().split("\\s+");
+        if (index >= splitInputs.length) {
+            throw new ParseException(MESSAGE_INVALID_PREAMBLE);
+        }
+        return parseIndex(splitInputs[index]);
     }
 
     /**
@@ -193,5 +198,81 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String sortType} into a {@code SortType}
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code sortType} is invalid.
+     */
+    public static SortType parseSortType(String sortType) throws ParseException {
+        requireNonNull(sortType);
+        String trimmedSortType = sortType.trim();
+        if (trimmedSortType.equals("price")) {
+            return SortType.PRICE;
+        } else if (trimmedSortType.equals("name")) {
+            return SortType.NAME;
+        } else {
+            throw new ParseException(SortType.MESSAGE_CONSTRAINTS);
+        }
+    }
+
+    /**
+     * Parses a {@code String sortType} at the given index into a {@code SortType}
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code sortType} is invalid.
+     */
+    public static SortType parseSortType(String sortType, int index) throws ParseException {
+        String[] splitInputs = sortType.trim().split("\\s+");
+        if (index >= splitInputs.length) {
+            throw new ParseException(MESSAGE_INVALID_PREAMBLE);
+        }
+        return parseSortType(splitInputs[index]);
+    }
+
+    /**
+     * Parses a {@code String sortDir} into a {@code SortDir}
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code sortDir} is invalid.
+     */
+    public static SortDirection parseSortDir(String sortDir) throws ParseException {
+        requireNonNull(sortDir);
+        String trimmedSortType = sortDir.trim();
+        if (trimmedSortType.equals("asc")) {
+            return SortDirection.ASC;
+        } else if (trimmedSortType.equals("desc")) {
+            return SortDirection.DESC;
+        } else {
+            throw new ParseException(SortDirection.MESSAGE_CONSTRAINTS);
+        }
+    }
+
+    /**
+     * Parses a {@code String sortDir} at the given index into a {@code SortDir}
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code sortDir} is invalid.
+     */
+    public static SortDirection parseSortDir(String sortDir, int index) throws ParseException {
+        String[] splitInputs = sortDir.trim().split("\\s+");
+        if (index >= splitInputs.length) {
+            throw new ParseException(MESSAGE_INVALID_PREAMBLE);
+        }
+        return parseSortDir(splitInputs[index]);
+    }
+
+    /**
+     * Asserts that the correct number of args separated by spaces are present in {@code args}.
+     *
+     * @throws ParseException if the given number of args separated by spaces is not equal to {@code numOfPreamble}.
+     */
+    public static void assertPreambleArgsCount(String args, int numOfPreamble) throws ParseException {
+        String[] splitInputs = args.trim().split("\\s+");
+        if (numOfPreamble != splitInputs.length) {
+            throw new ParseException(MESSAGE_INVALID_PREAMBLE);
+        }
     }
 }

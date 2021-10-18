@@ -3,8 +3,11 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Objects;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.field.SortDirection;
+import seedu.address.model.field.SortType;
 import seedu.address.model.property.Buyer;
 import seedu.address.model.property.Match;
 import seedu.address.model.property.Property;
@@ -174,6 +177,20 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void removeMatch(Match key) {
         matches.remove(key);
     }
+    
+    /**
+     * Sorts properties by the given {@code sortType} and {@code sortDirection}.
+     */
+    public void sortProperties(SortType sortType, SortDirection sortDirection) {
+        properties.sort(sortType, sortDirection);
+    }
+
+    /**
+     * Sorts buyers  by the given {@code sortType} and {@code sortDirection}.
+     */
+    public void sortBuyers(SortType sortType, SortDirection sortDirection) {
+        buyers.sort(sortType, sortDirection);
+    }
 
     //// util methods
 
@@ -210,6 +227,6 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public int hashCode() {
-        return properties.hashCode();
+        return Objects.hash(buyers, properties);
     }
 }

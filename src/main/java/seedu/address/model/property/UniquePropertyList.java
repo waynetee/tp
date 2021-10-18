@@ -1,7 +1,10 @@
 package seedu.address.model.property;
 
+import java.util.Comparator;
 import java.util.List;
 
+import seedu.address.model.field.SortDirection;
+import seedu.address.model.field.SortType;
 import seedu.address.model.property.exceptions.DuplicateListableException;
 import seedu.address.model.property.exceptions.DuplicatePropertyException;
 import seedu.address.model.property.exceptions.ListableNotFoundException;
@@ -64,5 +67,28 @@ public class UniquePropertyList extends UniqueList<Property> {
         } catch (ListableNotFoundException e) {
             throw new PropertyNotFoundException();
         }
+    }
+
+    /**
+     * Sorts the list by the given {@code sortType} and {@code sortDirection}.
+     */
+    public void sort(SortType sortType, SortDirection sortDirection) {
+        Comparator<Property> comparator = null;
+
+        switch (sortType) {
+        case PRICE:
+            comparator = Property.getPriceComparator();
+            break;
+        case NAME:
+            comparator = Property.getNameComparator();
+            break;
+        default:
+            assert false;
+        }
+
+        if (sortDirection == SortDirection.DESC) {
+            comparator = comparator.reversed();
+        }
+        super.sortListables(comparator);
     }
 }

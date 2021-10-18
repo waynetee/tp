@@ -1,8 +1,10 @@
 package seedu.address.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PROPERTY_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.LogicManager.COMMANDTEXT_INVALID_MESSAGE;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
@@ -22,6 +24,8 @@ import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.ExportCommand;
+import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -90,6 +94,30 @@ public class LogicManagerTest {
         expectedModel.addProperty(expectedProperty);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void executeWithFile_invalidCommandFormat_throwsParseException() {
+        String invalidCommand = "";
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE);
+        assertThrows(ParseException.class, expectedMessage, () ->
+                logic.execute(invalidCommand, temporaryFolder.resolve("TempBuyers.csv").toFile()));
+    }
+
+    @Test
+    public void executeWithFile_invalidFileCommand_throwsAssertionError() {
+        String invalidCommand = "help";
+        assertThrows(AssertionError.class, COMMANDTEXT_INVALID_MESSAGE, () -> logic.execute(invalidCommand,
+                temporaryFolder.resolve("TempBuyers.csv").toFile()));
+    }
+
+    @Test
+    public void executeWithFile_validCommand_success() throws Exception {
+        String commandText = ExportCommand.COMMAND_WORD + " " + ExportCommand.BUYERS;
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        CommandResult result = logic.execute(commandText, temporaryFolder.resolve("TempBuyers.csv").toFile());
+        assertEquals(String.format(ExportCommand.MESSAGE_SUCCESS, ExportCommand.BUYERS), result.getFeedbackToUser());
+        assertEquals(expectedModel, model);
     }
 
     @Test

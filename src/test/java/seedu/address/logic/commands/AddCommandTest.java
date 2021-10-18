@@ -22,6 +22,8 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.field.SortDirection;
+import seedu.address.model.field.SortType;
 import seedu.address.model.property.Buyer;
 import seedu.address.model.property.Property;
 import seedu.address.testutil.PropertyBuilder;
@@ -158,6 +160,11 @@ public class AddCommandTest {
                                                         Comparator<Property> comparator) {
             throw new AssertionError("This method should not be called.");
         }
+        
+        @Override
+        public void sortProperties(SortType sortType, SortDirection sortDirection) {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public boolean hasBuyer(Buyer buyer) {
@@ -191,6 +198,11 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredAndSortedBuyerList(Predicate<Buyer> predicate, Comparator<Buyer> comparator) {
+            throw new AssertionError("This method should not be called.");
+        }
+        
+        @Override
+        public void sortBuyers(SortType sortType, SortDirection sortDirection) {
             throw new AssertionError("This method should not be called.");
         }
     }
