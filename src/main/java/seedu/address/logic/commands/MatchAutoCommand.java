@@ -35,6 +35,7 @@ public class MatchAutoCommand extends MatchCommand {
     public CommandResult execute(Model model) throws CommandException {
         initialise(model);
         runMatching();
+        sortMatches();
         updateModel(model);
         return getCommandResult();
     }
@@ -63,6 +64,22 @@ public class MatchAutoCommand extends MatchCommand {
                 confirmMatch(match);
             }
         }
+        matches.sort(Comparator.comparing(Match::getMatchScore).thenComparing(m -> m.getBuyer().getMaxPrice().value));
+    }
+
+    /**
+     * Sorts matches by decreasing desirability (match score and price difference).
+     */
+    private void sortMatches() {
+        // Comparator comparing budget - price
+        Comparator<Match> priceDiffComparator = Comparator.comparing(
+                m -> m.getBuyer().getMaxPrice().value - m.getProperty().getPrice().value);
+
+        // Comparing by increasing match score then budget - price
+        Comparator<Match> desirabilityComparator =
+                Comparator.comparing(Match::getMatchScore).thenComparing(priceDiffComparator);
+
+        matches.sort(desirabilityComparator.reversed());
     }
 
     private void updateModel(Model model) {
