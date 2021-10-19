@@ -6,8 +6,6 @@ import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_ACTOR;
 
 import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.commands.StatCommand;
-import seedu.address.logic.commands.buyer.SortBuyerCommand;
-import seedu.address.logic.commands.property.SortPropertyCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.field.Actor;
 
