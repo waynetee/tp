@@ -10,6 +10,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -39,6 +40,7 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private PropertyListPanel propertyListPanel;
     private BuyerListPanel buyerListPanel;
+    private MatchListPanel matchListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -49,10 +51,19 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
+    private HBox defaultView;
+
+    @FXML
+    private HBox matchAutoView;
+
+    @FXML
     private StackPane propertyListPanelPlaceholder;
 
     @FXML
     private StackPane buyerListPanelPlaceholder;
+
+    @FXML
+    private StackPane matchListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -126,6 +137,9 @@ public class MainWindow extends UiPart<Stage> {
 
         buyerListPanel = new BuyerListPanel(logic.getFilteredBuyerList());
         buyerListPanelPlaceholder.getChildren().add(buyerListPanel.getRoot());
+
+        matchListPanel = new MatchListPanel(logic.getMatchList());
+        matchListPanelPlaceholder.getChildren().add(matchListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -240,6 +254,16 @@ public class MainWindow extends UiPart<Stage> {
             break;
         case EXIT:
             handleExit();
+            break;
+        case SHOW_MATCHES:
+            defaultView.setVisible(false);
+            defaultView.setManaged(false);
+            matchAutoView.setVisible(true);
+            matchAutoView.setManaged(true);
+            break;
+        case SHOW_DEFAULT:
+            defaultView.setVisible(true);
+            defaultView.setManaged(true);
             break;
         default:
             break;
