@@ -2,9 +2,10 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import org.jfree.chart.fx.ChartViewer;
+
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.jfree.chart.fx.ChartViewer;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.stats.Stat;
 
@@ -12,9 +13,10 @@ import seedu.address.model.stats.Stat;
  * Controller for the statistics page.
  */
 public class StatWindow extends UiPart<Stage> {
-    private final Stat stat;
     private static final Logger logger = LogsCenter.getLogger(StatWindow.class);
     private static final String FXML = "StatWindow.fxml";
+
+    private final Stat stat;
 
     /**
      * Creates a new StatWindow.
@@ -24,11 +26,6 @@ public class StatWindow extends UiPart<Stage> {
     public StatWindow(Stage root, Stat stat) {
         super(FXML, root);
         this.stat = stat;
-        ChartViewer viewer = new ChartViewer(stat.create());
-        root.setScene(new Scene(viewer));
-        root.setTitle("Prices");
-        root.setWidth(600);
-        root.setHeight(480);
     }
 
     /**
@@ -59,6 +56,11 @@ public class StatWindow extends UiPart<Stage> {
      */
     public void show() {
         logger.fine("Showing statistics.");
+        ChartViewer viewer = new ChartViewer(stat.create());
+        getRoot().setScene(new Scene(viewer));
+        getRoot().setTitle("Prices");
+        getRoot().setWidth(600);
+        getRoot().setHeight(480);
         getRoot().show();
         getRoot().centerOnScreen();
     }

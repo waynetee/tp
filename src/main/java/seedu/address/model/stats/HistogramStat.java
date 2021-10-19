@@ -1,9 +1,10 @@
 package seedu.address.model.stats;
 
-import javafx.collections.ObservableList;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.statistics.HistogramDataset;
+
+import javafx.collections.ObservableList;
 import seedu.address.model.property.Buyer;
 import seedu.address.model.property.Property;
 
@@ -17,8 +18,8 @@ public class HistogramStat implements Stat {
 
     /**
      * Constructor for price histograms.
-     * @param buyerList
-     * @param propertyList
+     * @param buyerList Currently viewable list of buyers.
+     * @param propertyList Currently viewable list of properties.
      */
     public HistogramStat(ObservableList<Buyer> buyerList, ObservableList<Property> propertyList,
                          boolean showBuyer, boolean showProperty, String titleArgs) {
@@ -29,9 +30,17 @@ public class HistogramStat implements Stat {
         this.titleArgs = titleArgs;
     }
 
+    /**
+     * Creates a histogram to displayed as a popup.
+     * Shows either buyers, properties or both.
+     *
+     * @return price histogram.
+     */
     public JFreeChart create() {
-        double[] buyerPrices = buyerList.stream().mapToDouble(buyer -> (double) buyer.getMaxPrice().value).toArray();
-        double[] propertyPrices = propertyList.stream().mapToDouble(property -> (double) property.getPrice().value).toArray();
+        double[] buyerPrices = buyerList.stream()
+                .mapToDouble(buyer -> (double) buyer.getMaxPrice().value).toArray();
+        double[] propertyPrices = propertyList.stream()
+                .mapToDouble(property -> (double) property.getPrice().value).toArray();
 
         HistogramDataset dataset = new HistogramDataset();
         if (showBuyer) {
