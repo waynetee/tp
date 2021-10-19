@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_ACTOR;
 
-import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.commands.StatCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.field.Actor;
@@ -21,14 +20,17 @@ public class StatCommandParser implements Parser<StatCommand> {
             ParserUtil.assertPreambleArgsCount(userInput, NUM_OF_PREAMBLE_ARGS);
             actor = ParserUtil.parseActor(userInput, ACTOR_POSITIONAL_INDEX);
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE), pe);
+            if (userInput.equals(new String())) {
+                return new StatCommand(StatCommand.ALL_WORD);
+            }
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatCommand.MESSAGE_USAGE), pe);
         }
 
         switch (actor) {
         case PROPERTY:
-            return new StatCommand("property");
+            return new StatCommand(StatCommand.PROPERTY_WORD);
         case BUYER:
-            return new StatCommand("buyer");
+            return new StatCommand(StatCommand.BUYER_WORD);
         default:
             throw new ParseException(MESSAGE_INVALID_ACTOR);
         }

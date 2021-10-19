@@ -162,6 +162,15 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Opens the statistics window.
+     * @param statWindow Statistics window with choice of chart.
+     */
+    @FXML
+    public void handleStat(StatWindow statWindow) {
+
+    }
+
+    /**
      * Gets user to select a destination for saving csv.
      *
      * @param title Title of fileChooser dialog box
