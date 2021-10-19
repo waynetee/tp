@@ -24,13 +24,6 @@ import static seedu.address.logic.commands.CommandTestUtil.SELLER_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.SELLER_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_SELLER_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
@@ -39,11 +32,9 @@ import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_PREAMBLE;
 import static seedu.address.testutil.TypicalProperties.P_AMY;
 import static seedu.address.testutil.TypicalProperties.P_BOB;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.buyer.AddBuyerCommand;
 import seedu.address.logic.commands.property.AddPropertyCommand;
 import seedu.address.model.field.Email;

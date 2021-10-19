@@ -5,7 +5,6 @@ import java.io.IOException;
 
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ExportCommand;
-import seedu.address.logic.commands.buyer.ExportBuyersCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.storage.Storage;
