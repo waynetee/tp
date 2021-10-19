@@ -159,6 +159,10 @@ public class ModelManager implements Model {
         addressBook.sortBuyers(sortType, sortDirection);
     }
 
+    @Override
+    public ObservableList<Match> getMatchList() {
+        return addressBook.getMatchList();
+    }
 
     @Override
     public void setMatchList(List<Match> matches) {

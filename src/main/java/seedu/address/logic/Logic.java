@@ -11,6 +11,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.property.Buyer;
+import seedu.address.model.property.Match;
 import seedu.address.model.property.Property;
 
 /**
@@ -62,6 +63,11 @@ public interface Logic {
      * Returns an unmodifiable view of the filtered buyer list
      */
     ObservableList<Buyer> getFilteredBuyerList();
+
+    /**
+     * Returns an unmodifiable view of the match list
+     */
+    ObservableList<Match> getMatchList();
 
     /**
      * Returns the user prefs' address book file path.

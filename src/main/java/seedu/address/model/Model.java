@@ -163,7 +163,13 @@ public interface Model {
     void sortBuyers(SortType sortType, SortDirection sortDirection);
 
     /**
+     * Returns an unmodifiable view of the match list
+     */
+    ObservableList<Match> getMatchList();
+
+    /**
      * Updates the list of Matches.
      */
     void setMatchList(List<Match> matches);
+
 }
