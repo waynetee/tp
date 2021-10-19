@@ -9,7 +9,7 @@ import seedu.address.model.Model;
 /**
  * Lists all properties in the address book to the user.
  */
-public class ListCommand extends Command {
+public class ListCommand extends SimpleCommand {
 
     public static final String COMMAND_WORD = "list";
 

@@ -15,6 +15,7 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_BUYER;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_PROPERTY;
 import static seedu.address.logic.commands.CommandTestUtil.PRICE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.SELLER_DESC_AMY;
@@ -36,14 +37,16 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PROPERTY;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PROPERTY;
-import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PROPERTY;
+import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_PREAMBLE;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
+import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.buyer.EditBuyerCommand;
 import seedu.address.logic.commands.property.EditPropertyCommand;
 import seedu.address.model.field.Email;
 import seedu.address.model.field.Name;
@@ -71,31 +74,43 @@ public class EditCommandParserTest {
     @Test
     public void parse_missingParts_failure() {
         // no index specified
-        assertParseFailure(parser, VALID_NAME_AMY, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, PREAMBLE_PROPERTY, String.format(MESSAGE_INVALID_PREAMBLE, PREAMBLE_PROPERTY,
+                EditCommand.EXPECTED_PREAMBLE));
 
-        // no field specified
-        assertParseFailure(parser, PREAMBLE_PROPERTY + " " + "1", EditCommand.MESSAGE_NOT_EDITED);
+        // no actor specified
+        assertParseFailure(parser, "1", String.format(MESSAGE_INVALID_PREAMBLE, "1",
+                EditCommand.EXPECTED_PREAMBLE));
 
-        // no index and no field specified
+        // no property field specified
+        assertParseFailure(parser, PREAMBLE_PROPERTY + " " + "1", EditCommand.MESSAGE_NOT_EDITED
+                + "\n" + EditPropertyCommand.MESSAGE_USAGE);
+
+        // no buyer field specified
+        assertParseFailure(parser, PREAMBLE_BUYER + " " + "1", EditCommand.MESSAGE_NOT_EDITED
+                + "\n" + EditBuyerCommand.MESSAGE_USAGE);
+
+        // empty command
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
     }
 
     @Test
     public void parse_invalidPreamble_failure() {
         // negative index
-        assertParseFailure(parser, PREAMBLE_PROPERTY + " " + "-5"
-                + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, PREAMBLE_PROPERTY + " -5" + NAME_DESC_AMY,
+                String.format(MESSAGE_INVALID_PREAMBLE, PREAMBLE_PROPERTY + " -5", EditCommand.EXPECTED_PREAMBLE));
 
         // zero index
-        assertParseFailure(parser, PREAMBLE_PROPERTY + " " + "0"
-                + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, PREAMBLE_PROPERTY + " 0" + NAME_DESC_AMY,
+                String.format(MESSAGE_INVALID_PREAMBLE, PREAMBLE_PROPERTY + " 0", EditCommand.EXPECTED_PREAMBLE));
 
         // invalid number of arguments being parsed as preamble
-        assertParseFailure(parser, PREAMBLE_PROPERTY + " " + "1 some random string",
-                MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, PREAMBLE_PROPERTY + " 1 some random string",
+                String.format(MESSAGE_INVALID_PREAMBLE, PREAMBLE_PROPERTY + " 1 some random string",
+                        EditCommand.EXPECTED_PREAMBLE));
 
-        // missing actor in preamble
-        assertParseFailure(parser, "1 i/ string", MESSAGE_INVALID_FORMAT);
+        // invalid actor in preamble
+        assertParseFailure(parser, "buy", String.format(MESSAGE_INVALID_PREAMBLE, "buy",
+                EditCommand.EXPECTED_PREAMBLE));
     }
 
     @Test
@@ -140,8 +155,8 @@ public class EditCommandParserTest {
     }
 
     @Test
-    public void parse_allFieldsSpecified_success() {
-        Index targetIndex = INDEX_SECOND_PROPERTY;
+    public void parsePropertyCommand_allFieldsSpecified_success() {
+        Index targetIndex = INDEX_SECOND;
         String userInput = PREAMBLE_PROPERTY + " " + targetIndex.getOneBased()
                 + PHONE_DESC_BOB + TAG_DESC_HUSBAND
                 + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + NAME_DESC_AMY
@@ -159,7 +174,7 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_someFieldsSpecified_success() {
-        Index targetIndex = INDEX_FIRST_PROPERTY;
+        Index targetIndex = INDEX_FIRST;
         String userInput = PREAMBLE_PROPERTY + " " + targetIndex.getOneBased()
                 + PHONE_DESC_BOB + EMAIL_DESC_AMY;
 
@@ -174,7 +189,7 @@ public class EditCommandParserTest {
     @Test
     public void parse_oneFieldSpecified_success() {
         // name
-        Index targetIndex = INDEX_THIRD_PROPERTY;
+        Index targetIndex = INDEX_THIRD;
         String userInput = PREAMBLE_PROPERTY + " " + targetIndex.getOneBased() + NAME_DESC_AMY;
         EditPropertyCommand.EditPropertyDescriptor descriptor = new EditPropertyDescriptorBuilder()
                 .withName(VALID_NAME_AMY).build();
@@ -220,7 +235,7 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
-        Index targetIndex = INDEX_FIRST_PROPERTY;
+        Index targetIndex = INDEX_FIRST;
         String userInput = PREAMBLE_PROPERTY + " " + targetIndex.getOneBased()
                 + PHONE_DESC_AMY + ADDRESS_DESC_AMY + EMAIL_DESC_AMY
                 + TAG_DESC_FRIEND + PHONE_DESC_AMY + ADDRESS_DESC_AMY + EMAIL_DESC_AMY + TAG_DESC_FRIEND
@@ -238,7 +253,7 @@ public class EditCommandParserTest {
     @Test
     public void parse_invalidValueFollowedByValidValue_success() {
         // no other valid values specified
-        Index targetIndex = INDEX_FIRST_PROPERTY;
+        Index targetIndex = INDEX_FIRST;
         String userInput = PREAMBLE_PROPERTY + " " + targetIndex.getOneBased()
                 + INVALID_PHONE_DESC + PHONE_DESC_BOB;
         EditPropertyCommand.EditPropertyDescriptor descriptor = new EditPropertyDescriptorBuilder()
@@ -258,7 +273,7 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_resetTags_success() {
-        Index targetIndex = INDEX_THIRD_PROPERTY;
+        Index targetIndex = INDEX_THIRD;
         String userInput = PREAMBLE_PROPERTY + " " + targetIndex.getOneBased() + TAG_EMPTY;
 
         EditPropertyCommand.EditPropertyDescriptor descriptor = new EditPropertyDescriptorBuilder().withTags().build();
@@ -269,7 +284,7 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_addAndDeleteTags_success() {
-        Index targetIndex = INDEX_THIRD_PROPERTY;
+        Index targetIndex = INDEX_THIRD;
         String userInput = PREAMBLE_PROPERTY + " " + targetIndex.getOneBased()
                 + TAG_ADD_CONDO + TAG_DELETE_NEAR_SCHOOL;
 
@@ -282,7 +297,7 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_addAndDeleteSameTag_failure() {
-        Index targetIndex = INDEX_THIRD_PROPERTY;
+        Index targetIndex = INDEX_THIRD;
         String userInput = PREAMBLE_PROPERTY + " " + targetIndex.getOneBased()
                 + TAG_ADD_CONDO + TAG_DELETE_CONDO;
 
@@ -291,7 +306,7 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_resetAndModifyTagsSimultaneously_failure() {
-        Index targetIndex = INDEX_THIRD_PROPERTY;
+        Index targetIndex = INDEX_THIRD;
         String userInput = PREAMBLE_PROPERTY + " " + targetIndex.getOneBased()
                 + TAG_EMPTY + TAG_DELETE_CONDO;
 

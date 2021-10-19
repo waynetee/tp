@@ -6,7 +6,7 @@ import seedu.address.model.field.SortType;
 /**
  * Sorts either the property or buyer list in the address book.
  */
-public abstract class SortCommand extends Command {
+public abstract class SortCommand extends SimpleCommand {
     public static final String COMMAND_WORD = "sort";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sort properties or buyers by price or name. \n"

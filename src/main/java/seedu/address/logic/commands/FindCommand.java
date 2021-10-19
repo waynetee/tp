@@ -17,7 +17,7 @@ import seedu.address.model.property.Property;
  * Keyword matching is case-insensitive.
  * Tag matching is case-insensitive.
  */
-public class FindCommand extends Command {
+public class FindCommand extends SimpleCommand {
 
     public static final String COMMAND_WORD = "find";
 

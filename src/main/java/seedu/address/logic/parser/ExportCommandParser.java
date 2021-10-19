@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_ACTOR;
 
 import seedu.address.logic.commands.ExportCommand;
@@ -11,7 +12,7 @@ import seedu.address.model.field.Actor;
 /**
  * Parses input arguments and creates a new ExportCommand object
  */
-public class ExportCommandParser {
+public class ExportCommandParser implements Parser<ExportCommand> {
     private static final int ACTOR_POSITIONAL_INDEX = 0;
     private static final int NUM_OF_PREAMBLE_ARGUMENTS = 1;
 
@@ -23,8 +24,14 @@ public class ExportCommandParser {
      */
     public ExportCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args);
-        ParserUtil.assertPreambleArgsCount(argMultimap.getPreamble(), NUM_OF_PREAMBLE_ARGUMENTS);
-        Actor actor = ParserUtil.parseActor(args, ACTOR_POSITIONAL_INDEX);
+        Actor actor;
+
+        try {
+            ParserUtil.assertPreambleArgsCount(argMultimap.getPreamble(), NUM_OF_PREAMBLE_ARGUMENTS);
+            actor = ParserUtil.parseActor(args, ACTOR_POSITIONAL_INDEX);
+        } catch (ParseException pe) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE), pe);
+        }
         switch (actor) {
         case PROPERTY:
             return new ExportPropertiesCommand();
