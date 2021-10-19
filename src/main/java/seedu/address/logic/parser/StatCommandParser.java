@@ -19,6 +19,7 @@ public class StatCommandParser implements Parser<StatCommand> {
     public StatCommand parse(String userInput) throws ParseException {
         requireNonNull(userInput);
         Actor actor;
+        userInput = userInput.trim();
         try {
             ParserUtil.assertPreambleArgsCount(userInput, NUM_OF_PREAMBLE_ARGS);
             actor = ParserUtil.parseActor(userInput, ACTOR_POSITIONAL_INDEX);
