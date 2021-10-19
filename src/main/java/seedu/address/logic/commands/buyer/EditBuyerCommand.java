@@ -35,7 +35,7 @@ public class EditBuyerCommand extends EditCommand {
     public static final String MESSAGE_EDIT_BUYER_SUCCESS = "Edited Buyer: %1$s";
     public static final String MESSAGE_DUPLICATE_BUYER = "This buyer already exists in the address book.";
     public static final String MESSAGE_USAGE = COMMAND_WORD + " buyer: Edits the details of the buyer identified "
-            + "by the index number used in the displayed property/buyer list. "
+            + "by the index number used in the displayed buyer list. "
             + "Existing values will be overwritten by the input values.\n"
             + "with the exception of adding tags. "
             + "Added tags will be appended to the current tags. \n"

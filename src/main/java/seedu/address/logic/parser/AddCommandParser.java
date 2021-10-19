@@ -47,12 +47,16 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         Actor actor;
 
+        String preamble = argMultimap.getPreamble();
+        if (preamble.isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        }
         try {
-            ParserUtil.assertPreambleArgsCount(argMultimap.getPreamble(), NUM_OF_PREAMBLE_ARGS);
-            actor = ParserUtil.parseActor(argMultimap.getPreamble(), ACTOR_POSITIONAL_INDEX);
-        } catch (ParseException e) {
-            throw new ParseException(String.format(MESSAGE_INVALID_PREAMBLE, argMultimap.getPreamble(),
-                    AddCommand.EXPECTED_PREAMBLE));
+            ParserUtil.assertPreambleArgsCount(preamble, NUM_OF_PREAMBLE_ARGS);
+            actor = ParserUtil.parseActor(preamble, ACTOR_POSITIONAL_INDEX);
+        } catch (ParseException pe) {
+            throw new ParseException(String.format(MESSAGE_INVALID_PREAMBLE, preamble,
+                    AddCommand.EXPECTED_PREAMBLE), pe);
         }
 
         switch (actor) {

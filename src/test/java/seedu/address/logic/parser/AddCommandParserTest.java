@@ -47,17 +47,18 @@ import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PropertyBuilder;
 
 public class AddCommandParserTest {
+    private static final String MESSAGE_INVALID_FORMAT =
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
+
     private AddCommandParser parser = new AddCommandParser();
 
     @Test
     public void parse_missingParts_failure() {
         // no actor specified
-        assertParseFailure(parser, NAME_DESC_AMY, String.format(MESSAGE_INVALID_PREAMBLE, "",
-                AddCommand.EXPECTED_PREAMBLE));
+        assertParseFailure(parser, NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
 
         // empty command
-        assertParseFailure(parser, "", String.format(MESSAGE_INVALID_PREAMBLE, "",
-                AddCommand.EXPECTED_PREAMBLE));
+        assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
     }
 
     @Test

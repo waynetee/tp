@@ -90,8 +90,7 @@ public class EditCommandParserTest {
                 + "\n" + EditBuyerCommand.MESSAGE_USAGE);
 
         // empty command
-        assertParseFailure(parser, "", String.format(MESSAGE_INVALID_PREAMBLE, "",
-                EditCommand.EXPECTED_PREAMBLE));
+        assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
     }
 
     @Test

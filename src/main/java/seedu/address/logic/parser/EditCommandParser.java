@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE_TAG;
@@ -47,14 +48,18 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         Actor actor;
         Index index;
+
+        String preamble = argMultimap.getPreamble();
+        if (preamble.isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
         try {
-            String preamble = argMultimap.getPreamble();
             ParserUtil.assertPreambleArgsCount(preamble, NUM_OF_PREAMBLE_ARGS);
             actor = ParserUtil.parseActor(preamble, ACTOR_POSITIONAL_INDEX);
             index = ParserUtil.parseIndex(preamble, INDEX_POSITIONAL_INDEX);
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_PREAMBLE, argMultimap.getPreamble(),
-                    EditCommand.EXPECTED_PREAMBLE));
+            throw new ParseException(String.format(MESSAGE_INVALID_PREAMBLE, preamble,
+                    EditCommand.EXPECTED_PREAMBLE), pe);
         }
 
         switch (actor) {
