@@ -3,6 +3,9 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
+import java.util.Optional;
+
+import seedu.address.ui.UiElement;
 
 /**
  * Represents the result of a command execution.
@@ -14,12 +17,24 @@ public class CommandResult {
     /** UiAction to be completed after execution */
     private final UiAction uiAction;
 
+    private final Optional<UiElement> uiElement;
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields.
+     */
+    public CommandResult(String feedbackToUser, UiAction uiAction, UiElement uiElement) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.uiAction = uiAction;
+        this.uiElement = uiElement == null ? Optional.empty() : Optional.of(uiElement);
+    }
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
     public CommandResult(String feedbackToUser, UiAction uiAction) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.uiAction = uiAction;
+        this.uiElement = Optional.empty();
     }
 
     /**
@@ -36,6 +51,10 @@ public class CommandResult {
 
     public UiAction getUiAction() {
         return uiAction;
+    }
+
+    public Optional<UiElement> getUiElement() {
+        return uiElement;
     }
 
     @Override

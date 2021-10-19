@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.io.File;
 import java.nio.file.Paths;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -22,6 +23,7 @@ import seedu.address.logic.commands.ExportCommand;
 import seedu.address.logic.commands.UiAction;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.stats.Stat;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -167,7 +169,11 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleStat(StatWindow statWindow) {
-
+        if (!statWindow.isShowing()) {
+            statWindow.show();
+        } else {
+            statWindow.focus();
+        }
     }
 
     /**
@@ -251,6 +257,11 @@ public class MainWindow extends UiPart<Stage> {
             // Perform post command UI actions
             UiAction uiAction = commandResult.getUiAction();
             switch (uiAction) {
+            case STAT:
+                Optional<UiElement> stat = commandResult.getUiElement();
+                assert !stat.isEmpty() && stat.get() instanceof Stat;
+                handleStat(new StatWindow((Stat) stat.get()));
+                break;
             case HELP:
                 handleHelp();
                 break;

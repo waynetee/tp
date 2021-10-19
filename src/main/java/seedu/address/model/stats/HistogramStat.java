@@ -7,7 +7,7 @@ import org.jfree.data.statistics.HistogramDataset;
 import seedu.address.model.property.Buyer;
 import seedu.address.model.property.Property;
 
-public class HistogramStat implements Stat{
+public class HistogramStat implements Stat {
 
     private final ObservableList<Buyer> buyerList;
     private final ObservableList<Property> propertyList;
@@ -17,7 +17,7 @@ public class HistogramStat implements Stat{
         this.propertyList = propertyList;
     }
 
-    public JFreeChart createChart() {
+    public JFreeChart create() {
         double[] buyerPrices = buyerList.stream().mapToDouble(buyer -> (double) buyer.getMaxPrice().value).toArray();
         double[] propertyPrices = propertyList.stream().mapToDouble(property -> (double) property.getPrice().value).toArray();
 
