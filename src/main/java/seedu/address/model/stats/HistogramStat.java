@@ -9,6 +9,7 @@ import seedu.address.model.property.Buyer;
 import seedu.address.model.property.Property;
 
 public class HistogramStat implements Stat {
+    private static final int BIN_COUNT = 20;
 
     private final ObservableList<Buyer> buyerList;
     private final ObservableList<Property> propertyList;
@@ -44,11 +45,11 @@ public class HistogramStat implements Stat {
 
         HistogramDataset dataset = new HistogramDataset();
         if (showBuyer) {
-            dataset.addSeries("buyers", buyerPrices, 20);
+            dataset.addSeries("buyers", buyerPrices, BIN_COUNT);
         }
 
         if (showProperty) {
-            dataset.addSeries("properties", propertyPrices, 20);
+            dataset.addSeries("properties", propertyPrices, BIN_COUNT);
         }
 
         JFreeChart histogram = ChartFactory.createHistogram("Prices of " + titleArgs,

@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import org.jfree.chart.JFreeChart;
 import org.jfree.chart.fx.ChartViewer;
 
 import javafx.scene.Scene;
@@ -56,7 +57,8 @@ public class StatWindow extends UiPart<Stage> {
      */
     public void show() {
         logger.fine("Showing statistics.");
-        ChartViewer viewer = new ChartViewer(stat.create());
+        JFreeChart chart = stat.create();
+        ChartViewer viewer = new ChartViewer(chart);
         getRoot().setScene(new Scene(viewer));
         getRoot().setTitle("Prices");
         getRoot().setWidth(600);
