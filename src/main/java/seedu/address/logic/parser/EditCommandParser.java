@@ -22,16 +22,17 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.buyer.EditBuyerCommand;
 import seedu.address.logic.commands.property.EditPropertyCommand;
-import seedu.address.logic.parser.PreambleData.Actor;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.field.Actor;
 import seedu.address.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new EditCommand object
  */
 public class EditCommandParser implements Parser<EditCommand> {
-    private static final int NUMBER_OF_PREAMBLE_ARGUMENTS = 2;
-
+    private static final int ACTOR_POSITIONAL_INDEX = 0;
+    private static final int INDEX_POSITIONAL_INDEX = 1;
+    private static final int NUM_OF_PREAMBLE_ARGS = 2;
 
     /**
      * Parses the given {@code String} of arguments in the context of the EditCommand
@@ -47,10 +48,10 @@ public class EditCommandParser implements Parser<EditCommand> {
         Actor actor;
         Index index;
         try {
-            PreambleData preambleData = ParserUtil.parsePreamble(argMultimap.getPreamble(),
-                    NUMBER_OF_PREAMBLE_ARGUMENTS);
-            actor = preambleData.getActor();
-            index = preambleData.getIndex();
+            String preamble = argMultimap.getPreamble();
+            ParserUtil.assertPreambleArgsCount(preamble, NUM_OF_PREAMBLE_ARGS);
+            actor = ParserUtil.parseActor(preamble, ACTOR_POSITIONAL_INDEX);
+            index = ParserUtil.parseIndex(preamble, INDEX_POSITIONAL_INDEX);
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
         }

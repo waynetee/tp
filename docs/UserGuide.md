@@ -106,6 +106,12 @@ Format:
 A property/buyer can have any number of tags (including 0). All tags will be converted to lowercase.
 </div>
 
+#### Adding a property
+
+Adds a property to PropertyWhiz
+
+Format: `add property n/PROPERTY_NAME a/PROPERTY_ADDRESS s/SELLER_NAME p/SELLER_PHONE e/SELLER_EMAIL $/PRICE_MIN`
+
 Examples:
 * `add property n/Blk 123 a/123, Clementi Rd, #04-20, 1234665 s/James Lee p/61234567 e/james@email.com $/100000 t/hdb t/3rm`
 * `add buyer n/Sam p/91234567 e/sam@email.com t/hdb t/3rm`
@@ -124,7 +130,6 @@ Format: `list`
 
 Edits an existing property/buyer in PropertyWhiz.
 
-
 Format:
 * Editing a property: `edit property INDEX [n/PROPERTY_NAME] [a/PROPERTY_ADDRESS] [$/PRICE_MIN] [s/SELLER_NAME] [p/SELLER_PHONE] [e/SELLER_EMAIL] [([t/TAG]… | [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]`
 * Editing a buyer: `edit buyer INDEX [n/BUYER_NAME] [p/BUYER_PHONE] [e/BUYER_EMAIL] [([t/TAG]… | [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]`
@@ -136,11 +141,14 @@ Format:
 * Like `add`, tags added via `edit` will be automatically converted to lower case.
 * You can remove all the property/buyer’s tags by typing `t/` without specifying any tags after it.
 
+#### Editing a property
+
+Format: `edit property INDEX [n/PROPERTY_NAME] [a/PROPERTY_ADDRESS] [$/PRICE_MIN] [s/SELLER_NAME] [p/SELLER_PHONE] [e/SELLER_EMAIL]`
+
 Examples:
 * `edit property 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st property to be `91234567` and `johndoe@example.com` respectively.
 * `edit property 2 n/Blk 298 Toa Payoh Central t/` Edits the name of the 2nd property to be `Blk 298 Toa Payoh Central` and clears all existing tags.
 * `edit buyer 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st buyer to be `91234567` and `johndoe@example.com` respectively.
-  Tagging:
 * `edit property 1 ta/4rm ta/near mrt` Edits the tag list of the 1st property by adding two tags called "4rm" and "near mrt" if they are not already present in the original tag list.
 * `edit property 1 ta/4rm td/near mrt` Edits the tag list of the 1st property by adding a tag called "4rm" if it does not already exist in the original tag list and removing a tag called "near mrt" if it is present in the original tag list.
 * `edit property 1 ta/near MRT` Edits the tag list of the 1st property by adding a tag called `near mrt` if it does not already exist in the original tag list. Notice that the case of `MRT` is lowered to `mrt`.
@@ -152,6 +160,7 @@ The following example is invalid:
 
 </div>
 
+#### Editing a buyer
 
 ### [IN PROGRESS] View price histogram of listed properties and/or buyers : `stat`
 
@@ -284,12 +293,11 @@ You may copy and paste multiple lines of commands into the command box. Press th
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add (property n/PROPERTY_NAME a/PROPERTY_ADDRESS s/SELLER_NAME p/SELLER_PHONE e/SELLER_EMAIL $/PRICE_MIN \| buyer n/BUYER_NAME p/BUYER_PHONE e/BUYER_EMAIL $/PRICE_MAX) [t/TAG]…` <br> e.g., `add property n/Blk 123 a/123, Clementi Rd, #04-20, 1234665 s/James Lee sp/61234567 $/100000 t/HDB t/3rm`
-**Add** | **Property** <br>`add property n/PROPERTY_NAME a/PROPERTY_ADDRESS s/SELLER_NAME p/SELLER_PHONE e/SELLER_EMAIL $/PRICE_MIN [t/TAG]…` <br> e.g., `add property n/Blk 123 a/123, Clementi Rd, #04-20, 1234665 s/James Lee sp/61234567 $/100000 t/HDB t/3rm` <br><br> **Buyer** <br>`add buyer n/BUYER_NAME p/BUYER_PHONE e/BUYER_EMAIL $/PRICE_MAX) [t/TAG]…` <br> e.g., `add buyer n/Sam p/91234567 e/sam@email.com t/hdb t/3rm`
+**Add** | `add (property n/PROPERTY_NAME a/PROPERTY_ADDRESS s/SELLER_NAME p/SELLER_PHONE e/SELLER_EMAIL $/PRICE_MIN \| buyer n/BUYER_NAME p/BUYER_PHONE e/BUYER_EMAIL $/PRICE_MAX) [t/TAG]…​` <br> e.g., `add property n/Blk 123 a/123, Clementi Rd, #04-20, 1234665 s/James Lee p/61234567 $/100000 t/HDB t/3rm`
 **Clear** | `clear`
-**Delete** | `delete (property \| buyer) INDEX`<br> e.g., `delete property 3`
-**Edit** | **Property** <br>`edit property INDEX [n/PROPERTY_NAME] [a/PROPERTY_ADDRESS] [$/PRICE_MIN] [s/SELLER_NAME] [p/SELLER_PHONE] [e/SELLER_EMAIL] [([t/TAG]… \| [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]]`<br> e.g.,`edit property 2 s/James Lee e/jameslee@example.com` <br><br> **Buyer** <br> `edit buyer INDEX [n/BUYER_NAME] [p/BUYER_PHONE] [e/BUYER_EMAIL]) [([t/TAG]… \| [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]` <br> e.g.,`edit buyer 2 n/Victor Lee p/88887777`
-**Find** | `find [KEYWORDS] [t/TAG_TO_MATCH]…`<br> e.g., `find Jurong t/4rm t/near school`
+**Delete** | `delete (property\|buyer) INDEX`<br> e.g., `delete property 3`
+**Edit** | `edit (property INDEX [n/PROPERTY_NAME] [a/PROPERTY_ADDRESS] [$/PRICE_MIN] [s/SELLER_NAME] [p/SELLER_PHONE] [e/SELLER_EMAIL] \| buyer INDEX [n/BUYER_NAME] [p/BUYER_PHONE] [e/BUYER_EMAIL]) [([t/TAG]… \|​ [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]​`<br> e.g.,`edit property 2 s/James Lee e/jameslee@example.com`
+**Find** | `find [KEYWORDS] [t/TAG_TO_MATCH]…`<br> e.g., `find James Jake`
 **List** | `list`
 **Exit** | `exit`
 **Help** | `help`

@@ -90,11 +90,11 @@ public class EditCommandParserTest {
         assertParseFailure(parser, PREAMBLE_PROPERTY + " " + "0"
                 + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
 
-        // invalid arguments being parsed as preamble
+        // invalid number of arguments being parsed as preamble
         assertParseFailure(parser, PREAMBLE_PROPERTY + " " + "1 some random string",
                 MESSAGE_INVALID_FORMAT);
 
-        // invalid prefix being parsed as preamble
+        // missing actor in preamble
         assertParseFailure(parser, "1 i/ string", MESSAGE_INVALID_FORMAT);
     }
 

@@ -11,6 +11,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.field.SortDirection;
+import seedu.address.model.field.SortType;
 import seedu.address.model.property.Buyer;
 import seedu.address.model.property.Property;
 
@@ -139,6 +141,16 @@ public class ModelManager implements Model {
         addressBook.addBuyer(target, editedBuyer);
     }
 
+    @Override
+    public void sortProperties(SortType sortType, SortDirection sortDirection) {
+        addressBook.sortProperties(sortType, sortDirection);
+    }
+
+    @Override
+    public void sortBuyers(SortType sortType, SortDirection sortDirection) {
+        addressBook.sortBuyers(sortType, sortDirection);;
+    }
+
     //=========== Filtered Property List Accessors =============================================================
 
     /**
@@ -187,6 +199,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
+
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredProperties.equals(other.filteredProperties);

@@ -14,10 +14,13 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.field.Actor;
 import seedu.address.model.field.Email;
 import seedu.address.model.field.Name;
 import seedu.address.model.field.Phone;
 import seedu.address.model.field.Price;
+import seedu.address.model.field.SortDirection;
+import seedu.address.model.field.SortType;
 import seedu.address.model.property.Address;
 import seedu.address.model.tag.Tag;
 
@@ -29,6 +32,9 @@ public class ParserUtilTest {
     private static final String INVALID_SELLER = "Br@yn";
     private static final String INVALID_PRICE = "100k";
     private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_ACTOR = "book";
+    private static final String INVALID_SORT_TYPE = "phone";
+    private static final String INVALID_SORT_DIR = "up";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
@@ -38,8 +44,12 @@ public class ParserUtilTest {
     private static final String VALID_PRICE = "100000";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_ACTOR = "property";
+    private static final String VALID_SORT_TYPE = "price";
+    private static final String VALID_SORT_DIR = "asc";
 
     private static final String WHITESPACE = " \t\r\n";
+    private static final String SORT_COMMAND_HELP_MESSAGE = "";
 
     @Test
     public void parseIndex_invalidInput_throwsParseException() {
@@ -220,5 +230,151 @@ public class ParserUtilTest {
         Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
 
         assertEquals(expectedTagSet, actualTagSet);
+    }
+
+    @Test
+    public void parseActor_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseActor((String) null));
+    }
+
+    @Test
+    public void parseActor_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseActor(INVALID_ACTOR));
+    }
+
+    @Test
+    public void parseActor_validValueWithoutWhitespace_returnsActor() throws Exception {
+        Actor expectedActor = Actor.PROPERTY;
+        assertEquals(expectedActor, ParserUtil.parseActor(VALID_ACTOR));
+    }
+
+    @Test
+    public void parseActor_validValueWithWhitespace_returnsTrimmedActor() throws Exception {
+        String actorWithWhitespace = WHITESPACE + VALID_ACTOR + WHITESPACE;
+        Actor expectedActor = Actor.PROPERTY;
+        assertEquals(expectedActor, ParserUtil.parseActor(actorWithWhitespace));
+    }
+
+    @Test
+    public void parseSortType_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseSortType((String) null));
+    }
+
+    @Test
+    public void parseSortType_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseSortType(INVALID_SORT_TYPE));
+    }
+
+    @Test
+    public void parseSortType_validValueWithoutWhitespace_returnsSortType() throws Exception {
+        SortType expectedSortType = SortType.PRICE;
+        assertEquals(expectedSortType, ParserUtil.parseSortType(VALID_SORT_TYPE));
+    }
+
+    @Test
+    public void parseSortType_validValueWithWhitespace_returnsTrimmedSortType() throws Exception {
+        String sortTypeWithWhitespace = WHITESPACE + VALID_SORT_TYPE + WHITESPACE;
+        SortType expectedSortType = SortType.PRICE;
+        assertEquals(expectedSortType, ParserUtil.parseSortType(sortTypeWithWhitespace));
+    }
+
+    @Test
+    public void parseSortDir_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseSortDir((String) null));
+    }
+
+    @Test
+    public void parseSortDir_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseSortDir(INVALID_SORT_DIR));
+    }
+
+    @Test
+    public void parseSortDir_validValueWithoutWhitespace_returnsSortDir() throws Exception {
+        SortDirection expectedSortDir = SortDirection.ASC;
+        assertEquals(expectedSortDir, ParserUtil.parseSortDir(VALID_SORT_DIR));
+    }
+
+    @Test
+    public void parseSortDir_validValueWithWhitespace_returnsTrimmedSortDir() throws Exception {
+        String sortDirWithWhitespace = WHITESPACE + VALID_SORT_DIR + WHITESPACE;
+        SortDirection expectedSortDir = SortDirection.ASC;
+        assertEquals(expectedSortDir, ParserUtil.parseSortDir(sortDirWithWhitespace));
+    }
+
+    @Test
+    public void parseActorWithIndex_null_throwsNullPointerExceptions() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseActor((String) null, 0));
+    }
+
+    @Test
+    public void parseActorWithIndex_invalidValueInvalidIndex_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseActor("1 " + VALID_ACTOR, 0));
+    }
+
+    @Test
+    public void parseActorWithIndex_invalidValueEmptyActor_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseActor("", 0));
+    }
+
+    @Test
+    public void parseActorWithIndex_validValue_returnActor() throws Exception {
+        assertEquals(Actor.PROPERTY, ParserUtil.parseActor(VALID_ACTOR, 0));
+    }
+
+    @Test
+    public void parseActorWithIndex_validValueWithWhitespace_returnActor() throws Exception {
+        assertEquals(Actor.PROPERTY, ParserUtil.parseActor(WHITESPACE + VALID_ACTOR + WHITESPACE, 0));
+    }
+
+    @Test
+    public void parseSortTypeWithIndex_null_throwsNullPointerExceptions() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseSortType((String) null, 0));
+    }
+
+    @Test
+    public void parseSortTypeWithIndex_invalidValueInvalidIndex_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseSortType("1 " + VALID_SORT_TYPE, 0));
+    }
+
+    @Test
+    public void parseSortTypeWithIndex_invalidValueEmptyActor_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseSortType("", 0));
+    }
+
+    @Test
+    public void parseSortTypeWithIndex_validValue_returnSortType() throws Exception {
+        assertEquals(SortType.PRICE, ParserUtil.parseSortType(VALID_ACTOR + " " + VALID_SORT_TYPE, 1));
+    }
+
+    @Test
+    public void parseSortTypeWithIndex_validValueWithWhitespace_returnSortType() throws Exception {
+        assertEquals(SortType.PRICE, ParserUtil.parseSortType(
+                WHITESPACE + VALID_SORT_TYPE + "     1" + WHITESPACE, 0));
+    }
+
+    @Test
+    public void parseSortDirWithIndex_null_throwsNullPointerExceptions() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseSortDir((String) null, 0));
+    }
+
+    @Test
+    public void parseSortDirWithIndex_invalidValueInvalidIndex_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseSortDir("1 " + VALID_SORT_TYPE, 0));
+    }
+
+    @Test
+    public void parseSortDirWithIndex_invalidValueEmptyActor_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseSortDir("", 0));
+    }
+
+    @Test
+    public void parseSortDirWithIndex_validValue_returnSortDir() throws Exception {
+        assertEquals(SortDirection.ASC, ParserUtil.parseSortDir(VALID_ACTOR + " " + VALID_SORT_DIR, 1));
+    }
+
+    @Test
+    public void parseSortDirWithIndex_validValueWithWhitespace_returnSortDir() throws Exception {
+        assertEquals(SortDirection.ASC, ParserUtil.parseSortDir(
+                WHITESPACE + VALID_SORT_DIR + "     1" + WHITESPACE, 0));
     }
 }
