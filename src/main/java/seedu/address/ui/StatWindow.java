@@ -17,7 +17,7 @@ public class StatWindow extends UiPart<Stage> {
     private static final Logger logger = LogsCenter.getLogger(StatWindow.class);
     private static final String FXML = "StatWindow.fxml";
 
-    private final Stat stat;
+    private Stat stat;
 
     /**
      * Creates a new StatWindow.
@@ -30,11 +30,14 @@ public class StatWindow extends UiPart<Stage> {
     }
 
     /**
-     * Creates a new StatWindow.
-     * @param stat Stat that creates the necessary JFreeChart.
+     * Creates a new StatWindow with an empty Stage.
      */
-    public StatWindow(Stat stat) {
-        this(new Stage(), stat);
+    public StatWindow() {
+        super(FXML, new Stage());
+    }
+
+    public void setStat(Stat stat) {
+        this.stat = stat;
     }
 
     /**

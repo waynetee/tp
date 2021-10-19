@@ -24,7 +24,7 @@ public class StatCommandParser implements Parser<StatCommand> {
             ParserUtil.assertPreambleArgsCount(userInput, NUM_OF_PREAMBLE_ARGS);
             actor = ParserUtil.parseActor(userInput, ACTOR_POSITIONAL_INDEX);
         } catch (ParseException pe) {
-            if (userInput.equals(new String())) {
+            if (userInput.isEmpty()) {
                 return new StatCommand(SHOW_BUYER, SHOW_PROPERTY);
             }
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatCommand.MESSAGE_USAGE), pe);

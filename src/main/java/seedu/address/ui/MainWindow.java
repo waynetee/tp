@@ -43,6 +43,7 @@ public class MainWindow extends UiPart<Stage> {
     private BuyerListPanel buyerListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private StatWindow statWindow;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -78,6 +79,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        statWindow = new StatWindow();
     }
 
     public Stage getPrimaryStage() {
@@ -165,10 +167,10 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Opens the statistics window.
-     * @param statWindow Statistics window with choice of chart.
      */
     @FXML
-    public void handleStat(StatWindow statWindow) {
+    public void handleStat(Stat stat) {
+        statWindow.setStat(stat);
         if (!statWindow.isShowing()) {
             statWindow.show();
         } else {
@@ -232,6 +234,7 @@ public class MainWindow extends UiPart<Stage> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
+        statWindow.hide();
         primaryStage.hide();
     }
 
@@ -260,7 +263,7 @@ public class MainWindow extends UiPart<Stage> {
             case STAT:
                 Optional<UiElement> stat = commandResult.getUiElement();
                 assert !stat.isEmpty() && stat.get() instanceof Stat;
-                handleStat(new StatWindow((Stat) stat.get()));
+                handleStat((Stat) stat.get());
                 break;
             case HELP:
                 handleHelp();

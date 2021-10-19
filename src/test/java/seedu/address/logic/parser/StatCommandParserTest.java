@@ -17,7 +17,7 @@ public class StatCommandParserTest {
     private static final String MESSAGE_INVALID_FORMAT = String.format(
             MESSAGE_INVALID_COMMAND_FORMAT, StatCommand.MESSAGE_USAGE);
 
-    private StatCommandParser parser = new StatCommandParser();
+    private final StatCommandParser parser = new StatCommandParser();
 
     @Test
     public void parse_emptyArg_success() {

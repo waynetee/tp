@@ -8,6 +8,9 @@ import javafx.collections.ObservableList;
 import seedu.address.model.property.Buyer;
 import seedu.address.model.property.Property;
 
+/**
+ * Stat that creates a histogram of visible buyers, properties, or both.
+ */
 public class HistogramStat implements Stat {
     private static final int BIN_COUNT = 20;
 

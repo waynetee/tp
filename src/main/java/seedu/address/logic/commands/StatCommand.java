@@ -11,7 +11,7 @@ import seedu.address.model.property.Property;
 import seedu.address.model.stats.HistogramStat;
 import seedu.address.model.stats.Stat;
 
-public class StatCommand extends Command {
+public class StatCommand extends SimpleCommand {
 
     public static final String COMMAND_WORD = "stat";
     public static final String PROPERTY_WORD = "properties";
@@ -22,9 +22,10 @@ public class StatCommand extends Command {
             + "Parameters: [(property | buyer)]";
 
     public static final String MESSAGE_ARGUMENTS = "Displaying prices of %s.";
+    public static final String MESSAGE_EMPTY_LIST = "Both lists empty. Statistics not shown.";
 
-    private final boolean showBuyer;
-    private final boolean showProperty;
+    private boolean showBuyer;
+    private boolean showProperty;
 
     /**
      * Constructor for {@code StatCommand}.
@@ -41,11 +42,20 @@ public class StatCommand extends Command {
         requireNonNull(model);
         ObservableList<Buyer> buyerList = model.getFilteredBuyerList();
         ObservableList<Property> propertyList = model.getFilteredPropertyList();
+        if (buyerList.isEmpty()) {
+            showBuyer = false;
+        }
+        if (propertyList.isEmpty()) {
+            showProperty = false;
+        }
+
         String msgArgs = ALL_WORD;
         if (showBuyer && !showProperty) {
             msgArgs = BUYER_WORD;
-        } else if (!showBuyer & showProperty) {
+        } else if (!showBuyer && showProperty) {
             msgArgs = PROPERTY_WORD;
+        } else if (!showBuyer && !showProperty) {
+            throw new CommandException(MESSAGE_EMPTY_LIST);
         }
         Stat stat = new HistogramStat(buyerList, propertyList, showBuyer, showProperty, msgArgs);
         return new CommandResult(String.format(MESSAGE_ARGUMENTS, msgArgs), UiAction.STAT, stat);
