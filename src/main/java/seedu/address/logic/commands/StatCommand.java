@@ -11,6 +11,9 @@ import seedu.address.model.property.Property;
 import seedu.address.model.stats.HistogramStat;
 import seedu.address.model.stats.Stat;
 
+/**
+ * Presents statistics (currently only histogram of visible properties/buyers' prices).
+ */
 public class StatCommand extends SimpleCommand {
 
     public static final String COMMAND_WORD = "stat";
