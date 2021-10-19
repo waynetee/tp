@@ -3,8 +3,6 @@ layout: page
 title: User Guide
 ---
 
-PropertyWhiz (PropertyWhiz) is a **desktop app for managing properties and property buyers, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, PropertyWhiz can get your property management tasks done faster than traditional GUI apps.
-
 * Table of Contents
   {:toc}
 
