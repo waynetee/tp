@@ -11,10 +11,22 @@ public class HistogramStat implements Stat {
 
     private final ObservableList<Buyer> buyerList;
     private final ObservableList<Property> propertyList;
+    private final boolean showBuyer;
+    private final boolean showProperty;
+    private final String titleArgs;
 
-    public HistogramStat(ObservableList<Buyer> buyerList, ObservableList<Property> propertyList) {
+    /**
+     * Constructor for price histograms.
+     * @param buyerList
+     * @param propertyList
+     */
+    public HistogramStat(ObservableList<Buyer> buyerList, ObservableList<Property> propertyList,
+                         boolean showBuyer, boolean showProperty, String titleArgs) {
         this.buyerList = buyerList;
         this.propertyList = propertyList;
+        this.showBuyer = showBuyer;
+        this.showProperty = showProperty;
+        this.titleArgs = titleArgs;
     }
 
     public JFreeChart create() {
@@ -22,10 +34,15 @@ public class HistogramStat implements Stat {
         double[] propertyPrices = propertyList.stream().mapToDouble(property -> (double) property.getPrice().value).toArray();
 
         HistogramDataset dataset = new HistogramDataset();
-        dataset.addSeries("buyers", buyerPrices, 20);
-        dataset.addSeries("properties", propertyPrices, 20);
+        if (showBuyer) {
+            dataset.addSeries("buyers", buyerPrices, 20);
+        }
 
-        JFreeChart histogram = ChartFactory.createHistogram("JFreeChart HistogramStat",
+        if (showProperty) {
+            dataset.addSeries("properties", propertyPrices, 20);
+        }
+
+        JFreeChart histogram = ChartFactory.createHistogram("Prices of " + titleArgs,
                 "Price", "Count", dataset);
 
         return histogram;

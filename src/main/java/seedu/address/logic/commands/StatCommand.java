@@ -21,18 +21,19 @@ public class StatCommand extends Command {
             + ": Opens a pop up with a price histogram of buyers, properties or both.\n"
             + "Parameters: [(property | buyer)]";
 
-    public static final String MESSAGE_ARGUMENTS = "Displaying prices of %s";
+    public static final String MESSAGE_ARGUMENTS = "Displaying prices of %s.";
 
-    private final String view;
+    private final boolean showBuyer;
+    private final boolean showProperty;
 
     /**
      * Constructor for {@code StatCommand}.
-     * @param view Specifying buyer, property, or both in view.
+     * @param showBuyer whether histogram should show buyers.
      */
-    public StatCommand(String view) {
-        requireAllNonNull(view);
-
-        this.view = view;
+    public StatCommand(boolean showBuyer, boolean showProperty) {
+        requireAllNonNull(showBuyer, showProperty);
+        this.showBuyer = showBuyer;
+        this.showProperty = showProperty;
     }
 
     @Override
@@ -40,8 +41,14 @@ public class StatCommand extends Command {
         requireNonNull(model);
         ObservableList<Buyer> buyerList = model.getFilteredBuyerList();
         ObservableList<Property> propertyList = model.getFilteredPropertyList();
-        Stat stat = new HistogramStat(buyerList, propertyList);
-        throw new CommandException(String.format(MESSAGE_ARGUMENTS, this.view));
+        String msgArgs = ALL_WORD;
+        if (showBuyer && !showProperty) {
+            msgArgs = BUYER_WORD;
+        } else if (!showBuyer & showProperty) {
+            msgArgs = PROPERTY_WORD;
+        }
+        Stat stat = new HistogramStat(buyerList, propertyList, showBuyer, showProperty, msgArgs);
+        return new CommandResult(String.format(MESSAGE_ARGUMENTS, msgArgs), UiAction.STAT, stat);
     }
 
     @Override
@@ -58,7 +65,7 @@ public class StatCommand extends Command {
 
         // state check
         StatCommand e = (StatCommand) other;
-        return view.equals(e.view);
+        return showBuyer == e.showBuyer && showProperty == e.showProperty;
     }
 
 }

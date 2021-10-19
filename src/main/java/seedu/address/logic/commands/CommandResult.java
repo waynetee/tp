@@ -17,6 +17,7 @@ public class CommandResult {
     /** UiAction to be completed after execution */
     private final UiAction uiAction;
 
+    /** Optional UiElement, which display will be handled by MainWindow. */
     private final Optional<UiElement> uiElement;
 
     /**
@@ -29,7 +30,7 @@ public class CommandResult {
     }
 
     /**
-     * Constructs a {@code CommandResult} with the specified fields.
+     * Constructs a {@code CommandResult} with the specified fields and empty UiElement.
      */
     public CommandResult(String feedbackToUser, UiAction uiAction) {
         this.feedbackToUser = requireNonNull(feedbackToUser);

@@ -12,6 +12,9 @@ public class StatCommandParser implements Parser<StatCommand> {
     private static final int ACTOR_POSITIONAL_INDEX = 0;
     private static final int NUM_OF_PREAMBLE_ARGS = 1;
 
+    private static final boolean SHOW_BUYER = true;
+    private static final boolean SHOW_PROPERTY = true;
+
     @Override
     public StatCommand parse(String userInput) throws ParseException {
         requireNonNull(userInput);
@@ -21,16 +24,16 @@ public class StatCommandParser implements Parser<StatCommand> {
             actor = ParserUtil.parseActor(userInput, ACTOR_POSITIONAL_INDEX);
         } catch (ParseException pe) {
             if (userInput.equals(new String())) {
-                return new StatCommand(StatCommand.ALL_WORD);
+                return new StatCommand(SHOW_BUYER, SHOW_PROPERTY);
             }
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatCommand.MESSAGE_USAGE), pe);
         }
 
         switch (actor) {
         case PROPERTY:
-            return new StatCommand(StatCommand.PROPERTY_WORD);
+            return new StatCommand(!SHOW_BUYER, SHOW_PROPERTY);
         case BUYER:
-            return new StatCommand(StatCommand.BUYER_WORD);
+            return new StatCommand(SHOW_BUYER, !SHOW_PROPERTY);
         default:
             throw new ParseException(MESSAGE_INVALID_ACTOR);
         }
