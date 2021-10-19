@@ -12,7 +12,7 @@ import seedu.address.model.field.Actor;
 /**
  * Parses input arguments and creates a new ExportCommand object
  */
-public class ExportCommandParser {
+public class ExportCommandParser implements Parser<ExportCommand> {
     private static final int ACTOR_POSITIONAL_INDEX = 0;
     private static final int NUM_OF_PREAMBLE_ARGUMENTS = 1;
 
