@@ -81,7 +81,7 @@ public class UniqueList<Item extends Listable> implements Iterable<Item> {
         }
     }
 
-    public void setListables(UniqueList replacement) {
+    public void setListables(UniqueList<Item> replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -119,7 +119,7 @@ public class UniqueList<Item extends Listable> implements Iterable<Item> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UniqueList // instanceof handles nulls
-                        && internalList.equals(((UniqueList) other).internalList));
+                        && internalList.equals(((UniqueList<Item>) other).internalList));
     }
 
     @Override
