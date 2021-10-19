@@ -1,6 +1,8 @@
 package seedu.address.logic.commands;
 
 
+import static seedu.address.logic.commands.BackCommand.MESSAGE_BACK_COMMAND;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -21,8 +23,8 @@ public class MatchAutoCommand extends MatchCommand {
     public static final String ARGUMENT_WORD = "auto";
     public static final String MESSAGE_NO_PROPERTIES_LISTED = "Error: No properties available for matching";
     public static final String MESSAGE_NO_BUYERS_LISTED = "Error: No buyers available for matching";
-    public static final String MESSAGE_ONE_MATCH_FOUND = "1 match found!";
-    public static final String MESSAGE_MATCHES_FOUND = "%1$d matches found!";
+    public static final String MESSAGE_ONE_MATCH_FOUND = "1 match found!\n" + MESSAGE_BACK_COMMAND;
+    public static final String MESSAGE_MATCHES_FOUND = "%1$d matches found!\n" + MESSAGE_BACK_COMMAND;
 
     private List<Property> properties; // Properties to match
     private List<Buyer> buyers; // Buyers to match

@@ -264,6 +264,8 @@ public class MainWindow extends UiPart<Stage> {
         case SHOW_DEFAULT:
             defaultView.setVisible(true);
             defaultView.setManaged(true);
+            matchAutoView.setVisible(false);
+            matchAutoView.setManaged(false);
             break;
         default:
             break;
