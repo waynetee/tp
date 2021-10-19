@@ -9,9 +9,6 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.commands.ExportCommand;
 import seedu.address.logic.commands.buyer.ExportBuyersCommand;
 import seedu.address.logic.commands.property.ExportPropertiesCommand;
-import seedu.address.logic.commands.property.ExportPropertyCommand;
-import seedu.address.model.field.ExportDirection;
-import seedu.address.model.field.ExportType;
 
 
 public class ExportCommandParserTest {

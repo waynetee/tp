@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.SimpleCommand;
 import seedu.address.logic.commands.CommandPreAction;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.CommandWithFile;
@@ -48,7 +48,7 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
+        SimpleCommand command = addressBookParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
         try {

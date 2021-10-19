@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ExportCommand;
+import seedu.address.logic.commands.buyer.ExportBuyersCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.storage.Storage;
@@ -28,5 +29,13 @@ public class ExportPropertiesCommand extends ExportCommand {
 
     public String toString() {
         return COMMAND_WORD + ' ' + PROPERTIES;
+    }
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        return other instanceof ExportPropertiesCommand;
     }
 }

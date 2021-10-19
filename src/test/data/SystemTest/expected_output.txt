@@ -25,6 +25,10 @@ New property added: Olive Gardens; Address: Blk 11 Ang Mo Kio Street 74, #11-04;
 
 edit property 3
 At least one field to edit must be provided.
+edit property: Edits the details of the property identified by the index number used in the displayed property/buyer list. Existing values will be overwritten by the input values.
+with the exception of adding tags. Added tags will be appended to the current tags. 
+Parameters: property INDEX (must be a positive integer) [n/NAME] [a/ADDRESS] [$/PRICE] [s/NAME] [p/PHONE] [e/EMAIL] [([t/TAG]... | [ta/TAG_TO_ADD]...[td/TAG_TO_DELETE]...)]
+Example: edit property 1 p/91234567 e/johndoe@example.com
 [Hasta La Vista; Address: 20 Clementi Ave 2, #02-25; Seller: John Doe; Phone: 98765432; Email: johnd@example.com; Price: 1652000; Tags: [ew23 clementi][condo][621 sqft][4 rm], Dee Gardens; Address: Blk 30 Lorong 3 Serangoon Gardens, #07-18; Seller: Beatrice Yu; Phone: 99272758; Email: berniceyu@example.com; Price: 3423432, Olive Gardens; Address: Blk 11 Ang Mo Kio Street 74, #11-04; Seller: Charlotte Oliveiro; Phone: 93210283; Email: charlotte@example.com; Price: 6457654; Tags: [condo]]
 [alice; Phone: 91234567; Email: sam@email.com; Maximum Price: 123; Tags: [hdb][3rm]]
 

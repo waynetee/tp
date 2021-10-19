@@ -23,7 +23,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Edits the details of an existing entity (property or buyer) in the address book.
  */
-public abstract class EditCommand extends Command {
+public abstract class EditCommand extends SimpleCommand {
     public static final String COMMAND_WORD = "edit";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the property or buyer identified "
             + "by the index number used in the displayed property/buyer list. "

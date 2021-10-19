@@ -12,7 +12,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Match entities (properties and buyers) in the address book.
  */
-public abstract class MatchCommand extends Command {
+public abstract class MatchCommand extends SimpleCommand {
     public static final String COMMAND_WORD = "match";
 
     protected final Index targetIndex;
