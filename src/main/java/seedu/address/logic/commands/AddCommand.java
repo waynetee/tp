@@ -11,7 +11,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 /**
  * Adds an entity (property or buyer) to the address book.
  */
-public abstract class AddCommand extends Command {
+public abstract class AddCommand extends SimpleCommand {
 
     public static final String COMMAND_WORD = "add";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a property or buyer to the address book. "
@@ -46,4 +46,5 @@ public abstract class AddCommand extends Command {
             + PREFIX_TAG + "621 sqft "
             + PREFIX_TAG + "EW23 Clementi";
 
+    public static final String EXPECTED_PREAMBLE = "(property | buyer)";
 }

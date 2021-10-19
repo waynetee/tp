@@ -1,6 +1,15 @@
 package seedu.address.logic.commands.property;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SELLER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PROPERTIES;
 
 import java.util.List;
@@ -32,6 +41,29 @@ public class EditPropertyCommand extends EditCommand {
 
     public static final String MESSAGE_EDIT_PROPERTY_SUCCESS = "Edited Property: %1$s";
     public static final String MESSAGE_DUPLICATE_PROPERTY = "This property already exists in the address book.";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " property: Edits the details of the property identified "
+            + "by the index number used in the displayed property list. "
+            + "Existing values will be overwritten by the input values.\n"
+            + "with the exception of adding tags. "
+            + "Added tags will be appended to the current tags. \n"
+            + "Parameters: property INDEX (must be a positive integer) "
+            + "[" + PREFIX_NAME + "NAME] "
+            + "[" + PREFIX_ADDRESS + "ADDRESS] "
+            + "[" + PREFIX_PRICE + "PRICE] "
+            + "[" + PREFIX_SELLER + "NAME] "
+            + "[" + PREFIX_PHONE + "PHONE] "
+            + "[" + PREFIX_EMAIL + "EMAIL] "
+            + "["
+            + "("
+            + "[" + PREFIX_TAG + "TAG]..." + " | "
+            + "[" + PREFIX_ADD_TAG + "TAG_TO_ADD]..."
+            + "[" + PREFIX_DELETE_TAG + "TAG_TO_DELETE]..."
+            + ")"
+            + "]"
+            + "\n"
+            + "Example: " + COMMAND_WORD + " property 1 "
+            + PREFIX_PHONE + "91234567 "
+            + PREFIX_EMAIL + "johndoe@example.com";
 
     private final Index index;
     private final EditPropertyDescriptor editPropertyDescriptor;

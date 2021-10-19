@@ -6,9 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_PROPERTY;
-import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_ACTOR;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PROPERTY;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 
 import java.util.Arrays;
 import java.util.List;
@@ -60,8 +59,8 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_delete() throws Exception {
         DeletePropertyCommand command = (DeletePropertyCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + PREAMBLE_PROPERTY + " " + INDEX_FIRST_PROPERTY.getOneBased());
-        assertEquals(new DeletePropertyCommand(INDEX_FIRST_PROPERTY), command);
+                DeleteCommand.COMMAND_WORD + " " + PREAMBLE_PROPERTY + " " + INDEX_FIRST.getOneBased());
+        assertEquals(new DeletePropertyCommand(INDEX_FIRST), command);
     }
 
     @Test
@@ -69,16 +68,16 @@ public class AddressBookParserTest {
         Property property = new PropertyBuilder().build();
         EditPropertyDescriptor descriptor = new EditPropertyDescriptorBuilder(property).build();
         EditPropertyCommand command = (EditPropertyCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + PREAMBLE_PROPERTY + " " + INDEX_FIRST_PROPERTY.getOneBased() + " "
+                + PREAMBLE_PROPERTY + " " + INDEX_FIRST.getOneBased() + " "
                 + PropertyUtil.getEditPropertyDescriptorDetails(descriptor));
-        assertEquals(new EditPropertyCommand(INDEX_FIRST_PROPERTY, descriptor), command);
+        assertEquals(new EditPropertyCommand(INDEX_FIRST, descriptor), command);
     }
 
     @Test
     public void parseCommand_match() throws Exception {
         MatchPropertyCommand command = (MatchPropertyCommand) parser.parseCommand(
-                MatchCommand.COMMAND_WORD + " " + PREAMBLE_PROPERTY + " " + INDEX_FIRST_PROPERTY.getOneBased());
-        MatchPropertyCommand expected = new MatchPropertyCommand(INDEX_FIRST_PROPERTY);
+                MatchCommand.COMMAND_WORD + " " + PREAMBLE_PROPERTY + " " + INDEX_FIRST.getOneBased());
+        MatchPropertyCommand expected = new MatchPropertyCommand(INDEX_FIRST);
         assertEquals(expected, command);
     }
 
@@ -110,8 +109,8 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() {
-        assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), ()
-            -> parser.parseCommand(""));
+        assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        HelpCommand.MESSAGE_USAGE), () -> parser.parseCommand(""));
     }
 
     @Test
@@ -133,9 +132,10 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommandWithFile_export() throws Exception {
-        assertThrows(ParseException.class, MESSAGE_INVALID_ACTOR, () ->
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE);
+        assertThrows(ParseException.class, expectedMessage, () ->
                 parser.parseCommandWithFile(ExportCommand.COMMAND_WORD));
-        assertThrows(ParseException.class, MESSAGE_INVALID_ACTOR, () ->
+        assertThrows(ParseException.class, expectedMessage, () ->
                 parser.parseCommandWithFile(ExportCommand.COMMAND_WORD + " 1"));
         assertTrue(parser.parseCommandWithFile(ExportCommand.COMMAND_WORD + " " + ExportCommand.PROPERTIES)
                 .get() instanceof ExportPropertiesCommand);
@@ -152,9 +152,10 @@ public class AddressBookParserTest {
 
     @Test
     public void getCommandPreAction_export() throws Exception {
-        assertThrows(ParseException.class, MESSAGE_INVALID_ACTOR, () ->
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE);
+        assertThrows(ParseException.class, expectedMessage, () ->
                 parser.getCommandPreAction(ExportCommand.COMMAND_WORD));
-        assertThrows(ParseException.class, MESSAGE_INVALID_ACTOR, () ->
+        assertThrows(ParseException.class, expectedMessage, () ->
                 parser.getCommandPreAction(ExportCommand.COMMAND_WORD + " 1"));
         assertTrue(parser.getCommandPreAction(ExportCommand.COMMAND_WORD + " " + ExportCommand.PROPERTIES)
                 .equals(new CommandPreAction(ExportCommand.COMMAND_WORD + " " + ExportCommand.PROPERTIES, true)));

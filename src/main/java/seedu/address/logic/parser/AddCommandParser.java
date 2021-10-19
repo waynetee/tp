@@ -35,7 +35,6 @@ import seedu.address.model.tag.Tag;
 public class AddCommandParser implements Parser<AddCommand> {
     private static final int ACTOR_POSITIONAL_INDEX = 0;
     private static final int NUM_OF_PREAMBLE_ARGS = 1;
-    private static final String INVALID_PREAMBLE = MESSAGE_INVALID_PREAMBLE + "(property | buyer)";
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
@@ -48,11 +47,16 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         Actor actor;
 
+        String preamble = argMultimap.getPreamble();
+        if (preamble.isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        }
         try {
-            ParserUtil.assertPreambleArgsCount(argMultimap.getPreamble(), NUM_OF_PREAMBLE_ARGS);
-            actor = ParserUtil.parseActor(argMultimap.getPreamble(), ACTOR_POSITIONAL_INDEX);
-        } catch (ParseException e) {
-            throw new ParseException(INVALID_PREAMBLE);
+            ParserUtil.assertPreambleArgsCount(preamble, NUM_OF_PREAMBLE_ARGS);
+            actor = ParserUtil.parseActor(preamble, ACTOR_POSITIONAL_INDEX);
+        } catch (ParseException pe) {
+            throw new ParseException(String.format(MESSAGE_INVALID_PREAMBLE, preamble,
+                    AddCommand.EXPECTED_PREAMBLE), pe);
         }
 
         switch (actor) {
@@ -69,7 +73,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS,
                 PREFIX_PHONE, PREFIX_EMAIL, PREFIX_SELLER, PREFIX_PRICE)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    AddCommand.MESSAGE_USAGE));
+                    AddPropertyCommand.MESSAGE_USAGE));
         }
         Property property = getProperty(argMultimap);
         return new AddPropertyCommand(property);
@@ -78,7 +82,7 @@ public class AddCommandParser implements Parser<AddCommand> {
     private AddBuyerCommand getAddBuyerCommand(ArgumentMultimap argMultimap) throws ParseException {
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_PRICE)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    AddCommand.MESSAGE_USAGE));
+                    AddBuyerCommand.MESSAGE_USAGE));
         }
         Buyer buyer = getBuyer(argMultimap);
         return new AddBuyerCommand(buyer);

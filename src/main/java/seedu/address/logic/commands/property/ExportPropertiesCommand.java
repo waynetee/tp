@@ -29,4 +29,12 @@ public class ExportPropertiesCommand extends ExportCommand {
     public String toString() {
         return COMMAND_WORD + ' ' + PROPERTIES;
     }
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        return other instanceof ExportPropertiesCommand;
+    }
 }
