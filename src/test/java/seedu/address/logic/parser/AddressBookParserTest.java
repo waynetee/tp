@@ -133,9 +133,10 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommandWithFile_export() throws Exception {
-        assertThrows(ParseException.class, MESSAGE_INVALID_ACTOR, () ->
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE);
+        assertThrows(ParseException.class, expectedMessage, () ->
                 parser.parseCommandWithFile(ExportCommand.COMMAND_WORD));
-        assertThrows(ParseException.class, MESSAGE_INVALID_ACTOR, () ->
+        assertThrows(ParseException.class, expectedMessage, () ->
                 parser.parseCommandWithFile(ExportCommand.COMMAND_WORD + " 1"));
         assertTrue(parser.parseCommandWithFile(ExportCommand.COMMAND_WORD + " " + ExportCommand.PROPERTIES)
                 .get() instanceof ExportPropertiesCommand);
@@ -152,9 +153,10 @@ public class AddressBookParserTest {
 
     @Test
     public void getCommandPreAction_export() throws Exception {
-        assertThrows(ParseException.class, MESSAGE_INVALID_ACTOR, () ->
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE);
+        assertThrows(ParseException.class, expectedMessage, () ->
                 parser.getCommandPreAction(ExportCommand.COMMAND_WORD));
-        assertThrows(ParseException.class, MESSAGE_INVALID_ACTOR, () ->
+        assertThrows(ParseException.class, expectedMessage, () ->
                 parser.getCommandPreAction(ExportCommand.COMMAND_WORD + " 1"));
         assertTrue(parser.getCommandPreAction(ExportCommand.COMMAND_WORD + " " + ExportCommand.PROPERTIES)
                 .equals(new CommandPreAction(ExportCommand.COMMAND_WORD + " " + ExportCommand.PROPERTIES, true)));
