@@ -10,6 +10,10 @@ import seedu.address.model.field.ContainsTagsPredicate;
 import seedu.address.model.field.NameContainsKeywordsPredicate;
 import seedu.address.model.property.Buyer;
 
+/**
+ * Finds and lists all buyers in address book whose name contains
+ * any of the argument keywords and whose tags contain all the argument tags.
+ */
 public class FindBuyerCommand extends FindCommand<Buyer> {
     /**
      * Creates a FindBuyerCommand with only a name predicate.

@@ -10,8 +10,8 @@ import seedu.address.model.property.Nameable;
 import seedu.address.model.property.Taggable;
 
 /**
- * Finds and lists all properties in address book whose name contains any of the argument keywords and whose tags
- * contain all the argument tags.
+ * Finds and lists all { properties or buyers } in address book whose name contains any of the
+ * argument keywords and whose tags contain all the argument tags.
  * Keyword matching is case-insensitive.
  * Tag matching is case-insensitive.
  */
@@ -36,7 +36,7 @@ public abstract class FindCommand<T extends Nameable & Taggable> extends SimpleC
     /**
      * Creates a FindCommand with only a name predicate.
      *
-     * @param namePredicate Property predicate checking for name match.
+     * @param namePredicate Nameable predicate checking for name match.
      */
     public FindCommand(NameContainsKeywordsPredicate<T> namePredicate) {
         this(namePredicate, new ContainsTagsPredicate<>());
@@ -45,8 +45,8 @@ public abstract class FindCommand<T extends Nameable & Taggable> extends SimpleC
     /**
      * Creates a FindCommand that composes the given predicates.
      *
-     * @param namePredicate Property predicate checking for name match.
-     * @param tagsPredicate Property predicate checking for containment of tags.
+     * @param namePredicate Nameable predicate checking for name match.
+     * @param tagsPredicate Taggable predicate checking for containment of tags.
      */
     public FindCommand(NameContainsKeywordsPredicate<T> namePredicate, ContainsTagsPredicate<T> tagsPredicate) {
         this.namePredicate = namePredicate;
@@ -54,6 +54,9 @@ public abstract class FindCommand<T extends Nameable & Taggable> extends SimpleC
         this.composedPredicate = namePredicate.and(tagsPredicate);
     }
 
+    /**
+     * Returns the composed predicate of both the {@code namePredicate} and {@code tagPredicate}.
+     */
     public Predicate<T> getComposedPredicate() {
         return composedPredicate;
     }

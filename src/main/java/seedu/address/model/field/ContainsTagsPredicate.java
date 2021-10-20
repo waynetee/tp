@@ -8,7 +8,7 @@ import seedu.address.model.property.Taggable;
 import seedu.address.model.tag.Tag;
 
 /**
- * Tests that a {@code Property}'s {@code Tag}s is a superset of all the given tags.
+ * Tests that a {@code Taggable}'s {@code Tag}s is a superset of all the given tags.
  */
 public class ContainsTagsPredicate<T extends Taggable> implements Predicate<T> {
 
