@@ -25,3 +25,17 @@ sort    property  name    desc
 edit buyer  3 td/3rm ta/4rm
 delete buyer 2
 sort buyers price desc
+match auto
+back
+clear
+match auto
+add property n/Olive Gardens a/Blk 11 Ang Mo Kio Street 74, #11-04 $/6457654 s/Charlotte Oliveiro p/93210283 e/charlotte@example.com t/Condo
+match auto
+add buyer n/tom p/91234567 e/sam@email.com t/condo t/3rm $/100
+match    auto
+clear
+match buyer 1
+back
+back
+match auto
+list

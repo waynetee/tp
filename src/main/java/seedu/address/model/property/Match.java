@@ -101,4 +101,9 @@ public class Match implements Listable {
         return Objects.hash(property, buyer);
     }
 
+    @Override
+    public String toString() {
+        return property.toString() + " <--> " + buyer.toString();
+    }
+
 }
