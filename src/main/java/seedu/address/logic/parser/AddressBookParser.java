@@ -46,7 +46,7 @@ public class AddressBookParser {
         Optional<CommandWithFile> fileCommand = parseCommandWithFile(userInput);
         if (fileCommand.isPresent())
             return fileCommand.get();
-        return parseCommand(userInput);
+        return parseSimpleCommand(userInput);
     }
 
     /**
@@ -56,7 +56,7 @@ public class AddressBookParser {
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    public SimpleCommand parseCommand(String userInput) throws ParseException {
+    public SimpleCommand parseSimpleCommand(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
