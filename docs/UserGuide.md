@@ -165,9 +165,9 @@ Examples:
 TODO: Find command adapted for property/buyers
 ### Locating properties by name: `find`
 
-Finds properties whose names contain any of the given keywords and whose tag list contain all of the specified tags.
+Finds properties or buyers whose names contain any of the given keywords and whose tag list contain all of the specified tags.
 
-Format: `find [KEYWORDS] [t/TAG_TO_MATCH]…`
+Format: `find (properties | buyers) [KEYWORDS] [t/TAG_TO_MATCH]…`
 
 * The keyword search is case-insensitive. e.g `hillview` will match `Hillview`
 * The order of the keywords does not matter. e.g. `Hillview Rise` will match `Rise Hillview`
@@ -179,9 +179,9 @@ Format: `find [KEYWORDS] [t/TAG_TO_MATCH]…`
   * e.g. For tags, `t/4rm t/near school` will return properties with both `4rm` tag, and `near school` tag.
 
 Examples:
-* `find Jurong` returns `jurong` and `Jurong East`
-* `find Jurong t/4rm t/near school` returns `jurong [4rm] [near school] [near mrt]` and `Jurong East [4rm] [near school] [near mrt]` but not `jurong [4rm] [near mrt]`
-* `find t/4rm t/near school` returns `jurong [4rm] [near school] [near mrt]` and `Clementi [4rm] [near school] [near mrt]`
+* `find properties Jurong` returns properties `jurong` and `Jurong East`
+* `find properties Jurong t/4rm t/near school` returns properties `jurong [4rm] [near school] [near mrt]` and `Jurong East [4rm] [near school] [near mrt]` but not `jurong [4rm] [near mrt]`
+* `find properties t/4rm t/near school` returns properties `jurong [4rm] [near school] [near mrt]` and `Clementi [4rm] [near school] [near mrt]`
 
 ### Deleting a property/buyer : `delete`
 
@@ -291,7 +291,7 @@ Action | Format, Examples
 **Clear** | `clear`
 **Delete** | `delete (property\|buyer) INDEX`<br> e.g., `delete property 3`
 **Edit** | `edit (property INDEX [n/PROPERTY_NAME] [a/PROPERTY_ADDRESS] [$/PRICE_MIN] [s/SELLER_NAME] [p/SELLER_PHONE] [e/SELLER_EMAIL] \| buyer INDEX [n/BUYER_NAME] [p/BUYER_PHONE] [e/BUYER_EMAIL]) [([t/TAG]… \|​ [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]​`<br> e.g.,`edit property 2 s/James Lee e/jameslee@example.com`
-**Find** | `find [KEYWORDS] [t/TAG_TO_MATCH]…`<br> e.g., `find James Jake`
+**Find** | `find (properties \| buyers) [KEYWORDS] [t/TAG_TO_MATCH]…`<br> e.g., `find buyers James Jake`
 **List** | `list`
 **Exit** | `exit`
 **Help** | `help`
