@@ -21,6 +21,6 @@ public class ListCommand extends SimpleCommand {
         requireNonNull(model);
         model.updateFilteredPropertyList(PREDICATE_SHOW_ALL_PROPERTIES);
         model.updateFilteredBuyerList(PREDICATE_SHOW_ALL_BUYERS);
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(MESSAGE_SUCCESS, UiAction.SHOW_DEFAULT);
     }
 }
