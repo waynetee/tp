@@ -8,10 +8,7 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
 
-import com.opencsv.exceptions.CsvValidationException;
-
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -70,13 +67,13 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
      *
      * @param addressBook cannot be null.
      * @param file cannot be null.
-     * @throws IOException if there was any problem reading from to the file.
      * @return new AddressBook after importing properties.
+     * @throws IOException if there was any problem reading from to the file.
      * @throws ParseException if the csv file content cannot be recognized.
      */
     static AddressBook importProperties(ReadOnlyAddressBook addressBook, File file) throws IOException, ParseException {
         requireAllNonNull(file, addressBook);
-        List<Property> properties =  CsvManager.importProperties(file);
+        List<Property> properties = CsvManager.importProperties(file);
         AddressBook newAddressBook = new AddressBook(addressBook);
         newAddressBook.setProperties(properties);
         return newAddressBook;
@@ -87,13 +84,13 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
      *
      * @param addressBook cannot be null.
      * @param file cannot be null.
-     * @throws IOException if there was any problem reading from to the file.
      * @return new AddressBook after importing buyers.
+     * @throws IOException if there was any problem reading from to the file.
      * @throws ParseException if the csv file content cannot be recognized.
      */
     static AddressBook importBuyers(ReadOnlyAddressBook addressBook, File file) throws IOException, ParseException {
         requireAllNonNull(file, addressBook);
-        List<Buyer> buyers =  CsvManager.importBuyers(file);
+        List<Buyer> buyers = CsvManager.importBuyers(file);
         AddressBook newAddressBook = new AddressBook(addressBook);
         newAddressBook.setBuyers(buyers);
         return newAddressBook;

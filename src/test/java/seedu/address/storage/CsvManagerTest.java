@@ -13,7 +13,6 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.field.Email;
@@ -69,7 +68,7 @@ public class CsvManagerTest {
 
     @Test
     public void importProperties_nullFile_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> importProperties((File)null));
+        assertThrows(NullPointerException.class, () -> importProperties((File) null));
     }
 
     @Test
@@ -90,7 +89,7 @@ public class CsvManagerTest {
     }
 
     @Test
-    public void importProperties_missingColumn_throwsParseException() throws ParseException{
+    public void importProperties_missingColumn_throwsParseException() throws ParseException {
         assertThrows(ParseException.class, CsvManager.MESSAGE_MISSING_HEADER + CsvManager.HEADER_TAGS, () ->
                 importProperties("invalidPropertiesMissingColumn.csv"));
     }
@@ -164,7 +163,7 @@ public class CsvManagerTest {
 
     @Test
     public void importBuyers_nullFile_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> importBuyers((File)null));
+        assertThrows(NullPointerException.class, () -> importBuyers((File) null));
     }
 
     @Test
@@ -185,7 +184,7 @@ public class CsvManagerTest {
     }
 
     @Test
-    public void importBuyers_missingColumn_throwsParseException() throws ParseException{
+    public void importBuyers_missingColumn_throwsParseException() throws ParseException {
         assertThrows(ParseException.class, CsvManager.MESSAGE_MISSING_HEADER + CsvManager.HEADER_TAGS, () ->
                 importBuyers("invalidBuyersMissingColumn.csv"));
     }

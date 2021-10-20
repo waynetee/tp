@@ -44,15 +44,14 @@ public class CsvManager {
     public static final String HEADER_BUDGET = "Budget";
     public static final String HEADER_TAGS = "Tags";
 
-    private static final String[] propertyHeaders = {HEADER_NAME, HEADER_ADDRESS, HEADER_SELLER,
-            HEADER_PHONE, HEADER_EMAIL, HEADER_PRICE, HEADER_TAGS};
-
-    private static final String[] buyerHeaders = {HEADER_NAME, HEADER_PHONE, HEADER_EMAIL, HEADER_BUDGET, HEADER_TAGS};
-
     public static final String MESSAGE_INVALID_CSV_FORMAT = "Invalid csv format!";
     public static final String MESSAGE_MISSING_HEADER = "Missing Header: ";
     public static final String MESSAGE_NO_ENTRIES = "No recognized entries within csv!";
 
+    private static final String[] propertyHeaders = {HEADER_NAME, HEADER_ADDRESS, HEADER_SELLER,
+        HEADER_PHONE, HEADER_EMAIL, HEADER_PRICE, HEADER_TAGS};
+
+    private static final String[] buyerHeaders = {HEADER_NAME, HEADER_PHONE, HEADER_EMAIL, HEADER_BUDGET, HEADER_TAGS};
 
     /**
      * Exports properties in the given {@link ReadOnlyAddressBook} to the csv file.
@@ -152,8 +151,7 @@ public class CsvManager {
         CSVReaderHeaderAware reader;
         try {
             reader = new CSVReaderHeaderAware(new FileReader(file));
-        }
-        catch (NullPointerException ex) {
+        } catch (NullPointerException ex) {
             throw new ParseException(MESSAGE_INVALID_CSV_FORMAT);
         }
         Map<String, String> values;
@@ -185,8 +183,7 @@ public class CsvManager {
         CSVReaderHeaderAware reader;
         try {
             reader = new CSVReaderHeaderAware(new FileReader(file));
-        }
-        catch (NullPointerException ex) {
+        } catch (NullPointerException ex) {
             throw new ParseException(MESSAGE_INVALID_CSV_FORMAT);
         }
         Map<String, String> values;
