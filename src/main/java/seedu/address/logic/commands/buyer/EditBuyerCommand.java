@@ -38,7 +38,7 @@ public class EditBuyerCommand extends EditCommand {
             + "by the index number used in the displayed buyer list. "
             + "Existing values will be overwritten by the input values.\n"
             + "with the exception of adding tags. "
-            + "Added tags will be appended to the current tags. \n"
+            + "Added tags will be appended to the current tags.\n"
             + "Parameters: buyer INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
