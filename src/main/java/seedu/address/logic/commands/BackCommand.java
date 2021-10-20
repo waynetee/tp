@@ -9,7 +9,7 @@ import seedu.address.model.Model;
 /**
  * Returns to default view.
  */
-public class BackCommand extends Command {
+public class BackCommand extends SimpleCommand {
 
     public static final String COMMAND_WORD = "back";
 
@@ -22,4 +22,5 @@ public class BackCommand extends Command {
     public CommandResult execute(Model model) {
         return new CommandResult(MESSAGE_SUCCESS, UiAction.SHOW_DEFAULT);
     }
+
 }
