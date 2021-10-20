@@ -1,0 +1,27 @@
+package seedu.address.logic.commands;
+
+/**
+ * Imports entity (property or buyer) from the address book to csv file.
+ */
+public abstract class ImportCommand extends CommandWithFile {
+    public static final String COMMAND_WORD = "import";
+
+    public static final String PROPERTIES = "properties";
+
+    public static final String BUYERS = "buyers";
+
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Imports buyers or properties from csv file.\n"
+            + "Examples: " + COMMAND_WORD + " " + BUYERS + "\n"
+            + COMMAND_WORD + " " + PROPERTIES + "\n";
+
+    public static final String MESSAGE_CANCELLED = "Import %s was cancelled.";
+
+    public static final String MESSAGE_IO_FAILURE = "Import %s failed to open the file. "
+            + "PropertyWhiz does not have permissions to open the file.";
+
+    public static final String MESSAGE_FORMAT_FAILURE = "Import %s failed to recognize the file. "
+            + "The csv file provided is incorrectly formatted.";
+
+    public static final String MESSAGE_SUCCESS = "Successfully imported %s";
+
+}

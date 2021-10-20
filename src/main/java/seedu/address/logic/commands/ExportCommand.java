@@ -1,5 +1,8 @@
 package seedu.address.logic.commands;
 
+/**
+ * Exports entity (property or buyer) from the address book to csv file.
+ */
 public abstract class ExportCommand extends CommandWithFile {
     public static final String COMMAND_WORD = "export";
 

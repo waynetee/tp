@@ -5,12 +5,19 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Optional;
 
+import com.opencsv.exceptions.CsvValidationException;
+
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.property.Property;
 
 /**
  * API of the Storage component
@@ -55,5 +62,34 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
     static void exportBuyers(ReadOnlyAddressBook addressBook, File file) throws IOException {
         requireAllNonNull(file, addressBook);
         CsvManager.exportBuyers(addressBook.getBuyerList(), file);
+    }
+
+    /**
+     * Imports properties in the given csv file to the {@link ReadOnlyAddressBook}.
+     *
+     * @param addressBook cannot be null.
+     * @param file        cannot be null.
+     * @throws IOException if there was any problem reading from to the file.
+     * @throws CsvValidationException if the csv file content cannot be recognized.
+     */
+    static AddressBook importProperties(ReadOnlyAddressBook addressBook, File file) throws IOException, ParseException {
+        requireAllNonNull(file, addressBook);
+        List<Property> properties =  CsvManager.importProperties(file);
+        AddressBook newAddressBook = new AddressBook(addressBook);
+        newAddressBook.setProperties(properties);
+        return newAddressBook;
+    }
+
+    /**
+     * Imports buyers in the given csv file to the {@link ReadOnlyAddressBook}.
+     *
+     * @param addressBook cannot be null.
+     * @param file        cannot be null.
+     * @throws IOException if there was any problem reading from the file.
+     * @throws CsvValidationException if the csv file content cannot be recognized.
+     */
+    static void importBuyers(ReadOnlyAddressBook addressBook, File file) throws CsvValidationException {
+        requireAllNonNull(file, addressBook);
+        // CsvManager.importBuyers(addressBook.getBuyerList(), file);
     }
 }
