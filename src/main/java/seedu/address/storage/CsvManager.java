@@ -1,13 +1,6 @@
 package seedu.address.storage;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SELLER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.io.File;
 import java.io.FileReader;
@@ -15,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -24,8 +18,6 @@ import com.opencsv.CSVReaderHeaderAware;
 import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvValidationException;
 
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -56,6 +48,8 @@ public class CsvManager {
             HEADER_PHONE, HEADER_EMAIL, HEADER_PRICE, HEADER_TAGS};
 
     private static final String[] buyerHeaders = {HEADER_NAME, HEADER_PHONE, HEADER_EMAIL, HEADER_BUDGET, HEADER_TAGS};
+
+    private static final String INVALID_CSV_FORMAT = "Invalid csv format!";
 
 
     /**
@@ -104,14 +98,17 @@ public class CsvManager {
     }
 
     private static Property getProperty(Map<String, String> values) throws ParseException {
-        Name propertyName = ParserUtil.parseName(values.get(PREFIX_NAME));
-        Address address = ParserUtil.parseAddress(values.get(PREFIX_ADDRESS));
-        Name sellerName = ParserUtil.parseName(values.get(PREFIX_SELLER));
-        Phone sellerPhone = ParserUtil.parsePhone(values.get(PREFIX_PHONE));
-        Email sellerEmail = ParserUtil.parseEmail(values.get(PREFIX_EMAIL));
+        Name propertyName = ParserUtil.parseName(values.get(HEADER_NAME));
+        Address address = ParserUtil.parseAddress(values.get(HEADER_ADDRESS));
+        Name sellerName = ParserUtil.parseName(values.get(HEADER_SELLER));
+        Phone sellerPhone = ParserUtil.parsePhone(values.get(HEADER_PHONE));
+        Email sellerEmail = ParserUtil.parseEmail(values.get(HEADER_EMAIL));
         Person seller = new Person(sellerName, sellerPhone, sellerEmail);
-        Price price = ParserUtil.parsePrice(values.get(PREFIX_PRICE));
-        Set<Tag> tagList = ParserUtil.parseTags(Arrays.asList(values.get(PREFIX_TAG).split(",")));
+        Price price = ParserUtil.parsePrice(values.get(HEADER_PRICE));
+        Set<Tag> tagList = new HashSet<Tag>();
+        if (!values.get(HEADER_TAGS).isEmpty()) {
+            tagList = ParserUtil.parseTags(Arrays.asList(values.get(HEADER_TAGS).split(",")));
+        }
 
         Property property = new Property(propertyName, address, seller, price, tagList);
         return property;
@@ -126,13 +123,12 @@ public class CsvManager {
      */
     public static List<Property> importProperties(File file) throws IOException, ParseException {
         requireAllNonNull(file);
-        String[] headers = {"Name", "Address", "Seller Name", "Phone", "Email", "Price", "Tags"};
         CSVReaderHeaderAware reader = new CSVReaderHeaderAware(new FileReader(file));
         Map<String, String> values;
         List<Property> properties = new ArrayList<>();
         try {
             while ((values = reader.readMap()) != null) {
-                for (String header : headers) {
+                for (String header : propertyHeaders) {
                     if (!values.containsKey(header)) {
                         throw new ParseException("missing entry in importProperties: " + header);
                     }
@@ -140,7 +136,7 @@ public class CsvManager {
                 properties.add(getProperty(values));
             }
         } catch (CsvValidationException e) {
-            throw new ParseException("Invalid csv format!");
+            throw new ParseException(INVALID_CSV_FORMAT);
         }
         return properties;
     }

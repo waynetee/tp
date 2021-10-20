@@ -44,7 +44,7 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
      * Exports properties in the given {@link ReadOnlyAddressBook} to the csv file.
      *
      * @param addressBook cannot be null.
-     * @param file        cannot be null.
+     * @param file cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
     static void exportProperties(ReadOnlyAddressBook addressBook, File file) throws IOException {
@@ -56,7 +56,7 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
      * Exports buyers in the given {@link ReadOnlyAddressBook} to the csv file.
      *
      * @param addressBook cannot be null.
-     * @param file        cannot be null.
+     * @param file cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
     static void exportBuyers(ReadOnlyAddressBook addressBook, File file) throws IOException {
@@ -68,8 +68,9 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
      * Imports properties in the given csv file to the {@link ReadOnlyAddressBook}.
      *
      * @param addressBook cannot be null.
-     * @param file        cannot be null.
+     * @param file cannot be null.
      * @throws IOException if there was any problem reading from to the file.
+     * @return new AddressBook after importing properties.
      * @throws CsvValidationException if the csv file content cannot be recognized.
      */
     static AddressBook importProperties(ReadOnlyAddressBook addressBook, File file) throws IOException, ParseException {
@@ -84,7 +85,7 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
      * Imports buyers in the given csv file to the {@link ReadOnlyAddressBook}.
      *
      * @param addressBook cannot be null.
-     * @param file        cannot be null.
+     * @param file cannot be null.
      * @throws IOException if there was any problem reading from the file.
      * @throws CsvValidationException if the csv file content cannot be recognized.
      */
