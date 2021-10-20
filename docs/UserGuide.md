@@ -211,7 +211,7 @@ Examples:
 * `sort properties price asc` returns the property list sorted by price in ascending order
 * `sort buyers name desc` returns the buyer list sorted by name in descending order
 
-### Matching properties and buyers: `match`
+### Match properties and buyers: `match`
 
 Matches properties and buyers to one another.
 

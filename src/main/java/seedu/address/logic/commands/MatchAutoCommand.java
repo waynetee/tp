@@ -66,7 +66,6 @@ public class MatchAutoCommand extends MatchCommand {
                 confirmMatch(match);
             }
         }
-        matches.sort(Comparator.comparing(Match::getMatchScore).thenComparing(m -> m.getBuyer().getMaxPrice().value));
     }
 
     /**

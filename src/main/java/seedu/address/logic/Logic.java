@@ -26,7 +26,7 @@ public interface Logic {
      * @param commandText The command as entered by the user.
      * @param showingMatchAutoView True if the UI is showing the results of the match auto command.
      * @throws ParseException If an error occurs during parsing.
-     * @throws CommandException if command cannot be run because of the current UI state.
+     * @throws CommandException If command cannot be run because of the current UI state.
      */
     void validateCommand(String commandText, boolean showingMatchAutoView) throws ParseException, CommandException;
 
@@ -67,17 +67,17 @@ public interface Logic {
     ReadOnlyAddressBook getAddressBook();
 
     /**
-     * Returns an unmodifiable view of the filtered list of properties
+     * Returns an unmodifiable view of the filtered list of properties.
      */
     ObservableList<Property> getFilteredPropertyList();
 
     /**
-     * Returns an unmodifiable view of the filtered buyer list
+     * Returns an unmodifiable view of the filtered buyer list.
      */
     ObservableList<Buyer> getFilteredBuyerList();
 
     /**
-     * Returns an unmodifiable view of the match list
+     * Returns an unmodifiable view of the match list.
      */
     ObservableList<Match> getMatchList();
 
