@@ -1,19 +1,5 @@
 package seedu.address.logic.commands.property;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
-import seedu.address.model.field.ContainsTagsPredicate;
-import seedu.address.model.field.NameContainsKeywordsPredicate;
-import seedu.address.model.property.Property;
-import seedu.address.model.tag.Tag;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -25,6 +11,22 @@ import static seedu.address.testutil.TypicalProperties.P_BENSON;
 import static seedu.address.testutil.TypicalProperties.P_CARL;
 import static seedu.address.testutil.TypicalProperties.P_ELLE;
 import static seedu.address.testutil.TypicalProperties.P_FIONA;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.UserPrefs;
+import seedu.address.model.field.ContainsTagsPredicate;
+import seedu.address.model.field.NameContainsKeywordsPredicate;
+import seedu.address.model.property.Property;
+import seedu.address.model.tag.Tag;
+
 
 public class FindPropertyCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());

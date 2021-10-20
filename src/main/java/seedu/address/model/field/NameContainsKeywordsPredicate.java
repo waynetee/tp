@@ -6,10 +6,9 @@ import java.util.function.Predicate;
 
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.property.Nameable;
-import seedu.address.model.property.Property;
 
 /**
- * Tests that a {@code Property}'s {@code Name} matches any of the keywords given.
+ * Tests that a {@code Nameable}'s {@code Name} matches any of the keywords given.
  * If no keywords are given, defaults to match (i.e. predicate returns true).
  */
 public class NameContainsKeywordsPredicate<T extends Nameable> implements Predicate<T> {

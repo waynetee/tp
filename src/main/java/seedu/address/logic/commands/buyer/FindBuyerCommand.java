@@ -1,5 +1,7 @@
 package seedu.address.logic.commands.buyer;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.FindCommand;
@@ -7,8 +9,6 @@ import seedu.address.model.Model;
 import seedu.address.model.field.ContainsTagsPredicate;
 import seedu.address.model.field.NameContainsKeywordsPredicate;
 import seedu.address.model.property.Buyer;
-
-import static java.util.Objects.requireNonNull;
 
 public class FindBuyerCommand extends FindCommand<Buyer> {
     /**

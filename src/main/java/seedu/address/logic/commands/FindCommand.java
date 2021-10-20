@@ -1,16 +1,12 @@
 package seedu.address.logic.commands;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.function.Predicate;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.model.Model;
 import seedu.address.model.field.ContainsTagsPredicate;
 import seedu.address.model.field.NameContainsKeywordsPredicate;
 import seedu.address.model.property.Nameable;
-import seedu.address.model.property.Property;
 import seedu.address.model.property.Taggable;
 
 /**

@@ -1,7 +1,23 @@
 package seedu.address.logic.commands.buyer;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.commons.core.Messages.MESSAGE_BUYERS_LISTED_OVERVIEW;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalBuyers.B_BENSON;
+import static seedu.address.testutil.TypicalBuyers.B_CARL;
+import static seedu.address.testutil.TypicalBuyers.B_ELLE;
+import static seedu.address.testutil.TypicalBuyers.B_FIONA;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
 import org.junit.jupiter.api.Test;
-import seedu.address.logic.commands.buyer.FindBuyerCommand;
+
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -9,29 +25,6 @@ import seedu.address.model.field.ContainsTagsPredicate;
 import seedu.address.model.field.NameContainsKeywordsPredicate;
 import seedu.address.model.property.Buyer;
 import seedu.address.model.tag.Tag;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_BUYERS_LISTED_OVERVIEW;
-import static seedu.address.commons.core.Messages.MESSAGE_PROPERTIES_LISTED_OVERVIEW;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
-import static seedu.address.testutil.TypicalBuyers.B_ALICE;
-import static seedu.address.testutil.TypicalBuyers.B_BENSON;
-import static seedu.address.testutil.TypicalBuyers.B_CARL;
-import static seedu.address.testutil.TypicalBuyers.B_ELLE;
-import static seedu.address.testutil.TypicalBuyers.B_FIONA;
-import static seedu.address.testutil.TypicalProperties.P_ALICE;
-import static seedu.address.testutil.TypicalProperties.P_BENSON;
-import static seedu.address.testutil.TypicalProperties.P_CARL;
-import static seedu.address.testutil.TypicalProperties.P_ELLE;
-import static seedu.address.testutil.TypicalProperties.P_FIONA;
 
 public class FindBuyerCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());

@@ -1,10 +1,10 @@
 package seedu.address.model.field;
 
-import seedu.address.model.property.Nameable;
-
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
+
+import seedu.address.model.property.Nameable;
 
 /**
  * Represents a Person in propertywhiz.

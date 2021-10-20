@@ -1,15 +1,14 @@
 package seedu.address.logic.commands.property;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.buyer.FindBuyerCommand;
 import seedu.address.model.Model;
 import seedu.address.model.field.ContainsTagsPredicate;
 import seedu.address.model.field.NameContainsKeywordsPredicate;
 import seedu.address.model.property.Property;
-
-import static java.util.Objects.requireNonNull;
 
 public class FindPropertyCommand extends FindCommand<Property> {
 
