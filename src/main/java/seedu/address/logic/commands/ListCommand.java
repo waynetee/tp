@@ -23,4 +23,10 @@ public class ListCommand extends SimpleCommand {
         model.updateFilteredBuyerList(PREDICATE_SHOW_ALL_BUYERS);
         return new CommandResult(MESSAGE_SUCCESS, UiAction.SHOW_DEFAULT);
     }
+
+    @Override
+    public boolean canRunInMatchAutoView() {
+        return true;
+    }
+
 }

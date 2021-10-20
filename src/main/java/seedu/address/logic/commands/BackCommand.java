@@ -1,9 +1,5 @@
 package seedu.address.logic.commands;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_BUYERS;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PROPERTIES;
-
 import seedu.address.model.Model;
 
 /**
@@ -21,6 +17,21 @@ public class BackCommand extends SimpleCommand {
     @Override
     public CommandResult execute(Model model) {
         return new CommandResult(MESSAGE_SUCCESS, UiAction.SHOW_DEFAULT);
+    }
+
+    @Override
+    public boolean canRunInDefaultView() {
+        return false;
+    }
+
+    @Override
+    public boolean canRunInMatchAutoView() {
+        return true;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other instanceof BackCommand;
     }
 
 }
