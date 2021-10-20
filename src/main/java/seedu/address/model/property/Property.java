@@ -17,7 +17,7 @@ import seedu.address.model.tag.Tag;
  * Represents a Property in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Property implements Listable, Taggable {
+public class Property implements Listable, Taggable, Nameable {
 
     private final Name name;
     private final Address address;
@@ -37,6 +37,7 @@ public class Property implements Listable, Taggable {
         this.tags.addAll(tags);
     }
 
+    @Override
     public Name getName() {
         return name;
     }

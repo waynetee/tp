@@ -31,6 +31,7 @@ import seedu.address.logic.commands.property.DeletePropertyCommand;
 import seedu.address.logic.commands.property.EditPropertyCommand;
 import seedu.address.logic.commands.property.EditPropertyCommand.EditPropertyDescriptor;
 import seedu.address.logic.commands.property.ExportPropertiesCommand;
+import seedu.address.logic.commands.property.FindPropertyCommand;
 import seedu.address.logic.commands.property.MatchPropertyCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.field.NameContainsKeywordsPredicate;
@@ -91,8 +92,9 @@ public class AddressBookParserTest {
     public void parseCommand_find() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         FindCommand command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+                FindCommand.COMMAND_WORD + " " + PREAMBLE_PROPERTY + " "
+                        + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new FindPropertyCommand(new NameContainsKeywordsPredicate<>(keywords)), command);
     }
 
     @Test
