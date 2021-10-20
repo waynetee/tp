@@ -44,6 +44,8 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
+    private boolean showingMatchAutoView = false;
+
     @FXML
     private StackPane commandBoxPlaceholder;
 
@@ -227,6 +229,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
+            logic.validateCommand(commandText, showingMatchAutoView);
             CommandResult commandResult;
             CommandPreAction commandPreAction = logic.getCommandPreAction(commandText);
             if (commandPreAction.requiresFile()) {
@@ -247,31 +250,6 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    private void handleUiAction(UiAction uiAction) {
-        switch (uiAction) {
-        case HELP:
-            handleHelp();
-            break;
-        case EXIT:
-            handleExit();
-            break;
-        case SHOW_MATCHES:
-            defaultView.setVisible(false);
-            defaultView.setManaged(false);
-            matchAutoView.setVisible(true);
-            matchAutoView.setManaged(true);
-            break;
-        case SHOW_DEFAULT:
-            defaultView.setVisible(true);
-            defaultView.setManaged(true);
-            matchAutoView.setVisible(false);
-            matchAutoView.setManaged(false);
-            break;
-        default:
-            break;
-        }
-    }
-
     /**
      * Gets user to select a destination for saving csv.
      *
@@ -289,6 +267,44 @@ public class MainWindow extends UiPart<Stage> {
         } else {
             return fileChooser.showOpenDialog(primaryStage);
         }
+    }
+
+    private void handleUiAction(UiAction uiAction) {
+        switch (uiAction) {
+        case HELP:
+            handleHelp();
+            break;
+        case EXIT:
+            handleExit();
+            break;
+        case SHOW_MATCHES:
+            showMatchAutoView();
+            break;
+        case SHOW_DEFAULT:
+            hideMatchAutoView();
+            break;
+        default:
+            break;
+        }
+    }
+
+    private void showMatchAutoView() {
+        setView(true);
+    }
+
+    private void hideMatchAutoView() {
+        setView(false);
+    }
+
+    /**
+     * Sets the current UI being shown to the user (match auto view or default view)
+     */
+    private void setView(boolean showMatchAutoView) {
+        showingMatchAutoView = showMatchAutoView;
+        defaultView.setVisible(!showingMatchAutoView);
+        defaultView.setManaged(!showingMatchAutoView);
+        matchAutoView.setVisible(showingMatchAutoView);
+        matchAutoView.setManaged(showingMatchAutoView);
     }
 
 }

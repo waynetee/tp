@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.BackCommand;
 import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandPreAction;
 import seedu.address.logic.commands.CommandWithFile;
 import seedu.address.logic.commands.DeleteCommand;
@@ -36,6 +37,20 @@ public class AddressBookParser {
 
     /**
      * Parses user input into command for execution.
+     *
+     * @param userInput full user input string
+     * @return the command based on the user input
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    public Command parseAnyCommand(String userInput) throws ParseException {
+        Optional<CommandWithFile> fileCommand = parseCommandWithFile(userInput);
+        if (fileCommand.isPresent())
+            return fileCommand.get();
+        return parseCommand(userInput);
+    }
+
+    /**
+     * Parses user input into simpleCommand for execution.
      *
      * @param userInput full user input string
      * @return the command based on the user input

@@ -1,5 +1,8 @@
 package seedu.address.logic;
 
+import static seedu.address.commons.core.Messages.MESSAGE_DEFAULT_VIEW_INVALID_COMMAND;
+import static seedu.address.commons.core.Messages.MESSAGE_MATCH_AUTO_VIEW_INVALID_COMMAND;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -9,6 +12,7 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandPreAction;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.CommandWithFile;
@@ -42,6 +46,19 @@ public class LogicManager implements Logic {
         this.model = model;
         this.storage = storage;
         addressBookParser = new AddressBookParser();
+    }
+
+
+    @Override
+    public void validateCommand(String commandText, boolean showingMatchAutoView)
+            throws ParseException, CommandException {
+        Command command = addressBookParser.parseAnyCommand(commandText);
+        if (showingMatchAutoView && !command.canRunInMatchAutoView()) {
+            throw new CommandException(MESSAGE_MATCH_AUTO_VIEW_INVALID_COMMAND);
+        }
+        if (!showingMatchAutoView && !command.canRunInDefaultView()) {
+            throw new CommandException(MESSAGE_DEFAULT_VIEW_INVALID_COMMAND);
+        }
     }
 
     @Override
