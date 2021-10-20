@@ -17,7 +17,7 @@ import seedu.address.model.UserPrefs;
  */
 public class ListCommandTest {
 
-    private final static CommandResult SUCCESS_RESULT =
+    private static final CommandResult SUCCESS_RESULT =
             new CommandResult(ListCommand.MESSAGE_SUCCESS, UiAction.SHOW_DEFAULT);
 
     private Model model;

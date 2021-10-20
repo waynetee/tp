@@ -14,6 +14,9 @@ public class Match implements Listable {
     private final Property property;
     private final Buyer buyer;
 
+    /**
+     * Creates a match between a property and a buyer.
+     */
     public Match(Property property, Buyer buyer) {
         CollectionUtil.requireAllNonNull(property, buyer);
         this.property = property;

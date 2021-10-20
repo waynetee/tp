@@ -44,8 +44,9 @@ public class AddressBookParser {
      */
     public Command parseAnyCommand(String userInput) throws ParseException {
         Optional<CommandWithFile> fileCommand = parseCommandWithFile(userInput);
-        if (fileCommand.isPresent())
+        if (fileCommand.isPresent()) {
             return fileCommand.get();
+        }
         return parseSimpleCommand(userInput);
     }
 

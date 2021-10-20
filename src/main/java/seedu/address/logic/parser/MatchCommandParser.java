@@ -14,6 +14,8 @@ import seedu.address.model.field.Actor;
 public class MatchCommandParser {
     private static final int ACTOR_POSITIONAL_INDEX = 0;
     private static final int INDEX_POSITIONAL_INDEX = 1;
+    private static final int NUM_OF_PREAMBLE_ARGS_IN_ONE_TO_MANY = 2;
+
 
     /**
      * Parses the given {@code String} of arguments in the context of the MatchCommand
@@ -26,7 +28,7 @@ public class MatchCommandParser {
             return new MatchAutoCommand();
         }
         try {
-            return parseOneToMany(args);
+            return parseOneToManyMatch(args);
         } catch (ParseException e) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MatchCommand.MESSAGE_USAGE));
         }
@@ -36,9 +38,8 @@ public class MatchCommandParser {
         return args.trim().equals(MatchAutoCommand.ARGUMENT_WORD);
     }
 
-    private MatchOneToManyCommand parseOneToMany(String args) throws ParseException {
-        final int NUM_OF_PREAMBLE_ARGS = 2;
-        ParserUtil.assertPreambleArgsCount(args, NUM_OF_PREAMBLE_ARGS);
+    private MatchOneToManyCommand parseOneToManyMatch(String args) throws ParseException {
+        ParserUtil.assertPreambleArgsCount(args, NUM_OF_PREAMBLE_ARGS_IN_ONE_TO_MANY);
         Actor actor = ParserUtil.parseActor(args, ACTOR_POSITIONAL_INDEX);
         Index index = ParserUtil.parseIndex(args, INDEX_POSITIONAL_INDEX);
         switch (actor) {

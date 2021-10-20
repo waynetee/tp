@@ -75,7 +75,7 @@ public class MatchAutoCommand extends MatchCommand {
     private void sortMatches() {
         // Comparator comparing budget - price
         Comparator<Match> priceDiffComparator = Comparator.comparing(
-                m -> m.getBuyer().getMaxPrice().value - m.getProperty().getPrice().value);
+            m -> m.getBuyer().getMaxPrice().value - m.getProperty().getPrice().value);
 
         // Comparing by increasing match score then budget - price
         Comparator<Match> desirabilityComparator =
@@ -102,7 +102,7 @@ public class MatchAutoCommand extends MatchCommand {
      * Returns possible matches in descending order of desirability.
      */
     private List<Match> getSortedMatchCandidates() {
-        buyers.sort(Buyer.getPriceComparator());  // Prefer matching low budget buyers first
+        buyers.sort(Buyer.getPriceComparator()); // Prefer matching low budget buyers first
         properties.sort(Property.getPriceComparator().reversed()); // Prefer matching expensive properties first
         List<Match> matchCandidates = new ArrayList<>();
         for (Buyer buyer : buyers) {

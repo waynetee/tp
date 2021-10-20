@@ -46,7 +46,8 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_add() throws Exception {
         Property property = new PropertyBuilder().build();
-        AddPropertyCommand command = (AddPropertyCommand) parser.parseSimpleCommand(PropertyUtil.getAddCommand(property));
+        AddPropertyCommand command =
+                (AddPropertyCommand) parser.parseSimpleCommand(PropertyUtil.getAddCommand(property));
         assertEquals(new AddPropertyCommand(property), command);
     }
 

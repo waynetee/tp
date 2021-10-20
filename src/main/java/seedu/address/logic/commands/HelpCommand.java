@@ -23,5 +23,5 @@ public class HelpCommand extends SimpleCommand {
     public boolean canRunInMatchAutoView() {
         return true;
     }
-    
+
 }
