@@ -19,6 +19,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandPreAction;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ExportCommand;
+import seedu.address.logic.commands.ImportCommand;
 import seedu.address.logic.commands.UiAction;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -177,6 +178,32 @@ public class MainWindow extends UiPart<Stage> {
             return fileChooser.showSaveDialog(primaryStage);
         } else {
             return fileChooser.showOpenDialog(primaryStage);
+        }
+    }
+
+
+
+    /**
+     * Imports Properties.
+     */
+    @FXML
+    public void handleImportProperties() {
+        try {
+            executeCommand(ImportCommand.COMMAND_WORD + " " + ImportCommand.PROPERTIES);
+        } catch (CommandException | ParseException e) {
+            logger.warning("handleImportProperties failed!");
+        }
+    }
+
+    /**
+     * Imports Buyers.
+     */
+    @FXML
+    public void handleImportBuyers() {
+        try {
+            executeCommand(ImportCommand.COMMAND_WORD + " " + ImportCommand.BUYERS);
+        } catch (CommandException | ParseException e) {
+            logger.warning("handleImportBuyers failed!");
         }
     }
 

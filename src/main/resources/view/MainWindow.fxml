@@ -27,6 +27,8 @@
       <VBox>
         <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
           <Menu mnemonicParsing="false" text="File">
+            <MenuItem mnemonicParsing="false" onAction="#handleImportProperties" text="Import Properties" />
+            <MenuItem mnemonicParsing="false" onAction="#handleImportBuyers" text="Import Buyers" />
             <MenuItem mnemonicParsing="false" onAction="#handleExportProperties" text="Export Properties" />
             <MenuItem mnemonicParsing="false" onAction="#handleExportBuyers" text="Export Buyers" />
             <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
