@@ -1,6 +1,11 @@
 package seedu.address.storage;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.io.File;
 import java.io.FileReader;
@@ -98,6 +103,11 @@ public class CsvManager {
     }
 
     private static Property getProperty(Map<String, String> values) throws ParseException {
+        for (String header : propertyHeaders) {
+            if (!values.containsKey(header)) {
+                throw new ParseException("missing entry in importProperties: " + header);
+            }
+        }
         Name propertyName = ParserUtil.parseName(values.get(HEADER_NAME));
         Address address = ParserUtil.parseAddress(values.get(HEADER_ADDRESS));
         Name sellerName = ParserUtil.parseName(values.get(HEADER_SELLER));
@@ -114,6 +124,25 @@ public class CsvManager {
         return property;
     }
 
+    private static Buyer getBuyer(Map<String, String> values) throws ParseException {
+        for (String header : buyerHeaders) {
+            if (!values.containsKey(header)) {
+                throw new ParseException("missing entry in importBuyers: " + header);
+            }
+        }
+        Name name = ParserUtil.parseName(values.get(HEADER_NAME));
+        Phone phone = ParserUtil.parsePhone(values.get(HEADER_PHONE));
+        Email email = ParserUtil.parseEmail(values.get(HEADER_EMAIL));
+        Price maxPrice = ParserUtil.parsePrice(values.get(HEADER_BUDGET));
+        Set<Tag> tagList = new HashSet<Tag>();
+        if (!values.get(HEADER_TAGS).isEmpty()) {
+            tagList = ParserUtil.parseTags(Arrays.asList(values.get(HEADER_TAGS).split(",")));
+        }
+
+        Buyer buyer = new Buyer(name, phone, email, maxPrice, tagList);
+        return buyer;
+    }
+
     /**
      * Imports properties in the given csv file to the {@link ReadOnlyAddressBook}.
      *
@@ -128,16 +157,33 @@ public class CsvManager {
         List<Property> properties = new ArrayList<>();
         try {
             while ((values = reader.readMap()) != null) {
-                for (String header : propertyHeaders) {
-                    if (!values.containsKey(header)) {
-                        throw new ParseException("missing entry in importProperties: " + header);
-                    }
-                }
                 properties.add(getProperty(values));
             }
         } catch (CsvValidationException e) {
             throw new ParseException(INVALID_CSV_FORMAT);
         }
         return properties;
+    }
+
+    /**
+     * Imports buyers in the given csv file to the {@link ReadOnlyAddressBook}.
+     *
+     * @param file cannot be null.
+     * @throws IOException if there was any problem writing to the file.
+     * @throws ParseException if the csv file content cannot be recognized.
+     */
+    public static List<Buyer> importBuyers(File file) throws IOException, ParseException {
+        requireAllNonNull(file);
+        CSVReaderHeaderAware reader = new CSVReaderHeaderAware(new FileReader(file));
+        Map<String, String> values;
+        List<Buyer> buyers = new ArrayList<>();
+        try {
+            while ((values = reader.readMap()) != null) {
+                buyers.add(getBuyer(values));
+            }
+        } catch (CsvValidationException e) {
+            throw new ParseException(INVALID_CSV_FORMAT);
+        }
+        return buyers;
     }
 }

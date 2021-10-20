@@ -6,6 +6,7 @@ import java.io.IOException;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ImportCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.storage.Storage;
 
@@ -18,13 +19,14 @@ public class ImportBuyersCommand extends ImportCommand {
         if (file == null) {
             return new CommandResult(String.format(MESSAGE_CANCELLED, BUYERS));
         }
-        /* try {
-            Storage.importBuyers(model.getAddressBook(), file);
+        try {
+            model.setAddressBook(Storage.importBuyers(model.getAddressBook(), file));
             return new CommandResult(String.format(MESSAGE_SUCCESS, BUYERS));
         } catch (IOException ioe) {
             return new CommandResult(String.format(MESSAGE_IO_FAILURE, BUYERS));
-        }*/
-        return null;
+        } catch (ParseException pe) {
+            return new CommandResult(String.format(MESSAGE_FORMAT_FAILURE, BUYERS) + "\n" + pe.getMessage());
+        }
     }
 
     public String toString() {
