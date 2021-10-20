@@ -34,7 +34,7 @@ public class Match implements Listable {
 
     private static boolean validateMatch(Property property, Buyer buyer) {
         // TODO: ELiz's PR
-        return property.getPrice().value <= buyer.getMaxPrice().value;
+        return property.getPrice().value <= buyer.getPrice().value;
     }
 
     public Property getProperty() {

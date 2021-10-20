@@ -1,18 +1,24 @@
 package seedu.address.model.stats;
 
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.JFreeChart;
-import org.jfree.data.statistics.HistogramDataset;
-
 import javafx.collections.ObservableList;
+
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.CategoryAxis;
+import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.chart.renderer.category.CategoryItemRenderer;
+import org.jfree.data.category.DefaultCategoryDataset;
+
 import seedu.address.model.property.Buyer;
+import seedu.address.model.property.PricedListable;
 import seedu.address.model.property.Property;
 
 /**
  * Stat that creates a histogram of visible buyers, properties, or both.
  */
 public class HistogramStat implements Stat {
-    private static final int BIN_COUNT = 20;
+    private static final int BIN_COUNT = 10;
 
     private final ObservableList<Buyer> buyerList;
     private final ObservableList<Property> propertyList;
@@ -35,29 +41,70 @@ public class HistogramStat implements Stat {
     }
 
     /**
+     * Returns a two element array containing the min in index 0, and max in index 1.
+     */
+    private double[] getGlobalMinMax() {
+        double buyerMin = buyerList.stream()
+                .min((x, y) -> x.getPrice().compareTo(y.getPrice())).map(p -> p.getPrice().value).get();
+        double buyerMax = buyerList.stream()
+                .max((x, y) -> x.getPrice().compareTo(y.getPrice())).map(p -> p.getPrice().value).get();
+        double propertyMin = propertyList.stream()
+                .min((x, y) -> x.getPrice().compareTo(y.getPrice())).map(p -> p.getPrice().value).get();
+        double propertyMax = propertyList.stream()
+                .max((x, y) -> x.getPrice().compareTo(y.getPrice())).map(p -> p.getPrice().value).get();
+        double[] minmax = new double[2];
+        minmax[0] = (int) (Math.min(buyerMin, propertyMin) / 100000) * 100000;
+        minmax[1] = (int) (Math.max(buyerMax, propertyMax) / 100000 + 1) * 100000;
+        return minmax;
+    }
+
+    private int getBin(double price, double min, double interval) {
+        return (int) Math.min((price - min) / interval, BIN_COUNT - 1);
+    }
+
+    private String getRangeLabel(double from, double to) {
+        return String.format("%d -- %d", (long) from, (long) to);
+    }
+
+    private void addToDataSet(DefaultCategoryDataset dataset,
+                              ObservableList<? extends PricedListable> list, String key,
+                              double min, double max) {
+        double interval = (max - min) / BIN_COUNT, binVal = min;
+        int[] bins = new int[BIN_COUNT];
+        list.stream()
+                .forEach(x -> bins[getBin(x.getPrice().value, min, interval)]++);
+        for (int i = 0; i < bins.length; i++, binVal += interval) {
+            dataset.addValue( bins[i], key, getRangeLabel(binVal, binVal + interval));
+        }
+    }
+
+    /**
      * Creates a histogram to displayed as a popup.
      * Shows either buyers, properties or both.
      *
      * @return price histogram.
      */
     public JFreeChart create() {
-        double[] buyerPrices = buyerList.stream()
-                .mapToDouble(buyer -> (double) buyer.getMaxPrice().value).toArray();
-        double[] propertyPrices = propertyList.stream()
-                .mapToDouble(property -> (double) property.getPrice().value).toArray();
+        assert !buyerList.isEmpty() && !propertyList.isEmpty();
+        double[] minmax = getGlobalMinMax();
+        double min = minmax[0], max = minmax[1];
 
-        HistogramDataset dataset = new HistogramDataset();
-        if (showBuyer) {
-            dataset.addSeries("buyers", buyerPrices, BIN_COUNT);
-        }
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        addToDataSet(dataset, buyerList, "buyers", min, max);
+        addToDataSet(dataset, propertyList, "properties", min, max);
 
-        if (showProperty) {
-            dataset.addSeries("properties", propertyPrices, BIN_COUNT);
-        }
+        final CategoryPlot plot = new CategoryPlot();
+        plot.setDomainAxis(new CategoryAxis("Prices ($)"));
+        plot.setRangeAxis(new NumberAxis("Count"));
 
-        JFreeChart histogram = ChartFactory.createHistogram("Prices of " + titleArgs,
-                "Price", "Count", dataset);
+        BarRenderer.setDefaultShadowsVisible(false);
+        final CategoryItemRenderer renderer = new BarRenderer();
+        renderer.setDefaultItemLabelsVisible(true);
+        plot.setDataset(dataset);
+        plot.setRenderer(renderer);
 
-        return histogram;
+        final JFreeChart chart = new JFreeChart(plot);
+
+        return chart;
     }
 }

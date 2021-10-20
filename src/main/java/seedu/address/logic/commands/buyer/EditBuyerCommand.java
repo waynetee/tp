@@ -103,7 +103,7 @@ public class EditBuyerCommand extends EditCommand {
                 .orElse(buyerToEdit.getPhone());
         Email updatedEmail = editBuyerDescriptor.getEmail()
                 .orElse(buyerToEdit.getEmail());
-        Price updatedPrice = editBuyerDescriptor.getMaxPrice().orElse(buyerToEdit.getMaxPrice());
+        Price updatedPrice = editBuyerDescriptor.getMaxPrice().orElse(buyerToEdit.getPrice());
 
         return new Buyer(updatedName, updatedPhone, updatedEmail, updatedPrice, editedTags);
     }

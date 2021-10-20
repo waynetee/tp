@@ -2,10 +2,11 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.fx.ChartViewer;
+
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.stats.Stat;
 
