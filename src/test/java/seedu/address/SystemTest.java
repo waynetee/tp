@@ -90,7 +90,8 @@ public class SystemTest {
     private void assertDataRestored(Logic originalLogic) {
         ReadOnlyAddressBook original = originalLogic.getAddressBook();
         ReadOnlyAddressBook restored = createApp().getAddressBook();
-        assertEquals(original, restored);
+        assertEquals(original.getPropertyList(), restored.getPropertyList());
+        assertEquals(original.getBuyerList(), restored.getBuyerList());
     }
 
 }

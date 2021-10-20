@@ -10,7 +10,7 @@ public class BackCommand extends SimpleCommand {
     public static final String COMMAND_WORD = "back";
 
     public static final String MESSAGE_SUCCESS = "Returned to main screen.";
-    public static final String MESSAGE_BACK_COMMAND = "Type the '" + COMMAND_WORD
+    public static final String MESSAGE_BACK_COMMAND = "Key in the '" + COMMAND_WORD
             + "' command to return to the main screen.";
 
 
