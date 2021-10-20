@@ -16,7 +16,11 @@ Class UserPrefs
 Class ReadOnlyUserPrefs
 
 
-Class UniquePersonList
+Class UniquePropertyList
+Class UniqueBuyerList
+Class Property
+Class Buyer
+Class Price
 Class Person
 Class Address
 Class Email
@@ -38,17 +42,31 @@ ModelManager -left-> "1" AddressBook
 ModelManager -right-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-AddressBook *--> "1" UniquePersonList
-UniquePersonList --> "~* all" Person
+AddressBook *--> "1" UniquePropertyList
+UniquePropertyList -down---> "~* all" Property
+Property *--> Name
+Property *--> Person
+Property *--> Address
+Property *--> Price
+Property *--> "*" Tag
+
+AddressBook *--> "1" UniqueBuyerList
+UniqueBuyerList -[hidden]left-> UniquePropertyList
+UniqueBuyerList --> "~* all" Buyer
+Buyer --|> Person
+Buyer *--> Price
+Buyer *--> "*" Tag
+
+Property -[hidden]right-> Buyer
+
 Person *--> Name
-Person *--> Phone
 Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
+Person *--> Phone
 
 Name -[hidden]right-> Phone
 Phone -[hidden]right-> Address
 Address -[hidden]right-> Email
 
-ModelManager -->"~* filtered" Person
+ModelManager -->"~* filtered" Property
+ModelManager -->"~* filtered" Buyer
 @enduml
