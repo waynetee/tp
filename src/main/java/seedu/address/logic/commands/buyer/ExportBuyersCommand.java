@@ -29,4 +29,13 @@ public class ExportBuyersCommand extends ExportCommand {
     public String toString() {
         return COMMAND_WORD + ' ' + BUYERS;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        return other instanceof ExportBuyersCommand;
+    }
 }

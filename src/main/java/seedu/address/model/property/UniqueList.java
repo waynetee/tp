@@ -81,7 +81,7 @@ public class UniqueList<Item extends Listable> implements Iterable<Item> {
         }
     }
 
-    public void setListables(UniqueList replacement) {
+    public void setListables(UniqueList<Item> replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }

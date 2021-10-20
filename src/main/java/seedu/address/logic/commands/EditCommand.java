@@ -23,7 +23,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Edits the details of an existing entity (property or buyer) in the address book.
  */
-public abstract class EditCommand extends Command {
+public abstract class EditCommand extends SimpleCommand {
     public static final String COMMAND_WORD = "edit";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the property or buyer identified "
             + "by the index number used in the displayed property/buyer list. "
@@ -67,6 +67,7 @@ public abstract class EditCommand extends Command {
             + "You cannot do both at the same time.\n"
             + "An edit command can either have [t/TAG]... or [ta/TAG_TO_ADD]... [td/TAG_TO_DELETE]...";
     public static final String MESSAGE_DUPLICATE_ADD_AND_DELETE_TAG = "A tag cannot be both added and deleted.";
+    public static final String EXPECTED_PREAMBLE = "(property | buyer) INDEX";
 
 
     protected Pair<Set<Tag>, String> getTags(Taggable taggableToEdit,

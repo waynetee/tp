@@ -4,7 +4,7 @@ package seedu.address.logic.commands;
 /**
  * Matches entities (properties and buyers) in the address book.
  */
-public abstract class MatchCommand extends Command {
+public abstract class MatchCommand extends SimpleCommand {
 
     public static final String COMMAND_WORD = "match";
 

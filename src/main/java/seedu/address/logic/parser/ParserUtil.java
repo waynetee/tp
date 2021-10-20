@@ -28,9 +28,8 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_ACTOR = "Only property or buyer can be specified as target.";
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
-    public static final String MESSAGE_INVALID_PREAMBLE = "Incorrect number of arguments in preamble."
-            + "The following fields are expected:"
-            + "\n";
+    public static final String MESSAGE_INVALID_PREAMBLE = "Obtained invalid Preamble: \"%s\".\n"
+            + "The following fields are expected: %s";
 
     public static final List<String> PROPERTY_PATTERN = Arrays.asList("property", "properties");
 

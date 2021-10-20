@@ -16,6 +16,7 @@ import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_BUYER;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_PROPERTY;
 import static seedu.address.logic.commands.CommandTestUtil.PRICE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PRICE_DESC_BOB;
@@ -23,23 +24,18 @@ import static seedu.address.logic.commands.CommandTestUtil.SELLER_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.SELLER_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_SELLER_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_PREAMBLE;
 import static seedu.address.testutil.TypicalProperties.P_AMY;
 import static seedu.address.testutil.TypicalProperties.P_BOB;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.buyer.AddBuyerCommand;
 import seedu.address.logic.commands.property.AddPropertyCommand;
 import seedu.address.model.field.Email;
 import seedu.address.model.field.Name;
@@ -51,7 +47,31 @@ import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PropertyBuilder;
 
 public class AddCommandParserTest {
+    private static final String MESSAGE_INVALID_FORMAT =
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
+
     private AddCommandParser parser = new AddCommandParser();
+
+    @Test
+    public void parse_missingParts_failure() {
+        // no actor specified
+        assertParseFailure(parser, NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
+
+        // empty command
+        assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
+    }
+
+    @Test
+    public void parse_invalidPreamble_failure() {
+        // invalid number of arguments being parsed as preamble
+        assertParseFailure(parser, PREAMBLE_PROPERTY + " some random string",
+                String.format(MESSAGE_INVALID_PREAMBLE, PREAMBLE_PROPERTY + " some random string",
+                        AddCommand.EXPECTED_PREAMBLE));
+
+        // invalid actor in preamble
+        assertParseFailure(parser, "buy", String.format(MESSAGE_INVALID_PREAMBLE, "buy",
+                AddCommand.EXPECTED_PREAMBLE));
+    }
 
     @Test
     public void parse_allFieldsPresent_success() {
@@ -117,45 +137,66 @@ public class AddCommandParserTest {
                 + SELLER_DESC_AMY + PRICE_DESC_AMY, new AddPropertyCommand(expectedProperty));
     }
 
-    @Disabled
     @Test
-    public void parse_compulsoryFieldMissing_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
+    public void parsePropertyCommand_compulsoryFieldMissing_failure() {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPropertyCommand.MESSAGE_USAGE);
 
-        // missing name prefix
+        // missing name
         assertParseFailure(parser, PREAMBLE_PROPERTY
-                + VALID_NAME_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
+                + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
                 + SELLER_DESC_BOB + PRICE_DESC_BOB, expectedMessage);
 
-        // missing phone prefix
+        // missing phone
         assertParseFailure(parser, PREAMBLE_PROPERTY
-                + NAME_DESC_BOB + VALID_PHONE_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
+                + NAME_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
                 + SELLER_DESC_BOB + PRICE_DESC_BOB, expectedMessage);
 
-        // missing email prefix
+        // missing email
         assertParseFailure(parser, PREAMBLE_PROPERTY
-                + NAME_DESC_BOB + PHONE_DESC_BOB + VALID_EMAIL_BOB + ADDRESS_DESC_BOB
+                + NAME_DESC_BOB + PHONE_DESC_BOB + ADDRESS_DESC_BOB
                 + SELLER_DESC_BOB + PRICE_DESC_BOB, expectedMessage);
 
-        // missing address prefix
+        // missing address
         assertParseFailure(parser, PREAMBLE_PROPERTY
-                + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + VALID_ADDRESS_BOB
+                + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + SELLER_DESC_BOB + PRICE_DESC_BOB, expectedMessage);
 
-        // missing seller prefix
+        // missing seller
         assertParseFailure(parser, PREAMBLE_PROPERTY
                 + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + VALID_SELLER_BOB + PRICE_DESC_BOB, expectedMessage);
+                + PRICE_DESC_BOB, expectedMessage);
 
-        // missing price prefix
+        // missing price
         assertParseFailure(parser, PREAMBLE_PROPERTY
                 + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + SELLER_DESC_BOB + VALID_PRICE_BOB, expectedMessage);
+                + SELLER_DESC_BOB, expectedMessage);
 
-        // all prefixes missing
-        assertParseFailure(parser, PREAMBLE_PROPERTY
-                + VALID_NAME_BOB + VALID_PHONE_BOB + VALID_EMAIL_BOB + VALID_ADDRESS_BOB
-                + VALID_SELLER_BOB + VALID_PRICE_BOB, expectedMessage);
+        // missing all
+        assertParseFailure(parser, PREAMBLE_PROPERTY, expectedMessage);
+    }
+
+    @Test
+    public void parseBuyerCommand_compulsoryFieldMissing_failure() {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddBuyerCommand.MESSAGE_USAGE);
+
+        // missing name
+        assertParseFailure(parser, PREAMBLE_BUYER
+                + PHONE_DESC_BOB + EMAIL_DESC_BOB + PRICE_DESC_BOB, expectedMessage);
+
+        // missing phone
+        assertParseFailure(parser, PREAMBLE_BUYER + NAME_DESC_BOB
+                + EMAIL_DESC_BOB + PRICE_DESC_BOB, expectedMessage);
+
+        // missing email
+        assertParseFailure(parser, PREAMBLE_BUYER + NAME_DESC_BOB
+                + PHONE_DESC_BOB + PRICE_DESC_BOB, expectedMessage);
+
+        // missing price
+        assertParseFailure(parser, PREAMBLE_BUYER + NAME_DESC_BOB
+                + PHONE_DESC_BOB + EMAIL_DESC_BOB, expectedMessage);
+
+        // missing all
+        assertParseFailure(parser, PREAMBLE_BUYER, expectedMessage);
     }
 
     @Test
