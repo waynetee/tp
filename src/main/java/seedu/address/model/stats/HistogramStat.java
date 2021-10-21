@@ -1,15 +1,14 @@
 package seedu.address.model.stats;
 
 import javafx.collections.ObservableList;
-
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.CategoryAxis;
+import org.jfree.chart.axis.CategoryLabelPositions;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.chart.renderer.category.CategoryItemRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
-
 import seedu.address.model.property.Buyer;
 import seedu.address.model.property.Pricable;
 import seedu.address.model.property.Property;
@@ -19,6 +18,8 @@ import seedu.address.model.property.Property;
  */
 public class HistogramStat implements Stat {
     private static final int BIN_COUNT = 10;
+    private static final int MILLION = 1000000;
+    private static final int THOUSAND = 1000;
 
     private final ObservableList<Buyer> buyerList;
     private final ObservableList<Property> propertyList;
@@ -68,8 +69,14 @@ public class HistogramStat implements Stat {
     /**
      * Returns the label for the bin of this interval.
      */
-    private String getRangeLabel(double from, double to) {
-        return String.format("%d -- %d", (long) from, (long) to);
+    private String getRangeLabel(double price) {
+        if (price >= MILLION) {
+            price /= MILLION;
+            return String.format("%.2fM", price);
+        } else {
+            price /= THOUSAND;
+            return String.format("%dK", (long) price);
+        }
     }
 
     /**
@@ -78,12 +85,14 @@ public class HistogramStat implements Stat {
     private void addToDataSet(DefaultCategoryDataset dataset,
                               ObservableList<? extends Pricable> list, String key,
                               double min, double max) {
-        double interval = (max - min) / BIN_COUNT, binVal = min;
+        double interval = (max - min) / BIN_COUNT;
+        double binVal = min;
         int[] bins = new int[BIN_COUNT];
         list.stream()
                 .forEach(x -> bins[getBin(x.getPrice().value, min, interval)]++);
         for (int i = 0; i < bins.length; i++, binVal += interval) {
-            dataset.addValue( bins[i], key, getRangeLabel(binVal, binVal + interval));
+            String label = String.format("%s -- %s", getRangeLabel(binVal), getRangeLabel(binVal + interval));
+            dataset.addValue(bins[i], key, label);
         }
     }
 
@@ -96,7 +105,8 @@ public class HistogramStat implements Stat {
     public JFreeChart create() {
         assert !buyerList.isEmpty() && !propertyList.isEmpty();
         double[] minmax = getGlobalMinMax();
-        double min = minmax[0], max = minmax[1];
+        double min = minmax[0];
+        double max = minmax[1];
 
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         addToDataSet(dataset, buyerList, "buyers", min, max);
@@ -105,6 +115,8 @@ public class HistogramStat implements Stat {
         final CategoryPlot plot = new CategoryPlot();
         plot.setDomainAxis(new CategoryAxis("Prices ($)"));
         plot.setRangeAxis(new NumberAxis("Count"));
+        plot.setDomainGridlinesVisible(true);
+        plot.getDomainAxis().setCategoryLabelPositions(CategoryLabelPositions.UP_45);
 
         BarRenderer.setDefaultShadowsVisible(false);
         final CategoryItemRenderer renderer = new BarRenderer();
