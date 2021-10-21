@@ -2,7 +2,6 @@ package seedu.address.ui.stats;
 
 import java.util.Optional;
 
-import javafx.collections.ObservableList;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.CategoryLabelPositions;
@@ -11,6 +10,8 @@ import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.chart.renderer.category.CategoryItemRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
+
+import javafx.collections.ObservableList;
 import seedu.address.model.property.Buyer;
 import seedu.address.model.property.Pricable;
 import seedu.address.model.property.Property;
