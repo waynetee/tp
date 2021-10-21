@@ -228,7 +228,7 @@ Upon entering `match auto`, PropertyWhiz will intelligently pair properties with
 
 PropertyWhiz determines compatibility based on the number of tags in common, the buyer's budget, as well as the property price. Matches where the buyer and property have more tags in common are considered more compatible. Likewise for matches where the property price is within the buyer's budget.
 
-After running `match auto`, enter `back` into the command box to return to the list of buyers and properties.
+After running `match auto`, enter `back` into the command box to return to the previously shown list of buyers and properties.
 
 ### Importing data from csv file : `import`
 

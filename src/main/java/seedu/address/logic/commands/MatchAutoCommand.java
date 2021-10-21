@@ -69,7 +69,7 @@ public class MatchAutoCommand extends MatchCommand {
     }
 
     /**
-     * Sorts matches by decreasing desirability (match score and price difference).
+     * Sorts matches by decreasing priority to show to the user.
      */
     private void sortMatches() {
         // Sorting by decreasing match score then decreasing budget - price
