@@ -157,6 +157,56 @@ TODO: Should this be removed?
 
 This section describes some noteworthy details on how certain features are implemented.
 
+### Sort feature
+The sort feature allows the user to sort the properties and buyers in PropertyWhiz.
+The feature consists of the following commands:
+* `sort properties` - Sorts the properties in PropertyWhiz.
+* `sort buyers` - Sorts the buyers in PropertyWhiz.
+
+There are 2 sorting options in PropertyWhiz:
+* `SortType` - Enum class that represents the attributes of buyers and properties that can be sorted. Currently, only names and prices of buyers and properties can be sorted. These are represented by `SortType.NAME` and `SortType.PRICE` respectively.
+* `SortDirection` - Enum class that represents the direction, ascending or descending, of the sort. These are represented by `SortDirection.ASC` and `SortDirection.DESC`.
+
+#### Parsing of commands within the `Logic` component
+The parsing of commands is done in the `LogicManager` and when executed, which results in `SortCommand` object being created. 
+Since both properties and buyers can be sorted, `SortCommand` is abstract and `SortPropertyCommand` and `SortBuyerCommand`are concrete subclasses that extend `SortComand`.
+The `SortCommandParser` serves as the intermediate layer between `LogicManager` and `SortCommand` to handle parsing of arguments of the user sort command. 
+Given below are the steps to parse a sort user command:
+1. `AddressBookParser` will check if the command is a sort command. The `AddressBookParser` will then create a `SortCommandParser`.
+2. `SortCommandParser` will parse the arguments of the command to get the list, sort type and sort direction to be sorted by calling static methods in `ParserUtil`.
+3. Depending on the list to be sorted, the corresponding subclass of `SortCommand` will be created:
+   * `sort properties <args>`: `SortPropertyCommand`
+   * `sort buyers <args>`: `SortBuyerCommand`  
+
+   The user input for types of `<args>` can be found in the [UserGuide](./UserGuide.md#sorting-propertiesbuyers-sort).
+
+Given below is a sequence diagram for interactions inside the `Logic` component for the `execute("sort properties price asc")` API call.
+
+![SortParsingSequenceDiagram](images/SortParsingSequenceDiagram.png)
+
+#### Execution of commands within the `Logic` component
+After parsing of the user input into a `SortCommand`, the `LogicManager` calls `SortCommand#execute(model)` with a `model`.
+
+The `Model` interface exposes the following operations to sort the buyers and properties list:
+* `Model#sortProperties(sortType, sortDirection)`
+* `Model#sortBuyers(sortType, sortDirection)`
+
+`SortPropertyCommand` will call `Model#sortProperties(sortType, sortDirection)` and `SortBuyerCommand` will call `Model#sortBuyers(SortType, SortDirection)`.
+In the `Model`, the `model` will call the `sort(sortType, sortDirection)` method of either `UniquePropertyList` or `UniqueBuyerList` to sort the properties or buyers.
+
+Lastly, a `CommandResult` object containing the message to be displayed to the user is created and returned to the `LogicManager`.
+
+Given below is a sequence diagram for the execution of a `SortPropertyCommand`.
+![SortExecutionSequenceDiagram](images/SortExecutionSequenceDiagram.png)
+
+#### Design considerations:
+**Aspect: Implementation of `SortCommand#execute(model)`** 
+* **Alternative 1 (current choice)**: Pass the `SortType` and `SortDirection` from the `SortCommand` to the `Model`.
+  * Pros: Easy to implement.
+  * Cons: Need to pass the arguments through many layers before reaching `UniquePropertyList`.
+* **Alternative 2** : Implement many methods in the `Model` to represent the different combinations of sort types and directions and call these method directly in `SortCommand#execute(model)`.
+  * Pros: Better abstraction.
+  * Cons: Too many different combinations, and as a result, too many methods in the `model`, if there is a need to extend the sort options in the future.
 ### \[Proposed\] Undo/redo feature
 
 #### Proposed Implementation
