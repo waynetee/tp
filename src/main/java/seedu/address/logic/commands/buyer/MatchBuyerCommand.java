@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import seedu.address.commons.core.index.Index;
@@ -13,6 +14,7 @@ import seedu.address.model.Model;
 import seedu.address.model.property.Buyer;
 import seedu.address.model.property.Match;
 import seedu.address.model.property.Property;
+import seedu.address.model.tag.Tag;
 
 /**
  * Match buyer to properties in the address book.
@@ -32,7 +34,9 @@ public class MatchBuyerCommand extends MatchOneToManyCommand {
         Buyer buyer = buyerList.get(targetIndex.getZeroBased());
         Predicate<Buyer> currentBuyerFilter = (b) -> b.equals(buyer);
 
-        Predicate<Property> propertyFilter = (property) -> property.getPrice().isLessThanOrEqualTo(buyer.getMaxPrice());
+        Set<Tag> buyerTags = buyer.getTags();
+        Predicate<Property> propertyFilter = (property) -> property.getPrice().isLessThanOrEqualTo(buyer.getPrice());
+
 
         Comparator<Property> propertyComparator = Comparator.<Property, Integer>comparing(property ->
                 Match.getNumCommonTags(buyer, property)

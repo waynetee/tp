@@ -83,7 +83,7 @@ public class MatchCard extends UiPart<Region> {
 
     private void initBuyer(Buyer buyer) {
         buyerName.setText(buyer.getName().fullName);
-        buyerPrice.setText('$' + buyer.getMaxPrice().toString());
+        buyerPrice.setText('$' + buyer.getPrice().toString());
         buyerPhone.setText(buyer.getPhone().value);
         buyerEmail.setText(buyer.getEmail().value);
         buyer.getTags().stream()

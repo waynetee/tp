@@ -18,7 +18,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Represents a Buyer in the address book.
  */
-public class Buyer extends Person implements Listable, Taggable {
+public class Buyer extends Person implements Pricable, Listable, Taggable {
 
     private final Price maxPrice;
     private final Set<Tag> tags = new HashSet<>();
@@ -43,7 +43,7 @@ public class Buyer extends Person implements Listable, Taggable {
         this.tags.addAll(tags);
     }
 
-    public Price getMaxPrice() {
+    public Price getPrice() {
         return maxPrice;
     }
 
@@ -95,13 +95,13 @@ public class Buyer extends Person implements Listable, Taggable {
 
         Buyer otherBuyer = (Buyer) other;
         return super.equals(otherBuyer)
-                && otherBuyer.getMaxPrice().equals(getMaxPrice())
+                && otherBuyer.getPrice().equals(getPrice())
                 && otherBuyer.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getName(), getPhone(), getEmail(), getMaxPrice(), getTags());
+        return Objects.hash(getName(), getPhone(), getEmail(), getPrice(), getTags());
     }
 
     @Override
@@ -109,7 +109,7 @@ public class Buyer extends Person implements Listable, Taggable {
         final StringBuilder builder = new StringBuilder();
         builder.append(super.toString())
                 .append("; Maximum Price: ")
-                .append(getMaxPrice());
+                .append(getPrice());
 
         Set<Tag> tags = getTags();
         if (!tags.isEmpty()) {
@@ -120,7 +120,7 @@ public class Buyer extends Person implements Listable, Taggable {
     }
 
     public static Comparator<Buyer> getPriceComparator() {
-        return Comparator.comparing(Buyer::getMaxPrice);
+        return Comparator.comparing(Buyer::getPrice);
     }
 
     public static Comparator<Buyer> getNameComparator() {

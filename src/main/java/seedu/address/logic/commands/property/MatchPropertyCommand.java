@@ -30,11 +30,11 @@ public class MatchPropertyCommand extends MatchOneToManyCommand {
         List<Property> propertyList = model.getFilteredPropertyList();
         Property property = propertyList.get(targetIndex.getZeroBased());
         Predicate<Property> currentPropertyFilter = (p) -> p.equals(property);
-        Predicate<Buyer> buyerFilter = (buyer) -> buyer.getMaxPrice().isGreaterThanOrEqualTo(property.getPrice());
+        Predicate<Buyer> buyerFilter = (buyer) -> buyer.getPrice().isGreaterThanOrEqualTo(property.getPrice());
 
         Comparator<Buyer> buyerComparator = Comparator.<Buyer, Integer>comparing(buyer ->
                 Match.getNumCommonTags(buyer, property)
-        ).thenComparingLong(buyer -> buyer.getMaxPrice().value).reversed();
+        ).thenComparingLong(buyer -> buyer.getPrice().value).reversed();
 
         model.updateFilteredPropertyList(currentPropertyFilter);
         model.updateFilteredAndSortedBuyerList(buyerFilter, buyerComparator);

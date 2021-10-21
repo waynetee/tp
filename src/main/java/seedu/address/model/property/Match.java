@@ -49,7 +49,7 @@ public class Match implements Listable {
      */
     public int getMatchScore() {
         int numCommonTags = getNumCommonTags(buyer, property);
-        int priceScore = buyer.getMaxPrice().isGreaterThanOrEqualTo(property.getPrice()) ? WITHIN_BUDGET_BONUS : 0;
+        int priceScore = buyer.getPrice().isGreaterThanOrEqualTo(property.getPrice()) ? WITHIN_BUDGET_BONUS : 0;
         return numCommonTags + priceScore;
     }
 
@@ -66,7 +66,7 @@ public class Match implements Listable {
      * @return Buyer's budget - property price.
      */
     public long getPriceDifference() {
-        long budget = buyer.getMaxPrice().value;
+        long budget = buyer.getPrice().value;
         long price = property.getPrice().value;
         return budget - price;
     }

@@ -22,7 +22,7 @@ public class JsonAdaptedBuyerTest {
     private static final String VALID_NAME = B_BENSON.getName().toString();
     private static final String VALID_PHONE = B_BENSON.getPhone().toString();
     private static final String VALID_EMAIL = B_BENSON.getEmail().toString();
-    private static final String VALID_MAX_PRICE = B_BENSON.getMaxPrice().toString();
+    private static final String VALID_MAX_PRICE = B_BENSON.getPrice().toString();
     private static final List<JsonAdaptedTag> VALID_TAGS = B_BENSON.getTags().stream()
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList());

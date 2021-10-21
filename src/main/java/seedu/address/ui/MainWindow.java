@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.io.File;
 import java.nio.file.Paths;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -20,9 +21,9 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandPreAction;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ExportCommand;
-import seedu.address.logic.commands.UiAction;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.ui.stats.Stat;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -43,6 +44,7 @@ public class MainWindow extends UiPart<Stage> {
     private MatchListPanel matchListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private StatWindow statWindow;
 
     private boolean showingMatchAutoView = false;
 
@@ -89,6 +91,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        statWindow = new StatWindow();
     }
 
     public Stage getPrimaryStage() {
@@ -197,6 +200,18 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Handles
+     */
+    @FXML
+    public void handleStat(Stat stat) {
+        if (!statWindow.isShowing()) {
+            statWindow.setStat(stat);
+            statWindow.show();
+        } else {
+            statWindow.focus();
+        }
+    }
 
     /**
      * Opens the help window or focuses on it if it's already opened.
@@ -219,6 +234,7 @@ public class MainWindow extends UiPart<Stage> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
+        statWindow.hide();
         primaryStage.hide();
     }
 
@@ -238,7 +254,9 @@ public class MainWindow extends UiPart<Stage> {
             } else {
                 commandResult = logic.execute(commandText);
             }
-            handleUiAction(commandResult.getUiAction());
+
+            handleUiAction(commandResult);
+
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
@@ -269,8 +287,13 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    private void handleUiAction(UiAction uiAction) {
-        switch (uiAction) {
+    private void handleUiAction(CommandResult commandResult) {
+        switch (commandResult.getUiAction()) {
+        case STAT:
+            Optional<UiElement> stat = commandResult.getUiElement();
+            assert !stat.isEmpty() && stat.get() instanceof Stat;
+            handleStat((Stat) stat.get());
+            break;
         case HELP:
             handleHelp();
             break;
