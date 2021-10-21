@@ -23,7 +23,7 @@ import seedu.address.logic.commands.ExportCommand;
 import seedu.address.logic.commands.UiAction;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.stats.Stat;
+import seedu.address.ui.stats.Stat;
 
 /**
  * The Main Window. Provides the basic application layout containing

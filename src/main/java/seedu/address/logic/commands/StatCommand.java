@@ -8,8 +8,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.property.Buyer;
 import seedu.address.model.property.Property;
-import seedu.address.model.stats.HistogramStat;
-import seedu.address.model.stats.Stat;
+import seedu.address.ui.stats.HistogramStat;
+import seedu.address.ui.stats.Stat;
 
 /**
  * Presents statistics (currently only histogram of visible properties/buyers' prices).
@@ -25,7 +25,7 @@ public class StatCommand extends SimpleCommand {
             + "Parameters: [(property | buyer)]";
 
     public static final String MESSAGE_ARGUMENTS = "Displaying prices of %s.";
-    public static final String MESSAGE_EMPTY_LIST = "Both lists empty. Statistics not shown.";
+    public static final String MESSAGE_EMPTY_LIST = "List(s) empty. Statistics not shown.";
 
     private boolean showBuyer;
     private boolean showProperty;

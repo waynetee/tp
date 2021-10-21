@@ -1,5 +1,8 @@
-package seedu.address.model.stats;
+package seedu.address.ui.stats;
 
+import java.util.Optional;
+
+import javafx.collections.ObservableList;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.CategoryLabelPositions;
@@ -8,8 +11,6 @@ import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.chart.renderer.category.CategoryItemRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
-
-import javafx.collections.ObservableList;
 import seedu.address.model.property.Buyer;
 import seedu.address.model.property.Pricable;
 import seedu.address.model.property.Property;
@@ -20,6 +21,7 @@ import seedu.address.model.property.Property;
 public class HistogramStat implements Stat {
     private static final int BIN_COUNT = 10;
     private static final int MILLION = 1000000;
+    private static final int HUNDRED_THOUSAND = 100000;
     private static final int THOUSAND = 1000;
 
     private final ObservableList<Buyer> buyerList;
@@ -43,32 +45,51 @@ public class HistogramStat implements Stat {
     }
 
     /**
-     * Returns a two element array containing the min in index 0, and max in index 1.
+     * Helper function that returns the min or max in a list.
+     * If the list is empty, returns Double.MAX_VALUE if isMin, otherwise returns Double.MIN_VALUE.
+     * @param isMin true for minimum, false for maximum
+     */
+    private double getListMinMax(ObservableList<? extends Pricable> list, boolean isMin) {
+        if (isMin) {
+            Optional<Double> optMin = list.stream()
+                    .min((x, y) -> x.getPrice().compareTo(y.getPrice())).map(p -> (double) p.getPrice().value);
+            if (optMin.isPresent()) {
+                return optMin.get();
+            }
+            return Double.MAX_VALUE;
+        } else {
+            Optional<Double> optMax = list.stream()
+                    .max((x, y) -> x.getPrice().compareTo(y.getPrice())).map(p -> (double) p.getPrice().value);
+            if (optMax.isPresent()) {
+                return optMax.get();
+            }
+            return Double.MIN_VALUE;
+        }
+    }
+
+    /**
+     * Helper function that returns a two element array containing the min in index 0, and max in index 1.
      */
     private double[] getGlobalMinMax() {
-        double buyerMin = buyerList.stream()
-                .min((x, y) -> x.getPrice().compareTo(y.getPrice())).map(p -> p.getPrice().value).get();
-        double buyerMax = buyerList.stream()
-                .max((x, y) -> x.getPrice().compareTo(y.getPrice())).map(p -> p.getPrice().value).get();
-        double propertyMin = propertyList.stream()
-                .min((x, y) -> x.getPrice().compareTo(y.getPrice())).map(p -> p.getPrice().value).get();
-        double propertyMax = propertyList.stream()
-                .max((x, y) -> x.getPrice().compareTo(y.getPrice())).map(p -> p.getPrice().value).get();
+        double buyerMin = getListMinMax(buyerList, true);
+        double buyerMax = getListMinMax(buyerList, false);
+        double propertyMin = getListMinMax(propertyList, true);
+        double propertyMax = getListMinMax(propertyList, false);
         double[] minmax = new double[2];
-        minmax[0] = (int) (Math.min(buyerMin, propertyMin) / 100000) * 100000;
-        minmax[1] = (int) (Math.max(buyerMax, propertyMax) / 100000 + 1) * 100000;
+        minmax[0] = (int) (Math.min(buyerMin, propertyMin) / HUNDRED_THOUSAND) * HUNDRED_THOUSAND;
+        minmax[1] = (int) (Math.max(buyerMax, propertyMax) / HUNDRED_THOUSAND + 1) * HUNDRED_THOUSAND;
         return minmax;
     }
 
     /**
-     * Returns the correct bin for this price.
+     * Helper function that returns the correct bin for this price.
      */
     private int getBin(double price, double min, double interval) {
         return (int) Math.min((price - min) / interval, BIN_COUNT - 1);
     }
 
     /**
-     * Returns the label for the bin of this interval.
+     * Helper function that returns the label for the bin of this interval.
      */
     private String getRangeLabel(double price) {
         if (price >= MILLION) {
@@ -81,7 +102,7 @@ public class HistogramStat implements Stat {
     }
 
     /**
-     *  Adds this list to the dataset.
+     * Adds this list to the dataset.
      */
     private void addToDataSet(DefaultCategoryDataset dataset,
                               ObservableList<? extends Pricable> list, String key,
@@ -104,18 +125,17 @@ public class HistogramStat implements Stat {
      * @return price histogram.
      */
     public JFreeChart create() {
-        assert !buyerList.isEmpty() && !propertyList.isEmpty();
 
         double[] minmax = getGlobalMinMax();
         double min = minmax[0];
         double max = minmax[1];
 
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        if (showBuyer) {
+        if (showBuyer && !buyerList.isEmpty()) {
             addToDataSet(dataset, buyerList, "buyers", min, max);
         }
 
-        if (showProperty) {
+        if (showProperty && !propertyList.isEmpty()) {
             addToDataSet(dataset, propertyList, "properties", min, max);
         }
 

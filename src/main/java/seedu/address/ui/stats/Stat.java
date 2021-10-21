@@ -1,4 +1,4 @@
-package seedu.address.model.stats;
+package seedu.address.ui.stats;
 
 import org.jfree.chart.JFreeChart;
 

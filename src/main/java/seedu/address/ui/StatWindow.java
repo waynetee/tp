@@ -8,7 +8,7 @@ import org.jfree.chart.fx.ChartViewer;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.stats.Stat;
+import seedu.address.ui.stats.Stat;
 
 /**
  * Controller for the statistics page.
