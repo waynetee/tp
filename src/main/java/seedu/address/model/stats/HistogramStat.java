@@ -58,14 +58,23 @@ public class HistogramStat implements Stat {
         return minmax;
     }
 
+    /**
+     * Returns the correct bin for this price.
+     */
     private int getBin(double price, double min, double interval) {
         return (int) Math.min((price - min) / interval, BIN_COUNT - 1);
     }
 
+    /**
+     * Returns the label for the bin of this interval.
+     */
     private String getRangeLabel(double from, double to) {
         return String.format("%d -- %d", (long) from, (long) to);
     }
 
+    /**
+     *  Adds this list to the dataset.
+     */
     private void addToDataSet(DefaultCategoryDataset dataset,
                               ObservableList<? extends Pricable> list, String key,
                               double min, double max) {
