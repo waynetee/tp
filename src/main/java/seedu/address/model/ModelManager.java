@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.Comparator;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -16,6 +17,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.field.SortDirection;
 import seedu.address.model.field.SortType;
 import seedu.address.model.property.Buyer;
+import seedu.address.model.property.Match;
 import seedu.address.model.property.Property;
 
 /**
@@ -154,7 +156,17 @@ public class ModelManager implements Model {
 
     @Override
     public void sortBuyers(SortType sortType, SortDirection sortDirection) {
-        addressBook.sortBuyers(sortType, sortDirection);;
+        addressBook.sortBuyers(sortType, sortDirection);
+    }
+
+    @Override
+    public ObservableList<Match> getMatchList() {
+        return addressBook.getMatchList();
+    }
+
+    @Override
+    public void setMatchList(List<Match> matches) {
+        addressBook.setMatches(matches);
     }
 
     //=========== Filtered Property List Accessors =============================================================

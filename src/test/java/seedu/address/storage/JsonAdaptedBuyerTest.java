@@ -34,14 +34,6 @@ public class JsonAdaptedBuyerTest {
     }
 
     @Test
-    public void toModelType_invalidPrice_throwsIllegalValueException() {
-        JsonAdaptedBuyer buyer = new JsonAdaptedBuyer(VALID_NAME, VALID_PHONE,
-                VALID_EMAIL, INVALID_MAX_PRICE, VALID_TAGS);
-        String expectedMessage = Price.MESSAGE_CONSTRAINTS;
-        assertThrows(IllegalValueException.class, expectedMessage, buyer::toModelType);
-    }
-
-    @Test
     public void toModelType_nullPrice_throwsIllegalValueException() {
         JsonAdaptedBuyer buyer = new JsonAdaptedBuyer(VALID_NAME, VALID_PHONE, VALID_EMAIL, null, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Price.class.getSimpleName());

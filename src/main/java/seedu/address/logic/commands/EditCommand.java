@@ -29,7 +29,7 @@ public abstract class EditCommand extends SimpleCommand {
             + "by the index number used in the displayed property/buyer list. "
             + "Existing values will be overwritten by the input values.\n"
             + "with the exception of adding tags. "
-            + "Added tags will be appended to the current tags. \n"
+            + "Added tags will be appended to the current tags.\n"
             + "Parameters: (property INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "

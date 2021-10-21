@@ -16,4 +16,9 @@ public class ExitCommand extends SimpleCommand {
         return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, UiAction.EXIT);
     }
 
+    @Override
+    public boolean canRunInMatchAutoView() {
+        return true;
+    }
+
 }

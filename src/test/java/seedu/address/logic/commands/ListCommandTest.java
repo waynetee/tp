@@ -17,6 +17,9 @@ import seedu.address.model.UserPrefs;
  */
 public class ListCommandTest {
 
+    private static final CommandResult SUCCESS_RESULT =
+            new CommandResult(ListCommand.MESSAGE_SUCCESS, UiAction.SHOW_DEFAULT);
+
     private Model model;
     private Model expectedModel;
 
@@ -28,12 +31,12 @@ public class ListCommandTest {
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(new ListCommand(), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ListCommand(), model, SUCCESS_RESULT, expectedModel);
     }
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
         showPropertyAtIndex(model, INDEX_FIRST);
-        assertCommandSuccess(new ListCommand(), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ListCommand(), model, SUCCESS_RESULT, expectedModel);
     }
 }

@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import java.nio.file.Path;
 import java.util.Comparator;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -9,6 +10,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.field.SortDirection;
 import seedu.address.model.field.SortType;
 import seedu.address.model.property.Buyer;
+import seedu.address.model.property.Match;
 import seedu.address.model.property.Property;
 
 /**
@@ -159,4 +161,15 @@ public interface Model {
      * Sorts the buyer list by the {@code SortType} and {@code SortDirection}.
      */
     void sortBuyers(SortType sortType, SortDirection sortDirection);
+
+    /**
+     * Returns an unmodifiable view of the match list.
+     */
+    ObservableList<Match> getMatchList();
+
+    /**
+     * Updates the list of Matches.
+     */
+    void setMatchList(List<Match> matches);
+
 }
