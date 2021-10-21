@@ -11,7 +11,7 @@ import org.jfree.chart.renderer.category.CategoryItemRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
 
 import seedu.address.model.property.Buyer;
-import seedu.address.model.property.PricedListable;
+import seedu.address.model.property.Pricable;
 import seedu.address.model.property.Property;
 
 /**
@@ -67,7 +67,7 @@ public class HistogramStat implements Stat {
     }
 
     private void addToDataSet(DefaultCategoryDataset dataset,
-                              ObservableList<? extends PricedListable> list, String key,
+                              ObservableList<? extends Pricable> list, String key,
                               double min, double max) {
         double interval = (max - min) / BIN_COUNT, binVal = min;
         int[] bins = new int[BIN_COUNT];

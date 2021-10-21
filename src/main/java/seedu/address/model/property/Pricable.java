@@ -2,7 +2,7 @@ package seedu.address.model.property;
 
 import seedu.address.model.field.Price;
 
-public interface PricedListable extends Listable {
+public interface Pricable {
 
     /**
      * For statistics classes to get prices from all Listables.

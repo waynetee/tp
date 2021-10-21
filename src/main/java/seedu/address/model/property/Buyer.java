@@ -18,7 +18,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Represents a Buyer in the address book.
  */
-public class Buyer extends Person implements PricedListable, Taggable {
+public class Buyer extends Person implements Pricable, Listable, Taggable {
 
     private final Price maxPrice;
     private final Set<Tag> tags = new HashSet<>();
