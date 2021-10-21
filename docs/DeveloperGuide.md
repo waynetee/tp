@@ -270,11 +270,6 @@ Given below is a sequence diagram for the execution of a `SortPropertyCommand`.
 * **Alternative 2** : Implement many methods in the `Model` to represent the different combinations of sort types and directions and call these method directly in `SortCommand#execute(model)`.
   * Pros: Better abstraction.
   * Cons: Too many different combinations, and as a result, too many methods in the `model`, if there is a need to extend the sort options in the future.
-### \[Proposed\] Undo/redo feature
-
-#### Proposed Implementation
-
-The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
 
 ### Statistics Diagram Pop-ups
 
