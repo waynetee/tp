@@ -1,0 +1,20 @@
+@startuml
+skinparam defaultTextAlignment center
+skinparam DefaultFontSize 13
+scale 400 width
+
+start
+:User executes `match auto`;
+:Generate all possible matches;
+:Sort candidate matches
+by match score;
+repeat
+    :Examine next best candidate;
+    if () then ([Buyer and Property unmatched])
+        :Confirm match;
+    else ([Buyer or Property taken])
+        :Discard candidate;
+    endif
+repeat while () is ([candidates remaining])
+stop
+@enduml

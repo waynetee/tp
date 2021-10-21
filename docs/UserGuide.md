@@ -214,7 +214,21 @@ Examples:
 * `sort properties price asc` returns the property list sorted by price in ascending order
 * `sort buyers name desc` returns the buyer list sorted by name in descending order
 
-------------------
+### Matching properties and buyers: `match`
+
+Matches properties and buyers to one another.
+
+Format: `match ( auto | property INDEX | buyer INDEX )`
+
+#### Intelligent matching of properties and buyers
+
+The `match auto` command instructs PropertyWhiz to automatically match buyers to properties.
+
+Upon entering `match auto`, PropertyWhiz will intelligently pair properties with buyers based on their compatibility. The matches will then be displayed to you starting with the most compatible pairings at the top.
+
+PropertyWhiz determines compatibility based on the number of tags in common, the buyer's budget, as well as the property price. Matches where the buyer and property have more tags in common are considered more compatible. Likewise for matches where the property price is within the buyer's budget.
+
+After running `match auto`, enter `back` into the command box to return to the previously shown list of buyers and properties.
 
 ### Importing data from csv file : `import`
 
@@ -311,5 +325,6 @@ Action | Format, Examples
 **Exit** | `exit`
 **Help** | `help`
 **Sort** | `sort (properties \| buyers) (price \| name) (asc \| desc)`
+**Match** | `match ( auto \| property INDEX \| buyer INDEX )`
 **Import** | `import (properties \| buyers)`
 **Export** | `export (properties \| buyers)`

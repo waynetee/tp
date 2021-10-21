@@ -156,6 +156,13 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// match level operations
 
     /**
+     * Replaces the list of matches with the new list.
+     */
+    public void setMatches(List<Match> newMatches) {
+        matches.setListables(newMatches);
+    }
+
+    /**
      * Returns true if a match with the same identity as {@code match} exists in the address book.
      */
     public boolean hasMatch(Match match) {

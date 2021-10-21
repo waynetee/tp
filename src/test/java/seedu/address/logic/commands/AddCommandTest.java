@@ -10,6 +10,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -25,6 +26,7 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.field.SortDirection;
 import seedu.address.model.field.SortType;
 import seedu.address.model.property.Buyer;
+import seedu.address.model.property.Match;
 import seedu.address.model.property.Property;
 import seedu.address.testutil.PropertyBuilder;
 
@@ -203,6 +205,16 @@ public class AddCommandTest {
 
         @Override
         public void sortBuyers(SortType sortType, SortDirection sortDirection) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Match> getMatchList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setMatchList(List<Match> matches) {
             throw new AssertionError("This method should not be called.");
         }
     }

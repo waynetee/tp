@@ -10,6 +10,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -39,8 +40,11 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private PropertyListPanel propertyListPanel;
     private BuyerListPanel buyerListPanel;
+    private MatchListPanel matchListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+
+    private boolean showingMatchAutoView = false;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -49,10 +53,19 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
+    private HBox defaultView;
+
+    @FXML
+    private HBox matchAutoView;
+
+    @FXML
     private StackPane propertyListPanelPlaceholder;
 
     @FXML
     private StackPane buyerListPanelPlaceholder;
+
+    @FXML
+    private StackPane matchListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -127,6 +140,9 @@ public class MainWindow extends UiPart<Stage> {
         buyerListPanel = new BuyerListPanel(logic.getFilteredBuyerList());
         buyerListPanelPlaceholder.getChildren().add(buyerListPanel.getRoot());
 
+        matchListPanel = new MatchListPanel(logic.getMatchList());
+        matchListPanelPlaceholder.getChildren().add(matchListPanel.getRoot());
+
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -149,35 +165,12 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    /**
-     * Opens the help window or focuses on it if it's already opened.
-     */
-    @FXML
-    public void handleHelp() {
-        if (!helpWindow.isShowing()) {
-            helpWindow.show();
-        } else {
-            helpWindow.focus();
-        }
+    void show() {
+        primaryStage.show();
     }
 
-    /**
-     * Gets user to select a destination for saving csv.
-     *
-     * @param title Title of fileChooser dialog box
-     * @return File object chosen by user
-     */
-    public File getCsvFile(String title, boolean isFileSave) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle(title);
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Csv Files", "*.csv"));
-        fileChooser.setInitialDirectory(Paths.get(".").toFile());
-        if (isFileSave) {
-            return fileChooser.showSaveDialog(primaryStage);
-        } else {
-            return fileChooser.showOpenDialog(primaryStage);
-        }
+    public PropertyListPanel getPropertyListPanel() {
+        return propertyListPanel;
     }
 
     /**
@@ -204,8 +197,17 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    void show() {
-        primaryStage.show();
+
+    /**
+     * Opens the help window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleHelp() {
+        if (!helpWindow.isShowing()) {
+            helpWindow.show();
+        } else {
+            helpWindow.focus();
+        }
     }
 
     /**
@@ -220,10 +222,6 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public PropertyListPanel getPropertyListPanel() {
-        return propertyListPanel;
-    }
-
     /**
      * Executes the command and returns the result.
      *
@@ -231,6 +229,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
+            logic.validateCommand(commandText, showingMatchAutoView);
             CommandResult commandResult;
             CommandPreAction commandPreAction = logic.getCommandPreAction(commandText);
             if (commandPreAction.requiresFile()) {
@@ -239,18 +238,7 @@ public class MainWindow extends UiPart<Stage> {
             } else {
                 commandResult = logic.execute(commandText);
             }
-            // Perform post command UI actions
-            UiAction uiAction = commandResult.getUiAction();
-            switch (uiAction) {
-            case HELP:
-                handleHelp();
-                break;
-            case EXIT:
-                handleExit();
-                break;
-            default:
-                break;
-            }
+            handleUiAction(commandResult.getUiAction());
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
@@ -261,4 +249,62 @@ public class MainWindow extends UiPart<Stage> {
             throw e;
         }
     }
+
+    /**
+     * Gets user to select a destination for saving csv.
+     *
+     * @param title Title of fileChooser dialog box
+     * @return File object chosen by user
+     */
+    public File getCsvFile(String title, boolean isFileSave) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle(title);
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Csv Files", "*.csv"));
+        fileChooser.setInitialDirectory(Paths.get(".").toFile());
+        if (isFileSave) {
+            return fileChooser.showSaveDialog(primaryStage);
+        } else {
+            return fileChooser.showOpenDialog(primaryStage);
+        }
+    }
+
+    private void handleUiAction(UiAction uiAction) {
+        switch (uiAction) {
+        case HELP:
+            handleHelp();
+            break;
+        case EXIT:
+            handleExit();
+            break;
+        case SHOW_MATCHES:
+            showMatchAutoView();
+            break;
+        case SHOW_DEFAULT:
+            hideMatchAutoView();
+            break;
+        default:
+            break;
+        }
+    }
+
+    private void showMatchAutoView() {
+        setView(true);
+    }
+
+    private void hideMatchAutoView() {
+        setView(false);
+    }
+
+    /**
+     * Sets the current UI being shown to the user (match auto view or default view)
+     */
+    private void setView(boolean showMatchAutoView) {
+        showingMatchAutoView = showMatchAutoView;
+        defaultView.setVisible(!showingMatchAutoView);
+        defaultView.setManaged(!showingMatchAutoView);
+        matchAutoView.setVisible(showingMatchAutoView);
+        matchAutoView.setManaged(showingMatchAutoView);
+    }
+
 }

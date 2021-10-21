@@ -157,6 +157,55 @@ TODO: Should this be removed?
 
 This section describes some noteworthy details on how certain features are implemented.
 
+### Automated matching of properties and buyers
+
+The automatic matching feature performs a one-to-one matching of buyers to properties based on price and tags in common. This section describes the algorithm and explains its rationale.
+
+This matching is done by the `MatchAutoCommand` class, and is triggered when the user enters the `match auto` command. The algorithm takes in the currently visible list of properties and buyers, and outputs a list of buyer-property matches. Note that each buyer is matched to at most one property and vice versa.
+
+The goal of the algorithm is to allow the user to discover compatible buyers and properties. Compatibility is determined by a _Match Score_, which is calculated based on the number of tags the buyer and property have in common, as well as the buyer's budget and property price.
+
+The activity diagram below illustrates the algorithm:
+
+![MatchAutoActivityDiagram](images/MatchAutoActivityDiagram.png)
+
+1. The algorithm generates all possible pairs between the list of buyers and properties.
+2. The algorithm sorts all these candidate matches by the match score.
+3. Starting with the match with the highest score, the algorithm accepts each match whose buyer and property have not been previously matched. This continues until all candidate matches are evaluated.
+4. The list of accepted matches is then returned to the UI to be displayed.
+
+Please refer to the `MatchAutoCommand` and `Match` classes for the full details of the implementation, including the calculation of the _Match Score_.
+
+#### Design considerations:
+
+**Aspect: Matching Output**
+
+* **Alternative 1 (current choice):** One-to-one matching between properties and buyers.
+    * Currently, each buyer is matched to at most one property and vice versa.
+    * Pros: Easier for users to comprehend.
+    * Cons: Displays less information to users.
+
+* **Alternative 2:** Many-to-many matching
+    * Alternatively, each buyer and property can be simultaneously matched to many others.
+    * Pros: Potentially convey more information to the user.
+    * Cons: Harder for users to comprehend and navigate the information.
+
+We decided to go with Alternative 1 as we prioritised presenting a simpler and more intuitive output to our users.
+
+**Aspect: Matching algorithm**
+
+* **Alternative 1 (current choice):** Prioritise top matches
+    * The current algorithm selects matches starting with the best possible match. This optimises for the compatibility of the first few matches.
+    * Pros: First few matches are likely to be very compatible.
+    * Cons: Last few matches are likely to be poor.
+
+* **Alternative 2:** Prioritise overall fairness of matches
+    * An alternative algorithm might optimise for the number of acceptable matches.
+    * Pros: Allows more buyers to be matched with acceptable properties.
+    * Cons: First few matches may not be as compatible as Alternative 1.
+
+We chose Alternative 1 as we expect the user to focus on the top matches, hence we optimised for those.
+
 ### Sort feature
 The sort feature allows the user to sort the properties and buyers in PropertyWhiz.
 The feature consists of the following commands:
