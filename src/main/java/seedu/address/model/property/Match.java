@@ -66,7 +66,7 @@ public class Match implements Listable {
      * @return Buyer's budget - property price.
      */
     public long getPriceDifference() {
-        long budget = buyer.getMaxPrice().value;
+        long budget = buyer.getPrice().value;
         long price = property.getPrice().value;
         return budget - price;
     }

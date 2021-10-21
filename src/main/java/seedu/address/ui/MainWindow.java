@@ -21,7 +21,6 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandPreAction;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ExportCommand;
-import seedu.address.logic.commands.UiAction;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.ui.stats.Stat;
@@ -201,6 +200,18 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Handles
+     */
+    @FXML
+    public void handleStat(Stat stat) {
+        if (!statWindow.isShowing()) {
+            statWindow.setStat(stat);
+            statWindow.show();
+        } else {
+            statWindow.focus();
+        }
+    }
 
     /**
      * Opens the help window or focuses on it if it's already opened.
@@ -243,7 +254,7 @@ public class MainWindow extends UiPart<Stage> {
             } else {
                 commandResult = logic.execute(commandText);
             }
-          
+
             handleUiAction(commandResult);
 
             logger.info("Result: " + commandResult.getFeedbackToUser());

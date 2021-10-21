@@ -1,6 +1,6 @@
 package seedu.address.logic.commands.exceptions;
 
-import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.SimpleCommand;
 
 /**
  * Represents an error which occurs during execution of a {@link SimpleCommand}.
