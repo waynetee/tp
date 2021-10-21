@@ -35,14 +35,14 @@ public class MatchAutoCommand extends MatchCommand {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        initialise(model);
+        initialize(model);
         runMatching();
         sortMatches();
         updateModel(model);
         return getCommandResult();
     }
 
-    private void initialise(Model model) throws CommandException {
+    private void initialize(Model model) throws CommandException {
         if (model.getFilteredPropertyList().isEmpty()) {
             throw new CommandException(MESSAGE_NO_PROPERTIES_LISTED);
         }

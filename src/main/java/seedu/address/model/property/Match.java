@@ -11,6 +11,9 @@ import seedu.address.model.tag.Tag;
  * Represents a matching between Property and Buyer in the address book.
  */
 public class Match implements Listable {
+    /** Bonus to match score if price is within budget. */
+    public static final int WITHIN_BUDGET_BONUS = 2;
+
     private final Property property;
     private final Buyer buyer;
 
@@ -32,7 +35,7 @@ public class Match implements Listable {
     }
 
     /**
-     * Returns number of tags that a buyer and property have in common
+     * Returns number of tags that a buyer and property have in common.
      */
     public static int getNumCommonTags(Buyer buyer, Property property) {
         Set<Tag> intersection = new HashSet<>(buyer.getTags());
@@ -42,11 +45,11 @@ public class Match implements Listable {
 
 
     /**
-     * Returns a score representing how compatible a buyer is with a property
+     * Returns a score representing how compatible a buyer is with a property.
      */
     public int getMatchScore() {
         int numCommonTags = getNumCommonTags(buyer, property);
-        int priceScore = buyer.getMaxPrice().isGreaterThanOrEqualTo(property.getPrice()) ? 2 : 0;
+        int priceScore = buyer.getMaxPrice().isGreaterThanOrEqualTo(property.getPrice()) ? WITHIN_BUDGET_BONUS : 0;
         return numCommonTags + priceScore;
     }
 
