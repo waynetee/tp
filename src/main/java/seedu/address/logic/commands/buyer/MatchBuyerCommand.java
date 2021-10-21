@@ -6,9 +6,11 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.MatchOneToManyCommand;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.property.Buyer;
 import seedu.address.model.property.Match;
@@ -26,9 +28,13 @@ public class MatchBuyerCommand extends MatchOneToManyCommand {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Buyer> buyerList = model.getFilteredBuyerList();
+        if (targetIndex.getZeroBased() >= buyerList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_BUYER_DISPLAYED_INDEX);
+        }
+
         Buyer buyer = buyerList.get(targetIndex.getZeroBased());
         Predicate<Buyer> currentBuyerFilter = (b) -> b.equals(buyer);
 
