@@ -165,11 +165,8 @@ Views the price histogram of the currently listed properties and/or buyers in th
 
 Format: `stat [(property | buyer)]`
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 0cba1969713bf235c249b73f5531e3e8b061453a
-### Locating properties by name: `find`
+### [IN PROGRESS] Locating properties by name: `find`
 **TODO:** Find command adapted for property/buyers
 
 Finds properties whose names contain any of the given keywords and whose tag list contain all of the specified tags.
