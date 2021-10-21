@@ -153,7 +153,7 @@ The following example is invalid:
 
 ------------------
 
-### [IN PROGRESS] View price histogram of listed properties and/or buyers : `stat`
+### [IN PROGRESS] Viewing price histogram of listed properties and/or buyers : `stat`
 
 Views the price histogram of the currently listed properties and/or buyers in the view.
 
@@ -200,7 +200,7 @@ Examples:
 
 ------------------
 
-### Sort properties/buyers: `sort`
+### Sorting properties/buyers: `sort`
 
 Sorts the properties / buyers in PropertyWhiz.
 
@@ -216,7 +216,7 @@ Examples:
 
 ------------------
 
-### Import data from csv file : `import`
+### Importing data from csv file : `import`
 
 Imports buyers or properties from csv file.
 
@@ -228,7 +228,7 @@ TODO: Add example of valid csv
 
 ------------------
 
-### Export data to csv file : `export`
+### Exporting data to csv file : `export`
 
 Exports buyers or properties from csv file.
 
