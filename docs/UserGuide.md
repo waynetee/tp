@@ -85,6 +85,8 @@ TODO: Define named parameters, positional parameters
 
 </div>
 
+------------------
+
 ### Viewing help : `help`
 
 Shows a message explaning how to access the help page.
@@ -93,28 +95,23 @@ Shows a message explaning how to access the help page.
 
 Format: `help`
 
+------------------
 
 ### Adding a property/buyer: `add`
 
 Adds a property/buyer to PropertyWhiz.
 
 Format:
-* Adding a property: `add property n/PROPERTY_NAME a/PROPERTY_ADDRESS s/SELLER_NAME p/SELLER_PHONE e/SELLER_EMAIL $/PRICE_MIN [t/TAG]…`
-* Adding a buyer: `add buyer n/BUYER_NAME p/BUYER_PHONE e/BUYER_EMAIL $/PRICE_MAX [t/TAG]…`
-
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A property/buyer can have any number of tags (including 0). All tags will be converted to lowercase.
-</div>
-
-#### Adding a property
-
-Adds a property to PropertyWhiz
-
-Format: `add property n/PROPERTY_NAME a/PROPERTY_ADDRESS s/SELLER_NAME p/SELLER_PHONE e/SELLER_EMAIL $/PRICE_MIN`
+* Adding a property: `add property n/PROPERTY_NAME a/PROPERTY_ADDRESS s/SELLER_NAME p/SELLER_PHONE e/SELLER_EMAIL $/PRICE [t/TAG]…`
+* Adding a buyer: `add buyer n/BUYER_NAME p/BUYER_PHONE e/BUYER_EMAIL $/BUDGET [t/TAG]…`
 
 Examples:
 * `add property n/Blk 123 a/123, Clementi Rd, #04-20, 1234665 s/James Lee p/61234567 e/james@email.com $/100000 t/hdb t/3rm`
 * `add buyer n/Sam p/91234567 e/sam@email.com $/740000 t/hdb t/3rm`
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+A property/buyer can have any number of tags (including 0). All tags will be converted to lowercase.
+</div>
 
 ------------------
 
@@ -124,25 +121,20 @@ Shows a list of all properties and buyers in PropertyWhiz.
 
 Format: `list`
 
+------------------
+
 ### Editing a property/buyer : `edit`
 
-Edits an existing property/buyer in PropertyWhiz.
-
-Format:
-* Editing a property: `edit property INDEX [n/PROPERTY_NAME] [a/PROPERTY_ADDRESS] [s/SELLER_NAME] [p/SELLER_PHONE] [e/SELLER_EMAIL] [$/PRICE_MIN] [([t/TAG]… | [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]`
-* Editing a buyer: `edit buyer INDEX [n/BUYER_NAME] [p/BUYER_PHONE] [e/BUYER_EMAIL] [$/PRICE_MAX] [([t/TAG]… | [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]`
-
-* Edits the property/buyer at the specified `INDEX`. The index refers to the index number shown in the displayed property/buyer list. The index **must be a positive integer** 1, 2, 3, …
-
+Edits the property/buyer at the specified `INDEX`. The index refers to the index number shown in the displayed property/buyer list. The index **must be a positive integer** 1, 2, 3, …
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the property will be removed i.e adding of tags is not cumulative.
 * Like `add`, tags added via `edit` will be automatically converted to lower case.
 * You can remove all the property/buyer’s tags by typing `t/` without specifying any tags after it.
 
-#### Editing a property
-
-Format: `edit property INDEX [n/PROPERTY_NAME] [a/PROPERTY_ADDRESS] [$/PRICE_MIN] [s/SELLER_NAME] [p/SELLER_PHONE] [e/SELLER_EMAIL]`
+Format:
+* Editing a property: `edit property INDEX [n/PROPERTY_NAME] [a/PROPERTY_ADDRESS] [s/SELLER_NAME] [p/SELLER_PHONE] [e/SELLER_EMAIL] [$/PRICE] [([t/TAG]… | [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]`
+* Editing a buyer: `edit buyer INDEX [n/BUYER_NAME] [p/BUYER_PHONE] [e/BUYER_EMAIL] [$/BUDGET] [([t/TAG]… | [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]`
 
 Examples:
 * `edit property 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st property to be `91234567` and `johndoe@example.com` respectively.
@@ -159,12 +151,15 @@ The following example is invalid:
 
 </div>
 
+------------------
+
 ### [IN PROGRESS] View price histogram of listed properties and/or buyers : `stat`
 
 Views the price histogram of the currently listed properties and/or buyers in the view.
 
 Format: `stat [(property | buyer)]`
 
+------------------
 
 ### [IN PROGRESS] Locating properties by name: `find`
 **TODO:** Find command adapted for property/buyers
@@ -187,6 +182,8 @@ Examples:
 * `find Jurong t/4rm t/near school` returns `jurong [4rm] [near school] [near mrt]` and `Jurong East [4rm] [near school] [near mrt]` but not `jurong [4rm] [near mrt]`
 * `find t/4rm t/near school` returns `jurong [4rm] [near school] [near mrt]` and `Clementi [4rm] [near school] [near mrt]`
 
+------------------
+
 ### Deleting a property/buyer : `delete`
 
 Deletes the specified property/buyer from PropertyWhiz.
@@ -200,6 +197,8 @@ Format: `delete (property | buyer) INDEX`
 Examples:
 * `list` followed by `delete property 2` deletes the 2nd property in PropertyWhiz.
 * `find East Coast` followed by `delete property 1` deletes the 1st property in the results of the `find` command.
+
+------------------
 
 ### Sort properties/buyers: `sort`
 
@@ -215,6 +214,8 @@ Examples:
 * `sort properties price asc` returns the property list sorted by price in ascending order
 * `sort buyers name desc` returns the buyer list sorted by name in descending order
 
+------------------
+
 ### Import data from csv file : `import`
 
 Imports buyers or properties from csv file.
@@ -224,6 +225,8 @@ Format: `import buyers` or `import properties`
 * You can select the import file location from a pop-up dialog box.
 
 TODO: Add example of valid csv
+
+------------------
 
 ### Export data to csv file : `export`
 
@@ -246,11 +249,15 @@ Example result of `export buyer`
 "Alibaba","61234567","alibaba@baba.com","1999999","condo,landed"
 ```
 
+------------------
+
 ### Clearing all entries : `clear`
 
 Clears all entries from PropertyWhiz.
 
 Format: `clear`
+
+------------------
 
 ### Exiting the program : `exit`
 
@@ -258,9 +265,13 @@ Exits the program.
 
 Format: `exit`
 
+------------------
+
 ### Saving the data
 
 PropertyWhiz's data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+
+------------------
 
 ## Advanced features
 
@@ -291,10 +302,10 @@ You may copy and paste multiple lines of commands into the command box. Press th
 
 Action | Format, Examples
 --------|------------------
-**Add** | **Property** <br>`add property n/PROPERTY_NAME a/PROPERTY_ADDRESS s/SELLER_NAME p/SELLER_PHONE e/SELLER_EMAIL $/PRICE_MIN [t/TAG]…​` <br> e.g., `add property n/Blk 123 a/123, Clementi Rd, #04-20, 1234665 s/James Lee sp/61234567 $/100000 t/HDB t/3rm` <br><br> **Buyer** <br>`add buyer n/BUYER_NAME p/BUYER_PHONE e/BUYER_EMAIL $/PRICE_MAX) [t/TAG]…` <br> e.g., `add buyer n/Sam p/91234567 e/sam@email.com $/740000 t/hdb t/3rm`
+**Add** | **Property** <br>`add property n/PROPERTY_NAME a/PROPERTY_ADDRESS s/SELLER_NAME p/SELLER_PHONE e/SELLER_EMAIL $/PRICE [t/TAG]…​` <br> e.g., `add property n/Blk 123 a/123, Clementi Rd, #04-20, 1234665 s/James Lee sp/61234567 $/100000 t/HDB t/3rm` <br><br> **Buyer** <br>`add buyer n/BUYER_NAME p/BUYER_PHONE e/BUYER_EMAIL $/BUDGET) [t/TAG]…` <br> e.g., `add buyer n/Sam p/91234567 e/sam@email.com $/740000 t/hdb t/3rm`
 **Clear** | `clear`
 **Delete** | `delete (property \| buyer) INDEX`<br> e.g., `delete property 3`
-**Edit** | **Property** <br>`edit property INDEX [n/PROPERTY_NAME] [a/PROPERTY_ADDRESS] [s/SELLER_NAME] [p/SELLER_PHONE] [e/SELLER_EMAIL] [$/PRICE_MIN] [([t/TAG]…​ \| [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]]​`<br> e.g.,`edit property 2 s/James Lee e/jameslee@example.com` <br><br> **Buyer** <br> `edit buyer INDEX [n/BUYER_NAME] [p/BUYER_PHONE] [e/BUYER_EMAIL] [$/PRICE_MAX]) [([t/TAG]… \| [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]` <br> e.g.,`edit buyer 2 n/Victor Lee p/88887777`
+**Edit** | **Property** <br>`edit property INDEX [n/PROPERTY_NAME] [a/PROPERTY_ADDRESS] [s/SELLER_NAME] [p/SELLER_PHONE] [e/SELLER_EMAIL] [$/PRICE] [([t/TAG]…​ \| [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]]​`<br> e.g.,`edit property 2 s/James Lee e/jameslee@example.com` <br><br> **Buyer** <br> `edit buyer INDEX [n/BUYER_NAME] [p/BUYER_PHONE] [e/BUYER_EMAIL] [$/BUDGET]) [([t/TAG]… \| [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]` <br> e.g.,`edit buyer 2 n/Victor Lee p/88887777`
 **Find** | `find [KEYWORDS] [t/TAG_TO_MATCH]…`<br> e.g., `find Jurong t/4rm t/near school`
 **List** | `list`
 **Exit** | `exit`
