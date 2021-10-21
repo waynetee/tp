@@ -218,7 +218,7 @@ Examples:
 
 Matches properties and buyers to one another.
 
-Format: `match ( auto | buyer INDEX | property INDEX )`
+Format: `match ( auto | property INDEX | buyer INDEX )`
 
 #### Intelligent matching of properties and buyers
 
@@ -325,6 +325,6 @@ Action | Format, Examples
 **Exit** | `exit`
 **Help** | `help`
 **Sort** | `sort (properties \| buyers) (price \| name) (asc \| desc)`
-**Match** | `match ( auto \| buyer INDEX \| property INDEX )`
+**Match** | `match ( auto \| property INDEX \| buyer INDEX )`
 **Import** | `import (properties \| buyers)`
 **Export** | `export (properties \| buyers)`
