@@ -114,7 +114,7 @@ Format: `add property n/PROPERTY_NAME a/PROPERTY_ADDRESS s/SELLER_NAME p/SELLER_
 
 Examples:
 * `add property n/Blk 123 a/123, Clementi Rd, #04-20, 1234665 s/James Lee p/61234567 e/james@email.com $/100000 t/hdb t/3rm`
-* `add buyer n/Sam $/740000 p/91234567 e/sam@email.com t/hdb t/3rm`
+* `add buyer n/Sam p/91234567 e/sam@email.com t/hdb t/3rm $/740000`
 
 ------------------
 
