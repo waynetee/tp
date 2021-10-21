@@ -182,7 +182,7 @@ Please refer to the `MatchAutoCommand` and `Match` classes for the full details 
 
 * **Alternative 1 (current choice):** One-to-one matching between properties and buyers.
     * Currently, each buyer is matched to at most one property and vice versa.
-    * Pros: Easier to for users to comprehend.
+    * Pros: Easier for users to comprehend.
     * Cons: Displays less information to users.
 
 * **Alternative 2:** Many-to-many matching

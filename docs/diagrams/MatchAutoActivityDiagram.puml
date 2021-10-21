@@ -1,7 +1,7 @@
 @startuml
 skinparam defaultTextAlignment center
 skinparam DefaultFontSize 13
-scale 300 width
+scale 400 width
 
 start
 :User executes `match auto`;
