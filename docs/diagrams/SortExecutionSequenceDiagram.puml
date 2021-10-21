@@ -1,0 +1,54 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant "s:SortPropertyCommand" as SortPropertyCommand LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":ModelManager" as Model MODEL_COLOR
+participant ":AddressBook" as AddressBook MODEL_COLOR
+participant ":UniquePropertyList" as UniquePropertyList MODEL_COLOR
+end box
+
+activate LogicManager
+LogicManager -> SortPropertyCommand : execute(model)
+activate SortPropertyCommand
+
+SortPropertyCommand -> Model : sortProperties(sortType, sortDirection)
+activate Model
+
+Model -> AddressBook : sortProperties(sortType, sortDirection)
+activate AddressBook
+
+AddressBook -> UniquePropertyList : sort(sortType, sortDirection)
+activate UniquePropertyList
+
+UniquePropertyList --> AddressBook
+deactivate UniquePropertyList
+
+AddressBook --> Model
+deactivate AddressBook
+
+Model --> SortPropertyCommand
+deactivate Model
+
+create CommandResult
+SortPropertyCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> SortPropertyCommand
+deactivate CommandResult
+
+SortPropertyCommand --> LogicManager : result
+deactivate SortPropertyCommand
+
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+SortPropertyCommand -[hidden]-> LogicManager
+destroy SortPropertyCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
