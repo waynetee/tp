@@ -67,7 +67,6 @@ public class StatWindow extends UiPart<Stage> {
     public void show() {
         logger.fine("Showing statistics.");
         getRoot().show();
-        getRoot().centerOnScreen();
     }
 
     /**
