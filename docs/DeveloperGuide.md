@@ -164,6 +164,11 @@ This section describes some noteworthy details on how certain features are imple
 
 The mechanism for handling and presenting statistics is facilitated by the classes implementing `Stat`.
 
+[JFreeChart](https://www.jfree.org/jfreechart/) is the third-party library used to generate charts in the
+program. If more charts are to be implemented in the future, JFreeChart supports a wide range of graphing
+and chart drawing capabilities, as can be seen from its 
+[API](https://www.jfree.org/jfreechart/javadoc/index.html) here.
+
 Currently the only type of diagram supported is a price histogram of the visible properties and/or buyers,
 facilitated by `HistogramStat` in the subpackage `seedu.address.ui.stats`.
 
@@ -190,6 +195,7 @@ Step 4. `StatWindow` updates the statistics window with the latest `JFreeChart` 
 
 #### Future extensions:
 
+Currently the `stat` command only displays a price histogram with a fixed number of 10 bins (columns).
 Here are several extensions that can be implemented in the future:
 
 1. Allow the user to enter how many bins they want to see in the histogram.
