@@ -171,18 +171,25 @@ There are 2 sorting options in PropertyWhiz:
 The parsing of commands is done in the `LogicManager` and when executed, which results in `SortCommand` object being created. 
 Since both properties and buyers can be sorted, `SortCommand` is abstract and `SortPropertyCommand` and `SortBuyerCommand`are concrete subclasses that extend `SortComand`.
 The `SortCommandParser` serves as the intermediate layer between `LogicManager` and `SortCommand` to handle parsing of arguments of the user sort command. 
-Given below are the steps to parse a sort user command:
-1. `AddressBookParser` will check if the command is a sort command. The `AddressBookParser` will then create a `SortCommandParser`.
-2. `SortCommandParser` will parse the arguments of the command to get the list, sort type and sort direction to be sorted by calling static methods in `ParserUtil`.
-3. Depending on the list to be sorted, the corresponding subclass of `SortCommand` will be created:
-   * `sort properties <args>`: `SortPropertyCommand`
-   * `sort buyers <args>`: `SortBuyerCommand`  
 
-   The user input for types of `<args>` can be found in the [UserGuide](./UserGuide.md#sorting-propertiesbuyers-sort).
+Given below are the steps to parse a sort user command:
+
+Step 1. `AddressBookParser` will check if the command is a sort command. The `AddressBookParser` will then create a `SortCommandParser`.
+
+Step 2. `SortCommandParser` will parse the arguments of the command to get the list, sort type and sort direction to be sorted by calling static methods in `ParserUtil`.
+
+Step 3. Depending on the list to be sorted, the corresponding subclass of `SortCommand` will be created:
+   * `sort properties <args>`: `SortPropertyCommand`
+   * `sort buyers <args>`: `SortBuyerCommand`
+
+   The user input for types of `<args>` can be found in the [UserGuide](UserGuide.md#sorting-propertiesbuyers-sort).
 
 Given below is a sequence diagram for interactions inside the `Logic` component for the `execute("sort properties price asc")` API call.
 
 ![SortParsingSequenceDiagram](images/SortParsingSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `SortCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+</div>
 
 #### Execution of commands within the `Logic` component
 After parsing of the user input into a `SortCommand`, the `LogicManager` calls `SortCommand#execute(model)` with a `model`.
@@ -191,13 +198,19 @@ The `Model` interface exposes the following operations to sort the buyers and pr
 * `Model#sortProperties(sortType, sortDirection)`
 * `Model#sortBuyers(sortType, sortDirection)`
 
-`SortPropertyCommand` will call `Model#sortProperties(sortType, sortDirection)` and `SortBuyerCommand` will call `Model#sortBuyers(SortType, SortDirection)`.
-In the `Model`, the `model` will call the `sort(sortType, sortDirection)` method of either `UniquePropertyList` or `UniqueBuyerList` to sort the properties or buyers.
+`ModelManager` implements the the `Model` interface. `SortPropertyCommand` will call `ModelManager#sortProperties(sortType, sortDirection)` and `SortBuyerCommand` will call `ModelManager#sortBuyers(SortType, SortDirection)`.
+
+`ModelManager` will call methods of the encapsulated `AddressBook`: `AddressBook#sortProperties(sortType, sortDirection)` or  `AddressBook#sortBuyers(sortType, sortDirection)`.
+
+`AddressBook` will call the `sort(sortType, sortDirection)` method of either `UniquePropertyList` or `UniqueBuyerList` to sort the properties or buyers.
 
 Lastly, a `CommandResult` object containing the message to be displayed to the user is created and returned to the `LogicManager`.
 
 Given below is a sequence diagram for the execution of a `SortPropertyCommand`.
 ![SortExecutionSequenceDiagram](images/SortExecutionSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `SortPropertyCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+</div>
 
 #### Design considerations:
 **Aspect: Implementation of `SortCommand#execute(model)`** 
