@@ -105,13 +105,19 @@ public class HistogramStat implements Stat {
      */
     public JFreeChart create() {
         assert !buyerList.isEmpty() && !propertyList.isEmpty();
+
         double[] minmax = getGlobalMinMax();
         double min = minmax[0];
         double max = minmax[1];
 
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        addToDataSet(dataset, buyerList, "buyers", min, max);
-        addToDataSet(dataset, propertyList, "properties", min, max);
+        if (showBuyer) {
+            addToDataSet(dataset, buyerList, "buyers", min, max);
+        }
+
+        if (showProperty) {
+            addToDataSet(dataset, propertyList, "properties", min, max);
+        }
 
         final CategoryPlot plot = new CategoryPlot();
         plot.setDomainAxis(new CategoryAxis("Prices ($)"));
@@ -126,6 +132,7 @@ public class HistogramStat implements Stat {
         plot.setRenderer(renderer);
 
         final JFreeChart chart = new JFreeChart(plot);
+        chart.setTitle("Prices of " + titleArgs);
 
         return chart;
     }
