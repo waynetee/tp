@@ -51,6 +51,24 @@ public class Match implements Listable {
     }
 
     /**
+     * Returns the absolute difference between the buyer's budget and property price.
+     */
+    public long getPriceGap() {
+        return Math.abs(getPriceDifference());
+    }
+
+    /**
+     * Returns the difference between the buyer's budget and property price.
+     *
+     * @return Buyer's budget - property price.
+     */
+    public long getPriceDifference() {
+        long budget = buyer.getMaxPrice().value;
+        long price = property.getPrice().value;
+        return budget - price;
+    }
+
+    /**
      * Returns true if the {@code Listable} item is a {@code Match} and has the same property and buyer.
      * Used by the UniqueList to identify unique matches as a Listable.
      */

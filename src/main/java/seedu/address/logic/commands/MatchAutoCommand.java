@@ -72,15 +72,9 @@ public class MatchAutoCommand extends MatchCommand {
      * Sorts matches by decreasing desirability (match score and price difference).
      */
     private void sortMatches() {
-        // Comparator comparing budget - price
-        Comparator<Match> priceDiffComparator = Comparator.comparing(
-            m -> m.getBuyer().getMaxPrice().value - m.getProperty().getPrice().value);
-
-        // Comparing by increasing match score then budget - price
-        Comparator<Match> desirabilityComparator =
-                Comparator.comparing(Match::getMatchScore).thenComparing(priceDiffComparator);
-
-        matches.sort(desirabilityComparator.reversed());
+        // Sorting by decreasing match score then decreasing budget - price
+        // This allows matches with higher budgets relative to price to be displayed higher
+        matches.sort(Comparator.comparing(Match::getMatchScore).thenComparing(Match::getPriceDifference).reversed());
     }
 
     private void updateModel(Model model) {
@@ -101,15 +95,15 @@ public class MatchAutoCommand extends MatchCommand {
      * Returns possible matches in descending order of desirability.
      */
     private List<Match> getSortedMatchCandidates() {
-        buyers.sort(Buyer.getPriceComparator()); // Prefer matching low budget buyers first
-        properties.sort(Property.getPriceComparator().reversed()); // Prefer matching expensive properties first
         List<Match> matchCandidates = new ArrayList<>();
         for (Buyer buyer : buyers) {
             for (Property property : properties) {
                 matchCandidates.add(new Match(property, buyer));
             }
         }
-        matchCandidates.sort(Comparator.comparing(Match::getMatchScore).reversed()); // Sort by descending match score
+        // Sort by descending match score then ascending price gap
+        // This allows buyers and properties with similar prices to be matched first
+        matchCandidates.sort(Comparator.comparing(Match::getMatchScore).reversed().thenComparing(Match::getPriceGap));
         return matchCandidates;
     }
 

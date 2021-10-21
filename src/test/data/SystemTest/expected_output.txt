@@ -173,43 +173,43 @@ match auto
 Key in the 'back' command to return to the main screen. uiAction: SHOW_MATCHES
 [new name; Address: Blk 30 Lorong 3 Serangoon Gardens, #07-18; Seller: Beatrice Yu; Phone: 99272758; Email: berniceyu@example.com; Price: 3423432, Hasta La Vista; Address: 20 Clementi Ave 2, #02-25; Seller: John Doe; Phone: 98765432; Email: johnd@example.com; Price: 1652000; Tags: [ew23 clementi][condo4][condo][621 sqft][condo1][4 rm]]
 [Sam; Phone: 91234567; Email: sam@email.com; Maximum Price: 444; Tags: [hdb][4rm], tim; Phone: 91234567; Email: sam@email.com; Maximum Price: 444; Tags: [condo][3rm], alice; Phone: 91234567; Email: sam@email.com; Maximum Price: 123; Tags: [hdb][3rm], tom; Phone: 91234567; Email: sam@email.com; Maximum Price: 100; Tags: [condo][3rm]]
-[Hasta La Vista; Address: 20 Clementi Ave 2, #02-25; Seller: John Doe; Phone: 98765432; Email: johnd@example.com; Price: 1652000; Tags: [ew23 clementi][condo4][condo][621 sqft][condo1][4 rm] <--> tom; Phone: 91234567; Email: sam@email.com; Maximum Price: 100; Tags: [condo][3rm], new name; Address: Blk 30 Lorong 3 Serangoon Gardens, #07-18; Seller: Beatrice Yu; Phone: 99272758; Email: berniceyu@example.com; Price: 3423432 <--> alice; Phone: 91234567; Email: sam@email.com; Maximum Price: 123; Tags: [hdb][3rm]]
+[Hasta La Vista; Address: 20 Clementi Ave 2, #02-25; Seller: John Doe; Phone: 98765432; Email: johnd@example.com; Price: 1652000; Tags: [ew23 clementi][condo4][condo][621 sqft][condo1][4 rm] <--> tim; Phone: 91234567; Email: sam@email.com; Maximum Price: 444; Tags: [condo][3rm], new name; Address: Blk 30 Lorong 3 Serangoon Gardens, #07-18; Seller: Beatrice Yu; Phone: 99272758; Email: berniceyu@example.com; Price: 3423432 <--> Sam; Phone: 91234567; Email: sam@email.com; Maximum Price: 444; Tags: [hdb][4rm]]
 
 back
 Returned to main screen. uiAction: SHOW_DEFAULT
 [new name; Address: Blk 30 Lorong 3 Serangoon Gardens, #07-18; Seller: Beatrice Yu; Phone: 99272758; Email: berniceyu@example.com; Price: 3423432, Hasta La Vista; Address: 20 Clementi Ave 2, #02-25; Seller: John Doe; Phone: 98765432; Email: johnd@example.com; Price: 1652000; Tags: [ew23 clementi][condo4][condo][621 sqft][condo1][4 rm]]
 [Sam; Phone: 91234567; Email: sam@email.com; Maximum Price: 444; Tags: [hdb][4rm], tim; Phone: 91234567; Email: sam@email.com; Maximum Price: 444; Tags: [condo][3rm], alice; Phone: 91234567; Email: sam@email.com; Maximum Price: 123; Tags: [hdb][3rm], tom; Phone: 91234567; Email: sam@email.com; Maximum Price: 100; Tags: [condo][3rm]]
-[Hasta La Vista; Address: 20 Clementi Ave 2, #02-25; Seller: John Doe; Phone: 98765432; Email: johnd@example.com; Price: 1652000; Tags: [ew23 clementi][condo4][condo][621 sqft][condo1][4 rm] <--> tom; Phone: 91234567; Email: sam@email.com; Maximum Price: 100; Tags: [condo][3rm], new name; Address: Blk 30 Lorong 3 Serangoon Gardens, #07-18; Seller: Beatrice Yu; Phone: 99272758; Email: berniceyu@example.com; Price: 3423432 <--> alice; Phone: 91234567; Email: sam@email.com; Maximum Price: 123; Tags: [hdb][3rm]]
+[Hasta La Vista; Address: 20 Clementi Ave 2, #02-25; Seller: John Doe; Phone: 98765432; Email: johnd@example.com; Price: 1652000; Tags: [ew23 clementi][condo4][condo][621 sqft][condo1][4 rm] <--> tim; Phone: 91234567; Email: sam@email.com; Maximum Price: 444; Tags: [condo][3rm], new name; Address: Blk 30 Lorong 3 Serangoon Gardens, #07-18; Seller: Beatrice Yu; Phone: 99272758; Email: berniceyu@example.com; Price: 3423432 <--> Sam; Phone: 91234567; Email: sam@email.com; Maximum Price: 444; Tags: [hdb][4rm]]
 
 clear
 Address book has been cleared! uiAction: NONE
 []
 []
-[Hasta La Vista; Address: 20 Clementi Ave 2, #02-25; Seller: John Doe; Phone: 98765432; Email: johnd@example.com; Price: 1652000; Tags: [ew23 clementi][condo4][condo][621 sqft][condo1][4 rm] <--> tom; Phone: 91234567; Email: sam@email.com; Maximum Price: 100; Tags: [condo][3rm], new name; Address: Blk 30 Lorong 3 Serangoon Gardens, #07-18; Seller: Beatrice Yu; Phone: 99272758; Email: berniceyu@example.com; Price: 3423432 <--> alice; Phone: 91234567; Email: sam@email.com; Maximum Price: 123; Tags: [hdb][3rm]]
+[Hasta La Vista; Address: 20 Clementi Ave 2, #02-25; Seller: John Doe; Phone: 98765432; Email: johnd@example.com; Price: 1652000; Tags: [ew23 clementi][condo4][condo][621 sqft][condo1][4 rm] <--> tim; Phone: 91234567; Email: sam@email.com; Maximum Price: 444; Tags: [condo][3rm], new name; Address: Blk 30 Lorong 3 Serangoon Gardens, #07-18; Seller: Beatrice Yu; Phone: 99272758; Email: berniceyu@example.com; Price: 3423432 <--> Sam; Phone: 91234567; Email: sam@email.com; Maximum Price: 444; Tags: [hdb][4rm]]
 
 match auto
 Error: No properties available for matching.
 []
 []
-[Hasta La Vista; Address: 20 Clementi Ave 2, #02-25; Seller: John Doe; Phone: 98765432; Email: johnd@example.com; Price: 1652000; Tags: [ew23 clementi][condo4][condo][621 sqft][condo1][4 rm] <--> tom; Phone: 91234567; Email: sam@email.com; Maximum Price: 100; Tags: [condo][3rm], new name; Address: Blk 30 Lorong 3 Serangoon Gardens, #07-18; Seller: Beatrice Yu; Phone: 99272758; Email: berniceyu@example.com; Price: 3423432 <--> alice; Phone: 91234567; Email: sam@email.com; Maximum Price: 123; Tags: [hdb][3rm]]
+[Hasta La Vista; Address: 20 Clementi Ave 2, #02-25; Seller: John Doe; Phone: 98765432; Email: johnd@example.com; Price: 1652000; Tags: [ew23 clementi][condo4][condo][621 sqft][condo1][4 rm] <--> tim; Phone: 91234567; Email: sam@email.com; Maximum Price: 444; Tags: [condo][3rm], new name; Address: Blk 30 Lorong 3 Serangoon Gardens, #07-18; Seller: Beatrice Yu; Phone: 99272758; Email: berniceyu@example.com; Price: 3423432 <--> Sam; Phone: 91234567; Email: sam@email.com; Maximum Price: 444; Tags: [hdb][4rm]]
 
 add property n/Olive Gardens a/Blk 11 Ang Mo Kio Street 74, #11-04 $/6457654 s/Charlotte Oliveiro p/93210283 e/charlotte@example.com t/Condo
 New property added: Olive Gardens; Address: Blk 11 Ang Mo Kio Street 74, #11-04; Seller: Charlotte Oliveiro; Phone: 93210283; Email: charlotte@example.com; Price: 6457654; Tags: [condo] uiAction: NONE
 [Olive Gardens; Address: Blk 11 Ang Mo Kio Street 74, #11-04; Seller: Charlotte Oliveiro; Phone: 93210283; Email: charlotte@example.com; Price: 6457654; Tags: [condo]]
 []
-[Hasta La Vista; Address: 20 Clementi Ave 2, #02-25; Seller: John Doe; Phone: 98765432; Email: johnd@example.com; Price: 1652000; Tags: [ew23 clementi][condo4][condo][621 sqft][condo1][4 rm] <--> tom; Phone: 91234567; Email: sam@email.com; Maximum Price: 100; Tags: [condo][3rm], new name; Address: Blk 30 Lorong 3 Serangoon Gardens, #07-18; Seller: Beatrice Yu; Phone: 99272758; Email: berniceyu@example.com; Price: 3423432 <--> alice; Phone: 91234567; Email: sam@email.com; Maximum Price: 123; Tags: [hdb][3rm]]
+[Hasta La Vista; Address: 20 Clementi Ave 2, #02-25; Seller: John Doe; Phone: 98765432; Email: johnd@example.com; Price: 1652000; Tags: [ew23 clementi][condo4][condo][621 sqft][condo1][4 rm] <--> tim; Phone: 91234567; Email: sam@email.com; Maximum Price: 444; Tags: [condo][3rm], new name; Address: Blk 30 Lorong 3 Serangoon Gardens, #07-18; Seller: Beatrice Yu; Phone: 99272758; Email: berniceyu@example.com; Price: 3423432 <--> Sam; Phone: 91234567; Email: sam@email.com; Maximum Price: 444; Tags: [hdb][4rm]]
 
 match auto
 Error: No buyers available for matching.
 [Olive Gardens; Address: Blk 11 Ang Mo Kio Street 74, #11-04; Seller: Charlotte Oliveiro; Phone: 93210283; Email: charlotte@example.com; Price: 6457654; Tags: [condo]]
 []
-[Hasta La Vista; Address: 20 Clementi Ave 2, #02-25; Seller: John Doe; Phone: 98765432; Email: johnd@example.com; Price: 1652000; Tags: [ew23 clementi][condo4][condo][621 sqft][condo1][4 rm] <--> tom; Phone: 91234567; Email: sam@email.com; Maximum Price: 100; Tags: [condo][3rm], new name; Address: Blk 30 Lorong 3 Serangoon Gardens, #07-18; Seller: Beatrice Yu; Phone: 99272758; Email: berniceyu@example.com; Price: 3423432 <--> alice; Phone: 91234567; Email: sam@email.com; Maximum Price: 123; Tags: [hdb][3rm]]
+[Hasta La Vista; Address: 20 Clementi Ave 2, #02-25; Seller: John Doe; Phone: 98765432; Email: johnd@example.com; Price: 1652000; Tags: [ew23 clementi][condo4][condo][621 sqft][condo1][4 rm] <--> tim; Phone: 91234567; Email: sam@email.com; Maximum Price: 444; Tags: [condo][3rm], new name; Address: Blk 30 Lorong 3 Serangoon Gardens, #07-18; Seller: Beatrice Yu; Phone: 99272758; Email: berniceyu@example.com; Price: 3423432 <--> Sam; Phone: 91234567; Email: sam@email.com; Maximum Price: 444; Tags: [hdb][4rm]]
 
 add buyer n/tom p/91234567 e/sam@email.com t/condo t/3rm $/100
 New buyer added: tom; Phone: 91234567; Email: sam@email.com; Maximum Price: 100; Tags: [condo][3rm] uiAction: NONE
 [Olive Gardens; Address: Blk 11 Ang Mo Kio Street 74, #11-04; Seller: Charlotte Oliveiro; Phone: 93210283; Email: charlotte@example.com; Price: 6457654; Tags: [condo]]
 [tom; Phone: 91234567; Email: sam@email.com; Maximum Price: 100; Tags: [condo][3rm]]
-[Hasta La Vista; Address: 20 Clementi Ave 2, #02-25; Seller: John Doe; Phone: 98765432; Email: johnd@example.com; Price: 1652000; Tags: [ew23 clementi][condo4][condo][621 sqft][condo1][4 rm] <--> tom; Phone: 91234567; Email: sam@email.com; Maximum Price: 100; Tags: [condo][3rm], new name; Address: Blk 30 Lorong 3 Serangoon Gardens, #07-18; Seller: Beatrice Yu; Phone: 99272758; Email: berniceyu@example.com; Price: 3423432 <--> alice; Phone: 91234567; Email: sam@email.com; Maximum Price: 123; Tags: [hdb][3rm]]
+[Hasta La Vista; Address: 20 Clementi Ave 2, #02-25; Seller: John Doe; Phone: 98765432; Email: johnd@example.com; Price: 1652000; Tags: [ew23 clementi][condo4][condo][621 sqft][condo1][4 rm] <--> tim; Phone: 91234567; Email: sam@email.com; Maximum Price: 444; Tags: [condo][3rm], new name; Address: Blk 30 Lorong 3 Serangoon Gardens, #07-18; Seller: Beatrice Yu; Phone: 99272758; Email: berniceyu@example.com; Price: 3423432 <--> Sam; Phone: 91234567; Email: sam@email.com; Maximum Price: 444; Tags: [hdb][4rm]]
 
 match    auto
 1 match found!
