@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import seedu.address.model.Model;
 
 /**
- * Returns to default view.
+ * Returns to default view (showing property list and buyer list).
  */
 public class BackCommand extends SimpleCommand {
 

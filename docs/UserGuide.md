@@ -226,7 +226,7 @@ The `match auto` command instructs PropertyWhiz to automatically match buyers to
 
 Upon entering `match auto`, PropertyWhiz will intelligently pair properties with buyers based on their compatibility. The matches will then be displayed to you starting with the most compatible pairings at the top.
 
-PropertyWhiz determines compatibility based on number tags in common, buyer's budget, and property price. Matches where the buyer and property have more tags in common are considered more compatible. Likewise for matches where the property price is within the buyer's budget.
+PropertyWhiz determines compatibility based on the number of tags in common, the buyer's budget, as well as the property price. Matches where the buyer and property have more tags in common are considered more compatible. Likewise for matches where the property price is within the buyer's budget.
 
 After running `match auto`, enter `back` into the command box to return to the list of buyers and properties.
 
