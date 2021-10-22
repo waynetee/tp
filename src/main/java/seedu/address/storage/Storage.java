@@ -63,12 +63,12 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
     }
 
     /**
-     * Imports properties in the given csv file to the {@link ReadOnlyAddressBook}.
+     * Imports properties from the given csv file to the {@link ReadOnlyAddressBook}.
      *
      * @param addressBook cannot be null.
      * @param file cannot be null.
      * @return new AddressBook after importing properties.
-     * @throws IOException if there was any problem reading from to the file.
+     * @throws IOException if there was any problem reading from the file.
      * @throws ParseException if the csv file content cannot be recognized.
      */
     static AddressBook importProperties(ReadOnlyAddressBook addressBook, File file) throws IOException, ParseException {
@@ -80,12 +80,12 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
     }
 
     /**
-     * Imports buyers in the given csv file to the {@link ReadOnlyAddressBook}.
+     * Imports buyers from the given csv file to the {@link ReadOnlyAddressBook}.
      *
      * @param addressBook cannot be null.
      * @param file cannot be null.
      * @return new AddressBook after importing buyers.
-     * @throws IOException if there was any problem reading from to the file.
+     * @throws IOException if there was any problem reading from the file.
      * @throws ParseException if the csv file content cannot be recognized.
      */
     static AddressBook importBuyers(ReadOnlyAddressBook addressBook, File file) throws IOException, ParseException {

@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 /**
- * Imports entity (property or buyer) from the address book to csv file.
+ * Imports entity (property or buyer) from csv file to address book.
  */
 public abstract class ImportCommand extends CommandWithFile {
     public static final String COMMAND_WORD = "import";

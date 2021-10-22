@@ -89,7 +89,7 @@ public class CsvManagerTest {
     }
 
     @Test
-    public void importProperties_missingColumn_throwsParseException() throws ParseException {
+    public void importProperties_missingColumn_throwsParseException() {
         assertThrows(ParseException.class, CsvManager.MESSAGE_MISSING_HEADER + CsvManager.HEADER_TAGS, () ->
                 importProperties("invalidPropertiesMissingColumn.csv"));
     }
@@ -184,7 +184,7 @@ public class CsvManagerTest {
     }
 
     @Test
-    public void importBuyers_missingColumn_throwsParseException() throws ParseException {
+    public void importBuyers_missingColumn_throwsParseException() {
         assertThrows(ParseException.class, CsvManager.MESSAGE_MISSING_HEADER + CsvManager.HEADER_TAGS, () ->
                 importBuyers("invalidBuyersMissingColumn.csv"));
     }
