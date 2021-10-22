@@ -158,8 +158,6 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-### Sorting and filtering workflow
-
 ### One to many matching between properties and buyers
 
 This family of commands all extend from the abstract `MatchOneToManyCommand` class. 
