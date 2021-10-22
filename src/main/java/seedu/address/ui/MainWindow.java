@@ -205,12 +205,8 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleStat(Stat stat) {
-        if (!statWindow.isShowing()) {
-            statWindow.setStat(stat);
-            statWindow.show();
-        } else {
-            statWindow.focus();
-        }
+        statWindow.setStat(stat);
+        statWindow.show();
     }
 
     /**
