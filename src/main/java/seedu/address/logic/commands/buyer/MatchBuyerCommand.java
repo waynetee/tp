@@ -34,7 +34,6 @@ public class MatchBuyerCommand extends MatchOneToManyCommand {
         Buyer buyer = buyerList.get(targetIndex.getZeroBased());
         Predicate<Buyer> currentBuyerFilter = (b) -> b.equals(buyer);
 
-        Set<Tag> buyerTags = buyer.getTags();
         Predicate<Property> propertyFilter = (property) -> property.getPrice().isLessThanOrEqualTo(buyer.getPrice());
 
 

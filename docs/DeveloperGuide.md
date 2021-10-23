@@ -163,31 +163,33 @@ This section describes some noteworthy details on how certain features are imple
 This family of commands all extend from the abstract `MatchOneToManyCommand` class. 
 * The `MatchPropertyCommand` class matches 1 property to many buyers. It is triggered when the user enters the `match property INDEX` command.
 * The `MatchBuyerCommand` class matches 1 buyer to many properties. It is triggered when the user enters the `match buyer INDEX` command.
+
 Due to the highly symmetrical nature of these 2 commands, only `MatchPropertyCommand` will be elaborated upon.
 
 The property to be matched with buyers is chosen by index based on the currently visible list of properties. The potential buyer matches are taken from the currently visible list of buyers. There may be buyers in the address book that are not being displayed, perhaps due to a currently active filter. Such buyers will not be taken into consideration when conducting the matching. The rationale for this is so that the `match` command's output is predictable.
 
-Given a property, the algorithm first aims to filter out the incompatible matches, then outputs a sorted list of compatible buyers ordered by decreasing desirability. A buyer is compatible with a property if the buyer's budget is greater than the property's selling price. If a buyer can afford a property, then the level of desirability is determined by the number of tags that the buyer and the property have in common.
+Given a property, the algorithm first aims to filter out the incompatible matches, then outputs a sorted list of compatible buyers ordered by decreasing desirability. A buyer is compatible with a property if the buyer's budget is greater than or equal to the property's selling price. If a buyer can afford a property, then the level of desirability is determined by the number of tags that the buyer and the property have in common.
 
 The sequence diagram below shows the algorithm at work. 
 
 ![MatchOneToManySequenceDiagram](images/MatchOneToManySequenceDiagram.png)
 
-1. The algorithm first retrieves the current visible property list and selects the property `p` to be matched using the `targetIndex` attribute of `MatchPropertyCommand`.
-2. The algorithm creates a property filter `pp` to only show `p` in the visible list. The rationale here is so that the user can clearly see which property the buyers are matched to.
-3. The algorithm creates a buyer filter `bp` to select only the buyers whose `maxPrice` attribute (budget) is greater than the `price` attribute (selling price) of the property `p`.
-4. The algorithm creates a comparator `bc` to which will be used later to sort the filtered buyers. Buyers with more common tags with `p` will come first. Amongst buyers with the same number of tags, buyers with a higher budget will come first.
+1. The algorithm first retrieves the currently visible property list and selects the property `p` to be matched using the `targetIndex` attribute of `MatchPropertyCommand`.
+2. The algorithm creates a property filter `pp` to only show `p` in the visible property list. The rationale here is so that the user can clearly see which property the buyers are matched to.
+3. The algorithm creates a buyer filter `bp` to select only the buyers whose `maxPrice` attribute (budget) is greater than or equal to the `price` attribute (selling price) of the property `p`.
+4. The algorithm creates a comparator `bc` to which will be used later to sort the filtered buyers. Buyers with more tags in common with `p` will come first. Amongst buyers with the same number of tags in common, buyers with a higher budget will come first.
 5. The algorithm calls the `model` to update the visible property list with predicate `pp` and updates the visible buyer list with predicate `bp` and comparator `bc`.
 
 Please refer to the `MatchOneToManyCommand`, `MatchPropertyCommand`, `MatchBuyerCommand` classes for the full details of the implementation.
 
 #### Design considerations:
 As mentioned above, only `MatchPropertyCommand` will be elaborated upon, hence these design considerations are discussed in the context of matching one property to many buyers.
+
 **Aspect: Displaying property after match**
 * **Alternative 1 (current choice)**: Display only the property to be matched, so that the resulting property list only has 1 visible property.
     * Pros: Easy to implement. Also, this is less distracting for the user as there are no other properties displayed to cause confusion.
     * Cons: In the current UI implementation, there is wastage of space as the property side of the display only has 1 property list item, and the property box is mostly empty.
-* **Alternative 2** : Continue to display all the previously visible properties, and bring the property to be matched to the top of the list. Additionally, extra CSS classes and styles are added to the list item containing the property to be matched for emphasis.
+* **Alternative 2**: Continue to display all the previously visible properties, and bring the property to be matched to the top of the list. Additionally, extra CSS classes and styles are added to the list item containing the property to be matched for emphasis.
     * Pros: No space is wasted as the original visible list is retained. Additionally, this can be more convenient. The user can enter `match property INDEX`, choosing to match another property without needing to reset the property list via the `list` command.
     * Cons: More difficult to implement as it requires additional UI flourishes. Even with the CSS classes and styles added for emphasis, the resulting display may still be visually messy and negatively impact the user experience.
 
@@ -195,15 +197,15 @@ As mentioned above, only `MatchPropertyCommand` will be elaborated upon, hence t
 * **Alternative 1 (current choice)**: Filter out buyers whose budgets are below property's selling price.
     * Pros: Easily testable implementation.
     * Cons: The criteria may be too strict as in real life, there can be negotiations that can change the selling price of a property, or the price a buyer is willing to pay. 
-* **Alternative 2** : Allow matches between buyers and sellers even when the buyer's budget is below the property's selling price.
+* **Alternative 2**: Allow matches between buyers and sellers even when the buyer's budget is below the property's selling price.
     * Pros: A more realistic implementation.
     * Cons: More difficult to test.
 
-Comments: **Alternative 2** is the approach taken by the automated matching algorithm, as the automated matching algorithm reflects a less rigid, more heuristic focused matching philosophy and aims to attain a "smarter" matching.
+Comments: **Alternative 2** is the approach taken by the intelligent matching algorithm explained below. The intelligent matching algorithm reflects a less rigid, more heuristic focused matching philosophy and aims to attain a "smarter" matching.
 
-### Automated matching of properties and buyers
+### Intelligent matching of properties and buyers
 
-The automatic matching feature performs a one-to-one matching of buyers to properties based on price and tags in common. This section describes the algorithm and explains its rationale.
+The intelligent matching feature performs a one-to-one matching of buyers to properties based on price and tags in common. This section describes the algorithm and explains its rationale.
 
 This matching is done by the `MatchAutoCommand` class, and is triggered when the user enters the `match auto` command. The algorithm takes in the currently visible list of properties and buyers, and outputs a list of buyer-property matches. Note that each buyer is matched to at most one property and vice versa.
 

@@ -226,7 +226,7 @@ Matches compatible buyers to a specified property, displayed in descending order
 
 Format: `match property INDEX`
 
-* A buyer is compatible with a property if the buyer's budget is greater than the property's selling price.
+* A buyer is compatible with a property if the buyer's budget is greater than or equal to the property's selling price.
 * When 2 buyers, say `A` and `B` are both compatible with a property, then `A` is more desirable than `B` if `A` has more tags in common with the property than `B`. This is because a buyer's tags represents what the buyer would want in a property, and a property's tags represents the features the property has to offer.
 * When 2 buyers have the same number of tags in common with a property, the buyer with a higher budget is ranked higher in desirability.
 
@@ -237,6 +237,8 @@ The matching is done on the currently displayed buyer list. In other words, if y
 To illustrate, suppose you have 5 buyers in total (Adam, Ben, Carl, Daniel, Elle), and you have filtered the buyers to 3 (Adam, Ben, Carl). Then `match property 1` will only examine the 3 buyers (Adam, Ben, Carl). Even if Daniel or Elle is compatible with the first displayed property, they will not be considered in the matching.
 
 </div>
+
+TODO: This part can be moved to a more general area.
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 You can use the `list` command to reset the display lists to display all the available buyers before using `match property`. This will find compatible buyers from the full pool of available buyers.
@@ -250,6 +252,8 @@ Suppose 3 buyers, "Richard", "Sam", and "Tim" , are both compatible with Greenda
 
 Matches compatible properties to a specified buyer, displayed in descending order of desirability.
 
+Format: `match buyer INDEX`
+
 * A property is compatible with a buyer if the property's selling price is lower than the buyer's budget, i.e. the property is within the budget of the buyer.
 * When 2 properties, say `A` and `B` are both compatible with a buyer, then `A` is more desirable than `B` if `A` has more tags in common with the buyer than `B`.
 * When 2 properties have the same number of tags in common with a buyer, the property with a lower selling price is ranked higher in desirability, in other words, cheaper is better.
@@ -258,8 +262,6 @@ Matches compatible properties to a specified buyer, displayed in descending orde
 Example:<br>
 Suppose there are 5 buyers currently displayed in the buyer list. `match buyer 2` matches all properties compatible with the second displayed buyer. Let's call this buyer "Sam" and assume Sam has a budget of `1,000,000` and has tags `4rm`, `near school`. Then a property whose selling price is `1,100,000` would not be compatible, and a property whose selling price is `900,000` is compatible.<br>
 Suppose 3 properties, "Dee Gardens", "Olive Gardens", and "Pear Gardens" are all compatible with Sam. Dee Gardens has tags `5rm`, `far from school`, Olive Gardens has one tag `4rm`, and Pear Gardens has tags `4rm`, `near school`. Then Pear Gardens has the greatest number of tags in common and is the most desirable property match, whereas Dee Gardens has the least number of tags in common and is the least desirable property match.
-
-Format: `match buyer INDEX`
 
 #### Intelligent matching of properties and buyers
 

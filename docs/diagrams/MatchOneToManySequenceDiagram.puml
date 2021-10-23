@@ -2,9 +2,9 @@
 !include style.puml
 
 box Logic LOGIC_COLOR_T1
-participant "m:MatchPropertyCommand" as MatchPropertyCommand LOGIC_COLOR
-participant "pp:Predicate<Property" as PropertyPredicate LOGIC_COLOR
-participant "bp:Predicate<Buyer" as BuyerPredicate LOGIC_COLOR
+participant ":MatchPropertyCommand" as MatchPropertyCommand LOGIC_COLOR
+participant "pp:Predicate<Property>" as PropertyPredicate LOGIC_COLOR
+participant "bp:Predicate<Buyer>" as BuyerPredicate LOGIC_COLOR
 participant "bc:Comparator<Buyer>" as BuyerComparator LOGIC_COLOR
 end box
 
@@ -21,19 +21,19 @@ Model --> MatchPropertyCommand : currently displayed property list
 deactivate Model
 
 create PropertyPredicate
-MatchPropertyCommand -> PropertyPredicate : show only the property to be matched
+MatchPropertyCommand -> PropertyPredicate : Predicate<Property>()
 activate PropertyPredicate
 PropertyPredicate --> MatchPropertyCommand
 deactivate PropertyPredicate
 
 create BuyerPredicate
-MatchPropertyCommand -> BuyerPredicate : show the buyers whose budget exceed property's selling price
+MatchPropertyCommand -> BuyerPredicate : Predicate<Buyer>()
 activate BuyerPredicate
 BuyerPredicate --> MatchPropertyCommand
 deactivate BuyerPredicate
 
 create BuyerComparator
-MatchPropertyCommand -> BuyerComparator : prioritize buyers with more common tags, then break ties using buyers with higher budget
+MatchPropertyCommand -> BuyerComparator : Comparator<Buyer>()
 activate BuyerComparator
 BuyerComparator --> MatchPropertyCommand
 deactivate BuyerComparator
