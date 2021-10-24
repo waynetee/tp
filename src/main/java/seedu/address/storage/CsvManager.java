@@ -59,7 +59,7 @@ public class CsvManager {
                     .map(x -> x.tagName)
                     .collect(Collectors.joining(","));
             String[] entries = {buyer.getName().toString(), buyer.getPhone().toString(),
-                    buyer.getEmail().toString(), buyer.getMaxPrice().toString(), tagString};
+                    buyer.getEmail().toString(), buyer.getPrice().toString(), tagString};
             writer.writeNext(entries);
         }
         writer.close();

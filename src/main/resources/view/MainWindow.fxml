@@ -49,7 +49,7 @@
           </padding>
         </StackPane>
 
-        <HBox VBox.vgrow="ALWAYS">
+        <HBox fx:id="defaultView" VBox.vgrow="ALWAYS">
           <VBox fx:id="propertyList" styleClass="pane-with-border" prefWidth="340" HBox.hgrow="ALWAYS">
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
@@ -63,6 +63,13 @@
             </padding>
             <StackPane fx:id="buyerListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
+        </HBox>
+
+        <HBox fx:id="matchAutoView" VBox.vgrow="ALWAYS" styleClass="pane-with-border"  visible="false" managed="false">
+            <padding>
+               <Insets top="10" right="10" bottom="10" left="10" />
+            </padding>
+            <StackPane fx:id="matchListPanelPlaceholder" HBox.hgrow="ALWAYS" />
         </HBox>
 
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />

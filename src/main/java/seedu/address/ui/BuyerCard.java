@@ -49,7 +49,7 @@ public class BuyerCard extends UiPart<Region> {
         this.buyer = buyer;
         id.setText(displayedIndex + ". ");
         name.setText(buyer.getName().fullName);
-        price.setText('$' + buyer.getMaxPrice().toString());
+        price.setText('$' + buyer.getPrice().toString());
         phone.setText(buyer.getPhone().value);
         email.setText(buyer.getEmail().value);
 

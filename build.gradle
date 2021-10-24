@@ -65,6 +65,11 @@ dependencies {
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
 
     implementation group: 'com.opencsv', name: 'opencsv', version: '5.5.2'
+
+    implementation group: 'org.jfree', name: 'jcommon', version: '1.0.24'
+    implementation group: 'org.jfree', name: 'jfreechart', version: '1.5.3'
+    implementation group: 'org.jfree', name: 'jfreechart-fx', version: '1.0.1'
+
 }
 
 shadowJar {

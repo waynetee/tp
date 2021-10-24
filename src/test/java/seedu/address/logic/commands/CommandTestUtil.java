@@ -14,13 +14,16 @@ import static seedu.address.testutil.Assert.assertThrows;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Predicate;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.property.EditPropertyCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.field.NameContainsKeywordsPredicate;
+import seedu.address.model.property.Buyer;
 import seedu.address.model.property.Property;
 import seedu.address.testutil.EditPropertyDescriptorBuilder;
 
@@ -127,6 +130,7 @@ public class CommandTestUtil {
         assertEquals(expectedAddressBook, actualModel.getAddressBook());
         assertEquals(expectedFilteredList, actualModel.getFilteredPropertyList());
     }
+
     /**
      * Updates {@code model}'s filtered list to show only the property at the given {@code targetIndex} in the
      * {@code model}'s address book.
@@ -141,4 +145,19 @@ public class CommandTestUtil {
         assertEquals(1, model.getFilteredPropertyList().size());
     }
 
+    /**
+     * Updates {@code model}'s filtered list to show only the buyer at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showBuyerAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredBuyerList().size());
+
+        Buyer buyer = model.getFilteredBuyerList().get(targetIndex.getZeroBased());
+        final String[] splitName = buyer.getName().fullName.split("\\s+");
+        Predicate<Buyer> buyerPredicate = b -> List.of(splitName[0]).stream()
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(b.getName().fullName, keyword));
+        model.updateFilteredBuyerList(buyerPredicate);
+
+        assertEquals(1, model.getFilteredBuyerList().size());
+    }
 }

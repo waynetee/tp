@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.UiAction;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -44,18 +45,32 @@ public class SystemTest {
     private List<String> runCommands(Logic logic) throws IOException {
         List<String> commands = Files.readAllLines(INPUT_PATH);
         List<String> log = new ArrayList<>();
+        boolean showingMatchView = false;
         for (String command : commands) {
             try {
                 log.add(command);
+                logic.validateCommand(command, showingMatchView);
                 CommandResult result = logic.execute(command);
+                showingMatchView = getShowingMatchView(showingMatchView, result.getUiAction());
                 log.add(result.toString());
             } catch (CommandException | ParseException e) {
                 log.add(e.getMessage());
             }
             log.add(logic.getFilteredPropertyList().toString());
-            log.add(logic.getFilteredBuyerList().toString() + '\n');
+            log.add(logic.getFilteredBuyerList().toString());
+            log.add(logic.getMatchList().toString() + '\n');
         }
         return log;
+    }
+
+    private boolean getShowingMatchView(boolean previous, UiAction uiAction) {
+        if (uiAction.equals(UiAction.SHOW_MATCHES)) {
+            return true;
+        }
+        if (uiAction.equals(UiAction.SHOW_DEFAULT)) {
+            return false;
+        }
+        return previous;
     }
 
     private void writeOutput(List<String> log) throws IOException {
@@ -75,7 +90,8 @@ public class SystemTest {
     private void assertDataRestored(Logic originalLogic) {
         ReadOnlyAddressBook original = originalLogic.getAddressBook();
         ReadOnlyAddressBook restored = createApp().getAddressBook();
-        assertEquals(original, restored);
+        assertEquals(original.getPropertyList(), restored.getPropertyList());
+        assertEquals(original.getBuyerList(), restored.getBuyerList());
     }
 
 }

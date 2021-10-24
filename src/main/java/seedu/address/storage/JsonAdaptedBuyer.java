@@ -44,7 +44,7 @@ class JsonAdaptedBuyer extends JsonAdaptedPerson {
      */
     public JsonAdaptedBuyer(Buyer source) {
         super(source);
-        this.maxPrice = source.getMaxPrice().value.toString();
+        this.maxPrice = source.getPrice().value.toString();
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
