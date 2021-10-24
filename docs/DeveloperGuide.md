@@ -316,6 +316,38 @@ Given below is a sequence diagram for the execution of a `SortPropertyCommand`.
   * Pros: Better abstraction.
   * Cons: Too many different combinations, and as a result, too many methods in the `model`, if there is a need to extend the sort options in the future.
 
+### Import feature
+
+The import feature imports from a csv file of buyers/properties chosen by the user, to the AddressBook. 
+
+[opencsv](http://opencsv.sourceforge.net/) is a simple library for reading and writing CSV in Java. PropertyWhiz uses opencsv when importing (and exporting) csv files.
+
+Given below are the steps for importing buyers from a csv file:
+1. The user executes `import buyers`. The `import` command is parsed by `AddressBookParser#getCommandPreAction`, returning a `CommandPreAction` that indicates a file is required for `import`.
+2. `MainWindow#getCsvFile` creates a `FileChooserDialog`. The user selects a csv file to import from disk.
+3. `AddressBookParser#parseCommandWithFile` parses `import buyers` and creates a `ImportBuyersCommand`.
+
+Given below are the steps for executing `ImportBuyersCommand`:
+1. `LogicManager` calls `ImportBuyersCommand#execute` with the file selected by the user.
+2. `ImportBuyersCommand#execute` calls `Storage#importBuyers` with the current `AddressBook` and file.
+3. `Storage#importBuyers` calls `CsvManager#importBuyers` with the given file.
+4. `CsvManager#importBuyers` creates a new `CSVReaderHeaderAware` to read the CSV headers.
+5. `CSVReaderHeaderAware` parses each row in the csv file, to create a new `Buyer` object. `CsvManager#importBuyers` collects `Buyer` objects into a list, then returns the list of `Buyer`.
+6. Upon receiving list of `Buyer`, `Storage#importBuyers` creates then returns a new `AddressBook` with modified buyers.
+7. Upon receiving an `AddressBook`, `ImportBuyersCommand#execute` replaces the current `AddressBook` in `ModelManager`.
+
+Given below is a sequence diagram for the execution of `ImportBuyersCommand`.
+![ImportParsingSequenceDiagram](images/ImportExecutionSequenceDiagram.png)
+
+#### Design considerations:
+**Aspect: Implementation of `CsvManager#importBuyers`**
+* **Alternative 1 (current choice)**: Use a `CSVReaderHeaderAware` to parse the csv rows.
+    * Pros: Easy to implement, especially without specialized knowledge on `opencsv`.
+    * Cons: `CsvManager` becomes bloated with functions to build objects from parsed rows.
+* **Alternative 2** : Create csv-adapted objects (beans) for parsing. Use `opencsv` beans to parse rows.
+    * Pros: Better abstraction.
+    * Cons: Greater overhead (runtime, memory, human effort) in maintaining multiple types of the same object: `Buyer`, `JsonAdaptedBuyer`, and `BuyerBeans`.
+
 ### Statistics Diagram Pop-ups
 
 #### Implementation
