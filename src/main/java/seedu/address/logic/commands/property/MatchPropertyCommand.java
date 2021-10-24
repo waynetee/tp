@@ -4,21 +4,20 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.Set;
 import java.util.function.Predicate;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.MatchCommand;
+import seedu.address.logic.commands.MatchOneToManyCommand;
 import seedu.address.model.Model;
 import seedu.address.model.property.Buyer;
+import seedu.address.model.property.Match;
 import seedu.address.model.property.Property;
-import seedu.address.model.tag.Tag;
 
 /**
  * Match property to buyers in the address book.
  */
-public class MatchPropertyCommand extends MatchCommand {
+public class MatchPropertyCommand extends MatchOneToManyCommand {
     public static final String MESSAGE_SUCCESS = "Matched property to buyers.";
 
     public MatchPropertyCommand(Index targetIndex) {
@@ -31,12 +30,11 @@ public class MatchPropertyCommand extends MatchCommand {
         List<Property> propertyList = model.getFilteredPropertyList();
         Property property = propertyList.get(targetIndex.getZeroBased());
         Predicate<Property> currentPropertyFilter = (p) -> p.equals(property);
-        Set<Tag> propertyTags = property.getTags();
-        Predicate<Buyer> buyerFilter = (buyer) -> buyer.getMaxPrice().isGreaterThanOrEqualTo(property.getPrice());
+        Predicate<Buyer> buyerFilter = (buyer) -> buyer.getPrice().isGreaterThanOrEqualTo(property.getPrice());
 
         Comparator<Buyer> buyerComparator = Comparator.<Buyer, Integer>comparing(buyer ->
-                calculateTagIntersection(propertyTags, buyer.getTags())
-        ).thenComparingLong(buyer -> buyer.getMaxPrice().value).reversed();
+                Match.getNumCommonTags(buyer, property)
+        ).thenComparingLong(buyer -> buyer.getPrice().value).reversed();
 
         model.updateFilteredPropertyList(currentPropertyFilter);
         model.updateFilteredAndSortedBuyerList(buyerFilter, buyerComparator);

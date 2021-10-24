@@ -18,4 +18,10 @@ public class HelpCommand extends SimpleCommand {
     public CommandResult execute(Model model) {
         return new CommandResult(SHOWING_HELP_MESSAGE, UiAction.HELP);
     }
+
+    @Override
+    public boolean canRunInMatchAutoView() {
+        return true;
+    }
+
 }

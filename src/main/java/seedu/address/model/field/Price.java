@@ -7,8 +7,8 @@ import seedu.address.commons.util.ComparerMixin;
 
 public class Price implements ComparerMixin<Price> {
     public static final String MESSAGE_CONSTRAINTS =
-            "Price (in dollars) should only contain numbers, and it should be 3-18 digits long";
-    public static final String VALIDATION_REGEX = "\\d{3,18}";
+            "Price (in dollars) should only contain numbers, and it should be at most 18 digits long";
+    public static final String VALIDATION_REGEX = "\\d{1,18}";
     public final Long value;
 
     /**

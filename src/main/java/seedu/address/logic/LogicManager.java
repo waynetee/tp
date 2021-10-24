@@ -1,5 +1,8 @@
 package seedu.address.logic;
 
+import static seedu.address.commons.core.Messages.MESSAGE_DEFAULT_VIEW_INVALID_COMMAND;
+import static seedu.address.commons.core.Messages.MESSAGE_MATCH_AUTO_VIEW_INVALID_COMMAND;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -9,6 +12,7 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandPreAction;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.CommandWithFile;
@@ -19,6 +23,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.property.Buyer;
+import seedu.address.model.property.Match;
 import seedu.address.model.property.Property;
 import seedu.address.storage.Storage;
 
@@ -43,12 +48,25 @@ public class LogicManager implements Logic {
         addressBookParser = new AddressBookParser();
     }
 
+
+    @Override
+    public void validateCommand(String commandText, boolean showingMatchAutoView)
+            throws ParseException, CommandException {
+        Command command = addressBookParser.parseAnyCommand(commandText);
+        if (showingMatchAutoView && !command.canRunInMatchAutoView()) {
+            throw new CommandException(MESSAGE_MATCH_AUTO_VIEW_INVALID_COMMAND);
+        }
+        if (!showingMatchAutoView && !command.canRunInDefaultView()) {
+            throw new CommandException(MESSAGE_DEFAULT_VIEW_INVALID_COMMAND);
+        }
+    }
+
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        SimpleCommand command = addressBookParser.parseCommand(commandText);
+        SimpleCommand command = addressBookParser.parseSimpleCommand(commandText);
         commandResult = command.execute(model);
 
         try {
@@ -90,6 +108,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Buyer> getFilteredBuyerList() {
         return model.getFilteredBuyerList();
+    }
+
+    @Override
+    public ObservableList<Match> getMatchList() {
+        return model.getMatchList();
     }
 
     @Override

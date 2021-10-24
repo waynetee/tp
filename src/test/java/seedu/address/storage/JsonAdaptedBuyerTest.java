@@ -22,7 +22,7 @@ public class JsonAdaptedBuyerTest {
     private static final String VALID_NAME = B_BENSON.getName().toString();
     private static final String VALID_PHONE = B_BENSON.getPhone().toString();
     private static final String VALID_EMAIL = B_BENSON.getEmail().toString();
-    private static final String VALID_MAX_PRICE = B_BENSON.getMaxPrice().toString();
+    private static final String VALID_MAX_PRICE = B_BENSON.getPrice().toString();
     private static final List<JsonAdaptedTag> VALID_TAGS = B_BENSON.getTags().stream()
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList());
@@ -31,14 +31,6 @@ public class JsonAdaptedBuyerTest {
     public void toModelType_validBuyerDetails_returnsBuyer() throws Exception {
         JsonAdaptedBuyer buyer = new JsonAdaptedBuyer(B_BENSON);
         assertEquals(B_BENSON, buyer.toModelType());
-    }
-
-    @Test
-    public void toModelType_invalidPrice_throwsIllegalValueException() {
-        JsonAdaptedBuyer buyer = new JsonAdaptedBuyer(VALID_NAME, VALID_PHONE,
-                VALID_EMAIL, INVALID_MAX_PRICE, VALID_TAGS);
-        String expectedMessage = Price.MESSAGE_CONSTRAINTS;
-        assertThrows(IllegalValueException.class, expectedMessage, buyer::toModelType);
     }
 
     @Test

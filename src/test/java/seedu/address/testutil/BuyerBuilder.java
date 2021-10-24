@@ -38,7 +38,7 @@ public class BuyerBuilder extends PersonBuilder {
      */
     public BuyerBuilder(Buyer buyerToCopy) {
         super(buyerToCopy);
-        maxPrice = buyerToCopy.getMaxPrice();
+        maxPrice = buyerToCopy.getPrice();
         tags = new HashSet<>(buyerToCopy.getTags());
     }
 

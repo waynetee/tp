@@ -1,40 +1,29 @@
 package seedu.address.model.property;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.model.tag.Tag;
 
 /**
  * Represents a matching between Property and Buyer in the address book.
  */
 public class Match implements Listable {
+    /** Bonus to match score if price is within budget. */
+    public static final int WITHIN_BUDGET_BONUS = 2;
+
     private final Property property;
     private final Buyer buyer;
 
-    private Match(Property property, Buyer buyer) {
+    /**
+     * Creates a match between a property and a buyer.
+     */
+    public Match(Property property, Buyer buyer) {
         CollectionUtil.requireAllNonNull(property, buyer);
         this.property = property;
         this.buyer = buyer;
-    }
-
-    /**
-     * Constructs a Match object representing an association between a {@code property} and {@code buyer}.
-     *
-     * @param property Property that is to be matched with {@code buyer}.
-     * @param buyer    Buyer that is to be matched with {@code property}.
-     * @return Match object that is created.
-     */
-    public static Match createMatch(Property property, Buyer buyer) {
-        if (!validateMatch(property, buyer)) {
-            throw new IllegalStateException("Invalid matching attempted");
-        }
-        Match match = new Match(property, buyer);
-        return match;
-    }
-
-    private static boolean validateMatch(Property property, Buyer buyer) {
-        // TODO: ELiz's PR
-        return property.getPrice().value <= buyer.getMaxPrice().value;
     }
 
     public Property getProperty() {
@@ -43,6 +32,43 @@ public class Match implements Listable {
 
     public Buyer getBuyer() {
         return buyer;
+    }
+
+    /**
+     * Returns number of tags that a buyer and property have in common.
+     */
+    public static int getNumCommonTags(Buyer buyer, Property property) {
+        Set<Tag> intersection = new HashSet<>(buyer.getTags());
+        intersection.retainAll(property.getTags());
+        return intersection.size();
+    }
+
+
+    /**
+     * Returns a score representing how compatible a buyer is with a property.
+     */
+    public int getMatchScore() {
+        int numCommonTags = getNumCommonTags(buyer, property);
+        int priceScore = buyer.getPrice().isGreaterThanOrEqualTo(property.getPrice()) ? WITHIN_BUDGET_BONUS : 0;
+        return numCommonTags + priceScore;
+    }
+
+    /**
+     * Returns the absolute difference between the buyer's budget and property price.
+     */
+    public long getPriceGap() {
+        return Math.abs(getPriceDifference());
+    }
+
+    /**
+     * Returns the difference between the buyer's budget and property price.
+     *
+     * @return Buyer's budget - property price.
+     */
+    public long getPriceDifference() {
+        long budget = buyer.getPrice().value;
+        long price = property.getPrice().value;
+        return budget - price;
     }
 
     /**
@@ -98,4 +124,10 @@ public class Match implements Listable {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(property, buyer);
     }
+
+    @Override
+    public String toString() {
+        return property.toString() + " <--> " + buyer.toString();
+    }
+
 }
