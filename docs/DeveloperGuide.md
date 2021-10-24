@@ -273,7 +273,7 @@ Given below is a sequence diagram for the execution of a `SortPropertyCommand`.
 
 ### Import feature
 
-The import feature imports from csv file of buyers/properties chosen by the user, to the AddressBook. 
+The import feature imports from a csv file of buyers/properties chosen by the user, to the AddressBook. 
 
 [opencsv](http://opencsv.sourceforge.net/) is a simple library for reading and writing CSV in Java. PropertyWhiz uses opencsv when importing (and exporting) csv files.
 
@@ -289,7 +289,7 @@ Given below are the steps for executing `ImportBuyersCommand`:
 4. `CsvManager#importBuyers` creates a new `CSVReaderHeaderAware` to read the CSV headers.
 5. `CSVReaderHeaderAware` parses each row in the csv file, to create a new `Buyer` object. `CsvManager#importBuyers` collects `Buyer` objects into a list, then returns the list of `Buyer`.
 6. Upon receiving list of `Buyer`, `Storage#importBuyers` creates then returns a new `AddressBook` with modified buyers.
-7. Upon receiving an `AddressBook`, `ImportBuyersCommand#execute` overrides the current `AddressBook` in `model`.
+7. Upon receiving an `AddressBook`, `ImportBuyersCommand#execute` replaces the current `AddressBook` in `ModelManager`.
 
 Given below is a sequence diagram for the execution of `ImportBuyersCommand`.
 ![ImportParsingSequenceDiagram](images/ImportExecutionSequenceDiagram.png)

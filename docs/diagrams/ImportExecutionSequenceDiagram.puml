@@ -22,6 +22,7 @@ ImportBuyersCommand -> Model : getAddressBook()
 activate Model
 
 return addressBook
+deactivate Model
 
 ImportBuyersCommand -> Storage : importBuyers(addressBook, file)
 activate Storage
@@ -36,7 +37,7 @@ deactivate CSVReaderHeaderAware
 
 loop until end of csv
 
-CsvManager -> CSVReaderHeaderAware : r.readMap()
+CsvManager -> CSVReaderHeaderAware : readMap()
 activate CSVReaderHeaderAware
 
 return values
@@ -72,9 +73,10 @@ Storage --> ImportBuyersCommand: newAB
 deactivate Storage
 
 ImportBuyersCommand -> Model: setAddressBook(newAB)
+activate Model
+
 return
 
 deactivate Model
-
 
 @enduml
