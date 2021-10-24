@@ -99,6 +99,11 @@ public interface Model {
     ObservableList<Property> getFilteredPropertyList();
 
     /**
+     * Shows all the properties in the property list.
+     */
+    void showAllProperties();
+
+    /**
      * Updates the filter of the filtered property list to filter by the given {@code predicate}.
      *
      * @throws NullPointerException if {@code predicate} is null.
@@ -144,6 +149,11 @@ public interface Model {
      * Returns an unmodifiable view of the filtered buyer list
      */
     ObservableList<Buyer> getFilteredBuyerList();
+
+    /**
+     * Shows all the buyers in the property list.
+     */
+    void showAllBuyers();
 
     /**
      * Updates the filter of the filtered buyer list to filter by the given {@code predicate}.

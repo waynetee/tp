@@ -2,8 +2,10 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.field.SortDirection;
@@ -22,7 +24,9 @@ import seedu.address.model.property.UniquePropertyList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePropertyList properties;
+    private final UniquePropertyList currProperties;
     private final UniqueBuyerList buyers;
+    private final UniqueBuyerList currBuyers;
     private final UniqueMatchList matches;
 
     /*
@@ -34,7 +38,9 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         properties = new UniquePropertyList();
+        currProperties = new UniquePropertyList();
         buyers = new UniqueBuyerList();
+        currBuyers = new UniqueBuyerList();
         matches = new UniqueMatchList();
     }
 
@@ -57,6 +63,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setProperties(List<Property> properties) {
         this.properties.setProperties(properties);
+        this.currProperties.setProperties(properties);
     }
 
     /**
@@ -65,6 +72,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setBuyers(List<Buyer> buyers) {
         this.buyers.setBuyers(buyers);
+        this.currBuyers.setBuyers(buyers);
     }
 
     /**
@@ -92,6 +100,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addProperty(Property p) {
         properties.add(p);
+        currProperties.add(p);
     }
 
     /**
@@ -104,6 +113,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(editedProperty);
 
         properties.setProperty(target, editedProperty);
+        currProperties.setProperty(target, editedProperty);
     }
 
     /**
@@ -112,6 +122,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removeProperty(Property key) {
         properties.remove(key);
+        currProperties.remove(key);
     }
 
     //// buyer level operations
@@ -130,6 +141,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addBuyer(Buyer b) {
         buyers.add(b);
+        currBuyers.add(b);
     }
 
     /**
@@ -142,6 +154,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(editedBuyer);
 
         buyers.setBuyer(target, editedBuyer);
+        currBuyers.setBuyer(target, editedBuyer);
     }
 
     /**
@@ -150,8 +163,66 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removeBuyer(Buyer key) {
         buyers.remove(key);
+        currBuyers.remove(key);
     }
 
+    /**
+     * Resets the {@code currProperties} to the actual {@code properties} list.
+     */
+    public void resetProperties() {
+        currProperties.setProperties(properties);
+    }
+
+    /**
+     * Filters the {@code currProperties} based on the given property {@code Predicate}.
+     *
+     * @param predicate {@code Property} predicate
+     */
+    public void filterProperties(Predicate<Property> predicate) {
+        Iterator<Property> propertyIterator = currProperties.iterator();
+        while (propertyIterator.hasNext()) {
+            Property property = propertyIterator.next();
+            if (!predicate.test(property)) {
+                propertyIterator.remove();
+            }
+        }
+    }
+
+    /**
+     * Returns the predicate to get the {@code currProperties} list.
+     */
+    public Predicate<Property> getFilteredPropertyPredicate() {
+        return property -> currProperties.contains(property);
+    }
+
+    /**
+     * Resets the {@code currBuyers} to the actual {@code buyers} list.
+     */
+    public void resetBuyers() {
+        currBuyers.setBuyers(buyers);
+    }
+
+    /**
+     * Filters the {@code currBuyer} based on the given property {@code Predicate}.
+     *
+     * @param predicate {@code Buyer} predicate
+     */
+    public void filterBuyers(Predicate<Buyer> predicate) {
+        Iterator<Buyer> buyerIterator = currBuyers.iterator();
+        while (buyerIterator.hasNext()) {
+            Buyer buyer = buyerIterator.next();
+            if (!predicate.test(buyer)) {
+                buyerIterator.remove();
+            }
+        }
+    }
+
+    /**
+     * Returns the predicate to get the {@code currBuyers} list.
+     */
+    public Predicate<Buyer> getFilteredBuyerPredicate() {
+        return buyer -> currBuyers.contains(buyer);
+    }
 
     //// match level operations
 
@@ -190,14 +261,14 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Sorts properties by the given {@code sortType} and {@code sortDirection}.
      */
     public void sortProperties(SortType sortType, SortDirection sortDirection) {
-        properties.sort(sortType, sortDirection);
+        currProperties.sort(sortType, sortDirection);
     }
 
     /**
      * Sorts buyers  by the given {@code sortType} and {@code sortDirection}.
      */
     public void sortBuyers(SortType sortType, SortDirection sortDirection) {
-        buyers.sort(sortType, sortDirection);
+        currBuyers.sort(sortType, sortDirection);
     }
 
     //// util methods
@@ -211,12 +282,12 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public ObservableList<Property> getPropertyList() {
-        return properties.asUnmodifiableObservableList();
+        return currProperties.asUnmodifiableObservableList();
     }
 
     @Override
     public ObservableList<Buyer> getBuyerList() {
-        return buyers.asUnmodifiableObservableList();
+        return currBuyers.asUnmodifiableObservableList();
     }
 
     @Override

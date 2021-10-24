@@ -32,6 +32,8 @@ public class ModelManager implements Model {
     private final FilteredList<Buyer> filteredBuyers;
     private final SortedList<Property> filteredAndSortedProperties;
     private final SortedList<Buyer> filteredAndSortedBuyers;
+    private Predicate<Property> currFilteredPropertyPredicate = PREDICATE_SHOW_ALL_PROPERTIES;
+    private Predicate<Buyer> currFilteredBuyerPredicate = PREDICATE_SHOW_ALL_BUYERS;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -115,7 +117,6 @@ public class ModelManager implements Model {
     @Override
     public void addProperty(Property property) {
         addressBook.addProperty(property);
-        updateFilteredPropertyList(PREDICATE_SHOW_ALL_PROPERTIES);
     }
 
     @Override
@@ -139,7 +140,6 @@ public class ModelManager implements Model {
     @Override
     public void addBuyer(Buyer buyer) {
         addressBook.addBuyer(buyer);
-        updateFilteredBuyerList(PREDICATE_SHOW_ALL_BUYERS);
     }
 
     @Override
@@ -181,15 +181,22 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void showAllProperties() {
+        addressBook.resetProperties();
+        filteredProperties.setPredicate(PREDICATE_SHOW_ALL_PROPERTIES);
+    }
+
+    @Override
     public void updateFilteredPropertyList(Predicate<Property> predicate) {
         requireNonNull(predicate);
-        filteredProperties.setPredicate(predicate);
+        addressBook.filterProperties(predicate);
+        filteredProperties.setPredicate(addressBook.getFilteredPropertyPredicate());
     }
 
     @Override
     public void updateFilteredAndSortedPropertyList(Predicate<Property> predicate, Comparator<Property> comparator) {
         requireAllNonNull(predicate, comparator);
-        filteredProperties.setPredicate(predicate);
+        updateFilteredPropertyList(predicate);
         filteredAndSortedProperties.setComparator(comparator);
     }
 
@@ -205,15 +212,22 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void showAllBuyers() {
+        addressBook.resetBuyers();
+        filteredBuyers.setPredicate(PREDICATE_SHOW_ALL_BUYERS);
+    }
+
+    @Override
     public void updateFilteredBuyerList(Predicate<Buyer> predicate) {
         requireNonNull(predicate);
-        filteredBuyers.setPredicate(predicate);
+        addressBook.filterBuyers(predicate);
+        filteredBuyers.setPredicate(addressBook.getFilteredBuyerPredicate());
     }
 
     @Override
     public void updateFilteredAndSortedBuyerList(Predicate<Buyer> predicate, Comparator<Buyer> comparator) {
         requireAllNonNull(predicate, comparator);
-        filteredBuyers.setPredicate(predicate);
+        updateFilteredBuyerList(predicate);
         filteredAndSortedBuyers.setComparator(comparator);
     }
 
