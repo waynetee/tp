@@ -161,8 +161,7 @@ Format: `stat [(property | buyer)]`
 
 ------------------
 
-### [IN PROGRESS] Locating properties by name: `find`
-**TODO:** Find command adapted for property/buyers
+### Locating properties by name: `find`
 
 Finds properties or buyers whose names contain any of the given keywords and whose tag list contain all of the specified tags.
 
@@ -179,8 +178,10 @@ Format: `find (properties | buyers) [KEYWORDS] [t/TAG_TO_MATCH]…`
 
 Examples:
 * `find properties Jurong` returns properties `jurong` and `Jurong East`
+* `find buyers Sally` returns buyers `sally` and `Sally Brown`
 * `find properties Jurong t/4rm t/near school` returns properties `jurong [4rm] [near school] [near mrt]` and `Jurong East [4rm] [near school] [near mrt]` but not `jurong [4rm] [near mrt]`
 * `find properties t/4rm t/near school` returns properties `jurong [4rm] [near school] [near mrt]` and `Clementi [4rm] [near school] [near mrt]`
+* `find buyers Sally t/4rm t/near school` returns buyers `Sally [4rm] [near school] [quiet]` and `sally brown [4rm] [near school]`
 
 ------------------
 
