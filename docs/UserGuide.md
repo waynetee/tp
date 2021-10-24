@@ -161,12 +161,11 @@ Format: `stat [(property | buyer)]`
 
 ------------------
 
-### [IN PROGRESS] Locating properties by name: `find`
-**TODO:** Find command adapted for property/buyers
+### Locating properties by name: `find`
 
-Finds properties whose names contain any of the given keywords and whose tag list contain all of the specified tags.
+Finds properties or buyers whose names contain any of the given keywords and whose tag list contain all of the specified tags.
 
-Format: `find [KEYWORDS] [t/TAG_TO_MATCH]…`
+Format: `find (properties | buyers) [KEYWORDS] [t/TAG_TO_MATCH]…`
 
 * The keyword search is case-insensitive. e.g `hillview` will match `Hillview`
 * The order of the keywords does not matter. e.g. `Hillview Rise` will match `Rise Hillview`
@@ -178,9 +177,11 @@ Format: `find [KEYWORDS] [t/TAG_TO_MATCH]…`
     * e.g. For tags, `t/4rm t/near school` will return properties with both `4rm` tag, and `near school` tag.
 
 Examples:
-* `find Jurong` returns `jurong` and `Jurong East`
-* `find Jurong t/4rm t/near school` returns `jurong [4rm] [near school] [near mrt]` and `Jurong East [4rm] [near school] [near mrt]` but not `jurong [4rm] [near mrt]`
-* `find t/4rm t/near school` returns `jurong [4rm] [near school] [near mrt]` and `Clementi [4rm] [near school] [near mrt]`
+* `find properties Jurong` returns properties `jurong` and `Jurong East`
+* `find buyers Sally` returns buyers `sally` and `Sally Brown`
+* `find properties Jurong t/4rm t/near school` returns properties `jurong [4rm] [near school] [near mrt]` and `Jurong East [4rm] [near school] [near mrt]` but not `jurong [4rm] [near mrt]`
+* `find properties t/4rm t/near school` returns properties `jurong [4rm] [near school] [near mrt]` and `Clementi [4rm] [near school] [near mrt]`
+* `find buyers Sally t/4rm t/near school` returns buyers `Sally [4rm] [near school] [quiet]` and `sally brown [4rm] [near school]`
 
 ------------------
 

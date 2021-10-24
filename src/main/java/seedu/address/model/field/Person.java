@@ -4,11 +4,13 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
+import seedu.address.model.property.Nameable;
+
 /**
  * Represents a Person in propertywhiz.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Person {
+public class Person implements Nameable {
     private final Name name;
     private final Phone phone;
     private final Email email;
@@ -23,6 +25,7 @@ public class Person {
         this.email = email;
     }
 
+    @Override
     public Name getName() {
         return name;
     }
@@ -78,5 +81,6 @@ public class Person {
     public String toString() {
         return String.format("%s; Phone: %s; Email: %s", name, phone, email);
     }
+
 
 }
