@@ -138,15 +138,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Adds a property to the top of the address book.
-     * The property must not already exist in the address book.
-     */
-    public void addNewProperty(Property p) {
-        properties.addFront(p);
-        currProperties.addFront(p);
-    }
-
-    /**
      * Replaces the given property {@code target} in the list with {@code editedProperty}.
      * {@code target} must exist in the address book.
      * The property identity of {@code editedProperty} must not be the same as another existing property
@@ -157,6 +148,15 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         properties.setProperty(target, editedProperty);
         currProperties.setProperty(target, editedProperty);
+    }
+
+    /**
+     * Adds a property to the top of the address book.
+     * The property must not already exist in the address book.
+     */
+    public void addNewProperty(Property p) {
+        properties.addFront(p);
+        currProperties.addFront(p);
     }
 
     /**
@@ -188,15 +188,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Adds a buyer to the top of the address book.
-     * The buyer must not already exist in the address book.
-     */
-    public void addNewBuyer(Buyer b) {
-        buyers.addFront(b);
-        currBuyers.addFront(b);
-    }
-
-    /**
      * Replaces the given buyer {@code target} in the list with {@code editedBuyer}.
      * {@code target} must exist in the address book.
      * The buyer identity of {@code editedBuyer} must not be the same as another existing buyer
@@ -207,6 +198,15 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         buyers.setBuyer(target, editedBuyer);
         currBuyers.setBuyer(target, editedBuyer);
+    }
+
+    /**
+     * Adds a buyer to the top of the address book.
+     * The buyer must not already exist in the address book.
+     */
+    public void addNewBuyer(Buyer b) {
+        buyers.addFront(b);
+        currBuyers.addFront(b);
     }
 
     /**
