@@ -101,10 +101,16 @@ public class UniqueList<Item extends Listable> implements Iterable<Item> {
         internalList.setAll(listables);
     }
 
+    /**
+     * Sorts the contents of this list with the given {@code comparator}.
+     */
     public void sortListables(Comparator<Item> comparator) {
         internalList.sort(comparator);
     }
 
+    /**
+     * Filters the contents of this list with the given {@code pred}.
+     */
     public void filter(Predicate<Item> pred) {
         List<Item> newList = internalList.stream().filter(pred).collect(Collectors.toList());
         internalList.retainAll(newList);
