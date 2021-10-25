@@ -113,7 +113,6 @@ public class AddCommandParser implements Parser<AddCommand> {
         return buyer;
     }
 
-
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
      * {@code ArgumentMultimap}.
