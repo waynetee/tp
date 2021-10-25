@@ -10,9 +10,10 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Label?>
 
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="Address App" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
+         title="PropertyWhiz" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
   <icons>
     <Image url="@/images/address_book_32.png" />
   </icons>
@@ -45,7 +46,7 @@
         </StackPane>
 
         <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
-                   minHeight="100" prefHeight="100" maxHeight="100">
+                   minHeight="105" prefHeight="105" maxHeight="105">
           <padding>
             <Insets top="5" right="10" bottom="5" left="10" />
           </padding>
@@ -54,25 +55,28 @@
         <HBox fx:id="defaultView" VBox.vgrow="ALWAYS">
           <VBox fx:id="propertyList" styleClass="pane-with-border" prefWidth="340" HBox.hgrow="ALWAYS">
             <padding>
-              <Insets top="10" right="10" bottom="10" left="10" />
+              <Insets right="10" bottom="10" left="10" />
             </padding>
+            <Label styleClass="list_label" text="Properties" />
             <StackPane fx:id="propertyListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
 
           <VBox fx:id="buyerList" styleClass="pane-with-border" prefWidth="340" HBox.hgrow="ALWAYS">
             <padding>
-              <Insets top="10" right="10" bottom="10" left="10" />
+              <Insets right="10" bottom="10" left="10" />
             </padding>
+            <Label styleClass="list_label" text="Buyers" />
             <StackPane fx:id="buyerListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
         </HBox>
 
-        <HBox fx:id="matchAutoView" VBox.vgrow="ALWAYS" styleClass="pane-with-border"  visible="false" managed="false">
+        <VBox fx:id="matchAutoView" VBox.vgrow="ALWAYS" styleClass="pane-with-border"  visible="false" managed="false">
             <padding>
-               <Insets top="10" right="10" bottom="10" left="10" />
+               <Insets right="10" bottom="10" left="10" />
             </padding>
-            <StackPane fx:id="matchListPanelPlaceholder" HBox.hgrow="ALWAYS" />
-        </HBox>
+            <Label styleClass="list_label" text="Matches" />
+            <StackPane fx:id="matchListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+        </VBox>
 
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
       </VBox>

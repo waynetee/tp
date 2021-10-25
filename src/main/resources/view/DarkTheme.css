@@ -148,8 +148,8 @@
 
 .result-display {
     -fx-background-color: transparent;
-    -fx-font-family: "Open Sans Light";
-    -fx-font-size: 13pt;
+    -fx-font-family: "Open Sans Regular";
+    -fx-font-size: 11pt;
     -fx-text-fill: white;
 }
 
@@ -354,4 +354,11 @@
 .price {
     -fx-font-family: "Open Sans SemiBold";
     -fx-font-size: 13px;
+}
+
+.list_label {
+    -fx-font-family: "Open Sans Semibold";
+    -fx-font-size: 16px;
+    -fx-text-fill: white;
+    -fx-padding: 3px;
 }
