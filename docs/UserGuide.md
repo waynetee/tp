@@ -100,7 +100,8 @@ Format: `help`
 
 Adds a property/buyer to PropertyWhiz.
 
-* Tags are optional, and must only contain alphanumerical characters, spaces and hyphens (`-`).
+* Tags are optional.
+* Tags must start with a letter or number, and only contain alphanumerical characters, spaces and hyphens (`-`).
 * All other fields are compulsory.
 
 Format:
@@ -129,7 +130,7 @@ Edits the property/buyer at the specified `INDEX`. The index refers to the index
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the property will be removed i.e adding of tags is not cumulative.
-* Tags must only contain alphanumerical characters, spaces and hyphens (`-`).
+* Tags must start with a letter or number, and only contain alphanumerical characters, spaces and hyphens (`-`).
 * Like `add`, tags added via `edit` will be automatically converted to lower case.
 * You can remove all the property/buyer’s tags by typing `t/` without specifying any tags after it.
 
