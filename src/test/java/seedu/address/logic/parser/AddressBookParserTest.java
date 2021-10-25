@@ -23,15 +23,18 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.ExportCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.ImportCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.MatchCommand;
 import seedu.address.logic.commands.buyer.ExportBuyersCommand;
+import seedu.address.logic.commands.buyer.ImportBuyersCommand;
 import seedu.address.logic.commands.property.AddPropertyCommand;
 import seedu.address.logic.commands.property.DeletePropertyCommand;
 import seedu.address.logic.commands.property.EditPropertyCommand;
 import seedu.address.logic.commands.property.EditPropertyCommand.EditPropertyDescriptor;
 import seedu.address.logic.commands.property.ExportPropertiesCommand;
 import seedu.address.logic.commands.property.FindPropertyCommand;
+import seedu.address.logic.commands.property.ImportPropertiesCommand;
 import seedu.address.logic.commands.property.MatchPropertyCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.field.NameContainsKeywordsPredicate;
@@ -146,6 +149,18 @@ public class AddressBookParserTest {
                 .get() instanceof ExportBuyersCommand);
     }
 
+    @Test
+    public void parseCommandWithFile_import() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ImportCommand.MESSAGE_USAGE);
+        assertThrows(ParseException.class, expectedMessage, () ->
+                parser.parseCommandWithFile(ImportCommand.COMMAND_WORD));
+        assertThrows(ParseException.class, expectedMessage, () ->
+                parser.parseCommandWithFile(ImportCommand.COMMAND_WORD + " 1"));
+        assertTrue(parser.parseCommandWithFile(ImportCommand.COMMAND_WORD + " " + ImportCommand.PROPERTIES)
+                .get() instanceof ImportPropertiesCommand);
+        assertTrue(parser.parseCommandWithFile(ImportCommand.COMMAND_WORD + " " + ImportCommand.BUYERS)
+                .get() instanceof ImportBuyersCommand);
+    }
 
     @Test
     public void getCommandPreAction_help() throws Exception {
@@ -164,5 +179,18 @@ public class AddressBookParserTest {
                 .equals(new CommandPreAction(ExportCommand.COMMAND_WORD + " " + ExportCommand.PROPERTIES, true)));
         assertTrue(parser.getCommandPreAction(ExportCommand.COMMAND_WORD + " " + ExportCommand.BUYERS)
                 .equals(new CommandPreAction(ExportCommand.COMMAND_WORD + " " + ExportCommand.BUYERS, true)));
+    }
+
+    @Test
+    public void getCommandPreAction_import() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ImportCommand.MESSAGE_USAGE);
+        assertThrows(ParseException.class, expectedMessage, () ->
+                parser.getCommandPreAction(ImportCommand.COMMAND_WORD));
+        assertThrows(ParseException.class, expectedMessage, () ->
+                parser.getCommandPreAction(ImportCommand.COMMAND_WORD + " 1"));
+        assertTrue(parser.getCommandPreAction(ImportCommand.COMMAND_WORD + " " + ImportCommand.PROPERTIES)
+                .equals(new CommandPreAction(ImportCommand.COMMAND_WORD + " " + ImportCommand.PROPERTIES, false)));
+        assertTrue(parser.getCommandPreAction(ImportCommand.COMMAND_WORD + " " + ImportCommand.BUYERS)
+                .equals(new CommandPreAction(ImportCommand.COMMAND_WORD + " " + ImportCommand.BUYERS, false)));
     }
 }
