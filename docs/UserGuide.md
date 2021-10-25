@@ -163,10 +163,13 @@ Format: `stat [(property | buyer)]`
 
 ### Locating properties by name: `find`
 
-Finds properties or buyers whose names contain any of the given keywords and whose tag list contain all of the specified tags.
+Finds properties or buyers whose names contain any of the given keywords and whose tag list contain all of the specified tags in the **current viewing list**.
 
 Format: `find (properties | buyers) [KEYWORDS] [t/TAG_TO_MATCH]…`
 
+* Finds only properties or buyers in the current viewing list
+
+    e.g If `find properties hillview` return properties `Hillview` and `Hillview Rise`, then applying another find command `find properties grove` will return an empty list, even if PropertyWhiz has a property `Grove`.
 * The keyword search is case-insensitive. e.g `hillview` will match `Hillview`
 * The order of the keywords does not matter. e.g. `Hillview Rise` will match `Rise Hillview`
 * Only the property name is searched.
@@ -207,8 +210,8 @@ Sorts the properties / buyers in PropertyWhiz.
 
 Format: `sort (properties | buyers) (price | name) (asc | desc)`
 
-* Sort the properties in the current view based on properties `price`/`name` in `asc`(ascending) / `desc`(descending) order
-* Sort the buyers in the current view based on buyers `price`/`name` in `asc`(ascending) / `desc`(descending) order
+* Sort the properties in the **current** view based on properties `price`/`name` in `asc`(ascending) / `desc`(descending) order
+* Sort the buyers in the **current** view based on buyers `price`/`name` in `asc`(ascending) / `desc`(descending) order
 
 Examples:
 

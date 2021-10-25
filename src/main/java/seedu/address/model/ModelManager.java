@@ -32,8 +32,6 @@ public class ModelManager implements Model {
     private final FilteredList<Buyer> filteredBuyers;
     private final SortedList<Property> filteredAndSortedProperties;
     private final SortedList<Buyer> filteredAndSortedBuyers;
-    private Predicate<Property> currFilteredPropertyPredicate = PREDICATE_SHOW_ALL_PROPERTIES;
-    private Predicate<Buyer> currFilteredBuyerPredicate = PREDICATE_SHOW_ALL_BUYERS;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.

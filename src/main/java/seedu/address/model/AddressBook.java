@@ -65,10 +65,18 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.properties.setProperties(properties);
     }
 
+    /**
+     * Replaces the contents of the current property list with {@code properties}.
+     * {@code properties} must not contain duplicate properties.
+     */
     public void setCurrProperties(List<Property> properties) {
         this.currProperties.setProperties(properties);
     }
 
+    /**
+     * Replaces the contents of both the current and actual property list with {@code properties}.
+     * {@code properties} must not contain duplicate properties.
+     */
     public void setAllProperties(List<Property> properties) {
         setProperties(properties);
         setCurrProperties(properties);
@@ -82,10 +90,18 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.buyers.setBuyers(buyers);
     }
 
+    /**
+     * Replaces the contents of the current buyer list with {@code buyers}.
+     * {@code buyers} must not contain duplicate buyers.
+     */
     public void setCurrBuyers(List<Buyer> buyers) {
         this.currBuyers.setBuyers(buyers);
     }
 
+    /**
+     * Replaces the contents of both the current and actual buyer list with {@code buyers}.
+     * {@code buyers} must not contain duplicate buyers.
+     */
     public void setAllBuyers(List<Buyer> buyers) {
         setBuyers(buyers);
         setCurrBuyers(buyers);
