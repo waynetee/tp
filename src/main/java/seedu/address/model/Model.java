@@ -86,6 +86,12 @@ public interface Model {
     void addProperty(Property property);
 
     /**
+     * Adds the given property to the front of the list.
+     * {@code property} must not already exist in the address book.
+     */
+    void addNewProperty(Property property);
+
+    /**
      * Replaces the given property {@code target} with {@code editedProperty}.
      * {@code target} must exist in the address book.
      * The property identity of {@code editedProperty} must not be the same as another existing property
@@ -116,7 +122,7 @@ public interface Model {
     void updateFilteredAndSortedPropertyList(Predicate<Property> predicate, Comparator<Property> comparator);
 
     /**
-     * Sorts the property list by the {@code SortType} and {@code SortDirection}.
+     * Sorts the property list by the given {@code sortType} and {@code sortDirection}.
      */
     void sortProperties(SortType sortType, SortDirection sortDirection);
 
@@ -136,6 +142,12 @@ public interface Model {
      * {@code buyer} must not already exist in the address book.
      */
     void addBuyer(Buyer buyer);
+
+    /**
+     * Adds the given buyer to the front of the list.
+     * {@code buyer} must not already exist in the address book.
+     */
+    void addNewBuyer(Buyer buyer);
 
     /**
      * Replaces the given buyer {@code target} with {@code editedBuyer}.
@@ -168,7 +180,7 @@ public interface Model {
     void updateFilteredAndSortedBuyerList(Predicate<Buyer> predicate, Comparator<Buyer> comparator);
 
     /**
-     * Sorts the buyer list by the {@code SortType} and {@code SortDirection}.
+     * Sorts the buyer list by the given buyer {@code sortType} and {@code sortDirection}.
      */
     void sortBuyers(SortType sortType, SortDirection sortDirection);
 

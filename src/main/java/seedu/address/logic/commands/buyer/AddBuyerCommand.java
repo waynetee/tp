@@ -53,7 +53,7 @@ public class AddBuyerCommand extends AddCommand {
             throw new CommandException(MESSAGE_DUPLICATE_BUYER);
         }
 
-        model.addBuyer(buyerToAdd);
+        model.addNewBuyer(buyerToAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, buyerToAdd));
     }
 

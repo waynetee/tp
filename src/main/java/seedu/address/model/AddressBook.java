@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
@@ -137,6 +138,15 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Adds a property to the top of the address book.
+     * The property must not already exist in the address book.
+     */
+    public void addNewProperty(Property p) {
+        properties.addFront(p);
+        currProperties.addFront(p);
+    }
+
+    /**
      * Replaces the given property {@code target} in the list with {@code editedProperty}.
      * {@code target} must exist in the address book.
      * The property identity of {@code editedProperty} must not be the same as another existing property
@@ -178,6 +188,15 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Adds a buyer to the top of the address book.
+     * The buyer must not already exist in the address book.
+     */
+    public void addNewBuyer(Buyer b) {
+        buyers.addFront(b);
+        currBuyers.addFront(b);
+    }
+
+    /**
      * Replaces the given buyer {@code target} in the list with {@code editedBuyer}.
      * {@code target} must exist in the address book.
      * The buyer identity of {@code editedBuyer} must not be the same as another existing buyer
@@ -216,13 +235,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Returns the predicate to get the {@code currProperties} list.
-     */
-    public Predicate<Property> getFilteredPropertyPredicate() {
-        return property -> currProperties.contains(property);
-    }
-
-    /**
      * Resets the {@code currBuyers} to the actual {@code buyers} list.
      */
     public void resetBuyers() {
@@ -236,13 +248,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void filterBuyers(Predicate<Buyer> predicate) {
         currBuyers.filter(predicate);
-    }
-
-    /**
-     * Returns the predicate to get the {@code currBuyers} list.
-     */
-    public Predicate<Buyer> getFilteredBuyerPredicate() {
-        return buyer -> currBuyers.contains(buyer);
     }
 
     //// match level operations
@@ -279,19 +284,32 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Sorts properties by the given {@code sortType} and {@code sortDirection}.
+     * Sorts currently displayed properties by the given {@code comparator}.
+     */
+    public void sortProperties(Comparator<Property> comparator) {
+        currProperties.sortListables(comparator);
+    }
+
+    /**
+     * Sorts currently displayed properties by the given {@code sortType} and {@code sortDirection}.
      */
     public void sortProperties(SortType sortType, SortDirection sortDirection) {
         currProperties.sort(sortType, sortDirection);
     }
 
     /**
-     * Sorts buyers  by the given {@code sortType} and {@code sortDirection}.
+     * Sorts currently displayed buyers by the given {@code comparator}.
+     */
+    public void sortBuyers(Comparator<Buyer> comparator) {
+        currBuyers.sortListables(comparator);
+    }
+
+    /**
+     * Sorts currently displayed properties by the given {@code sortType} and {@code sortDirection}.
      */
     public void sortBuyers(SortType sortType, SortDirection sortDirection) {
         currBuyers.sort(sortType, sortDirection);
     }
-
     //// util methods
 
     @Override

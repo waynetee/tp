@@ -61,7 +61,7 @@ public class AddPropertyCommand extends AddCommand {
             throw new CommandException(MESSAGE_DUPLICATE_PROPERTY);
         }
 
-        model.addProperty(propertyToAdd);
+        model.addNewProperty(propertyToAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, propertyToAdd));
     }
 
