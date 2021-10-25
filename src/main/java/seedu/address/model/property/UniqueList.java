@@ -115,6 +115,7 @@ public class UniqueList<Item extends Listable> implements Iterable<Item> {
         List<Item> newList = internalList.stream().filter(pred).collect(Collectors.toList());
         internalList.retainAll(newList);
     }
+
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
