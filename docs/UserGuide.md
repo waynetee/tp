@@ -4,7 +4,7 @@ title: User Guide
 ---
 
 * Table of Contents
-  {:toc}
+{:toc}
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -95,7 +95,6 @@ Shows a message explaning how to access the help page.
 
 Format: `help`
 
-------------------
 
 ### Adding a property/buyer: `add`
 
@@ -113,7 +112,6 @@ Examples:
 A property/buyer can have any number of tags (including 0). All tags will be converted to lowercase.
 </div>
 
-------------------
 
 ### Listing all properties/buyers : `list`
 
@@ -121,7 +119,6 @@ Shows a list of all properties and buyers in PropertyWhiz.
 
 Format: `list`
 
-------------------
 
 ### Editing a property/buyer : `edit`
 
@@ -151,22 +148,23 @@ The following example is invalid:
 
 </div>
 
-------------------
 
-### [IN PROGRESS] Viewing price histogram of listed properties and/or buyers : `stat`
+### Viewing price histogram of listed properties and/or buyers : `stat`
 
-Views the price histogram of the currently listed properties and/or buyers in the view.
+Creates a pop-up with the price histogram of the currently listed properties and/or buyers in the view.
 
 Format: `stat [(property | buyer)]`
 
-------------------
+![stat example](images/StatBuyerDemo.png)
 
-### [IN PROGRESS] Locating properties by name: `find`
-**TODO:** Find command adapted for property/buyers
+* Entering another `stat` command while the existing one is open  replaces the view in the pop-up window.
+* If only buyers or only properties are visible, `stat` automatically presents the only buyers/only properties view.
 
-Finds properties whose names contain any of the given keywords and whose tag list contain all of the specified tags.
+### Locating properties by name: `find`
 
-Format: `find [KEYWORDS] [t/TAG_TO_MATCH]…`
+Finds properties or buyers whose names contain any of the given keywords and whose tag list contain all of the specified tags.
+
+Format: `find (properties | buyers) [KEYWORDS] [t/TAG_TO_MATCH]…`
 
 * The keyword search is case-insensitive. e.g `hillview` will match `Hillview`
 * The order of the keywords does not matter. e.g. `Hillview Rise` will match `Rise Hillview`
@@ -178,9 +176,11 @@ Format: `find [KEYWORDS] [t/TAG_TO_MATCH]…`
     * e.g. For tags, `t/4rm t/near school` will return properties with both `4rm` tag, and `near school` tag.
 
 Examples:
-* `find Jurong` returns `jurong` and `Jurong East`
-* `find Jurong t/4rm t/near school` returns `jurong [4rm] [near school] [near mrt]` and `Jurong East [4rm] [near school] [near mrt]` but not `jurong [4rm] [near mrt]`
-* `find t/4rm t/near school` returns `jurong [4rm] [near school] [near mrt]` and `Clementi [4rm] [near school] [near mrt]`
+* `find properties Jurong` returns properties `jurong` and `Jurong East`
+* `find buyers Sally` returns buyers `sally` and `Sally Brown`
+* `find properties Jurong t/4rm t/near school` returns properties `jurong [4rm] [near school] [near mrt]` and `Jurong East [4rm] [near school] [near mrt]` but not `jurong [4rm] [near mrt]`
+* `find properties t/4rm t/near school` returns properties `jurong [4rm] [near school] [near mrt]` and `Clementi [4rm] [near school] [near mrt]`
+* `find buyers Sally t/4rm t/near school` returns buyers `Sally [4rm] [near school] [quiet]` and `sally brown [4rm] [near school]`
 
 ------------------
 
@@ -219,6 +219,49 @@ Examples:
 Matches properties and buyers to one another.
 
 Format: `match ( auto | property INDEX | buyer INDEX )`
+
+#### One to many matching of property to buyers
+
+Matches compatible buyers to a specified property, displayed in descending order of desirability.
+
+Format: `match property INDEX`
+
+* A buyer is compatible with a property if the buyer's budget is greater than or equal to the property's selling price.
+* When 2 buyers, say `A` and `B` are both compatible with a property, then `A` is more desirable than `B` if `A` has more tags in common with the property than `B`. This is because a buyer's tags represents what the buyer would want in a property, and a property's tags represents the features the property has to offer.
+* When 2 buyers have the same number of tags in common with a property, the buyer with a higher budget is ranked higher in desirability.
+
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+
+The matching is done on the currently displayed buyer list. In other words, if you have filtered buyers for example, using the `find` command, then the potential matches for `match property 1` (the first displayed property) will only come from the filtered buyer list.
+
+To illustrate, suppose you have 5 buyers in total (Adam, Ben, Carl, Daniel, Elle), and you have filtered the buyers to 3 (Adam, Ben, Carl). Then `match property 1` will only examine the 3 buyers (Adam, Ben, Carl). Even if Daniel or Elle is compatible with the first displayed property, they will not be considered in the matching.
+
+</div>
+
+TODO: This part can be moved to a more general area.
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+You can use the `list` command to reset the display lists to display all the available buyers before using `match property`. This will find compatible buyers from the full pool of available buyers.
+</div>
+
+Example:<br>
+Suppose there are 5 properties currently displayed in the property list. `match property 2` matches all buyers compatible with the second displayed property. Let's call this property "Greendale Heights" and assume it has a selling price of `1,000,000` and has tags `4rm`, `near school`. Then a buyer whose budget is `900,000` would not be compatible, and a buyer whose budget is `1,100,000` is compatible.<br>
+Suppose 3 buyers, "Richard", "Sam", and "Tim" , are both compatible with Greendale Heights. Richard has tags `5rm`, `far from school`, Sam has one tag `4rm`, and Tim has tags `4rm`, `near school`. Then Tim has the greatest number of tags in common and is the most desirable buyer match, whereas Richard has the least number of tags in common and is the least desirable buyer match.
+
+#### One to many matching of buyer to properties
+
+Matches compatible properties to a specified buyer, displayed in descending order of desirability.
+
+Format: `match buyer INDEX`
+
+* A property is compatible with a buyer if the property's selling price is lower than the buyer's budget, i.e. the property is within the budget of the buyer.
+* When 2 properties, say `A` and `B` are both compatible with a buyer, then `A` is more desirable than `B` if `A` has more tags in common with the buyer than `B`.
+* When 2 properties have the same number of tags in common with a buyer, the property with a lower selling price is ranked higher in desirability, in other words, cheaper is better.
+* Similar to `match property`, the matching for `match buyer` is done on the currently displayed property list. You can use the `list` command to reset the display lists to display all the available properties before using `match buyer`.
+
+Example:<br>
+Suppose there are 5 buyers currently displayed in the buyer list. `match buyer 2` matches all properties compatible with the second displayed buyer. Let's call this buyer "Sam" and assume Sam has a budget of `1,000,000` and has tags `4rm`, `near school`. Then a property whose selling price is `1,100,000` would not be compatible, and a property whose selling price is `900,000` is compatible.<br>
+Suppose 3 properties, "Dee Gardens", "Olive Gardens", and "Pear Gardens" are all compatible with Sam. Dee Gardens has tags `5rm`, `far from school`, Olive Gardens has one tag `4rm`, and Pear Gardens has tags `4rm`, `near school`. Then Pear Gardens has the greatest number of tags in common and is the most desirable property match, whereas Dee Gardens has the least number of tags in common and is the least desirable property match.
 
 #### Intelligent matching of properties and buyers
 

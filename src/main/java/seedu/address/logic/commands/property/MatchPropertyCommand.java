@@ -6,9 +6,11 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.MatchOneToManyCommand;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.property.Buyer;
 import seedu.address.model.property.Match;
@@ -25,9 +27,13 @@ public class MatchPropertyCommand extends MatchOneToManyCommand {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Property> propertyList = model.getFilteredPropertyList();
+        if (targetIndex.getZeroBased() >= propertyList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PROPERTY_DISPLAYED_INDEX);
+        }
+
         Property property = propertyList.get(targetIndex.getZeroBased());
         Predicate<Property> currentPropertyFilter = (p) -> p.equals(property);
         Predicate<Buyer> buyerFilter = (buyer) -> buyer.getPrice().isGreaterThanOrEqualTo(property.getPrice());
