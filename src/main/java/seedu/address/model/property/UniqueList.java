@@ -6,6 +6,8 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -103,6 +105,10 @@ public class UniqueList<Item extends Listable> implements Iterable<Item> {
         internalList.sort(comparator);
     }
 
+    public void filter(Predicate<Item> pred) {
+        List<Item> newList = internalList.stream().filter(pred).collect(Collectors.toList());
+        internalList.retainAll(newList);
+    }
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */

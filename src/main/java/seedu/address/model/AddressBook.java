@@ -2,7 +2,6 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
@@ -213,13 +212,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @param predicate {@code Property} predicate
      */
     public void filterProperties(Predicate<Property> predicate) {
-        Iterator<Property> propertyIterator = currProperties.iterator();
-        while (propertyIterator.hasNext()) {
-            Property property = propertyIterator.next();
-            if (!predicate.test(property)) {
-                propertyIterator.remove();
-            }
-        }
+        currProperties.filter(predicate);
     }
 
     /**
@@ -242,13 +235,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @param predicate {@code Buyer} predicate
      */
     public void filterBuyers(Predicate<Buyer> predicate) {
-        Iterator<Buyer> buyerIterator = currBuyers.iterator();
-        while (buyerIterator.hasNext()) {
-            Buyer buyer = buyerIterator.next();
-            if (!predicate.test(buyer)) {
-                buyerIterator.remove();
-            }
-        }
+        currBuyers.filter(predicate);
     }
 
     /**
