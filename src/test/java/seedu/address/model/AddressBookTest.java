@@ -90,7 +90,9 @@ public class AddressBookTest {
      */
     private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Property> properties = FXCollections.observableArrayList();
+        private final ObservableList<Property> currProperties = FXCollections.observableArrayList();
         private final ObservableList<Buyer> buyers = FXCollections.observableArrayList();
+        private final ObservableList<Buyer> currBuyers = FXCollections.observableArrayList();
         private final ObservableList<Match> matches = FXCollections.observableArrayList();
 
         AddressBookStub(Collection<Property> properties) {
@@ -105,6 +107,16 @@ public class AddressBookTest {
         @Override
         public ObservableList<Buyer> getBuyerList() {
             return buyers;
+        }
+
+        @Override
+        public ObservableList<Property> getCurrPropertyList() {
+            return currProperties;
+        }
+
+        @Override
+        public ObservableList<Buyer> getCurrBuyerList() {
+            return currBuyers;
         }
 
         @Override

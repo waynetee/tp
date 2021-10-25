@@ -46,8 +46,8 @@ public class ModelManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredProperties = new FilteredList<>(this.addressBook.getPropertyList());
-        filteredBuyers = new FilteredList<>(this.addressBook.getBuyerList());
+        filteredProperties = new FilteredList<>(this.addressBook.getCurrPropertyList());
+        filteredBuyers = new FilteredList<>(this.addressBook.getCurrBuyerList());
         filteredAndSortedProperties = new SortedList<>(filteredProperties);
         filteredAndSortedBuyers = new SortedList<>(filteredBuyers);
     }
@@ -250,5 +250,4 @@ public class ModelManager implements Model {
                 && userPrefs.equals(other.userPrefs)
                 && filteredProperties.equals(other.filteredProperties);
     }
-
 }

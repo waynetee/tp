@@ -43,9 +43,9 @@ public class UniqueBuyerList extends UniqueList<Buyer> {
         }
     }
 
-    public void setBuyers(List<Buyer> properties) {
+    public void setBuyers(List<Buyer> buyers) {
         try {
-            super.setListables(properties);
+            super.setListables(buyers);
         } catch (DuplicateListableException e) {
             throw new DuplicateBuyerException();
         }

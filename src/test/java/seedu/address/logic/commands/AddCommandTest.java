@@ -217,6 +217,16 @@ public class AddCommandTest {
         public void setMatchList(List<Match> matches) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void showAllBuyers() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void showAllProperties() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

@@ -63,7 +63,15 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setProperties(List<Property> properties) {
         this.properties.setProperties(properties);
+    }
+
+    public void setCurrProperties(List<Property> properties) {
         this.currProperties.setProperties(properties);
+    }
+
+    public void setAllProperties(List<Property> properties) {
+        setProperties(properties);
+        setCurrProperties(properties);
     }
 
     /**
@@ -72,7 +80,15 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setBuyers(List<Buyer> buyers) {
         this.buyers.setBuyers(buyers);
+    }
+
+    public void setCurrBuyers(List<Buyer> buyers) {
         this.currBuyers.setBuyers(buyers);
+    }
+
+    public void setAllBuyers(List<Buyer> buyers) {
+        setBuyers(buyers);
+        setCurrBuyers(buyers);
     }
 
     /**
@@ -81,7 +97,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
         setBuyers(newData.getBuyerList());
+        setCurrBuyers(newData.getCurrBuyerList());
         setProperties(newData.getPropertyList());
+        setCurrProperties(newData.getCurrPropertyList());
     }
 
     //// property-level operations
@@ -282,11 +300,21 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public ObservableList<Property> getPropertyList() {
+        return properties.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Property> getCurrPropertyList() {
         return currProperties.asUnmodifiableObservableList();
     }
 
     @Override
     public ObservableList<Buyer> getBuyerList() {
+        return buyers.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Buyer> getCurrBuyerList() {
         return currBuyers.asUnmodifiableObservableList();
     }
 
@@ -300,7 +328,9 @@ public class AddressBook implements ReadOnlyAddressBook {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
                 && properties.equals(((AddressBook) other).properties)
+                && currProperties.equals(((AddressBook) other).currProperties)
                 && buyers.equals(((AddressBook) other).buyers)
+                && currBuyers.equals(((AddressBook) other).currBuyers)
                 && matches.equals(((AddressBook) other).matches));
     }
 
