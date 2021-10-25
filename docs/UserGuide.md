@@ -4,7 +4,7 @@ title: User Guide
 ---
 
 * Table of Contents
-  {:toc}
+{:toc}
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -95,7 +95,6 @@ Shows a message explaning how to access the help page.
 
 Format: `help`
 
-------------------
 
 ### Adding a property/buyer: `add`
 
@@ -113,7 +112,6 @@ Examples:
 A property/buyer can have any number of tags (including 0). All tags will be converted to lowercase.
 </div>
 
-------------------
 
 ### Listing all properties/buyers : `list`
 
@@ -121,7 +119,6 @@ Shows a list of all properties and buyers in PropertyWhiz.
 
 Format: `list`
 
-------------------
 
 ### Editing a property/buyer : `edit`
 
@@ -151,15 +148,17 @@ The following example is invalid:
 
 </div>
 
-------------------
 
-### [IN PROGRESS] Viewing price histogram of listed properties and/or buyers : `stat`
+### Viewing price histogram of listed properties and/or buyers : `stat`
 
-Views the price histogram of the currently listed properties and/or buyers in the view.
+Creates a pop-up with the price histogram of the currently listed properties and/or buyers in the view.
 
 Format: `stat [(property | buyer)]`
 
-------------------
+![stat example](images/StatBuyerDemo.png)
+
+* Entering another `stat` command while the existing one is open  replaces the view in the pop-up window.
+* If only buyers or only properties are visible, `stat` automatically presents the only buyers/only properties view.
 
 ### Locating properties by name: `find`
 
