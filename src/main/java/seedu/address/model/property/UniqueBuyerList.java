@@ -35,6 +35,15 @@ public class UniqueBuyerList extends UniqueList<Buyer> {
     }
 
     @Override
+    public void addFront(Buyer toAdd) {
+        try {
+            super.addFront(toAdd);
+        } catch (DuplicateListableException e) {
+            throw new DuplicateBuyerException();
+        }
+    }
+
+    @Override
     public void remove(Buyer toRemove) {
         try {
             super.remove(toRemove);
@@ -43,9 +52,9 @@ public class UniqueBuyerList extends UniqueList<Buyer> {
         }
     }
 
-    public void setBuyers(List<Buyer> properties) {
+    public void setBuyers(List<Buyer> buyers) {
         try {
-            super.setListables(properties);
+            super.setListables(buyers);
         } catch (DuplicateListableException e) {
             throw new DuplicateBuyerException();
         }

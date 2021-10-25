@@ -6,6 +6,8 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -48,6 +50,18 @@ public class UniqueList<Item extends Listable> implements Iterable<Item> {
             throw new DuplicateListableException();
         }
         internalList.add(toAdd);
+    }
+
+    /**
+     * Adds an element to front of the list.
+     * The element must not already exist in the list.
+     */
+    public void addFront(Item toAdd) {
+        requireNonNull(toAdd);
+        if (contains(toAdd)) {
+            throw new DuplicateListableException();
+        }
+        internalList.add(0, toAdd);
     }
 
     /**
@@ -99,8 +113,19 @@ public class UniqueList<Item extends Listable> implements Iterable<Item> {
         internalList.setAll(listables);
     }
 
+    /**
+     * Sorts the contents of this list with the given {@code comparator}.
+     */
     public void sortListables(Comparator<Item> comparator) {
         internalList.sort(comparator);
+    }
+
+    /**
+     * Filters the contents of this list with the given {@code pred}.
+     */
+    public void filter(Predicate<Item> pred) {
+        List<Item> newList = internalList.stream().filter(pred).collect(Collectors.toList());
+        internalList.retainAll(newList);
     }
 
     /**

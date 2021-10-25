@@ -53,12 +53,13 @@ public class SortPropertyCommandTest {
 
     @Test
     public void execute_sortPriceAsc_success() {
-        addressBook.setProperties(getTypicalPropertiesSortedPriceDesc());
+        addressBook.setAllProperties(getTypicalPropertiesSortedPriceDesc());
         model.setAddressBook(addressBook);
         SortPropertyCommand sortCommand = new SortPropertyCommand(SortType.PRICE, SortDirection.ASC);
 
         AddressBook expectedAddressBook = new AddressBook();
-        expectedAddressBook.setProperties(getTypicalPropertiesSortedPriceAsc());
+        expectedAddressBook.setProperties(getTypicalPropertiesSortedPriceDesc());
+        expectedAddressBook.setCurrProperties(getTypicalPropertiesSortedPriceAsc());
         Model expectedModel = new ModelManager(expectedAddressBook, new UserPrefs());
         String expectedMessage = String.format(SortPropertyCommand.MESSAGE_SUCCESS, SortType.PRICE, SortDirection.ASC);
         assertCommandSuccess(sortCommand, model, expectedMessage, expectedModel);
@@ -66,12 +67,13 @@ public class SortPropertyCommandTest {
 
     @Test
     public void execute_sortPriceDesc_success() {
-        addressBook.setProperties(getTypicalPropertiesSortedPriceAsc());
+        addressBook.setAllProperties(getTypicalPropertiesSortedPriceAsc());
         model.setAddressBook(addressBook);
         SortPropertyCommand sortCommand = new SortPropertyCommand(SortType.PRICE, SortDirection.DESC);
 
         AddressBook expectedAddressBook = new AddressBook();
-        expectedAddressBook.setProperties(getTypicalPropertiesSortedPriceDesc());
+        expectedAddressBook.setProperties(getTypicalPropertiesSortedPriceAsc());
+        expectedAddressBook.setCurrProperties(getTypicalPropertiesSortedPriceDesc());
         Model expectedModel = new ModelManager(expectedAddressBook, new UserPrefs());
         String expectedMessage = String.format(SortPropertyCommand.MESSAGE_SUCCESS, SortType.PRICE, SortDirection.DESC);
         assertCommandSuccess(sortCommand, model, expectedMessage, expectedModel);
@@ -79,12 +81,13 @@ public class SortPropertyCommandTest {
 
     @Test
     public void execute_sortNameAsc_success() {
-        addressBook.setProperties(getTypicalPropertiesSortedNameDesc());
+        addressBook.setAllProperties(getTypicalPropertiesSortedNameDesc());
         model.setAddressBook(addressBook);
         SortPropertyCommand sortCommand = new SortPropertyCommand(SortType.NAME, SortDirection.ASC);
 
         AddressBook expectedAddressBook = new AddressBook();
-        expectedAddressBook.setProperties(getTypicalPropertiesSortedNameAsc());
+        expectedAddressBook.setProperties(getTypicalPropertiesSortedNameDesc());
+        expectedAddressBook.setCurrProperties(getTypicalPropertiesSortedNameAsc());
         Model expectedModel = new ModelManager(expectedAddressBook, new UserPrefs());
         String expectedMessage = String.format(SortPropertyCommand.MESSAGE_SUCCESS, SortType.NAME, SortDirection.ASC);
         assertCommandSuccess(sortCommand, model, expectedMessage, expectedModel);
@@ -92,12 +95,13 @@ public class SortPropertyCommandTest {
 
     @Test
     public void execute_sortNameDesc_success() {
-        addressBook.setProperties(getTypicalPropertiesSortedNameAsc());
+        addressBook.setAllProperties(getTypicalPropertiesSortedNameAsc());
         model.setAddressBook(addressBook);
         SortPropertyCommand sortCommand = new SortPropertyCommand(SortType.NAME, SortDirection.DESC);
 
         AddressBook expectedAddressBook = new AddressBook();
-        expectedAddressBook.setProperties(getTypicalPropertiesSortedNameDesc());
+        expectedAddressBook.setProperties(getTypicalPropertiesSortedNameAsc());
+        expectedAddressBook.setCurrProperties(getTypicalPropertiesSortedNameDesc());
         Model expectedModel = new ModelManager(expectedAddressBook, new UserPrefs());
         String expectedMessage = String.format(SortPropertyCommand.MESSAGE_SUCCESS, SortType.NAME, SortDirection.DESC);
         assertCommandSuccess(sortCommand, model, expectedMessage, expectedModel);

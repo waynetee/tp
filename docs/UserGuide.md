@@ -167,10 +167,13 @@ Format: `stat [(property | buyer)]`
 
 ### Locating properties by name: `find`
 
-Finds properties or buyers whose names contain any of the given keywords and whose tag list contain all of the specified tags.
+Finds properties or buyers whose names contain any of the given keywords and whose tag list contain all of the specified tags in the **currently displayed list**.
 
 Format: `find (properties | buyers) [KEYWORDS] [t/TAG_TO_MATCH]…`
 
+* Finds only properties or buyers in the currently displayed list
+
+    e.g If `find properties hillview` return properties `Hillview` and `Hillview Rise`, then applying another find command `find properties grove` will return an empty list, even if PropertyWhiz has a property `Grove`.
 * The keyword search is case-insensitive. e.g `hillview` will match `Hillview`
 * The order of the keywords does not matter. e.g. `Hillview Rise` will match `Rise Hillview`
 * Only the property name is searched.
@@ -211,8 +214,8 @@ Sorts the properties / buyers in PropertyWhiz.
 
 Format: `sort (properties | buyers) (price | name) (asc | desc)`
 
-* Sort the properties in the current view based on properties `price`/`name` in `asc`(ascending) / `desc`(descending) order
-* Sort the buyers in the current view based on buyers `price`/`name` in `asc`(ascending) / `desc`(descending) order
+* Sort the properties in the **current** view based on properties `price`/`name` in `asc`(ascending) / `desc`(descending) order
+* Sort the buyers in the **current** view based on buyers `price`/`name` in `asc`(ascending) / `desc`(descending) order
 
 Examples:
 
@@ -368,7 +371,7 @@ Action | Format, Examples
 **Clear** | `clear`
 **Delete** | `delete (property \| buyer) INDEX`<br> e.g., `delete property 3`
 **Edit** | **Property** <br>`edit property INDEX [n/PROPERTY_NAME] [a/PROPERTY_ADDRESS] [s/SELLER_NAME] [p/SELLER_PHONE] [e/SELLER_EMAIL] [$/PRICE] [([t/TAG]…​ \| [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]]​`<br> e.g.,`edit property 2 s/James Lee e/jameslee@example.com` <br><br> **Buyer** <br> `edit buyer INDEX [n/BUYER_NAME] [p/BUYER_PHONE] [e/BUYER_EMAIL] [$/BUDGET]) [([t/TAG]… \| [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]` <br> e.g.,`edit buyer 2 n/Victor Lee p/88887777`
-**Find** | `find [KEYWORDS] [t/TAG_TO_MATCH]…`<br> e.g., `find Jurong t/4rm t/near school`
+**Find** | `find (properties \| buyers) [KEYWORDS] [t/TAG_TO_MATCH]…`<br> e.g., `find Jurong t/4rm t/near school`
 **List** | `list`
 **Exit** | `exit`
 **Help** | `help`

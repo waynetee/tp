@@ -11,7 +11,6 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.field.SortDirection;
@@ -30,8 +29,6 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Property> filteredProperties;
     private final FilteredList<Buyer> filteredBuyers;
-    private final SortedList<Property> filteredAndSortedProperties;
-    private final SortedList<Buyer> filteredAndSortedBuyers;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -44,10 +41,8 @@ public class ModelManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredProperties = new FilteredList<>(this.addressBook.getPropertyList());
-        filteredBuyers = new FilteredList<>(this.addressBook.getBuyerList());
-        filteredAndSortedProperties = new SortedList<>(filteredProperties);
-        filteredAndSortedBuyers = new SortedList<>(filteredBuyers);
+        filteredProperties = new FilteredList<>(this.addressBook.getCurrPropertyList());
+        filteredBuyers = new FilteredList<>(this.addressBook.getCurrBuyerList());
     }
 
     public ModelManager() {
@@ -115,7 +110,11 @@ public class ModelManager implements Model {
     @Override
     public void addProperty(Property property) {
         addressBook.addProperty(property);
-        updateFilteredPropertyList(PREDICATE_SHOW_ALL_PROPERTIES);
+    }
+
+    @Override
+    public void addNewProperty(Property property) {
+        addressBook.addNewProperty(property);
     }
 
     @Override
@@ -139,7 +138,11 @@ public class ModelManager implements Model {
     @Override
     public void addBuyer(Buyer buyer) {
         addressBook.addBuyer(buyer);
-        updateFilteredBuyerList(PREDICATE_SHOW_ALL_BUYERS);
+    }
+
+    @Override
+    public void addNewBuyer(Buyer buyer) {
+        addressBook.addNewBuyer(buyer);
     }
 
     @Override
@@ -177,20 +180,25 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<Property> getFilteredPropertyList() {
-        return filteredAndSortedProperties;
+        return filteredProperties;
+    }
+
+    @Override
+    public void showAllProperties() {
+        addressBook.resetProperties();
     }
 
     @Override
     public void updateFilteredPropertyList(Predicate<Property> predicate) {
         requireNonNull(predicate);
-        filteredProperties.setPredicate(predicate);
+        addressBook.filterProperties(predicate);
     }
 
     @Override
     public void updateFilteredAndSortedPropertyList(Predicate<Property> predicate, Comparator<Property> comparator) {
         requireAllNonNull(predicate, comparator);
-        filteredProperties.setPredicate(predicate);
-        filteredAndSortedProperties.setComparator(comparator);
+        updateFilteredPropertyList(predicate);
+        addressBook.sortProperties(comparator);
     }
 
     //=========== Filtered Buyer List Accessors =============================================================
@@ -201,20 +209,25 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<Buyer> getFilteredBuyerList() {
-        return filteredAndSortedBuyers;
+        return filteredBuyers;
+    }
+
+    @Override
+    public void showAllBuyers() {
+        addressBook.resetBuyers();
     }
 
     @Override
     public void updateFilteredBuyerList(Predicate<Buyer> predicate) {
         requireNonNull(predicate);
-        filteredBuyers.setPredicate(predicate);
+        addressBook.filterBuyers(predicate);
     }
 
     @Override
     public void updateFilteredAndSortedBuyerList(Predicate<Buyer> predicate, Comparator<Buyer> comparator) {
         requireAllNonNull(predicate, comparator);
-        filteredBuyers.setPredicate(predicate);
-        filteredAndSortedBuyers.setComparator(comparator);
+        updateFilteredBuyerList(predicate);
+        addressBook.sortBuyers(comparator);
     }
 
     @Override
@@ -236,5 +249,4 @@ public class ModelManager implements Model {
                 && userPrefs.equals(other.userPrefs)
                 && filteredProperties.equals(other.filteredProperties);
     }
-
 }

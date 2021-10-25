@@ -123,6 +123,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void addNewProperty(Property property) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setAddressBook(ReadOnlyAddressBook newData) {
             throw new AssertionError("This method should not be called.");
         }
@@ -184,6 +189,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void addNewBuyer(Buyer buyer) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setBuyer(Buyer target, Buyer editedBuyer) {
             throw new AssertionError("This method should not be called.");
         }
@@ -215,6 +225,16 @@ public class AddCommandTest {
 
         @Override
         public void setMatchList(List<Match> matches) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void showAllBuyers() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void showAllProperties() {
             throw new AssertionError("This method should not be called.");
         }
     }
@@ -250,9 +270,9 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addProperty(Property property) {
+        public void addNewProperty(Property property) {
             requireNonNull(property);
-            propertiesAdded.add(property);
+            propertiesAdded.add(0, property);
         }
 
         @Override

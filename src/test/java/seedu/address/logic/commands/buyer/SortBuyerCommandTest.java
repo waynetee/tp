@@ -53,12 +53,13 @@ public class SortBuyerCommandTest {
 
     @Test
     public void execute_sortPriceAsc_success() {
-        addressBook.setBuyers(getTypicalBuyersSortedPriceDesc());
+        addressBook.setAllBuyers(getTypicalBuyersSortedPriceDesc());
         model.setAddressBook(addressBook);
         SortBuyerCommand sortCommand = new SortBuyerCommand(SortType.PRICE, SortDirection.ASC);
 
         AddressBook expectedAddressBook = new AddressBook();
-        expectedAddressBook.setBuyers(getTypicalBuyersSortedPriceAsc());
+        expectedAddressBook.setBuyers(getTypicalBuyersSortedPriceDesc());
+        expectedAddressBook.setCurrBuyers(getTypicalBuyersSortedPriceAsc());
         Model expectedModel = new ModelManager(expectedAddressBook, new UserPrefs());
         String expectedMessage = String.format(SortBuyerCommand.MESSAGE_SUCCESS, SortType.PRICE, SortDirection.ASC);
         assertCommandSuccess(sortCommand, model, expectedMessage, expectedModel);
@@ -66,12 +67,13 @@ public class SortBuyerCommandTest {
 
     @Test
     public void execute_sortPriceDesc_success() {
-        addressBook.setBuyers(getTypicalBuyersSortedPriceAsc());
+        addressBook.setAllBuyers(getTypicalBuyersSortedPriceAsc());
         model.setAddressBook(addressBook);
         SortBuyerCommand sortCommand = new SortBuyerCommand(SortType.PRICE, SortDirection.DESC);
 
         AddressBook expectedAddressBook = new AddressBook();
-        expectedAddressBook.setBuyers(getTypicalBuyersSortedPriceDesc());
+        expectedAddressBook.setBuyers(getTypicalBuyersSortedPriceAsc());
+        expectedAddressBook.setCurrBuyers(getTypicalBuyersSortedPriceDesc());
         Model expectedModel = new ModelManager(expectedAddressBook, new UserPrefs());
         String expectedMessage = String.format(SortBuyerCommand.MESSAGE_SUCCESS, SortType.PRICE, SortDirection.DESC);
         assertCommandSuccess(sortCommand, model, expectedMessage, expectedModel);
@@ -79,12 +81,13 @@ public class SortBuyerCommandTest {
 
     @Test
     public void execute_sortNameAsc_success() {
-        addressBook.setBuyers(getTypicalBuyersSortedNameDesc());
+        addressBook.setAllBuyers(getTypicalBuyersSortedNameDesc());
         model.setAddressBook(addressBook);
         SortBuyerCommand sortCommand = new SortBuyerCommand(SortType.NAME, SortDirection.ASC);
 
         AddressBook expectedAddressBook = new AddressBook();
-        expectedAddressBook.setBuyers(getTypicalBuyersSortedNameAsc());
+        expectedAddressBook.setBuyers(getTypicalBuyersSortedNameDesc());
+        expectedAddressBook.setCurrBuyers(getTypicalBuyersSortedNameAsc());
         Model expectedModel = new ModelManager(expectedAddressBook, new UserPrefs());
         String expectedMessage = String.format(SortBuyerCommand.MESSAGE_SUCCESS, SortType.NAME, SortDirection.ASC);
         assertCommandSuccess(sortCommand, model, expectedMessage, expectedModel);
@@ -92,12 +95,13 @@ public class SortBuyerCommandTest {
 
     @Test
     public void execute_sortNameDesc_success() {
-        addressBook.setBuyers(getTypicalBuyersSortedNameAsc());
+        addressBook.setAllBuyers(getTypicalBuyersSortedNameAsc());
         model.setAddressBook(addressBook);
         SortBuyerCommand sortCommand = new SortBuyerCommand(SortType.NAME, SortDirection.DESC);
 
         AddressBook expectedAddressBook = new AddressBook();
-        expectedAddressBook.setBuyers(getTypicalBuyersSortedNameDesc());
+        expectedAddressBook.setBuyers(getTypicalBuyersSortedNameAsc());
+        expectedAddressBook.setCurrBuyers(getTypicalBuyersSortedNameDesc());
         Model expectedModel = new ModelManager(expectedAddressBook, new UserPrefs());
         String expectedMessage = String.format(SortBuyerCommand.MESSAGE_SUCCESS, SortType.NAME, SortDirection.DESC);
         assertCommandSuccess(sortCommand, model, expectedMessage, expectedModel);

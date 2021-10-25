@@ -31,7 +31,7 @@ public class AddCommandIntegrationTest {
         Property validProperty = new PropertyBuilder().build();
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.addProperty(validProperty);
+        expectedModel.addNewProperty(validProperty);
 
         assertCommandSuccess(new AddPropertyCommand(validProperty), model,
                 String.format(AddPropertyCommand.MESSAGE_SUCCESS, validProperty), expectedModel);
