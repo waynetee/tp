@@ -24,9 +24,9 @@ public abstract class FindCommand<T extends Nameable & Taggable & Pricable> exte
     public static final String COMMAND_WORD = "find";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all properties whose names contain any of "
-            + "the specified keywords (case-insensitive)\n"
-            + "and whose tags contain all of the specified tags\n"
-            + "and whose prices is greater or equal to the min price (if specified)\n"
+            + "the specified keywords (case-insensitive) "
+            + "and whose tags contain all of the specified tags "
+            + "and whose prices is greater or equal to the min price (if specified) "
             + "and whose prices is smaller or equal to the max price (if specified).\n"
             + "The matching properties are displayed as a list with index numbers.\n"
             + "Parameters: (properties | buyers) KEYWORD [MORE_KEYWORDS]..."
@@ -34,7 +34,7 @@ public abstract class FindCommand<T extends Nameable & Taggable & Pricable> exte
             + "[" + PREFIX_MIN_PRICE + "PRICE]..."
             + "[" + PREFIX_MAX_PRICE + "PRICE]..."
             + "\n"
-            + "Example: " + COMMAND_WORD + "properties alice bob charlie "
+            + "Example: " + COMMAND_WORD + " properties alice bob charlie "
             + PREFIX_TAG + "Condo "
             + PREFIX_TAG + "4 rm "
             + PREFIX_MIN_PRICE + "100000 "
