@@ -6,11 +6,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_PROPERTIES_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPrices.LUDICROUS_PRICE;
+import static seedu.address.testutil.TypicalPrices.MICROSCOPIC_PRICE;
 import static seedu.address.testutil.TypicalProperties.P_ALICE;
 import static seedu.address.testutil.TypicalProperties.P_BENSON;
 import static seedu.address.testutil.TypicalProperties.P_CARL;
 import static seedu.address.testutil.TypicalProperties.P_ELLE;
 import static seedu.address.testutil.TypicalProperties.P_FIONA;
+import static seedu.address.testutil.TypicalProperties.P_GEORGE;
+import static seedu.address.testutil.TypicalProperties.getTypicalProperties;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -22,8 +26,10 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.field.ContainsPricePredicate;
 import seedu.address.model.field.ContainsTagsPredicate;
 import seedu.address.model.field.NameContainsKeywordsPredicate;
+import seedu.address.model.field.Price;
 import seedu.address.model.property.Property;
 import seedu.address.model.tag.Tag;
 
@@ -73,12 +79,13 @@ public class FindPropertyCommandTest {
     public void execute_tags_noPropertiesFound() {
         String expectedMessage = String.format(MESSAGE_PROPERTIES_LISTED_OVERVIEW, 0);
         NameContainsKeywordsPredicate<Property> namePredicate = new NameContainsKeywordsPredicate<>();
+        ContainsPricePredicate<Property> pricePredicate = new ContainsPricePredicate<>();
         Set<Tag> tags = new HashSet<>();
         tags.add(new Tag("condo"));
         tags.add(new Tag("hdb"));
         tags.add(new Tag("mrt"));
         ContainsTagsPredicate<Property> tagsPredicate = new ContainsTagsPredicate<>(tags);
-        FindPropertyCommand command = new FindPropertyCommand(namePredicate, tagsPredicate);
+        FindPropertyCommand command = new FindPropertyCommand(namePredicate, tagsPredicate, pricePredicate);
         expectedModel.updateFilteredPropertyList(namePredicate.and(tagsPredicate));
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredPropertyList());
@@ -88,13 +95,80 @@ public class FindPropertyCommandTest {
     public void execute_tags_multiplePropertiesFound() {
         String expectedMessage = String.format(MESSAGE_PROPERTIES_LISTED_OVERVIEW, 2);
         NameContainsKeywordsPredicate<Property> namePredicate = new NameContainsKeywordsPredicate<>();
+        ContainsPricePredicate<Property> pricePredicate = new ContainsPricePredicate<>();
         Set<Tag> tags = new HashSet<>();
         tags.add(new Tag("condo"));
         ContainsTagsPredicate<Property> tagsPredicate = new ContainsTagsPredicate<>(tags);
-        FindPropertyCommand command = new FindPropertyCommand(namePredicate, tagsPredicate);
+        FindPropertyCommand command = new FindPropertyCommand(namePredicate, tagsPredicate, pricePredicate);
         expectedModel.updateFilteredPropertyList(namePredicate.and(tagsPredicate));
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(P_ALICE, P_BENSON), model.getFilteredPropertyList());
+    }
+
+    @Test
+    public void execute_minPrice_multiplePropertiesFound() {
+        String expectedMessage = String.format(MESSAGE_PROPERTIES_LISTED_OVERVIEW, 7);
+        NameContainsKeywordsPredicate<Property> namePredicate = new NameContainsKeywordsPredicate<>();
+        Price minPrice = new Price(MICROSCOPIC_PRICE);
+        ContainsPricePredicate<Property> pricePredicate = new ContainsPricePredicate<>(minPrice, null);
+        ContainsTagsPredicate<Property> tagsPredicate = new ContainsTagsPredicate<>();
+        FindPropertyCommand command = new FindPropertyCommand(namePredicate, tagsPredicate, pricePredicate);
+        expectedModel.updateFilteredPropertyList(namePredicate.and(tagsPredicate).and(pricePredicate));
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(getTypicalProperties(), model.getFilteredPropertyList());
+    }
+
+    @Test
+    public void execute_minPrice_onePropertyFound() {
+        String expectedMessage = String.format(MESSAGE_PROPERTIES_LISTED_OVERVIEW, 1);
+        NameContainsKeywordsPredicate<Property> namePredicate = new NameContainsKeywordsPredicate<>();
+        Price minPrice = new Price(LUDICROUS_PRICE);
+        ContainsPricePredicate<Property> pricePredicate = new ContainsPricePredicate<>(minPrice, null);
+        ContainsTagsPredicate<Property> tagsPredicate = new ContainsTagsPredicate<>();
+        FindPropertyCommand command = new FindPropertyCommand(namePredicate, tagsPredicate, pricePredicate);
+        expectedModel.updateFilteredPropertyList(namePredicate.and(tagsPredicate).and(pricePredicate));
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(P_GEORGE), model.getFilteredPropertyList());
+    }
+
+    @Test
+    public void execute_maxPrice_multiplePropertiesFound() {
+        String expectedMessage = String.format(MESSAGE_PROPERTIES_LISTED_OVERVIEW, 7);
+        NameContainsKeywordsPredicate<Property> namePredicate = new NameContainsKeywordsPredicate<>();
+        Price maxPrice = new Price(LUDICROUS_PRICE);
+        ContainsPricePredicate<Property> pricePredicate = new ContainsPricePredicate<>(null, maxPrice);
+        ContainsTagsPredicate<Property> tagsPredicate = new ContainsTagsPredicate<>();
+        FindPropertyCommand command = new FindPropertyCommand(namePredicate, tagsPredicate, pricePredicate);
+        expectedModel.updateFilteredPropertyList(namePredicate.and(tagsPredicate).and(pricePredicate));
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(getTypicalProperties(), model.getFilteredPropertyList());
+    }
+
+    @Test
+    public void execute_maxPrice_onePropertyFound() {
+        String expectedMessage = String.format(MESSAGE_PROPERTIES_LISTED_OVERVIEW, 1);
+        NameContainsKeywordsPredicate<Property> namePredicate = new NameContainsKeywordsPredicate<>();
+        Price maxPrice = new Price(MICROSCOPIC_PRICE);
+        ContainsPricePredicate<Property> pricePredicate = new ContainsPricePredicate<>(null, maxPrice);
+        ContainsTagsPredicate<Property> tagsPredicate = new ContainsTagsPredicate<>();
+        FindPropertyCommand command = new FindPropertyCommand(namePredicate, tagsPredicate, pricePredicate);
+        expectedModel.updateFilteredPropertyList(namePredicate.and(tagsPredicate).and(pricePredicate));
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(P_ALICE), model.getFilteredPropertyList());
+    }
+
+    @Test
+    public void execute_minPriceMaxPrice_multiplePropertiesFound() {
+        String expectedMessage = String.format(MESSAGE_PROPERTIES_LISTED_OVERVIEW, 7);
+        NameContainsKeywordsPredicate<Property> namePredicate = new NameContainsKeywordsPredicate<>();
+        Price minPrice = new Price(MICROSCOPIC_PRICE);
+        Price maxPrice = new Price(LUDICROUS_PRICE);
+        ContainsPricePredicate<Property> pricePredicate = new ContainsPricePredicate<>(minPrice, maxPrice);
+        ContainsTagsPredicate<Property> tagsPredicate = new ContainsTagsPredicate<>();
+        FindPropertyCommand command = new FindPropertyCommand(namePredicate, tagsPredicate, pricePredicate);
+        expectedModel.updateFilteredPropertyList(namePredicate.and(tagsPredicate).and(pricePredicate));
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(getTypicalProperties(), model.getFilteredPropertyList());
     }
 
     /**

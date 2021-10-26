@@ -274,4 +274,30 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_PREAMBLE);
         }
     }
+
+    /**
+     * Returns the smallest {@code Price} in a {@code Collection<String> prices}.
+     *
+     * @throws ParseException if any of the {@code String} price is not a valid {@code Price}.
+     */
+    public static Price parseMinPrice(Collection<String> prices) throws ParseException {
+        try {
+            return prices.stream().map(Price::new).min(Price::compareTo).orElse(null);
+        } catch (IllegalArgumentException e) {
+            throw new ParseException(e.getMessage());
+        }
+    }
+
+    /**
+     * Returns the largest {@code Price} in a {@code Collection<String> prices}.
+     *
+     * @throws ParseException if any of the {@code String} price is not a valid {@code Price}.
+     */
+    public static Price parseMaxPrice(Collection<String> prices) throws ParseException {
+        try {
+            return prices.stream().map(Price::new).max(Price::compareTo).orElse(null);
+        } catch (IllegalArgumentException e) {
+            throw new ParseException(e.getMessage());
+        }
+    }
 }

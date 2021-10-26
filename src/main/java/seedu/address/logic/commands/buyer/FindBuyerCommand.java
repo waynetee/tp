@@ -6,6 +6,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.model.Model;
+import seedu.address.model.field.ContainsPricePredicate;
 import seedu.address.model.field.ContainsTagsPredicate;
 import seedu.address.model.field.NameContainsKeywordsPredicate;
 import seedu.address.model.property.Buyer;
@@ -31,8 +32,9 @@ public class FindBuyerCommand extends FindCommand<Buyer> {
      * @param tagsPredicate Buyer predicate checking for containment of tags.
      */
     public FindBuyerCommand(NameContainsKeywordsPredicate<Buyer> namePredicate,
-                               ContainsTagsPredicate<Buyer> tagsPredicate) {
-        super(namePredicate, tagsPredicate);
+                            ContainsTagsPredicate<Buyer> tagsPredicate,
+                            ContainsPricePredicate<Buyer> pricePredicate) {
+        super(namePredicate, tagsPredicate, pricePredicate);
     }
 
     @Override
