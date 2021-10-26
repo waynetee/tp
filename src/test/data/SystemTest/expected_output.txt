@@ -45,7 +45,7 @@ The property index provided is invalid
 []
 
 list
-Listed all properties and buyers uiAction: SHOW_DEFAULT
+Listed all properties and buyers. uiAction: SHOW_DEFAULT
 [Olive Gardens; Address: Blk 11 Ang Mo Kio Street 74, #11-04; Seller: Charlotte Oliveiro; Phone: 93210283; Email: charlotte@example.com; Price: 6457654; Tags: [condo], Dee Gardens; Address: Blk 30 Lorong 3 Serangoon Gardens, #07-18; Seller: Beatrice Yu; Phone: 99272758; Email: berniceyu@example.com; Price: 3423432, Hasta La Vista; Address: 20 Clementi Ave 2, #02-25; Seller: John Doe; Phone: 98765432; Email: johnd@example.com; Price: 1652000; Tags: [ew23 clementi][condo][621 sqft][4 rm]]
 [alice; Phone: 91234567; Email: sam@email.com; Maximum Price: 123; Tags: [hdb][3rm]]
 []
@@ -135,7 +135,7 @@ Sorted all buyers by name in ascending order. uiAction: NONE
 []
 
 list
-Listed all properties and buyers uiAction: SHOW_DEFAULT
+Listed all properties and buyers. uiAction: SHOW_DEFAULT
 [Olive Gardens; Address: Blk 11 Ang Mo Kio Street 74, #11-04; Seller: Charlotte Oliveiro; Phone: 93210283; Email: charlotte@example.com; Price: 6457654; Tags: [condo], Dee Gardens; Address: Blk 30 Lorong 3 Serangoon Gardens, #07-18; Seller: Beatrice Yu; Phone: 99272758; Email: berniceyu@example.com; Price: 3423432, Hasta La Vista; Address: 20 Clementi Ave 2, #02-25; Seller: John Doe; Phone: 98765432; Email: johnd@example.com; Price: 1652000; Tags: [ew23 clementi][condo][621 sqft][4 rm]]
 [tom; Phone: 91234567; Email: sam@email.com; Maximum Price: 100; Tags: [condo][3rm], tim; Phone: 91234567; Email: sam@email.com; Maximum Price: 444; Tags: [condo][3rm], bob; Phone: 91234567; Email: sam@email.com; Maximum Price: 222; Tags: [hdb][3rm], Sam; Phone: 91234567; Email: sam@email.com; Maximum Price: 444; Tags: [hdb][3rm], alice; Phone: 91234567; Email: sam@email.com; Maximum Price: 123; Tags: [hdb][3rm]]
 []
@@ -249,7 +249,7 @@ Key in the 'back' command to return to the main screen. uiAction: SHOW_MATCHES
 [Olive Gardens; Address: Blk 11 Ang Mo Kio Street 74, #11-04; Seller: Charlotte Oliveiro; Phone: 93210283; Email: charlotte@example.com; Price: 6457654; Tags: [condo] <--> tom; Phone: 91234567; Email: sam@email.com; Maximum Price: 100; Tags: [condo][3rm]]
 
 list
-Listed all properties and buyers uiAction: SHOW_DEFAULT
+Listed all properties and buyers. uiAction: SHOW_DEFAULT
 [Olive Gardens; Address: Blk 11 Ang Mo Kio Street 74, #11-04; Seller: Charlotte Oliveiro; Phone: 93210283; Email: charlotte@example.com; Price: 6457654; Tags: [condo]]
 [tom; Phone: 91234567; Email: sam@email.com; Maximum Price: 100; Tags: [condo][3rm]]
 [Olive Gardens; Address: Blk 11 Ang Mo Kio Street 74, #11-04; Seller: Charlotte Oliveiro; Phone: 93210283; Email: charlotte@example.com; Price: 6457654; Tags: [condo] <--> tom; Phone: 91234567; Email: sam@email.com; Maximum Price: 100; Tags: [condo][3rm]]
