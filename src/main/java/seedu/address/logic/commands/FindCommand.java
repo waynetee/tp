@@ -20,8 +20,8 @@ public abstract class FindCommand<T extends Nameable & Taggable> extends SimpleC
     public static final String COMMAND_WORD = "find";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all properties whose names contain any of "
-            + "the specified keywords (case-insensitive)\n"
-            + "and whose tags contain all of the specified tags. "
+            + "the specified keywords (case-insensitive) "
+            + "and whose tags contain all of the specified tags.\n"
             + "The matching properties are displayed as a list with index numbers.\n\n"
             + "Parameters: (properties | buyers) KEYWORD [MORE_KEYWORDS]..."
             + "[" + PREFIX_TAG + "TAG]..."
