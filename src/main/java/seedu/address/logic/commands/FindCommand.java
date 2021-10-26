@@ -23,10 +23,10 @@ public abstract class FindCommand<T extends Nameable & Taggable> extends SimpleC
             + "the specified keywords (case-insensitive) "
             + "and whose tags contain all of the specified tags.\n"
             + "The matching properties are displayed as a list with index numbers.\n\n"
-            + "Parameters: (properties | buyers) KEYWORD [MORE_KEYWORDS]..."
+            + "Parameters: ( properties | buyers ) KEYWORD [MORE_KEYWORDS]..."
             + "[" + PREFIX_TAG + "TAG]..."
             + "\n"
-            + "Example: " + COMMAND_WORD + "properties alice bob charlie "
+            + "Example: " + COMMAND_WORD + " properties alice bob charlie "
             + PREFIX_TAG + "Condo "
             + PREFIX_TAG + "4 rm ";
 
