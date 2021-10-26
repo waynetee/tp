@@ -8,7 +8,12 @@ title: PropertyWhiz
 
 ![Ui](images/Ui.png)
 
-**PropertyWhiz is a desktop application for property agents to manage their work.** While it has a GUI, most of the user interactions happen using a CLI (Command Line Interface).
+PropertyWhiz is a desktop application for property agents to
+* Keep track of properties
+* Keep track of buyers
+* Match buyers to properties
+
+While it has a GUI, most of the user interactions happen using a CLI (Command Line Interface).
 
 * If you are interested in using PropertyWhiz, head over to the [_Quick Start_ section of the **User Guide**](UserGuide.html#quick-start).
 * If you are interested about developing PropertyWhiz, the [**Developer Guide**](DeveloperGuide.html) is a good place to start.
@@ -16,4 +21,10 @@ title: PropertyWhiz
 
 **Acknowledgements**
 
-* Libraries used: [JavaFX](https://openjfx.io/), [Jackson](https://github.com/FasterXML/jackson), [JUnit5](https://github.com/junit-team/junit5)
+* This project is based on the AddressBook-Level3 project created by the [SE-EDU initiative](https://se-education.org).
+* Libraries used
+    * [JavaFX](https://openjfx.io/)
+    * [Jackson](https://github.com/FasterXML/jackson)
+    * [JUnit5](https://github.com/junit-team/junit5)
+    * [JFreeChart](https://www.jfree.org/jfreechart/)
+    * [Opencsv](http://opencsv.sourceforge.net/)
