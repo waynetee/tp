@@ -13,7 +13,7 @@ public class Name implements ComparerMixin<Name> {
     public static final Integer MAX_LENGTH = 50;
     public static final String MESSAGE_CONSTRAINTS =
             "Names should only contain alphanumeric characters, hyphens, and spaces, and it should not be blank.\n"
-                    + "Furthermore, names should be at most " + MAX_LENGTH + " characters long.";
+                    + "Names should also be at most " + MAX_LENGTH + " characters long.";
 
     /*
      * The first character of the address must not be a whitespace,
