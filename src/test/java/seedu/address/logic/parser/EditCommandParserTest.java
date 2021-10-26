@@ -50,7 +50,6 @@ import seedu.address.logic.commands.buyer.EditBuyerCommand;
 import seedu.address.logic.commands.property.EditPropertyCommand;
 import seedu.address.model.field.Email;
 import seedu.address.model.field.Name;
-import seedu.address.model.field.Phone;
 import seedu.address.model.field.Price;
 import seedu.address.model.property.Address;
 import seedu.address.model.tag.Tag;
@@ -118,8 +117,6 @@ public class EditCommandParserTest {
         assertParseFailure(parser, PREAMBLE_PROPERTY + " " + "1"
                 + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
         assertParseFailure(parser, PREAMBLE_PROPERTY + " " + "1"
-                + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS); // invalid phone
-        assertParseFailure(parser, PREAMBLE_PROPERTY + " " + "1"
                 + INVALID_EMAIL_DESC, Email.MESSAGE_CONSTRAINTS); // invalid email
         assertParseFailure(parser, PREAMBLE_PROPERTY + " " + "1"
                 + INVALID_ADDRESS_DESC, Address.MESSAGE_CONSTRAINTS); // invalid address
@@ -129,15 +126,6 @@ public class EditCommandParserTest {
                 + INVALID_PRICE_DESC, Price.MESSAGE_CONSTRAINTS); // invalid price
         assertParseFailure(parser, PREAMBLE_PROPERTY + " " + "1"
                 + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
-
-        // invalid phone followed by valid email
-        assertParseFailure(parser, PREAMBLE_PROPERTY + " " + "1"
-                + INVALID_PHONE_DESC + EMAIL_DESC_AMY, Phone.MESSAGE_CONSTRAINTS);
-
-        // valid phone followed by invalid phone. The test case for invalid phone followed by valid phone
-        // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
-        assertParseFailure(parser, PREAMBLE_PROPERTY + " " + "1"
-                + PHONE_DESC_BOB + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS);
 
         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Property} being edited,
         // parsing it together with a valid tag results in error

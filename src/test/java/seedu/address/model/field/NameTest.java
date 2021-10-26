@@ -6,7 +6,18 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.util.StringUtil;
+
 public class NameTest {
+    private static final String NAME_OF_LENGTH_0 = "";
+    // valid name lengths
+    private static final String NAME_OF_LENGTH_1 = StringUtil.repeat(1, "A");
+    private static final String NAME_OF_LENGTH_2 = StringUtil.repeat(2, "A");
+    private static final String NAME_OF_LENGTH_49 = StringUtil.repeat(49, "A");
+    private static final String NAME_OF_LENGTH_50 = StringUtil.repeat(50, "A");
+    // end of valid
+    private static final String NAME_OF_LENGTH_51 = StringUtil.repeat(51, "A");
+    private static final String NAME_OF_LENGTH_52 = StringUtil.repeat(52, "A");
 
     @Test
     public void constructor_null_throwsNullPointerException() {
@@ -20,6 +31,18 @@ public class NameTest {
     }
 
     @Test
+    public void constructor_invalidStartWithSpaceName_throwsIllegalArgumentException() {
+        String invalidName = " " + NAME_OF_LENGTH_2;
+        assertThrows(IllegalArgumentException.class, () -> new Name(invalidName));
+    }
+
+    @Test
+    public void constructor_invalidStartWithHyphenName_throwsIllegalArgumentException() {
+        String invalidName = "-" + NAME_OF_LENGTH_2;
+        assertThrows(IllegalArgumentException.class, () -> new Name(invalidName));
+    }
+
+    @Test
     public void isValidName() {
         // null name
         assertThrows(NullPointerException.class, () -> Name.isValidName(null));
@@ -29,12 +52,19 @@ public class NameTest {
         assertFalse(Name.isValidName(" ")); // spaces only
         assertFalse(Name.isValidName("^")); // only non-alphanumeric characters
         assertFalse(Name.isValidName("peter*")); // contains non-alphanumeric characters
+        assertFalse(Name.isValidName(NAME_OF_LENGTH_0)); // length boundary
+        assertFalse(Name.isValidName(NAME_OF_LENGTH_51)); // length boundary
+        assertFalse(Name.isValidName(NAME_OF_LENGTH_52));
 
         // valid name
         assertTrue(Name.isValidName("peter jack")); // alphabets only
         assertTrue(Name.isValidName("12345")); // numbers only
         assertTrue(Name.isValidName("peter the 2nd")); // alphanumeric characters
         assertTrue(Name.isValidName("Capital Tan")); // with capital letters
-        assertTrue(Name.isValidName("David Roger Jackson Ray Jr 2nd")); // long names
+        assertTrue(Name.isValidName(NAME_OF_LENGTH_1)); // length boundary
+        assertTrue(Name.isValidName(NAME_OF_LENGTH_2));
+        assertTrue(Name.isValidName(NAME_OF_LENGTH_49));
+        assertTrue(Name.isValidName(NAME_OF_LENGTH_50)); // length boundary
+
     }
 }
