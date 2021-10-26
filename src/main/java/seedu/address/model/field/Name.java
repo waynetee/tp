@@ -2,8 +2,8 @@ package seedu.address.model.field;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
-import static seedu.address.commons.util.StringUtil.startCaseSentence;
 import static seedu.address.commons.util.StringUtil.compressWhitespace;
+import static seedu.address.commons.util.StringUtil.startCaseSentence;
 
 import seedu.address.commons.util.ComparerMixin;
 
