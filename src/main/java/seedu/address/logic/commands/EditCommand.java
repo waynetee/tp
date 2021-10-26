@@ -41,7 +41,7 @@ public abstract class EditCommand extends SimpleCommand {
             + "[ "
                 + "( "
                     + "[" + PREFIX_TAG + "TAG]..." + " | "
-                    + "[" + PREFIX_ADD_TAG + "TAG_TO_ADD]..."
+                    + "[" + PREFIX_ADD_TAG + "TAG_TO_ADD]... "
                     + "[" + PREFIX_DELETE_TAG + "TAG_TO_DELETE]..."
                 + " )"
             + " ]"
