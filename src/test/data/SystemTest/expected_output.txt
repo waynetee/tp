@@ -5,7 +5,7 @@ Address book has been cleared! uiAction: NONE
 []
 
 add buyer n/ben p/91234567 e/sam@email.com t/hdb t/3rm $/123
-Price (in dollars) should only contain numbers, and it should be at least 4 digits and at most 9 digits long
+Price (in dollars) should only contain numbers, and it should be at least 4 digits and at most 9 digits long, not counting leading zeroes.
 []
 []
 []

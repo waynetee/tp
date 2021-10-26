@@ -95,4 +95,17 @@ public class StringUtil {
         return new String(new char[count]).replace("\0", with);
     }
     //@@author
+
+    //@@author sunjc826-reused
+    //Reused from https://stackoverflow.com/questions/2800739
+
+    /**
+     * Returns a string from by stripping the given string of leading zeroes.
+     * @param s String to be processed.
+     * @return Processed string.
+     */
+    public static String stripLeadingZeroes(String s) {
+        return s.replaceFirst("^0+(?!$)", "");
+    }
+    //@@author
 }

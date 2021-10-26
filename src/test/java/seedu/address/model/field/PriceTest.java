@@ -21,6 +21,7 @@ public class PriceTest {
     private static final String PRICE_OF_LENGTH_10 = StringUtil.repeat(10, "1");
     private static final String PRICE_OF_LENGTH_11 = StringUtil.repeat(11, "1");
 
+    private static final String LEADING_ZEROES = StringUtil.repeat(10, "0");
 
     @Test
     public void constructor_null_throwsNullPointerException() {
@@ -43,14 +44,23 @@ public class PriceTest {
         assertFalse(Price.isValidPrice("anc")); // only non-numeric characters
         assertFalse(Price.isValidPrice("100k")); // contains non-numeric characters
         assertFalse(Price.isValidPrice(PRICE_OF_LENGTH_2));
+        assertFalse(Price.isValidPrice(LEADING_ZEROES + PRICE_OF_LENGTH_2));
         assertFalse(Price.isValidPrice(PRICE_OF_LENGTH_3)); // length boundary
+        assertFalse(Price.isValidPrice(LEADING_ZEROES + PRICE_OF_LENGTH_3));
         assertFalse(Price.isValidPrice(PRICE_OF_LENGTH_10)); // length boundary
+        assertFalse(Price.isValidPrice(LEADING_ZEROES + PRICE_OF_LENGTH_10));
         assertFalse(Price.isValidPrice(PRICE_OF_LENGTH_11));
+        assertFalse(Price.isValidPrice(LEADING_ZEROES + PRICE_OF_LENGTH_11));
+
 
         // valid price
         assertTrue(Price.isValidPrice(PRICE_OF_LENGTH_4)); // length boundary
+        assertTrue(Price.isValidPrice(LEADING_ZEROES + PRICE_OF_LENGTH_4));
         assertTrue(Price.isValidPrice(PRICE_OF_LENGTH_5));
+        assertTrue(Price.isValidPrice(LEADING_ZEROES + PRICE_OF_LENGTH_5));
         assertTrue(Price.isValidPrice(PRICE_OF_LENGTH_8));
+        assertTrue(Price.isValidPrice(LEADING_ZEROES + PRICE_OF_LENGTH_8));
         assertTrue(Price.isValidPrice(PRICE_OF_LENGTH_9)); // boundary
+        assertTrue(Price.isValidPrice(LEADING_ZEROES + PRICE_OF_LENGTH_9));
     }
 }
