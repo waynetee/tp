@@ -10,9 +10,9 @@ public abstract class ExportCommand extends CommandWithFile {
 
     public static final String BUYERS = "buyers";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Exports buyers or properties from csv file.\n"
-            + "Examples: " + COMMAND_WORD + " " + BUYERS + "\n"
-            + COMMAND_WORD + " " + PROPERTIES + "\n";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Exports buyers or properties from csv file.\n\n"
+            + "Parameters: ( property | buyer )\n"
+            + "Example: " + COMMAND_WORD + " property";
 
     public static final String MESSAGE_CANCELLED = "Export %s was cancelled.";
 

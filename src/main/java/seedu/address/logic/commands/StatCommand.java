@@ -21,8 +21,9 @@ public class StatCommand extends SimpleCommand {
     public static final String BUYER_WORD = "buyers";
     public static final String ALL_WORD = PROPERTY_WORD + " and " + BUYER_WORD;
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Opens a pop up with a price histogram of buyers, properties or both.\n"
-            + "Parameters: [(property | buyer)]";
+            + ": Opens a pop up with a price histogram of buyers, properties or both.\n\n"
+            + "Parameters: [ ( property | buyer ) ]\n"
+            + "Example: " + COMMAND_WORD + " property";
 
     public static final String MESSAGE_ARGUMENTS = "Displaying prices of %s.";
     public static final String MESSAGE_EMPTY_LIST = "List(s) empty. Statistics not shown.";
