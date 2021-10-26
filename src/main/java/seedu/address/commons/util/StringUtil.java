@@ -81,4 +81,18 @@ public class StringUtil {
         }
         return builder.toString();
     }
+
+    //@@author sunjc826-reused
+    //Reused from https://stackoverflow.com/questions/2255500
+    /**
+     * Returns a given string repeated for the specified number of times.
+     *
+     * @param count Number of times a string is to be repeated.
+     * @param with  String to be repeated.
+     * @return Repeated string.
+     */
+    public static String repeat(int count, String with) {
+        return new String(new char[count]).replace("\0", with);
+    }
+    //@@author
 }

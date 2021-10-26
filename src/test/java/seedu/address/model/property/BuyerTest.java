@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.testutil.BuyerBuilder;
 
 public class BuyerTest {
+    private static final String DIFFERENT_VALID_MAX_PRICE = "1000";
 
     @Test
     public void isSameBuyer() {
@@ -24,28 +25,41 @@ public class BuyerTest {
         assertFalse(B_ALICE.isSameBuyer(null));
 
         // different price, all other attributes same -> returns true
-        Buyer editedAlice = new BuyerBuilder(B_ALICE).withMaxPrice("100").build();
+        Buyer editedAlice = new BuyerBuilder(B_ALICE)
+                .withMaxPrice(DIFFERENT_VALID_MAX_PRICE)
+                .build();
         assertTrue(B_ALICE.isSameBuyer(editedAlice));
 
         // different tag, all other attributes same -> returns true
-        editedAlice = new BuyerBuilder(B_ALICE).withTags(VALID_TAG_HUSBAND).build();
+        editedAlice = new BuyerBuilder(B_ALICE)
+                .withTags(VALID_TAG_HUSBAND)
+                .build();
         assertTrue(B_ALICE.isSameBuyer(editedAlice));
 
         // same name, all different attributes -> returns true
-        editedAlice = new BuyerBuilder(B_ALICE).withMaxPrice("100").withTags(VALID_TAG_HUSBAND).build();
+        editedAlice = new BuyerBuilder(B_ALICE)
+                .withMaxPrice(DIFFERENT_VALID_MAX_PRICE)
+                .withTags(VALID_TAG_HUSBAND)
+                .build();
         assertTrue(B_ALICE.isSameBuyer(editedAlice));
 
         // different name, all other attributes same -> returns false
-        editedAlice = new BuyerBuilder(B_ALICE).withName(VALID_NAME_BOB).build();
+        editedAlice = new BuyerBuilder(B_ALICE)
+                .withName(VALID_NAME_BOB)
+                .build();
         assertFalse(B_ALICE.isSameBuyer(editedAlice));
 
         // name differs in case, all other attributes same -> returns false
-        Buyer editedBob = new BuyerBuilder(B_BOB).withName(VALID_NAME_BOB.toLowerCase()).build();
+        Buyer editedBob = new BuyerBuilder(B_BOB)
+                .withName(VALID_NAME_BOB.toLowerCase())
+                .build();
         assertFalse(B_BOB.isSameBuyer(editedBob));
 
         // name has trailing spaces, all other attributes same -> returns false
         String nameWithTrailingSpaces = VALID_NAME_BOB + " ";
-        editedBob = new BuyerBuilder(B_BOB).withName(nameWithTrailingSpaces).build();
+        editedBob = new BuyerBuilder(B_BOB)
+                .withName(nameWithTrailingSpaces)
+                .build();
         assertFalse(B_BOB.isSameBuyer(editedBob));
     }
 

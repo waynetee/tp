@@ -87,6 +87,19 @@ TODO: Define named parameters, positional parameters
 
 ------------------
 
+TODO: I suggest we centralize common input requirements here.
+### Valid Fields
+Here are some fields that are shared amongst commands.
+
+#### Property/Buyer names
+* Names must start with a letter or number, and only contain alphanumerical characters, spaces and hyphens (`-`).
+* Names have a maximum allowed length of 50.
+
+#### Tags
+* Tags are always optional.
+* Tags must start with a letter or number, and only contain alphanumerical characters, spaces and hyphens (`-`).
+* Tags have a maximum allowed length of 100.
+
 ### Viewing help : `help`
 
 Shows a message explaning how to access the help page.
@@ -100,9 +113,9 @@ Format: `help`
 
 Adds a property/buyer to PropertyWhiz.
 
-* Tags are optional.
-* Tags must start with a letter or number, and only contain alphanumerical characters, spaces and hyphens (`-`).
-* All other fields are compulsory.
+* All other fields are compulsory other than tags.
+
+See [valid inputs](#valid-fields) for details on constraints on what you can enter.
 
 Format:
 * Adding a property: `add property n/PROPERTY_NAME a/PROPERTY_ADDRESS s/SELLER_NAME p/SELLER_PHONE e/SELLER_EMAIL $/PRICE [t/TAG]…`
@@ -130,9 +143,10 @@ Edits the property/buyer at the specified `INDEX`. The index refers to the index
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the property will be removed i.e adding of tags is not cumulative.
-* Tags must start with a letter or number, and only contain alphanumerical characters, spaces and hyphens (`-`).
 * Like `add`, tags added via `edit` will be automatically converted to lower case.
 * You can remove all the property/buyer’s tags by typing `t/` without specifying any tags after it.
+
+See [valid inputs](#valid-fields) for details on constraints on what you can enter.
 
 Format:
 * Editing a property: `edit property INDEX [n/PROPERTY_NAME] [a/PROPERTY_ADDRESS] [s/SELLER_NAME] [p/SELLER_PHONE] [e/SELLER_EMAIL] [$/PRICE] [([t/TAG]… | [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]`
