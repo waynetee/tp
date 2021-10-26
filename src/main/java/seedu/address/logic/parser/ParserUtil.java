@@ -30,7 +30,7 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_PREAMBLE = "Obtained invalid Preamble: \"%s\".\n"
             + "The following fields are expected: %s";
-    public static final String MESSAGE_INVALID_FIND_PRICE_PREFIX = "Only one %s is allowed";
+    public static final String MESSAGE_INVALID_FIND_PRICE_PREFIX = "Invalid command. Only one %s is allowed.";
 
     public static final List<String> PROPERTY_PATTERN = Arrays.asList("property", "properties");
 

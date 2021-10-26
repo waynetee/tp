@@ -169,7 +169,7 @@ Format: `stat [(property | buyer)]`
 
 Finds properties or buyers whose names contain any of the given keywords and whose tag list contain all of the specified tags in the **currently displayed list**.
 
-Format: `find (properties | buyers) [KEYWORDS] [t/TAG_TO_MATCH]… [$min/MIN_PRICE] [$max/MAX_PRICE]…`
+Format: `find (properties | buyers) [KEYWORDS] [t/TAG_TO_MATCH]… [$min/MIN_PRICE] [$max/MAX_PRICE]`
 
 * Finds only properties or buyers in the currently displayed list
 
