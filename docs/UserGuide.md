@@ -169,7 +169,7 @@ Format: `stat [(property | buyer)]`
 
 Finds properties or buyers whose names contain any of the given keywords and whose tag list contain all of the specified tags in the **currently displayed list**.
 
-Format: `find (properties | buyers) [KEYWORDS] [t/TAG_TO_MATCH] [$min/MIN_PRICE] [$max/MAX_PRICE]…`
+Format: `find (properties | buyers) [KEYWORDS] [t/TAG_TO_MATCH]… [$min/MIN_PRICE] [$max/MAX_PRICE]…`
 
 * Finds only properties or buyers in the currently displayed list
 
@@ -185,12 +185,9 @@ Format: `find (properties | buyers) [KEYWORDS] [t/TAG_TO_MATCH] [$min/MIN_PRICE]
 * The price search is inclusive of the specified number
   * e.g. `find properties $min/10000` will return properties that are at least $10000
   * e.g. `find properties $max/100000` will return properties that are at most $100000
-* If more than one `$min/` is found in the command, PropertyWhiz will filter properties/buyers that are at least the smallest price of all the specified prices.
-  * e.g. `find properties $min/10000 $min/123123` will return properties that are at least $10000
-  * e.g. `find properties $min/3333 $min/1231 $min/1000` will return properties that are at least $1000
-* If more than one `$max/` is found in the command, PropertyWhiz will filter properties/buyers that are at most the largest price of all the specified prices.
-  * e.g. `find properties $max/10000 $max/123123` will return properties that are at most $123123
-  * e.g. `find properties $max/3333 $max/1231 $max/1000` will return properties that are at most $3333
+* Only one `$min/` and `$max/` is allowed in the input
+  * e.g. `find properties $min/1000 $max/100000` is valid
+  * e.g. `find properties $min/10000 $min/1999999 $max/100000` is invalid
   
 Examples:
 * `find properties Jurong` returns properties `jurong` and `Jurong East`

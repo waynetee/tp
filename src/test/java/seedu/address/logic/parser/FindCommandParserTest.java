@@ -102,26 +102,6 @@ public class FindCommandParserTest {
     }
 
     @Test
-    public void parse_multipleValidMinPrice_returnsFindBuyerCommand() {
-        Price minPrice = new Price("10000");
-        FindBuyerCommand expectedFindBuyerCommand = new FindBuyerCommand(new NameContainsKeywordsPredicate<>(),
-                new ContainsTagsPredicate<>(), new ContainsPricePredicate<>(minPrice, null));
-        assertParseSuccess(parser, PREAMBLE_BUYER + " "
-                + PREFIX_MIN_PRICE + "10000 " + PREFIX_MIN_PRICE + "1234242 "
-                + PREFIX_MIN_PRICE + "10000000", expectedFindBuyerCommand);
-    }
-
-    @Test
-    public void parse_multipleValidMaxPrice_returnsFindBuyerCommand() {
-        Price maxPrice = new Price("10000000");
-        FindBuyerCommand expectedFindBuyerCommand = new FindBuyerCommand(new NameContainsKeywordsPredicate<>(),
-                new ContainsTagsPredicate<>(), new ContainsPricePredicate<>(null, maxPrice));
-        assertParseSuccess(parser, PREAMBLE_BUYER + " "
-                + PREFIX_MAX_PRICE + "10000 " + PREFIX_MAX_PRICE + "1234242 "
-                + PREFIX_MAX_PRICE + "10000000", expectedFindBuyerCommand);
-    }
-
-    @Test
     public void parse_validMinPriceMaxPrice_returnsFindBuyerCommand() {
         Price minPrice = new Price("10000");
         Price maxPrice = new Price("100000");

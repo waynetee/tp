@@ -30,9 +30,9 @@ public abstract class FindCommand<T extends Nameable & Taggable & Pricable> exte
             + "and whose prices is smaller or equal to the max price (if specified).\n"
             + "The matching properties are displayed as a list with index numbers.\n"
             + "Parameters: (properties | buyers) KEYWORD [MORE_KEYWORDS]..."
-            + "[" + PREFIX_TAG + "TAG]..."
-            + "[" + PREFIX_MIN_PRICE + "PRICE]..."
-            + "[" + PREFIX_MAX_PRICE + "PRICE]..."
+            + "[" + PREFIX_TAG + "TAG]... "
+            + "[" + PREFIX_MIN_PRICE + "PRICE] "
+            + "[" + PREFIX_MAX_PRICE + "PRICE] "
             + "\n"
             + "Example: " + COMMAND_WORD + " properties alice bob charlie "
             + PREFIX_TAG + "Condo "
@@ -71,7 +71,8 @@ public abstract class FindCommand<T extends Nameable & Taggable & Pricable> exte
     }
 
     /**
-     * Returns the composed predicate of both the {@code namePredicate}, {@code tagPredicate}and {@code pricePredicate}.
+     * Returns the composed predicate of all of
+     * the {@code namePredicate}, {@code tagPredicate}and {@code pricePredicate}.
      */
     public Predicate<T> getComposedPredicate() {
         return composedPredicate;

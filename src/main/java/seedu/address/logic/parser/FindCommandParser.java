@@ -52,8 +52,8 @@ public class FindCommandParser implements Parser<FindCommand> {
                 .filter(Predicate.not(String::isBlank))
                 .collect(Collectors.toList());
         Set<Tag> tagsFilter = parseTags(argMultimap.getAllValues(PREFIX_TAG));
-        Price minPrice = ParserUtil.parseMinPrice(argMultimap.getAllValues(PREFIX_MIN_PRICE));
-        Price maxPrice = ParserUtil.parseMaxPrice(argMultimap.getAllValues(PREFIX_MAX_PRICE));
+        Price minPrice = ParserUtil.parseFindPrice(argMultimap.getAllValues(PREFIX_MIN_PRICE), PREFIX_MIN_PRICE);
+        Price maxPrice = ParserUtil.parseFindPrice(argMultimap.getAllValues(PREFIX_MAX_PRICE), PREFIX_MAX_PRICE);
 
         switch (actor) {
         case PROPERTY:

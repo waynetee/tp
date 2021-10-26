@@ -30,17 +30,17 @@ public class ContainsPricePredicate<T extends Pricable> implements Predicate<T> 
 
     @Override
     public boolean test(T pricable) {
-        boolean isGreaterThanMinPrice = true;
-        boolean isLessThanMaxPrice = true;
+        boolean isGreaterThanOrEqualToMinPrice = true;
+        boolean isLessThanOrEqualToMaxPrice = true;
         if (minPrice != null) {
-            isGreaterThanMinPrice = pricable.getPrice().compareTo(minPrice) >= 0;
+            isGreaterThanOrEqualToMinPrice = minPrice.isLessThanOrEqualTo(pricable.getPrice());
         }
 
         if (maxPrice != null) {
-            isLessThanMaxPrice = pricable.getPrice().compareTo(maxPrice) <= 0;
+            isLessThanOrEqualToMaxPrice = maxPrice.isGreaterThanOrEqualTo(pricable.getPrice());
         }
 
-        return isGreaterThanMinPrice && isLessThanMaxPrice;
+        return isGreaterThanOrEqualToMinPrice && isLessThanOrEqualToMaxPrice;
     }
 
     @Override
