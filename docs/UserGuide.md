@@ -95,6 +95,10 @@ Here are some fields that are shared amongst commands.
 * Names must start with a letter or number, and only contain alphanumerical characters, spaces and hyphens (`-`).
 * Names have a maximum allowed length of 50.
 
+#### Property Prices/Buyer Budget
+* Prices must be between 4 and 9 digits (both inclusive).
+* Leading zeroes will be ignored. For e.g., `00100` has 5 characters, but it only has 3 digits, not counting the leading 0s. Hence, `00100` is an invalid price.
+
 #### Tags
 * Tags are always optional.
 * Tags must start with a letter or number, and only contain alphanumerical characters, spaces and hyphens (`-`).
