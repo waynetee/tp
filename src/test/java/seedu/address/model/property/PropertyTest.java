@@ -42,14 +42,14 @@ public class PropertyTest {
         editedAlice = new PropertyBuilder(P_ALICE).withName(VALID_NAME_BOB).build();
         assertFalse(P_ALICE.isSameProperty(editedAlice));
 
-        // name differs in case, all other attributes same -> returns false
+        // name differs in case, all other attributes same -> returns true
         Property editedBob = new PropertyBuilder(P_BOB).withName(VALID_NAME_BOB.toLowerCase()).build();
-        assertFalse(P_BOB.isSameProperty(editedBob));
+        assertTrue(P_BOB.isSameProperty(editedBob));
 
         // name has trailing spaces, all other attributes same -> returns false
         String nameWithTrailingSpaces = VALID_NAME_BOB + " ";
         editedBob = new PropertyBuilder(P_BOB).withName(nameWithTrailingSpaces).build();
-        assertFalse(P_BOB.isSameProperty(editedBob));
+        assertTrue(P_BOB.isSameProperty(editedBob));
     }
 
     @Test

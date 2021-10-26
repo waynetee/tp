@@ -39,14 +39,14 @@ public class BuyerTest {
         editedAlice = new BuyerBuilder(B_ALICE).withName(VALID_NAME_BOB).build();
         assertFalse(B_ALICE.isSameBuyer(editedAlice));
 
-        // name differs in case, all other attributes same -> returns false
+        // name differs in case, all other attributes same -> returns true
         Buyer editedBob = new BuyerBuilder(B_BOB).withName(VALID_NAME_BOB.toLowerCase()).build();
-        assertFalse(B_BOB.isSameBuyer(editedBob));
+        assertTrue(B_BOB.isSameBuyer(editedBob));
 
-        // name has trailing spaces, all other attributes same -> returns false
+        // name has trailing spaces, all other attributes same -> returns true
         String nameWithTrailingSpaces = VALID_NAME_BOB + " ";
         editedBob = new BuyerBuilder(B_BOB).withName(nameWithTrailingSpaces).build();
-        assertFalse(B_BOB.isSameBuyer(editedBob));
+        assertTrue(B_BOB.isSameBuyer(editedBob));
     }
 
     @Test

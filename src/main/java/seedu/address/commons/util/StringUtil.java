@@ -6,6 +6,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Helper functions for handling strings.
@@ -14,14 +16,15 @@ public class StringUtil {
 
     /**
      * Returns true if the {@code sentence} contains the {@code word}.
-     *   Ignores case, but a full word match is required.
-     *   <br>examples:<pre>
+     * Ignores case, but a full word match is required.
+     * <br>examples:<pre>
      *       containsWordIgnoreCase("ABc def", "abc") == true
      *       containsWordIgnoreCase("ABc def", "DEF") == true
      *       containsWordIgnoreCase("ABc def", "AB") == false //not a full word match
      *       </pre>
+     *
      * @param sentence cannot be null
-     * @param word cannot be null, cannot be empty, must be a single word
+     * @param word     cannot be null, cannot be empty, must be a single word
      */
     public static boolean containsWordIgnoreCase(String sentence, String word) {
         requireNonNull(sentence);
@@ -53,6 +56,7 @@ public class StringUtil {
      * e.g. 1, 2, 3, ..., {@code Integer.MAX_VALUE} <br>
      * Will return false for any other non-null string input
      * e.g. empty string, "-1", "0", "+1", and " 2 " (untrimmed), "3 0" (contains whitespace), "1 a" (contains letters)
+     *
      * @throws NullPointerException if {@code s} is null.
      */
     public static boolean isNonZeroUnsignedInteger(String s) {
@@ -68,10 +72,11 @@ public class StringUtil {
 
     /**
      * Filters nonempty strings from the given strings and concatenates them with newline.
+     *
      * @param lines Lines to be joined.
      * @return Concatenated string.
      */
-    public static String joinLines(String ...lines) {
+    public static String joinLines(String... lines) {
         StringBuilder builder = new StringBuilder();
         for (String s : lines) {
             if (s.length() > 0) {
@@ -80,5 +85,38 @@ public class StringUtil {
             }
         }
         return builder.toString();
+    }
+
+    /**
+     * Removes all trailing whitespace of the input space and compresses consecutive spaces between words.
+     *
+     * @param s String to be processed.
+     * @return Processed string.
+     */
+    public static String compressWhitespace(String s) {
+        return s.trim().replaceAll(" +", " ");
+    }
+
+    /**
+     * Capitalizes the first letter of each word delimited by space, and sets all other letters to lowercase.
+     *
+     * @param s String to be processed.
+     * @return Processed string.
+     */
+    public static String startCaseSentence(String s) {
+        List<String> list = Arrays.stream(s.split(" "))
+                .map(StringUtil::startCase)
+                .collect(Collectors.toList());
+        return String.join(" ", list);
+    }
+
+    /**
+     * Capitalizes the first letter of the given string and sets all other letters to lowercase.
+     *
+     * @param s String to be processed.
+     * @return Processed string.
+     */
+    public static String startCase(String s) {
+        return s.substring(0, 1).toUpperCase() + s.substring(1).toLowerCase();
     }
 }

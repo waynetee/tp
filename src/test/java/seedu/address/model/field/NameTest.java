@@ -8,6 +8,10 @@ import org.junit.jupiter.api.Test;
 
 public class NameTest {
 
+    public static final String UPPERCASE_NAME = "JOHN CONNOR";
+    public static final String MIXEDCASE_NAME = "JoHn coNNoR";
+    public static final String LOWERCASE_NAME = "john connor";
+
     @Test
     public void constructor_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new Name(null));
@@ -36,5 +40,14 @@ public class NameTest {
         assertTrue(Name.isValidName("peter the 2nd")); // alphanumeric characters
         assertTrue(Name.isValidName("Capital Tan")); // with capital letters
         assertTrue(Name.isValidName("David Roger Jackson Ray Jr 2nd")); // long names
+    }
+
+    @Test
+    public void equals() {
+        Name upperCaseName = new Name(UPPERCASE_NAME);
+        Name mixedCaseName = new Name(MIXEDCASE_NAME);
+        Name lowerCaseName = new Name(LOWERCASE_NAME);
+        assertTrue(upperCaseName.equals(mixedCaseName));
+        assertTrue(mixedCaseName.equals(lowerCaseName));
     }
 }

@@ -47,5 +47,4 @@ public class TagTest {
         assertTrue(upperCaseTag.equals(mixedCaseTag));
         assertTrue(mixedCaseTag.equals(lowerCaseTag));
     }
-
 }
