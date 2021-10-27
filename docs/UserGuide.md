@@ -20,18 +20,18 @@ PropertyWhiz (PropertyWhiz) is a **desktop app for managing properties and prope
 
 1. Download the latest `propertywhiz.jar` from [here]().
 
-**TODO**: Update and release jar link.
-
 1. Copy the file to the folder you want to use as the _home folder_ for your PropertyWhiz.
 
 1. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
+    
    ![Ui](images/Ui.png)
-   TODO: We may also want `clear` to delete all buyers
    
-1. [**DEVELOPMENT IN PROGRESS**] Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-    * **`list`** : Lists all properties/buyers. e.g. `list`
+    * **`clear`** : Deletes all properties/buyers. Enter `clear` start from scratch!
+
+    * **`list`** : Lists all properties/buyers.
 
     * **`add`** Adds a property/buyer.
         * e.g. `add property n/Blk 123 a/123, Clementi Rd, #04-20, 1234665 s/James Lee p/61234567 e/example@email.com $/100000 t/HDB t/3rm`
@@ -40,17 +40,62 @@ PropertyWhiz (PropertyWhiz) is a **desktop app for managing properties and prope
         * e.g. `delete property 3`
         * e.g. `delete buyer 3`
 
-    * **`clear`** : Deletes all properties/buyers. e.g. `clear`
+    * **`exit`** : Exits the app.
 
-    * **`exit`** : Exits the app. e.g. `exit`
+1. Refer to the [Features](#features) below for details of each command, 
+   or the [Command Summary](#command-summary).
 
-1. Refer to the [Features](#features) below for details of each command.
+--------------------------------------------------------------------------------------------------------------------
+
+## Command summary
+
+Action | Format, Examples
+--------|------------------
+**Add** | **Property** <br>`add property n/PROPERTY_NAME a/PROPERTY_ADDRESS s/SELLER_NAME p/SELLER_PHONE e/SELLER_EMAIL $/PRICE [t/TAG]…​` <br> e.g., `add property n/Blk 123 a/123, Clementi Rd, #04-20, 1234665 s/James Lee sp/61234567 $/100000 t/HDB t/3rm` <br><br> **Buyer** <br>`add buyer n/BUYER_NAME p/BUYER_PHONE e/BUYER_EMAIL $/BUDGET) [t/TAG]…` <br> e.g., `add buyer n/Sam p/91234567 e/sam@email.com $/740000 t/hdb t/3rm`
+**Clear** | `clear`
+**Delete** | `delete (property \| buyer) INDEX`<br> e.g., `delete property 3`
+**Edit** | **Property** <br>`edit property INDEX [n/PROPERTY_NAME] [a/PROPERTY_ADDRESS] [s/SELLER_NAME] [p/SELLER_PHONE] [e/SELLER_EMAIL] [$/PRICE] [([t/TAG]…​ \| [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]]​`<br> e.g.,`edit property 2 s/James Lee e/jameslee@example.com` <br><br> **Buyer** <br> `edit buyer INDEX [n/BUYER_NAME] [p/BUYER_PHONE] [e/BUYER_EMAIL] [$/BUDGET]) [([t/TAG]… \| [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]` <br> e.g.,`edit buyer 2 n/Victor Lee p/88887777`
+**Find** | `find (properties \| buyers) [KEYWORDS] [t/TAG_TO_MATCH]…`<br> e.g., `find Jurong t/4rm t/near school`
+**List** | `list`
+**Exit** | `exit`
+**Help** | `help`
+**Sort** | `sort (properties \| buyers) (price \| name) (asc \| desc)`
+**Match** | `match ( auto \| property INDEX \| buyer INDEX )`
+**Import** | `import (properties \| buyers)`
+**Export** | `export (properties \| buyers)`
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## Navigating the User Interface
 
-TODO
+![Ui](images/NavigatingUi.png)
+
+The UI is split into the input and output sections, as well as
+two view columns for **Property** and **Buyer** each.
+
+![](images/PropertyCardUi.png)
+
+Here is the breakdown of an individual property card.
+
+Item | Description
+--------|------------------
+**Name** | Name of property listing.
+**Price** | Quoted price of seller.
+**Address** | Address of property listing.
+**Seller** | Name of seller.
+**Phone** | Phone number of seller.
+**Email** | Email of seller.
+
+![](images/BuyerCardUi-03.png)
+
+Here is the breakdown of an individual buyer card.
+
+Item | Description
+--------|------------------
+**Name** | Name of buyer.
+**Budget** | The buyer's budget.
+**Phone** | Phone number of buyer.
+**Email** | Email of buyer.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -178,7 +223,7 @@ Creates a pop-up with the price histogram of the currently listed properties and
 
 Format: `stat [(property | buyer)]`
 
-![stat example](images/StatBuyerDemo.png)
+![stat example](images/StatUi.png)
 
 * Entering another `stat` command while the existing one is open  replaces the view in the pop-up window.
 * If only buyers or only properties are visible, `stat` automatically presents the only buyers/only properties view.
@@ -248,6 +293,8 @@ Format: `match ( auto | property INDEX | buyer INDEX )`
 
 #### One to many matching of property to buyers
 
+![Matching one to many](images/MatchOneToManyUi.png)
+
 Matches compatible buyers to a specified property, displayed in descending order of desirability.
 
 Format: `match property INDEX`
@@ -290,6 +337,8 @@ Suppose there are 5 buyers currently displayed in the buyer list. `match buyer 2
 Suppose 3 properties, "Dee Gardens", "Olive Gardens", and "Pear Gardens" are all compatible with Sam. Dee Gardens has tags `5rm`, `far from school`, Olive Gardens has one tag `4rm`, and Pear Gardens has tags `4rm`, `near school`. Then Pear Gardens has the greatest number of tags in common and is the most desirable property match, whereas Dee Gardens has the least number of tags in common and is the least desirable property match.
 
 #### Intelligent matching of properties and buyers
+
+![Matching auto](images/MatchAutoUi.png)
 
 The `match auto` command instructs PropertyWhiz to automatically match buyers to properties.
 
@@ -378,22 +427,3 @@ You may copy and paste multiple lines of commands into the command box. Press th
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous PropertyWhiz home folder.
-
---------------------------------------------------------------------------------------------------------------------
-
-## Command summary
-
-Action | Format, Examples
---------|------------------
-**Add** | **Property** <br>`add property n/PROPERTY_NAME a/PROPERTY_ADDRESS s/SELLER_NAME p/SELLER_PHONE e/SELLER_EMAIL $/PRICE [t/TAG]…​` <br> e.g., `add property n/Blk 123 a/123, Clementi Rd, #04-20, 1234665 s/James Lee sp/61234567 $/100000 t/HDB t/3rm` <br><br> **Buyer** <br>`add buyer n/BUYER_NAME p/BUYER_PHONE e/BUYER_EMAIL $/BUDGET) [t/TAG]…` <br> e.g., `add buyer n/Sam p/91234567 e/sam@email.com $/740000 t/hdb t/3rm`
-**Clear** | `clear`
-**Delete** | `delete (property \| buyer) INDEX`<br> e.g., `delete property 3`
-**Edit** | **Property** <br>`edit property INDEX [n/PROPERTY_NAME] [a/PROPERTY_ADDRESS] [s/SELLER_NAME] [p/SELLER_PHONE] [e/SELLER_EMAIL] [$/PRICE] [([t/TAG]…​ \| [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]]​`<br> e.g.,`edit property 2 s/James Lee e/jameslee@example.com` <br><br> **Buyer** <br> `edit buyer INDEX [n/BUYER_NAME] [p/BUYER_PHONE] [e/BUYER_EMAIL] [$/BUDGET]) [([t/TAG]… \| [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]` <br> e.g.,`edit buyer 2 n/Victor Lee p/88887777`
-**Find** | `find (properties \| buyers) [KEYWORDS] [t/TAG_TO_MATCH]…`<br> e.g., `find Jurong t/4rm t/near school`
-**List** | `list`
-**Exit** | `exit`
-**Help** | `help`
-**Sort** | `sort (properties \| buyers) (price \| name) (asc \| desc)`
-**Match** | `match ( auto \| property INDEX \| buyer INDEX )`
-**Import** | `import (properties \| buyers)`
-**Export** | `export (properties \| buyers)`
