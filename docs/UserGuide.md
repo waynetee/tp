@@ -23,14 +23,15 @@ PropertyWhiz (PropertyWhiz) is a **desktop app for managing properties and prope
 1. Copy the file to the folder you want to use as the _home folder_ for your PropertyWhiz.
 
 1. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
-   * Clear to delete all buyers to start from scratch!
     
    ![Ui](images/Ui.png)
    
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-    * **`list`** : Lists all properties/buyers. e.g. `list`
+    * **`clear`** : Deletes all properties/buyers. Enter `clear` start from scratch!
+
+    * **`list`** : Lists all properties/buyers.
 
     * **`add`** Adds a property/buyer.
         * e.g. `add property n/Blk 123 a/123, Clementi Rd, #04-20, 1234665 s/James Lee p/61234567 e/example@email.com $/100000 t/HDB t/3rm`
@@ -39,9 +40,7 @@ PropertyWhiz (PropertyWhiz) is a **desktop app for managing properties and prope
         * e.g. `delete property 3`
         * e.g. `delete buyer 3`
 
-    * **`clear`** : Deletes all properties/buyers. e.g. `clear`
-
-    * **`exit`** : Exits the app. e.g. `exit`
+    * **`exit`** : Exits the app.
 
 1. Refer to the [Features](#features) below for details of each command, 
    or the [Command Summary](#command-summary).
@@ -84,7 +83,8 @@ Item | Description
 **Price** | Quoted price of seller.
 **Address** | Address of property listing.
 **Seller** | Name of seller.
-**Phone, Email** | Phone number and email of seller.
+**Phone** | Phone number of seller.
+**Email** | Email of seller.
 
 ![](images/BuyerCardUi-03.png)
 
@@ -94,7 +94,8 @@ Item | Description
 --------|------------------
 **Name** | Name of buyer.
 **Budget** | The buyer's budget.
-**Phone, Email** | Phone number and email of buyer.
+**Phone** | Phone number of buyer.
+**Email** | Email of buyer.
 
 --------------------------------------------------------------------------------------------------------------------
 
