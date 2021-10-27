@@ -277,10 +277,10 @@ public class ParserUtil {
     }
 
     /**
-     * Parses the only {@code String} price in {@code Collection<String> prices} into a {@code Price}
+     * Parses the only {@code String} price in {@code Collection<String> prices} into a {@code Price}.
      *
      * @throws ParseException if more than one price is found in {@code prices}
-     *                        or the given input is an invaiid {@code Price}.
+     *                        or the given input is an invalid {@code Price}.
      */
     public static Price parseFindPrice(Collection<String> prices, Prefix prefix) throws ParseException {
         if (prices.size() > 1) {
@@ -288,7 +288,7 @@ public class ParserUtil {
         }
 
         try {
-            return prices.stream().map(Price::new).findFirst().orElse(null);
+            return prices.size() == 0 ? null : new Price(prices.iterator().next());
         } catch (IllegalArgumentException e) {
             throw new ParseException(e.getMessage());
         }

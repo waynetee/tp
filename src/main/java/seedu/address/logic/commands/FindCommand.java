@@ -72,7 +72,7 @@ public abstract class FindCommand<T extends Nameable & Taggable & Pricable> exte
 
     /**
      * Returns the composed predicate of all of
-     * the {@code namePredicate}, {@code tagPredicate}and {@code pricePredicate}.
+     * the {@code namePredicate}, {@code tagPredicate} and {@code pricePredicate}.
      */
     public Predicate<T> getComposedPredicate() {
         return composedPredicate;
