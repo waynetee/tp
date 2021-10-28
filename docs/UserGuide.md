@@ -228,9 +228,9 @@ Format: `stat [(property | buyer)]`
 * Entering another `stat` command while the existing one is open  replaces the view in the pop-up window.
 * If only buyers or only properties are visible, `stat` automatically presents the only buyers/only properties view.
 
-### Locating properties by name: `find`
+### Locating properties/buyers by name, tags, price: `find`
 
-Finds properties or buyers whose names contain any of the given keywords and whose tag list contain all of the specified tags in the **currently displayed list**.
+Finds properties or buyers whose names contain any of the given keywords, whose tag list contain all of the specified tags and whose price is within the specified price range in the **currently displayed list**.
 
 Format: `find (properties | buyers) [KEYWORDS] [t/TAG_TO_MATCH]… [$min/MIN_PRICE] [$max/MAX_PRICE]`
 
@@ -259,6 +259,7 @@ Examples:
 * `find properties t/4rm t/near school` returns properties `jurong [4rm] [near school] [near mrt]` and `Clementi [4rm] [near school] [near mrt]`
 * `find buyers Sally t/4rm t/near school` returns buyers `Sally [4rm] [near school] [quiet]` and `sally brown [4rm] [near school]`
 * `find properties $min/10000 $max/1000000` returns properties that are at least $10000 and at most $1000000
+
 ------------------
 
 ### Deleting a property/buyer : `delete`
