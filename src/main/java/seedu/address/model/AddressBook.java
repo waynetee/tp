@@ -160,6 +160,15 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Adds a list of properties to the address book.
+     * The properties must not already exist in the address book.
+     */
+    public void addAllProperties(List<Property> p) {
+        properties.addAll(p);
+        currProperties.addAll(p);
+    }
+
+    /**
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
@@ -207,6 +216,15 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void addNewBuyer(Buyer b) {
         buyers.addFront(b);
         currBuyers.addFront(b);
+    }
+
+    /**
+     * Adds a list of buyers to the address book.
+     * The buyers must not already exist in the address book.
+     */
+    public void addAllBuyers(List<Buyer> b) {
+        buyers.addAll(b);
+        currBuyers.addAll(b);
     }
 
     /**

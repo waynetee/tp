@@ -44,6 +44,15 @@ public class UniqueBuyerList extends UniqueList<Buyer> {
     }
 
     @Override
+    public void addAll(List<Buyer> toAdd) {
+        try {
+            super.addAll(toAdd);
+        } catch (DuplicateListableException e) {
+            throw new DuplicateBuyerException();
+        }
+    }
+
+    @Override
     public void remove(Buyer toRemove) {
         try {
             super.remove(toRemove);
