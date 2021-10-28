@@ -28,7 +28,7 @@ public class ImportPropertiesCommand extends ImportCommand {
         } catch (ParseException pe) {
             return new CommandResult(String.format(MESSAGE_FORMAT_FAILURE, PROPERTIES) + "\n" + pe.getMessage());
         } catch (DuplicatePropertyException dpe) {
-            return new CommandResult(String.format(MESSAGE_DUPLICATE));
+            return new CommandResult(String.format(MESSAGE_DUPLICATE, PROPERTIES, PROPERTIES));
         }
     }
 

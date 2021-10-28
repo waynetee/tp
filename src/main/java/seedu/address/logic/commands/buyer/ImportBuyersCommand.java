@@ -28,7 +28,7 @@ public class ImportBuyersCommand extends ImportCommand {
         } catch (ParseException pe) {
             return new CommandResult(String.format(MESSAGE_FORMAT_FAILURE, BUYERS) + "\n" + pe.getMessage());
         } catch (DuplicateBuyerException dbe) {
-            return new CommandResult(String.format(MESSAGE_DUPLICATE));
+            return new CommandResult(String.format(MESSAGE_DUPLICATE, BUYERS, BUYERS));
         }
     }
 
