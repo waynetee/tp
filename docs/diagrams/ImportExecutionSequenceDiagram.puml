@@ -62,21 +62,19 @@ activate AddressBook
 return
 deactivate AddressBook
 
-Storage -> AddressBook: setBuyers(buyers)
+Storage -> AddressBook: addAllBuyers(buyers)
 activate AddressBook
 
 return
 deactivate AddressBook
 
 Storage --> ImportBuyersCommand: newAB
-
 deactivate Storage
 
 ImportBuyersCommand -> Model: setAddressBook(newAB)
 activate Model
 
 return
-
 deactivate Model
 
 @enduml
