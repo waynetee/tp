@@ -2,11 +2,13 @@ package seedu.address.model.field;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.address.commons.util.StringUtil.compressWhitespace;
+import static seedu.address.commons.util.StringUtil.startCaseSentence;
 
 import seedu.address.commons.util.ComparerMixin;
 
 /**
- * Represents a Property's name in the address book.
+ * Represents a start-cased (i.e. the first letter of each word is capitalized) name in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name implements ComparerMixin<Name> {
@@ -24,14 +26,14 @@ public class Name implements ComparerMixin<Name> {
     public final String fullName;
 
     /**
-     * Constructs a {@code Name}.
+     * Converts name to start-case and constructs a {@code Name}.
      *
      * @param name A valid name.
      */
     public Name(String name) {
         requireNonNull(name);
         checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
-        fullName = name;
+        fullName = startCaseSentence(compressWhitespace(name));
     }
 
     /**
@@ -40,7 +42,6 @@ public class Name implements ComparerMixin<Name> {
     public static boolean isValidName(String test) {
         return test.matches(VALIDATION_REGEX);
     }
-
 
     @Override
     public String toString() {
