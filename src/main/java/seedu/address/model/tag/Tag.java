@@ -10,9 +10,11 @@ import seedu.address.commons.util.StringUtil;
  * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}
  */
 public class Tag {
-
-    public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric";
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum}\\- ]*";
+    public static final Integer MAX_LENGTH = 100;
+    public static final String MESSAGE_CONSTRAINTS = "Tags names should only contain alphanumeric characters,"
+            + "hyphens, and spaces and it should not be blank.\n"
+            + "Tags should also be at most " + MAX_LENGTH + " characters long.";
+    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum}\\- ]{0," + (MAX_LENGTH - 1) + "}";
 
     public final String tagName;
 

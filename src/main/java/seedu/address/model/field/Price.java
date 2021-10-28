@@ -4,11 +4,15 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import seedu.address.commons.util.ComparerMixin;
+import seedu.address.commons.util.StringUtil;
 
 public class Price implements ComparerMixin<Price> {
+    public static final Integer MIN_LENGTH = 4;
+    public static final Integer MAX_LENGTH = 9;
     public static final String MESSAGE_CONSTRAINTS =
-            "Price (in dollars) should only contain numbers, and it should be at most 18 digits long";
-    public static final String VALIDATION_REGEX = "\\d{1,18}";
+            "Price (in dollars) should only contain numbers, and it should be at least " + MIN_LENGTH + " digits and "
+                    + "at most " + MAX_LENGTH + " digits long, not counting leading zeroes.";
+    public static final String VALIDATION_REGEX = "\\d{" + MIN_LENGTH + "," + MAX_LENGTH + "}";
     public final Long value;
 
     /**
@@ -26,7 +30,7 @@ public class Price implements ComparerMixin<Price> {
      * Returns true if a given string is a valid price.
      */
     public static boolean isValidPrice(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return StringUtil.stripLeadingZeroes(test).matches(VALIDATION_REGEX);
     }
 
     @Override

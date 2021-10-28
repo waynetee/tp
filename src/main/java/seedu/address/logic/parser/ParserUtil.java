@@ -30,6 +30,7 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_PREAMBLE = "Obtained invalid Preamble: \"%s\".\n"
             + "The following fields are expected: %s";
+    public static final String MESSAGE_INVALID_FIND_PRICE_PREFIX = "Invalid command. Only one %s is allowed.";
 
     public static final List<String> PROPERTY_PATTERN = Arrays.asList("property", "properties");
 
@@ -130,15 +131,10 @@ public class ParserUtil {
     /**
      * Parses a {@code String phone} into a {@code Phone}.
      * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code phone} is invalid.
      */
-    public static Phone parsePhone(String phone) throws ParseException {
+    public static Phone parsePhone(String phone) {
         requireNonNull(phone);
         String trimmedPhone = phone.trim();
-        if (!Phone.isValidPhone(trimmedPhone)) {
-            throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
-        }
         return new Phone(trimmedPhone);
     }
 
@@ -272,6 +268,24 @@ public class ParserUtil {
         String[] splitInputs = args.trim().split("\\s+");
         if (numOfPreamble != splitInputs.length) {
             throw new ParseException(MESSAGE_INVALID_PREAMBLE);
+        }
+    }
+
+    /**
+     * Parses the only {@code String} price in {@code Collection<String> prices} into a {@code Price}.
+     *
+     * @throws ParseException if more than one price is found in {@code prices}
+     *                        or the given input is an invalid {@code Price}.
+     */
+    public static Price parseFindPrice(Collection<String> prices, Prefix prefix) throws ParseException {
+        if (prices.size() > 1) {
+            throw new ParseException(String.format(MESSAGE_INVALID_FIND_PRICE_PREFIX, prefix));
+        }
+
+        try {
+            return prices.size() == 0 ? null : new Price(prices.iterator().next());
+        } catch (IllegalArgumentException e) {
+            throw new ParseException(e.getMessage());
         }
     }
 }

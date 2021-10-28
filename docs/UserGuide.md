@@ -20,18 +20,18 @@ PropertyWhiz (PropertyWhiz) is a **desktop app for managing properties and prope
 
 1. Download the latest `propertywhiz.jar` from [here]().
 
-**TODO**: Update and release jar link.
-
 1. Copy the file to the folder you want to use as the _home folder_ for your PropertyWhiz.
 
 1. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
+    
    ![Ui](images/Ui.png)
-   TODO: We may also want `clear` to delete all buyers
    
-1. [**DEVELOPMENT IN PROGRESS**] Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-    * **`list`** : Lists all properties/buyers. e.g. `list`
+    * **`clear`** : Deletes all properties/buyers. Enter `clear` start from scratch!
+
+    * **`list`** : Lists all properties/buyers.
 
     * **`add`** Adds a property/buyer.
         * e.g. `add property n/Blk 123 a/123, Clementi Rd, #04-20, 1234665 s/James Lee p/61234567 e/example@email.com $/100000 t/HDB t/3rm`
@@ -40,17 +40,62 @@ PropertyWhiz (PropertyWhiz) is a **desktop app for managing properties and prope
         * e.g. `delete property 3`
         * e.g. `delete buyer 3`
 
-    * **`clear`** : Deletes all properties/buyers. e.g. `clear`
+    * **`exit`** : Exits the app.
 
-    * **`exit`** : Exits the app. e.g. `exit`
+1. Refer to the [Features](#features) below for details of each command, 
+   or the [Command Summary](#command-summary).
 
-1. Refer to the [Features](#features) below for details of each command.
+--------------------------------------------------------------------------------------------------------------------
+
+## Command summary
+
+Action | Format, Examples
+--------|------------------
+**Add** | **Property** <br>`add property n/PROPERTY_NAME a/PROPERTY_ADDRESS s/SELLER_NAME p/SELLER_PHONE e/SELLER_EMAIL $/PRICE [t/TAG]…​` <br> e.g., `add property n/Blk 123 a/123, Clementi Rd, #04-20, 1234665 s/James Lee sp/61234567 $/100000 t/HDB t/3rm` <br><br> **Buyer** <br>`add buyer n/BUYER_NAME p/BUYER_PHONE e/BUYER_EMAIL $/BUDGET) [t/TAG]…` <br> e.g., `add buyer n/Sam p/91234567 e/sam@email.com $/740000 t/hdb t/3rm`
+**Clear** | `clear`
+**Delete** | `delete (property \| buyer) INDEX`<br> e.g., `delete property 3`
+**Edit** | **Property** <br>`edit property INDEX [n/PROPERTY_NAME] [a/PROPERTY_ADDRESS] [s/SELLER_NAME] [p/SELLER_PHONE] [e/SELLER_EMAIL] [$/PRICE] [([t/TAG]…​ \| [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]]​`<br> e.g.,`edit property 2 s/James Lee e/jameslee@example.com` <br><br> **Buyer** <br> `edit buyer INDEX [n/BUYER_NAME] [p/BUYER_PHONE] [e/BUYER_EMAIL] [$/BUDGET]) [([t/TAG]… \| [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]` <br> e.g.,`edit buyer 2 n/Victor Lee p/88887777`
+**Find** | `find (properties \| buyers) [KEYWORDS] [t/TAG_TO_MATCH]…`<br> e.g., `find Jurong t/4rm t/near school`
+**List** | `list`
+**Exit** | `exit`
+**Help** | `help`
+**Sort** | `sort (properties \| buyers) (price \| name) (asc \| desc)`
+**Match** | `match ( auto \| property INDEX \| buyer INDEX )`
+**Import** | `import (properties \| buyers)`
+**Export** | `export (properties \| buyers)`
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## Navigating the User Interface
 
-TODO
+![Ui](images/NavigatingUi.png)
+
+The UI is split into the input and output sections, as well as
+two view columns for **Property** and **Buyer** each.
+
+![](images/PropertyCardUi.png)
+
+Here is the breakdown of an individual property card.
+
+Item | Description
+--------|------------------
+**Name** | Name of property listing.
+**Price** | Quoted price of seller.
+**Address** | Address of property listing.
+**Seller** | Name of seller.
+**Phone** | Phone number of seller.
+**Email** | Email of seller.
+
+![](images/BuyerCardUi-03.png)
+
+Here is the breakdown of an individual buyer card.
+
+Item | Description
+--------|------------------
+**Name** | Name of buyer.
+**Budget** | The buyer's budget.
+**Phone** | Phone number of buyer.
+**Email** | Email of buyer.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -87,6 +132,23 @@ TODO: Define named parameters, positional parameters
 
 ------------------
 
+TODO: I suggest we centralize common input requirements here.
+### Valid Fields
+Here are some fields that are shared amongst commands.
+
+#### Property/Buyer names
+* Names must start with a letter or number, and only contain alphanumerical characters, spaces and hyphens (`-`).
+* Names have a maximum allowed length of 50.
+
+#### Property Prices/Buyer Budget
+* Prices must be between 4 and 9 digits (both inclusive).
+* Leading zeroes will be ignored. For e.g., `00100` has 5 characters, but it only has 3 digits, not counting the leading 0s. Hence, `00100` is an invalid price.
+
+#### Tags
+* Tags are always optional.
+* Tags must start with a letter or number, and only contain alphanumerical characters, spaces and hyphens (`-`).
+* Tags have a maximum allowed length of 100.
+
 ### Viewing help : `help`
 
 Shows a message explaning how to access the help page.
@@ -100,9 +162,9 @@ Format: `help`
 
 Adds a property/buyer to PropertyWhiz.
 
-* Tags are optional.
-* Tags must start with a letter or number, and only contain alphanumerical characters, spaces and hyphens (`-`).
-* All other fields are compulsory.
+* All other fields are compulsory other than tags.
+
+See [valid inputs](#valid-fields) for details on constraints on what you can enter.
 
 Format:
 * Adding a property: `add property n/PROPERTY_NAME a/PROPERTY_ADDRESS s/SELLER_NAME p/SELLER_PHONE e/SELLER_EMAIL $/PRICE [t/TAG]…`
@@ -130,9 +192,10 @@ Edits the property/buyer at the specified `INDEX`. The index refers to the index
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the property will be removed i.e adding of tags is not cumulative.
-* Tags must start with a letter or number, and only contain alphanumerical characters, spaces and hyphens (`-`).
 * Like `add`, tags added via `edit` will be automatically converted to lower case.
 * You can remove all the property/buyer’s tags by typing `t/` without specifying any tags after it.
+
+See [valid inputs](#valid-fields) for details on constraints on what you can enter.
 
 Format:
 * Editing a property: `edit property INDEX [n/PROPERTY_NAME] [a/PROPERTY_ADDRESS] [s/SELLER_NAME] [p/SELLER_PHONE] [e/SELLER_EMAIL] [$/PRICE] [([t/TAG]… | [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]`
@@ -160,16 +223,16 @@ Creates a pop-up with the price histogram of the currently listed properties and
 
 Format: `stat [(property | buyer)]`
 
-![stat example](images/StatBuyerDemo.png)
+![stat example](images/StatUi.png)
 
 * Entering another `stat` command while the existing one is open  replaces the view in the pop-up window.
 * If only buyers or only properties are visible, `stat` automatically presents the only buyers/only properties view.
 
-### Locating properties by name: `find`
+### Locating properties/buyers by name, tags, price: `find`
 
-Finds properties or buyers whose names contain any of the given keywords and whose tag list contain all of the specified tags in the **currently displayed list**.
+Finds properties or buyers whose names contain any of the given keywords, whose tag list contain all of the specified tags and whose price is within the specified price range in the **currently displayed list**.
 
-Format: `find (properties | buyers) [KEYWORDS] [t/TAG_TO_MATCH]…`
+Format: `find (properties | buyers) [KEYWORDS] [t/TAG_TO_MATCH]… [$min/MIN_PRICE] [$max/MAX_PRICE]`
 
 * Finds only properties or buyers in the currently displayed list
 
@@ -182,13 +245,20 @@ Format: `find (properties | buyers) [KEYWORDS] [t/TAG_TO_MATCH]…`
 * Properties matching at least one keyword (i.e. `OR` search) and matching all the tags (i.e. `AND` search) will be returned.
     * e.g. For keywords, `Hillview Rise` will return `Hillview Grove`, `Rise Rivervale`
     * e.g. For tags, `t/4rm t/near school` will return properties with both `4rm` tag, and `near school` tag.
-
+* The price search is inclusive of the specified number
+  * e.g. `find properties $min/10000` will return properties that are at least $10000
+  * e.g. `find properties $max/100000` will return properties that are at most $100000
+* Only one `$min/` and `$max/` is allowed in the input
+  * e.g. `find properties $min/1000 $max/100000` is valid
+  * e.g. `find properties $min/10000 $min/1999999 $max/100000` is invalid
+  
 Examples:
 * `find properties Jurong` returns properties `jurong` and `Jurong East`
 * `find buyers Sally` returns buyers `sally` and `Sally Brown`
 * `find properties Jurong t/4rm t/near school` returns properties `jurong [4rm] [near school] [near mrt]` and `Jurong East [4rm] [near school] [near mrt]` but not `jurong [4rm] [near mrt]`
 * `find properties t/4rm t/near school` returns properties `jurong [4rm] [near school] [near mrt]` and `Clementi [4rm] [near school] [near mrt]`
 * `find buyers Sally t/4rm t/near school` returns buyers `Sally [4rm] [near school] [quiet]` and `sally brown [4rm] [near school]`
+* `find properties $min/10000 $max/1000000` returns properties that are at least $10000 and at most $1000000
 
 ------------------
 
@@ -229,6 +299,8 @@ Matches properties and buyers to one another.
 Format: `match ( auto | property INDEX | buyer INDEX )`
 
 #### One to many matching of property to buyers
+
+![Matching one to many](images/MatchOneToManyUi.png)
 
 Matches compatible buyers to a specified property, displayed in descending order of desirability.
 
@@ -272,6 +344,8 @@ Suppose there are 5 buyers currently displayed in the buyer list. `match buyer 2
 Suppose 3 properties, "Dee Gardens", "Olive Gardens", and "Pear Gardens" are all compatible with Sam. Dee Gardens has tags `5rm`, `far from school`, Olive Gardens has one tag `4rm`, and Pear Gardens has tags `4rm`, `near school`. Then Pear Gardens has the greatest number of tags in common and is the most desirable property match, whereas Dee Gardens has the least number of tags in common and is the least desirable property match.
 
 #### Intelligent matching of properties and buyers
+
+![Matching auto](images/MatchAutoUi.png)
 
 The `match auto` command instructs PropertyWhiz to automatically match buyers to properties.
 
@@ -360,22 +434,3 @@ You may copy and paste multiple lines of commands into the command box. Press th
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous PropertyWhiz home folder.
-
---------------------------------------------------------------------------------------------------------------------
-
-## Command summary
-
-Action | Format, Examples
---------|------------------
-**Add** | **Property** <br>`add property n/PROPERTY_NAME a/PROPERTY_ADDRESS s/SELLER_NAME p/SELLER_PHONE e/SELLER_EMAIL $/PRICE [t/TAG]…​` <br> e.g., `add property n/Blk 123 a/123, Clementi Rd, #04-20, 1234665 s/James Lee sp/61234567 $/100000 t/HDB t/3rm` <br><br> **Buyer** <br>`add buyer n/BUYER_NAME p/BUYER_PHONE e/BUYER_EMAIL $/BUDGET) [t/TAG]…` <br> e.g., `add buyer n/Sam p/91234567 e/sam@email.com $/740000 t/hdb t/3rm`
-**Clear** | `clear`
-**Delete** | `delete (property \| buyer) INDEX`<br> e.g., `delete property 3`
-**Edit** | **Property** <br>`edit property INDEX [n/PROPERTY_NAME] [a/PROPERTY_ADDRESS] [s/SELLER_NAME] [p/SELLER_PHONE] [e/SELLER_EMAIL] [$/PRICE] [([t/TAG]…​ \| [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]]​`<br> e.g.,`edit property 2 s/James Lee e/jameslee@example.com` <br><br> **Buyer** <br> `edit buyer INDEX [n/BUYER_NAME] [p/BUYER_PHONE] [e/BUYER_EMAIL] [$/BUDGET]) [([t/TAG]… \| [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]` <br> e.g.,`edit buyer 2 n/Victor Lee p/88887777`
-**Find** | `find (properties \| buyers) [KEYWORDS] [t/TAG_TO_MATCH]…`<br> e.g., `find Jurong t/4rm t/near school`
-**List** | `list`
-**Exit** | `exit`
-**Help** | `help`
-**Sort** | `sort (properties \| buyers) (price \| name) (asc \| desc)`
-**Match** | `match ( auto \| property INDEX \| buyer INDEX )`
-**Import** | `import (properties \| buyers)`
-**Export** | `export (properties \| buyers)`
