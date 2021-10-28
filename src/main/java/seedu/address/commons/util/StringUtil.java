@@ -94,6 +94,7 @@ public class StringUtil {
      * @return Processed string.
      */
     public static String compressWhitespace(String s) {
+        requireNonNull(s);
         return s.trim().replaceAll(" +", " ");
     }
 
@@ -104,6 +105,7 @@ public class StringUtil {
      * @return Processed string.
      */
     public static String startCaseSentence(String s) {
+        requireNonNull(s);
         List<String> list = Arrays.stream(s.split(" "))
                 .map(StringUtil::startCase)
                 .collect(Collectors.toList());
@@ -117,6 +119,7 @@ public class StringUtil {
      * @return Processed string.
      */
     public static String startCase(String s) {
+        requireNonNull(s);
         if (s.length() == 0) {
             return s;
         }
@@ -134,6 +137,7 @@ public class StringUtil {
      * @return Repeated string.
      */
     public static String repeat(int count, String with) {
+        requireNonNull(with);
         return new String(new char[count]).replace("\0", with);
     }
     //@@author
@@ -148,6 +152,7 @@ public class StringUtil {
      * @return Processed string.
      */
     public static String stripLeadingZeroes(String s) {
+        requireNonNull(s);
         return s.replaceFirst("^0+(?!$)", "");
     }
     //@@author
