@@ -75,7 +75,7 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
         requireAllNonNull(file, addressBook);
         List<Property> properties = CsvManager.importProperties(file);
         AddressBook newAddressBook = new AddressBook(addressBook);
-        newAddressBook.setAllProperties(properties);
+        newAddressBook.addAllProperties(properties);
         return newAddressBook;
     }
 
@@ -92,7 +92,7 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
         requireAllNonNull(file, addressBook);
         List<Buyer> buyers = CsvManager.importBuyers(file);
         AddressBook newAddressBook = new AddressBook(addressBook);
-        newAddressBook.setAllBuyers(buyers);
+        newAddressBook.addAllBuyers(buyers);
         return newAddressBook;
     }
 }

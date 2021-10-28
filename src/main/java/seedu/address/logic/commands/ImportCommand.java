@@ -22,6 +22,8 @@ public abstract class ImportCommand extends CommandWithFile {
     public static final String MESSAGE_FORMAT_FAILURE = "Import %s failed to recognize the file. "
             + "The csv file provided is incorrectly formatted.";
 
+    public static final String MESSAGE_DUPLICATE = "AddressBook after importing contains duplicates.";
+
     public static final String MESSAGE_SUCCESS = "Successfully imported %s.";
 
 }

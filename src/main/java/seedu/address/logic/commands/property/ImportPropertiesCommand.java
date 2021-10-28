@@ -8,6 +8,7 @@ import seedu.address.logic.commands.ImportCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
+import seedu.address.model.property.exceptions.DuplicatePropertyException;
 import seedu.address.storage.Storage;
 
 /**
@@ -26,6 +27,8 @@ public class ImportPropertiesCommand extends ImportCommand {
             return new CommandResult(String.format(MESSAGE_IO_FAILURE, PROPERTIES));
         } catch (ParseException pe) {
             return new CommandResult(String.format(MESSAGE_FORMAT_FAILURE, PROPERTIES) + "\n" + pe.getMessage());
+        } catch (DuplicatePropertyException dpe) {
+            return new CommandResult(String.format(MESSAGE_DUPLICATE));
         }
     }
 

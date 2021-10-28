@@ -44,6 +44,15 @@ public class UniquePropertyList extends UniqueList<Property> {
     }
 
     @Override
+    public void addAll(List<Property> toAdd) {
+        try {
+            super.addAll(toAdd);
+        } catch (DuplicateListableException e) {
+            throw new DuplicatePropertyException();
+        }
+    }
+
+    @Override
     public void remove(Property toRemove) {
         try {
             super.remove(toRemove);
