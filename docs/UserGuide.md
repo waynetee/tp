@@ -357,35 +357,43 @@ After running `match auto`, enter `back` into the command box to return to the p
 
 ### Importing data from csv file : `import`
 
-Imports buyers or properties from csv file.
+Imports buyers or properties from csv file. Imported items will be added to the front of the **currently displayed list**.
 
 Format: `import buyers` or `import properties`
 
 * You can select the import file location from a pop-up dialog box.
 
-TODO: Add example of valid csv
+See [below](#csvExample) for example csv files.
 
 ------------------
 
 ### Exporting data to csv file : `export`
 
-Exports buyers or properties from csv file.
+Exports buyers or properties in the **currently displayed list** to csv file.
 
 Format: `export buyers` or `export properties`
 
 * You can select the export file location from a pop-up dialog box.
 
-Example result of  `export property`
+Example csv output of  `export property`
+<a name="csvExample"> </a>
 ```
 "Name","Address","Seller Name","Phone","Email","Price","Tags"
-"Geylang St 29","Blk 30 Geylang Street 29, #06-40","Alex Yeoh","87438807","alexyeoh@example.com","654321","hdb,4-rm"
-"Dee Gardens","Blk 30 Lorong 3 Serangoon Gardens, #07-18","Beatrice Yu","99272758","berniceyu@example.com","654321","hdb,5-rm"
+"Geylang St 29","Blk 30 Geylang Street 29, #06-40","Alex Yeoh","87438807","alexyeoh@example.com","419999","flowers,garden"
+"Dee Gardens","Blk 30 Lorong 3 Serangoon Gardens, #07-18","Beatrice Yu","99272758","berniceyu@example.com","420000","quiet"
+"Olive Gardens","Blk 11 Ang Mo Kio Street 74, #11-04","Charlotte Oliveiro","93210283","charlotte@example.com","420001","cathedral"
+"Pear Gardens","Blk 436 Serangoon Gardens Street 26, #16-43","David Li","91031282","lidavid@example.com","420002","near cbd"
+"Tampa Bay","Blk 47 Tampines Street 20, #17-35","Irfan Ibrahim","92492021","irfan@example.com","420003","noisy,party"
 ```
 
-Example result of `export buyer`
+Example csv output of `export buyer`
 ```
 "Name","Phone","Email","Budget","Tags"
-"Alibaba","61234567","alibaba@baba.com","1999999","condo,landed"
+"Sally Focal","94420945","focal@gmail.com","419999","flowers,near school,garden"
+"Duke Mason","93320325","mason@example.com","420000","4rm"
+"Mate Automaton","94423513","auto@email.com","420001","near cdb"
+"Neet Bitterman","91234567","bit@bucket.com","420002","huge house,noisy,party"
+"Frail Duckie","93234267","fail@mega.com","420003","tiny,1rm"
 ```
 
 ------------------
