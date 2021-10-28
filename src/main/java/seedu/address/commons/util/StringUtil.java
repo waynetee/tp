@@ -117,11 +117,15 @@ public class StringUtil {
      * @return Processed string.
      */
     public static String startCase(String s) {
+        if (s.length() == 0) {
+            return s;
+        }
         return s.substring(0, 1).toUpperCase() + s.substring(1).toLowerCase();
     }
-    
+
     //@@author sunjc826-reused
     //Reused from https://stackoverflow.com/questions/2255500
+
     /**
      * Returns a given string repeated for the specified number of times.
      *
@@ -139,6 +143,7 @@ public class StringUtil {
 
     /**
      * Returns a string from by stripping the given string of leading zeroes.
+     *
      * @param s String to be processed.
      * @return Processed string.
      */
