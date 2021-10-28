@@ -19,9 +19,9 @@ public class NameTest {
     private static final String NAME_OF_LENGTH_51 = StringUtil.repeat(51, "A");
     private static final String NAME_OF_LENGTH_52 = StringUtil.repeat(52, "A");
 
-    public static final String UPPERCASE_NAME = "JOHN CONNOR";
-    public static final String MIXEDCASE_NAME = "JoHn coNNoR";
-    public static final String LOWERCASE_NAME = "john connor";
+    private static final String UPPERCASE_NAME = "JOHN CONNOR";
+    private static final String MIXEDCASE_NAME = "JoHn coNNoR";
+    private static final String LOWERCASE_NAME = "john connor";
 
     @Test
     public void constructor_null_throwsNullPointerException() {
