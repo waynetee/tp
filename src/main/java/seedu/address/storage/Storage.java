@@ -47,7 +47,7 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
      */
     static void exportProperties(ReadOnlyAddressBook addressBook, File file) throws IOException {
         requireAllNonNull(file, addressBook);
-        CsvManager.exportProperties(addressBook.getPropertyList(), file);
+        CsvManager.exportProperties(addressBook.getCurrPropertyList(), file);
     }
 
     /**
@@ -59,7 +59,7 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
      */
     static void exportBuyers(ReadOnlyAddressBook addressBook, File file) throws IOException {
         requireAllNonNull(file, addressBook);
-        CsvManager.exportBuyers(addressBook.getBuyerList(), file);
+        CsvManager.exportBuyers(addressBook.getCurrBuyerList(), file);
     }
 
     /**
