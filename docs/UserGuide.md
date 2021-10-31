@@ -51,10 +51,10 @@ PropertyWhiz (PropertyWhiz) is a **desktop app for managing properties and prope
 
 Action | Format, Examples
 --------|------------------
-**Add** | **Property** <br>`add property n/PROPERTY_NAME a/PROPERTY_ADDRESS s/SELLER_NAME p/SELLER_PHONE e/SELLER_EMAIL $/PRICE [t/TAG]… [--nvp]​` <br> e.g., `add property n/Blk 123 a/123, Clementi Rd, #04-20, 1234665 s/James Lee sp/61234567 $/100000 t/HDB t/3rm` <br><br> **Buyer** <br>`add buyer n/BUYER_NAME p/BUYER_PHONE e/BUYER_EMAIL $/BUDGET) [t/TAG]…` <br> e.g., `add buyer n/Sam p/91234567 e/sam@email.com $/740000 t/hdb t/3rm`
+**Add** | **Property** <br>`add property n/PROPERTY_NAME a/PROPERTY_ADDRESS s/SELLER_NAME p/SELLER_PHONE e/SELLER_EMAIL $/PRICE [t/TAG]… [--nvp]​` <br> e.g., `add property n/Blk 123 a/123, Clementi Rd, #04-20, 1234665 s/James Lee sp/61234567 $/100000 t/HDB t/3rm` <br><br> **Buyer** <br>`add buyer n/BUYER_NAME p/BUYER_PHONE e/BUYER_EMAIL $/BUDGET) [t/TAG]… [--nvp]` <br> e.g., `add buyer n/Sam p/91234567 e/sam@email.com $/740000 t/hdb t/3rm`
 **Clear** | `clear`
 **Delete** | `delete (property \| buyer) INDEX`<br> e.g., `delete property 3`
-**Edit** | **Property** <br>`edit property INDEX [n/PROPERTY_NAME] [a/PROPERTY_ADDRESS] [s/SELLER_NAME] [p/SELLER_PHONE] [e/SELLER_EMAIL] [$/PRICE] [([t/TAG]…​ \| [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]] [--nvp]​`<br> e.g.,`edit property 2 s/James Lee e/jameslee@example.com` <br><br> **Buyer** <br> `edit buyer INDEX [n/BUYER_NAME] [p/BUYER_PHONE] [e/BUYER_EMAIL] [$/BUDGET]) [([t/TAG]… \| [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]` <br> e.g.,`edit buyer 2 n/Victor Lee p/88887777`
+**Edit** | **Property** <br>`edit property INDEX [n/PROPERTY_NAME] [a/PROPERTY_ADDRESS] [s/SELLER_NAME] [p/SELLER_PHONE] [e/SELLER_EMAIL] [$/PRICE] [([t/TAG]…​ \| [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]] [--nvp]​`<br> e.g.,`edit property 2 s/James Lee e/jameslee@example.com` <br><br> **Buyer** <br> `edit buyer INDEX [n/BUYER_NAME] [p/BUYER_PHONE] [e/BUYER_EMAIL] [$/BUDGET]) [([t/TAG]… \| [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)] [--nvp]` <br> e.g.,`edit buyer 2 n/Victor Lee p/88887777`
 **Find** | `find (properties \| buyers) [KEYWORDS] [t/TAG_TO_MATCH]…`<br> e.g., `find Jurong t/4rm t/near school`
 **List** | `list`
 **Exit** | `exit`
@@ -146,8 +146,8 @@ Here are some fields that are shared amongst commands.
 
 #### Property/Buyer phones
 * Phones must be within 3 to 30 characters (both inclusive).
-* By default, phone numbers only contain numeric digits (i.e. 0 - 9). If there is a need to add phone numbers containing non-numeric characters, add ` --nvp` to the end of the command.
-* Regardless of whether the phone number contains non-numeric digits, the length of the phone number has to be between 3 and 30 characters (inclusive).
+* By default, phone numbers can only contain digits 0 - 9. If there is a need to add a phone number containing other characters (e.g. spaces, alphabets), add ` --nvp` to the end of the command.
+* Regardless of whether the phone number contains non-numeric characters, the length of the phone number has to be between 3 and 30 characters (inclusive).
 
 #### Tags
 * Tags are always optional.
