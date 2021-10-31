@@ -24,9 +24,9 @@ activate Model
 return addressBook
 deactivate Model
 
-ImportBuyersCommand -> Storage : importBuyers(addressBook, file)
+ImportBuyersCommand -> Storage : importBuyers(addressBook, file, hasPhoneFlag)
 activate Storage
-Storage -> CsvManager : importBuyers(file)
+Storage -> CsvManager : importBuyers(file, hasPhoneFlag)
 activate CsvManager
 
 Create CSVReaderHeaderAware
@@ -44,7 +44,7 @@ return values
 
 deactivate CSVReaderHeaderAware
 
-CsvManager -> CsvManager: buyers.add(getBuyer(values))
+CsvManager -> CsvManager: buyers.add(getBuyer(values, hasPhoneFlag))
 end
 
 deactivate CSVReaderHeaderAware

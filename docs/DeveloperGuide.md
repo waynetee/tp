@@ -325,7 +325,7 @@ The import feature imports from a csv file of buyers/properties chosen by the us
 Given below are the steps for importing buyers from a csv file:
 1. The user executes `import buyers`. The `import` command is parsed by `AddressBookParser#getCommandPreAction`, returning a `CommandPreAction` that indicates a file is required for `import`.
 2. `MainWindow#getCsvFile` creates a `FileChooserDialog`. The user selects a csv file to import from disk.
-3. `AddressBookParser#parseCommandWithFile` parses `import buyers` and creates a `ImportBuyersCommand`.
+3. `AddressBookParser#parseCommandWithFile` parses `import buyers` and creates a `ImportBuyersCommand`. Since the flag `--nvp` is not in the command, `hasPhoneFlag` is `false` in this case.
 
 Given below are the steps for executing `ImportBuyersCommand`:
 1. `LogicManager` calls `ImportBuyersCommand#execute` with the file selected by the user.
