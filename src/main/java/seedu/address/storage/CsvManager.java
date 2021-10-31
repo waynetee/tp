@@ -1,6 +1,7 @@
 package seedu.address.storage;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NO_VALIDATE_PHONE;
 
 import java.io.File;
 import java.io.FileReader;
@@ -98,7 +99,7 @@ public class CsvManager {
         writer.close();
     }
 
-    private static Property getProperty(Map<String, String> values) throws ParseException {
+    private static Property getProperty(Map<String, String> values, boolean hasPhoneValidateFlag) throws ParseException {
         for (String header : propertyHeaders) {
             if (!values.containsKey(header)) {
                 throw new ParseException(MESSAGE_MISSING_HEADER + header);
@@ -107,7 +108,7 @@ public class CsvManager {
         Name propertyName = ParserUtil.parseName(values.get(HEADER_NAME));
         Address address = ParserUtil.parseAddress(values.get(HEADER_ADDRESS));
         Name sellerName = ParserUtil.parseName(values.get(HEADER_SELLER));
-        Phone sellerPhone = ParserUtil.parsePhone(values.get(HEADER_PHONE));
+        Phone sellerPhone = ParserUtil.parsePhone(values.get(HEADER_PHONE), hasPhoneValidateFlag);
         Email sellerEmail = ParserUtil.parseEmail(values.get(HEADER_EMAIL));
         Person seller = new Person(sellerName, sellerPhone, sellerEmail);
         Price price = ParserUtil.parsePrice(values.get(HEADER_PRICE));
@@ -120,14 +121,14 @@ public class CsvManager {
         return property;
     }
 
-    private static Buyer getBuyer(Map<String, String> values) throws ParseException {
+    private static Buyer getBuyer(Map<String, String> values, boolean hasPhoneValidateFlag) throws ParseException {
         for (String header : buyerHeaders) {
             if (!values.containsKey(header)) {
                 throw new ParseException(MESSAGE_MISSING_HEADER + header);
             }
         }
         Name name = ParserUtil.parseName(values.get(HEADER_NAME));
-        Phone phone = ParserUtil.parsePhone(values.get(HEADER_PHONE));
+        Phone phone = ParserUtil.parsePhone(values.get(HEADER_PHONE), hasPhoneValidateFlag);
         Email email = ParserUtil.parseEmail(values.get(HEADER_EMAIL));
         Price maxPrice = ParserUtil.parsePrice(values.get(HEADER_BUDGET));
         Set<Tag> tagList = new HashSet<Tag>();
@@ -146,7 +147,8 @@ public class CsvManager {
      * @throws IOException if there was any problem writing to the file.
      * @throws ParseException if the csv file content cannot be recognized.
      */
-    public static List<Property> importProperties(File file) throws IOException, ParseException {
+    public static List<Property> importProperties(File file, boolean hasPhoneValidateFlag)
+            throws IOException, ParseException {
         requireAllNonNull(file);
         CSVReaderHeaderAware reader;
         try {
@@ -158,7 +160,7 @@ public class CsvManager {
         List<Property> properties = new ArrayList<>();
         try {
             while ((values = reader.readMap()) != null) {
-                properties.add(getProperty(values));
+                properties.add(getProperty(values, hasPhoneValidateFlag));
             }
         } catch (CsvValidationException e) {
             throw new ParseException(MESSAGE_INVALID_CSV_FORMAT);
@@ -178,7 +180,7 @@ public class CsvManager {
      * @throws IOException if there was any problem writing to the file.
      * @throws ParseException if the csv file content cannot be recognized.
      */
-    public static List<Buyer> importBuyers(File file) throws IOException, ParseException {
+    public static List<Buyer> importBuyers(File file, boolean hasPhoneValidateFlag) throws IOException, ParseException {
         requireAllNonNull(file);
         CSVReaderHeaderAware reader;
         try {
@@ -190,7 +192,7 @@ public class CsvManager {
         List<Buyer> buyers = new ArrayList<>();
         try {
             while ((values = reader.readMap()) != null) {
-                buyers.add(getBuyer(values));
+                buyers.add(getBuyer(values, hasPhoneValidateFlag));
             }
         } catch (CsvValidationException e) {
             throw new ParseException(MESSAGE_INVALID_CSV_FORMAT);

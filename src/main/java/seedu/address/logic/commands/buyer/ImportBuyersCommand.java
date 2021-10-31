@@ -15,13 +15,18 @@ import seedu.address.storage.Storage;
  * Imports buyers from csv file.
  */
 public class ImportBuyersCommand extends ImportCommand {
+
+    public ImportBuyersCommand(boolean hasValidatePhoneFlag) {
+        super(hasValidatePhoneFlag);
+    }
+
     @Override
     public CommandResult execute(Model model, File file) throws CommandException {
         if (file == null) {
             return new CommandResult(String.format(MESSAGE_CANCELLED, BUYERS));
         }
         try {
-            model.setAddressBook(Storage.importBuyers(model.getAddressBook(), file));
+            model.setAddressBook(Storage.importBuyers(model.getAddressBook(), file, getHasValidatePhoneFlag()));
             return new CommandResult(String.format(MESSAGE_SUCCESS, BUYERS));
         } catch (IOException ioe) {
             return new CommandResult(String.format(MESSAGE_IO_FAILURE, BUYERS));

@@ -17,4 +17,5 @@ public class CliSyntax {
     public static final Prefix PREFIX_DELETE_TAG = new Prefix("td/");
     public static final Prefix PREFIX_MIN_PRICE = new Prefix("$min/");
     public static final Prefix PREFIX_MAX_PRICE = new Prefix("$max/");
+    public static final Prefix PREFIX_NO_VALIDATE_PHONE = new Prefix("--nvp");
 }

@@ -29,6 +29,9 @@ public class ParserUtilTest {
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_SELLER = "Br@yn";
+    private static final String INVALID_PHONE = "911S";
+    private static final String INVALID_PHONE_TOO_SHORT = "1";
+    private static final String INVALID_PHONE_TOO_LONG = "1111111111111111111111111111111";
     private static final String INVALID_PRICE = "100k";
     private static final String INVALID_TAG = "#friend";
     private static final String INVALID_ACTOR = "book";
@@ -37,6 +40,7 @@ public class ParserUtilTest {
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
+    private static final String VALID_PHONE_LONG = "111111111111111111111111111111";
     private static final String VALID_ADDRESS = "123 Main Street #0505";
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_SELLER = "Bryan Walker";
@@ -105,10 +109,48 @@ public class ParserUtilTest {
     }
 
     @Test
+    public void parsePhone_validValueLongPhone_returnsPhone() throws Exception {
+        Phone expectedPhone = new Phone(VALID_PHONE_LONG);
+        assertEquals(expectedPhone, ParserUtil.parsePhone(VALID_PHONE_LONG));
+    }
+
+    @Test
     public void parsePhone_validValueWithWhitespace_returnsTrimmedPhone() throws Exception {
         String phoneWithWhitespace = WHITESPACE + VALID_PHONE + WHITESPACE;
         Phone expectedPhone = new Phone(VALID_PHONE);
         assertEquals(expectedPhone, ParserUtil.parsePhone(phoneWithWhitespace));
+    }
+
+    @Test
+    public void parsePhone_invalidValueTooShort_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parsePhone(INVALID_PHONE_TOO_SHORT, true));
+    }
+
+    @Test
+    public void parsePhone_invalidValueTooLong_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parsePhone(INVALID_PHONE_TOO_LONG, true));
+    }
+
+    @Test
+    public void parsePhone_invalidValueWithoutFlag_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parsePhone(INVALID_PHONE, false));
+    }
+
+    @Test
+    public void parsePhone_invalidValueWithFlag_returnsPhone() throws Exception {
+        Phone expectedPhone = new Phone(INVALID_PHONE);
+        assertEquals(expectedPhone, ParserUtil.parsePhone(INVALID_PHONE, true));
+    }
+
+    @Test
+    public void parsePhone_invalidValueWithNullFlag_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parsePhone(INVALID_PHONE, null));
+    }
+
+    @Test
+    public void parsePhone_invalidValueWithNonNullFlag_returnsPhone() throws ParseException {
+        Phone expectedPhone = new Phone(INVALID_PHONE);
+        assertEquals(expectedPhone, ParserUtil.parsePhone(INVALID_PHONE, ""));
     }
 
     @Test

@@ -139,6 +139,42 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String phone} into a {@code Phone}. If {@code hasFlag} is {@code false},
+     * phone number will be validated.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static Phone parsePhone(String phone, boolean hasFlag) throws ParseException  {
+        requireNonNull(phone);
+        String trimmedPhone = phone.trim();
+        if (!Phone.isValidPhoneLength(trimmedPhone)) {
+            System.out.println("hi");
+            throw new ParseException(Phone.MESSAGE_LENGTH_CONSTRAINTS);
+        }
+
+        if (!hasFlag && !Phone.isValidPhone(trimmedPhone)) {
+            System.out.println("bye");
+            throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
+        }
+
+        return new Phone(trimmedPhone);
+    }
+
+    /**
+     * Parses a {@code String phone} into a {@code Phone}. If {@code flag} is null, phone number will be validated,
+     * else, phone will not be validated.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static Phone parsePhone(String phone, String flag) throws ParseException {
+        requireNonNull(phone);
+        boolean hasFlag = parseNoValidatePhoneFlag(flag);
+        return parsePhone(phone, hasFlag);
+    }
+
+    public static boolean parseNoValidatePhoneFlag(String flag) {
+        return flag != null;
+    }
+
+    /**
      * Parses a {@code String address} into an {@code Address}.
      * Leading and trailing whitespaces will be trimmed.
      *

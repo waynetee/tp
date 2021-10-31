@@ -71,9 +71,10 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
      * @throws IOException if there was any problem reading from the file.
      * @throws ParseException if the csv file content cannot be recognized.
      */
-    static AddressBook importProperties(ReadOnlyAddressBook addressBook, File file) throws IOException, ParseException {
+    static AddressBook importProperties(ReadOnlyAddressBook addressBook, File file, boolean hasPhoneValidateFlag)
+            throws IOException, ParseException {
         requireAllNonNull(file, addressBook);
-        List<Property> properties = CsvManager.importProperties(file);
+        List<Property> properties = CsvManager.importProperties(file, hasPhoneValidateFlag);
         AddressBook newAddressBook = new AddressBook(addressBook);
         newAddressBook.addAllProperties(properties);
         return newAddressBook;
@@ -88,9 +89,10 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
      * @throws IOException if there was any problem reading from the file.
      * @throws ParseException if the csv file content cannot be recognized.
      */
-    static AddressBook importBuyers(ReadOnlyAddressBook addressBook, File file) throws IOException, ParseException {
+    static AddressBook importBuyers(ReadOnlyAddressBook addressBook, File file, boolean hasPhoneValidateFlag)
+            throws IOException, ParseException {
         requireAllNonNull(file, addressBook);
-        List<Buyer> buyers = CsvManager.importBuyers(file);
+        List<Buyer> buyers = CsvManager.importBuyers(file, hasPhoneValidateFlag);
         AddressBook newAddressBook = new AddressBook(addressBook);
         newAddressBook.addAllBuyers(buyers);
         return newAddressBook;

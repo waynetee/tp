@@ -2,15 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_TAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE_TAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SELLER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.*;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_ACTOR;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_PREAMBLE;
 
@@ -44,7 +36,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE,
                 PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG, PREFIX_SELLER, PREFIX_PRICE, PREFIX_ADD_TAG,
-                PREFIX_DELETE_TAG);
+                PREFIX_DELETE_TAG, PREFIX_NO_VALIDATE_PHONE);
 
         Actor actor;
         Index index;
@@ -82,7 +74,8 @@ public class EditCommandParser implements Parser<EditCommand> {
             editPropertyDescriptor.setPropertyName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
         if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
-            editPropertyDescriptor.setSellerPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get()));
+            editPropertyDescriptor.setSellerPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get(),
+                    argMultimap.getValue(PREFIX_NO_VALIDATE_PHONE).orElse(null)));
         }
         if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
             editPropertyDescriptor.setSellerEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));
@@ -124,7 +117,8 @@ public class EditCommandParser implements Parser<EditCommand> {
             editBuyerDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
         if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
-            editBuyerDescriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get()));
+            editBuyerDescriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get(),
+                    argMultimap.getValue(PREFIX_NO_VALIDATE_PHONE).orElse(null)));
         }
         if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
             editBuyerDescriptor.setEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));

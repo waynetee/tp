@@ -4,6 +4,16 @@ package seedu.address.logic.commands;
  * Imports entity (property or buyer) from csv file to address book.
  */
 public abstract class ImportCommand extends CommandWithFile {
+    private final boolean hasValidatePhoneFlag;
+
+    public ImportCommand(boolean hasValidatePhoneFlag) {
+        this.hasValidatePhoneFlag = hasValidatePhoneFlag;
+    }
+
+    public boolean getHasValidatePhoneFlag() {
+        return hasValidatePhoneFlag;
+    }
+
     public static final String COMMAND_WORD = "import";
 
     public static final String PROPERTIES = "properties";

@@ -8,6 +8,18 @@ import static java.util.Objects.requireNonNull;
  */
 public class Phone {
     public final String value;
+    public static final Integer MIN_LENGTH = 3;
+    public static final Integer MAX_LENGTH = 30;
+    public static final String VALIDATION_DIGIT_REGEX = "\\d{" + MIN_LENGTH + "," + MAX_LENGTH + "}";
+    public static final String VALIDATION_LENGTH_REGEX = ".{" + MIN_LENGTH + "," + MAX_LENGTH + "}";
+    public static final String MESSAGE_LENGTH_CONSTRAINTS =
+            "The minimum and maximum length of a phone number is "
+                    + MIN_LENGTH + " and " + MAX_LENGTH + " respectively.";
+    public static final String MESSAGE_CONSTRAINTS =
+            "Phone number should only contain numbers, and it should be at least " + MIN_LENGTH
+                    + " digits and at most " + MAX_LENGTH + " digits long. \n"
+                    + "If you are sure that you want to add this phone number, "
+                    + "add \" --nvp\" to the end of the command to proceed.";
 
     /**
      * Constructs a {@code Phone}.
@@ -17,6 +29,14 @@ public class Phone {
     public Phone(String phone) {
         requireNonNull(phone);
         value = phone;
+    }
+
+    public static boolean isValidPhoneLength(String test) {
+        return test.matches(VALIDATION_LENGTH_REGEX);
+    }
+
+    public static boolean isValidPhone(String test) {
+        return test.matches(VALIDATION_DIGIT_REGEX);
     }
 
     @Override
