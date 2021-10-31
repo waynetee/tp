@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_BUYERS_LISTED_OVERVIEW;
+import static seedu.address.commons.core.Messages.MESSAGE_BUYER_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalBuyers.B_ALICE;
@@ -91,8 +92,8 @@ public class FindBuyerCommandTest {
     }
 
     @Test
-    public void execute_tags_multipleBuyersFound() {
-        String expectedMessage = String.format(MESSAGE_BUYERS_LISTED_OVERVIEW, 1);
+    public void execute_tags_oneBuyerFound() {
+        String expectedMessage = MESSAGE_BUYER_LISTED_OVERVIEW;
         NameContainsKeywordsPredicate<Buyer> namePredicate = new NameContainsKeywordsPredicate<>();
         ContainsPricePredicate<Buyer> pricePredicate = new ContainsPricePredicate<>();
         Set<Tag> tags = new HashSet<>();
@@ -119,7 +120,7 @@ public class FindBuyerCommandTest {
 
     @Test
     public void execute_minPrice_oneBuyerFound() {
-        String expectedMessage = String.format(MESSAGE_BUYERS_LISTED_OVERVIEW, 1);
+        String expectedMessage = MESSAGE_BUYER_LISTED_OVERVIEW;
         NameContainsKeywordsPredicate<Buyer> namePredicate = new NameContainsKeywordsPredicate<>();
         Price minPrice = new Price(LUDICROUS_PRICE);
         ContainsPricePredicate<Buyer> pricePredicate = new ContainsPricePredicate<>(minPrice, null);
@@ -145,7 +146,7 @@ public class FindBuyerCommandTest {
 
     @Test
     public void execute_maxPrice_oneBuyerFound() {
-        String expectedMessage = String.format(MESSAGE_BUYERS_LISTED_OVERVIEW, 1);
+        String expectedMessage = MESSAGE_BUYER_LISTED_OVERVIEW;
         NameContainsKeywordsPredicate<Buyer> namePredicate = new NameContainsKeywordsPredicate<>();
         Price maxPrice = new Price(MICROSCOPIC_PRICE);
         ContainsPricePredicate<Buyer> pricePredicate = new ContainsPricePredicate<>(null, maxPrice);

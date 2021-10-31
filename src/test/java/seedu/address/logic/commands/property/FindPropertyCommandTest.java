@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_PROPERTIES_LISTED_OVERVIEW;
+import static seedu.address.commons.core.Messages.MESSAGE_PROPERTY_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalPrices.LUDICROUS_PRICE;
@@ -120,7 +121,7 @@ public class FindPropertyCommandTest {
 
     @Test
     public void execute_minPrice_onePropertyFound() {
-        String expectedMessage = String.format(MESSAGE_PROPERTIES_LISTED_OVERVIEW, 1);
+        String expectedMessage = MESSAGE_PROPERTY_LISTED_OVERVIEW;
         NameContainsKeywordsPredicate<Property> namePredicate = new NameContainsKeywordsPredicate<>();
         Price minPrice = new Price(LUDICROUS_PRICE);
         ContainsPricePredicate<Property> pricePredicate = new ContainsPricePredicate<>(minPrice, null);
@@ -146,7 +147,7 @@ public class FindPropertyCommandTest {
 
     @Test
     public void execute_maxPrice_onePropertyFound() {
-        String expectedMessage = String.format(MESSAGE_PROPERTIES_LISTED_OVERVIEW, 1);
+        String expectedMessage = MESSAGE_PROPERTY_LISTED_OVERVIEW;
         NameContainsKeywordsPredicate<Property> namePredicate = new NameContainsKeywordsPredicate<>();
         Price maxPrice = new Price(MICROSCOPIC_PRICE);
         ContainsPricePredicate<Property> pricePredicate = new ContainsPricePredicate<>(null, maxPrice);
