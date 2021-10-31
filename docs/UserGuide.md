@@ -168,7 +168,7 @@ Format: `help`
 Adds a property/buyer to PropertyWhiz.
 
 * All other fields are compulsory other than tags.
-* To add phone number containing non-numeric digits, add `--nvp` at the end of the command.
+* To add phone number containing non-numeric characters, add `--nvp` at the end of the command.
 
 See [valid inputs](#valid-fields) for details on constraints on what you can enter.
 
@@ -199,7 +199,7 @@ Format: `list`
 Edits the property/buyer at the specified `INDEX`. The index refers to the index number shown in the displayed property/buyer list. The index **must be a positive integer** 1, 2, 3, …
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* To edit phone number to contain non-numeric digits, add `--nvp` at the end of the command.
+* To edit phone number to contain non-numeric characters, add `--nvp` at the end of the command.
 * When editing tags, the existing tags of the property will be removed i.e adding of tags is not cumulative.
 * Like `add`, tags added via `edit` will be automatically converted to lower case.
 * You can remove all the property/buyer’s tags by typing `t/` without specifying any tags after it.
@@ -372,7 +372,7 @@ Imports buyers or properties from csv file. Imported items will be added to the 
 Format: `import buyers [--nvp]` or `import properties [--nvp]`
 
 * You can select the import file location from a pop-up dialog box.
-* Add `--nvp` to add phone numbers containing non-numeric digits. Note that it is not possible to input phone numbers shorter than 3 characters or longer than 30 characters as mentioned [here](#propertybuyer-phones). 
+* Add `--nvp` to add phone numbers containing non-numeric characters. Note that it is not possible to input phone numbers shorter than 3 characters or longer than 30 characters as mentioned [here](#propertybuyer-phones). 
 
 See [below](#csvExample) for example csv files.
 
