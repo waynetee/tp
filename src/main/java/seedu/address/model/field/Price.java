@@ -35,7 +35,7 @@ public class Price implements ComparerMixin<Price> {
 
     @Override
     public String toString() {
-        return value.toString();
+        return "$" + value.toString();
     }
 
     @Override
