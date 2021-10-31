@@ -7,7 +7,6 @@ import static java.util.Objects.requireNonNull;
  * Guarantees: immutable; Is always valid.
  */
 public class Phone {
-    public final String value;
     public static final Integer MIN_LENGTH = 3;
     public static final Integer MAX_LENGTH = 30;
     public static final String VALIDATION_DIGIT_REGEX = "\\d{" + MIN_LENGTH + "," + MAX_LENGTH + "}";
@@ -21,6 +20,8 @@ public class Phone {
                     + "If you are sure that you want to add this phone number, "
                     + "add \" --nvp\" to the end of the command to proceed.";
 
+    public final String value;
+
     /**
      * Constructs a {@code Phone}.
      *
@@ -31,10 +32,16 @@ public class Phone {
         value = phone;
     }
 
+    /**
+     * Returns true if a given string is within the min and max length of 3 and 30 respectively.
+     */
     public static boolean isValidPhoneLength(String test) {
         return test.matches(VALIDATION_LENGTH_REGEX);
     }
 
+    /**
+     * Returns true if a given string only contain digits 0 - 9.
+     */
     public static boolean isValidPhone(String test) {
         return test.matches(VALIDATION_DIGIT_REGEX);
     }

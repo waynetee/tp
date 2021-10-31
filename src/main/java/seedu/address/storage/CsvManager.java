@@ -1,7 +1,6 @@
 package seedu.address.storage;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NO_VALIDATE_PHONE;
 
 import java.io.File;
 import java.io.FileReader;
@@ -99,7 +98,8 @@ public class CsvManager {
         writer.close();
     }
 
-    private static Property getProperty(Map<String, String> values, boolean hasPhoneValidateFlag) throws ParseException {
+    private static Property getProperty(Map<String, String> values, boolean hasPhoneValidateFlag)
+            throws ParseException {
         for (String header : propertyHeaders) {
             if (!values.containsKey(header)) {
                 throw new ParseException(MESSAGE_MISSING_HEADER + header);
@@ -144,6 +144,8 @@ public class CsvManager {
      * Imports properties in the given csv file to the {@link ReadOnlyAddressBook}.
      *
      * @param file cannot be null.
+     * @param hasPhoneValidateFlag {@code true} if no validate phone flag exists in the user input,
+     *                             {@code false} otherwise.
      * @throws IOException if there was any problem writing to the file.
      * @throws ParseException if the csv file content cannot be recognized.
      */
@@ -177,6 +179,8 @@ public class CsvManager {
      * Imports buyers in the given csv file to the {@link ReadOnlyAddressBook}.
      *
      * @param file cannot be null.
+     * @param hasPhoneValidateFlag {@code true} if no validate phone flag exists in the user input,
+     *                             {@code false} otherwise.
      * @throws IOException if there was any problem writing to the file.
      * @throws ParseException if the csv file content cannot be recognized.
      */

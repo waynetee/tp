@@ -46,24 +46,20 @@ import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_PREAMBLE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD;
-import static seedu.address.testutil.TypicalProperties.P_AMY;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.buyer.EditBuyerCommand;
-import seedu.address.logic.commands.property.AddPropertyCommand;
 import seedu.address.logic.commands.property.EditPropertyCommand;
 import seedu.address.model.field.Email;
 import seedu.address.model.field.Name;
 import seedu.address.model.field.Phone;
 import seedu.address.model.field.Price;
 import seedu.address.model.property.Address;
-import seedu.address.model.property.Property;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.EditPropertyDescriptorBuilder;
-import seedu.address.testutil.PropertyBuilder;
 
 public class EditCommandParserTest {
 

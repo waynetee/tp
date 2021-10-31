@@ -143,16 +143,14 @@ public class ParserUtil {
      * phone number will be validated.
      * Leading and trailing whitespaces will be trimmed.
      */
-    public static Phone parsePhone(String phone, boolean hasFlag) throws ParseException  {
+    public static Phone parsePhone(String phone, boolean hasFlag) throws ParseException {
         requireNonNull(phone);
         String trimmedPhone = phone.trim();
         if (!Phone.isValidPhoneLength(trimmedPhone)) {
-            System.out.println("hi");
             throw new ParseException(Phone.MESSAGE_LENGTH_CONSTRAINTS);
         }
 
         if (!hasFlag && !Phone.isValidPhone(trimmedPhone)) {
-            System.out.println("bye");
             throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
         }
 
@@ -170,6 +168,9 @@ public class ParserUtil {
         return parsePhone(phone, hasFlag);
     }
 
+    /**
+     * Returns {@code true} if the flag is not {@code null}.
+     */
     public static boolean parseNoValidatePhoneFlag(String flag) {
         return flag != null;
     }
