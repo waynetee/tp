@@ -32,6 +32,7 @@ public class MatchListCard extends UiPart<Region> {
      */
 
     public final Match match;
+    private ObservableDoubleValue maxWidth;
 
     @FXML
     private Label id;
@@ -61,8 +62,6 @@ public class MatchListCard extends UiPart<Region> {
     private Label buyerEmail;
     @FXML
     private FlowPane buyerTags;
-
-    private ObservableDoubleValue maxWidth;
 
     /**
      * Creates a {@code MatchListCard} with the given {@code Match} and index to display.
