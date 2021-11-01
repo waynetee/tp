@@ -37,7 +37,7 @@ public class MatchListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                MatchCard card = new MatchCard(match, getIndex() + 1, matchListView.widthProperty());
+                MatchListCard card = new MatchListCard(match, getIndex() + 1, matchListView.widthProperty());
                 setGraphic(card.getRoot());
             }
         }

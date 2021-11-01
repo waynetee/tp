@@ -18,7 +18,7 @@ import seedu.address.model.tag.Tag;
 /**
  * An UI component that displays information of a {@code Match}.
  */
-public class MatchCard extends UiPart<Region> {
+public class MatchListCard extends UiPart<Region> {
 
     private static final String FXML = "MatchListCard.fxml";
     private static final int WIDTH_PADDING = 20; // Horizontal padding around each half
@@ -65,13 +65,13 @@ public class MatchCard extends UiPart<Region> {
     private ObservableDoubleValue maxWidth;
 
     /**
-     * Creates a {@code MatchCard} with the given {@code Match} and index to display.
+     * Creates a {@code MatchListCard} with the given {@code Match} and index to display.
      *
      * @param match The match to display.
      * @param displayedIndex The index of the card.
      * @param parentWidthProperty The width of the parent container.
      */
-    public MatchCard(Match match, int displayedIndex, ReadOnlyDoubleProperty parentWidthProperty) {
+    public MatchListCard(Match match, int displayedIndex, ReadOnlyDoubleProperty parentWidthProperty) {
         super(FXML);
         this.match = match;
         id.setText(displayedIndex + ". ");
@@ -130,12 +130,12 @@ public class MatchCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof MatchCard)) {
+        if (!(other instanceof MatchListCard)) {
             return false;
         }
 
         // state check
-        MatchCard card = (MatchCard) other;
+        MatchListCard card = (MatchListCard) other;
         return id.getText().equals(card.id.getText())
                 && match.equals(card.match);
     }
