@@ -59,7 +59,7 @@ public class EditCommandParser implements Parser<EditCommand> {
             index = ParserUtil.parseIndex(preamble, INDEX_POSITIONAL_INDEX);
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_PREAMBLE,
-                    pe.getLocalizedMessage(), preamble, EditCommand.EXPECTED_PREAMBLE));
+                    pe.getLocalizedMessage(), EditCommand.EXPECTED_PREAMBLE, preamble));
         }
 
         switch (actor) {

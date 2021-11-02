@@ -15,7 +15,6 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.buyer.AddBuyerCommand;
 import seedu.address.logic.commands.property.AddPropertyCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -57,7 +56,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             actor = ParserUtil.parseActor(preamble, ACTOR_POSITIONAL_INDEX);
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_PREAMBLE,
-                    pe.getLocalizedMessage(), preamble, EditCommand.EXPECTED_PREAMBLE));
+                    pe.getLocalizedMessage(), AddCommand.EXPECTED_PREAMBLE, preamble));
         }
 
         switch (actor) {

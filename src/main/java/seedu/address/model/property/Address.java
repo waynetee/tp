@@ -10,16 +10,16 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Address {
 
     public static final Integer MAX_LENGTH = 100;
-    public static final String MESSAGE_CONSTRAINTS =
-            "Addresses should only contain alphanumeric characters, hashes (#), hyphens, and spaces, and it should not be blank.\n"
-                    + "Addresses should also be at most " + MAX_LENGTH + " characters long.";
+    public static final String MESSAGE_CONSTRAINTS = "Addresses should only contain alphanumeric characters, "
+            + "hashes (#), hyphens, and spaces, and it should not be blank.\n"
+            + "Addresses should also be at most " + MAX_LENGTH + " characters long.";
 
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      * The other characters include hyphens, hashes and spaces.
      */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum}\\-# ]{0," + (MAX_LENGTH - 1) + "}";
+    public static final String VALIDATION_REGEX = "[\\p{Alnum}\\-][\\p{Alnum}\\-#,; ]{0," + (MAX_LENGTH - 1) + "}";
 
     public final String value;
 

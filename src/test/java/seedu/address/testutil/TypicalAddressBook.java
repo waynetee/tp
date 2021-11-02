@@ -12,6 +12,7 @@ public class TypicalAddressBook {
     public static AddressBook getTypicalAddressBook() {
         AddressBook ab = new AddressBook();
         for (Property property : TypicalProperties.getTypicalProperties()) {
+            System.out.println(property);
             ab.addProperty(property);
         }
 
