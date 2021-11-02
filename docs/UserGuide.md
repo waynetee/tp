@@ -51,11 +51,11 @@ PropertyWhiz (PropertyWhiz) is a **desktop app for managing properties and prope
 
 Action | Format, Examples
 --------|------------------
-**Add** | **Property** <br>`add property n/PROPERTY_NAME a/PROPERTY_ADDRESS s/SELLER_NAME p/SELLER_PHONE e/SELLER_EMAIL $/PRICE [t/TAG]…​` <br> e.g., `add property n/Blk 123 a/123, Clementi Rd, #04-20, 1234665 s/James Lee sp/61234567 $/100000 t/HDB t/3rm` <br><br> **Buyer** <br>`add buyer n/BUYER_NAME p/BUYER_PHONE e/BUYER_EMAIL $/BUDGET) [t/TAG]…` <br> e.g., `add buyer n/Sam p/91234567 e/sam@email.com $/740000 t/hdb t/3rm`
+**Add** | **Property** <br>`add property n/PROPERTY_NAME a/PROPERTY_ADDRESS s/SELLER_NAME p/SELLER_PHONE e/SELLER_EMAIL $/PRICE [t/TAG]…​` <br><br> **Buyer** <br>`add buyer n/BUYER_NAME p/BUYER_PHONE e/BUYER_EMAIL $/BUDGET) [t/TAG]…`
 **Clear** | `clear`
-**Delete** | `delete (property \| buyer) INDEX`<br> e.g., `delete property 3`
-**Edit** | **Property** <br>`edit property INDEX [n/PROPERTY_NAME] [a/PROPERTY_ADDRESS] [s/SELLER_NAME] [p/SELLER_PHONE] [e/SELLER_EMAIL] [$/PRICE] [([t/TAG]…​ \| [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]]​`<br> e.g.,`edit property 2 s/James Lee e/jameslee@example.com` <br><br> **Buyer** <br> `edit buyer INDEX [n/BUYER_NAME] [p/BUYER_PHONE] [e/BUYER_EMAIL] [$/BUDGET]) [([t/TAG]… \| [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]` <br> e.g.,`edit buyer 2 n/Victor Lee p/88887777`
-**Find** | `find (properties \| buyers) [KEYWORDS] [t/TAG_TO_MATCH]…`<br> e.g., `find Jurong t/4rm t/near school`
+**Delete** | `delete (property \| buyer) INDEX`
+**Edit** | **Property** <br>`edit property INDEX [n/PROPERTY_NAME] [a/PROPERTY_ADDRESS] [s/SELLER_NAME] [p/SELLER_PHONE] [e/SELLER_EMAIL] [$/PRICE] [([t/TAG]…​ \| [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]]​`<br><br> **Buyer** <br> `edit buyer INDEX [n/BUYER_NAME] [p/BUYER_PHONE] [e/BUYER_EMAIL] [$/BUDGET]) [([t/TAG]… \| [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]`
+**Find** | `find (properties \| buyers) [KEYWORDS] [t/TAG_TO_MATCH]…`
 **List** | `list`
 **Exit** | `exit`
 **Help** | `help`
@@ -362,6 +362,11 @@ Imports buyers or properties from csv file. Imported items will be added to the 
 Format: `import buyers` or `import properties`
 
 * You can select the import file location from a pop-up dialog box.
+* The buyer or property list imported must be [valid](#valid-fields). Some criteria are as follows:
+  * No duplicates
+  * Valid fields e.g. name, email etc.
+  * No missing fields
+* The csv must begin with a header which includes the names of each column.
 
 See [below](#csvExample) for example csv files.
 
