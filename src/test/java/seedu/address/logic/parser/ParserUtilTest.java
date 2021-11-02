@@ -29,9 +29,8 @@ public class ParserUtilTest {
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_SELLER = "Br@yn";
-    private static final String INVALID_PHONE = "911S";
+    private static final String INVALID_PHONE = "911#";
     private static final String INVALID_PHONE_TOO_SHORT = "1";
-    private static final String INVALID_PHONE_TOO_LONG = "1111111111111111111111111111111";
     private static final String INVALID_PRICE = "100k";
     private static final String INVALID_TAG = "#friend";
     private static final String INVALID_ACTOR = "book";
@@ -52,7 +51,6 @@ public class ParserUtilTest {
     private static final String VALID_SORT_DIR = "asc";
 
     private static final String WHITESPACE = " \t\r\n";
-    private static final String SORT_COMMAND_HELP_MESSAGE = "";
 
     @Test
     public void parseIndex_invalidInput_throwsParseException() {
@@ -123,34 +121,12 @@ public class ParserUtilTest {
 
     @Test
     public void parsePhone_invalidValueTooShort_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parsePhone(INVALID_PHONE_TOO_SHORT, true));
+        assertThrows(ParseException.class, () -> ParserUtil.parsePhone(INVALID_PHONE_TOO_SHORT));
     }
 
     @Test
-    public void parsePhone_invalidValueTooLong_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parsePhone(INVALID_PHONE_TOO_LONG, true));
-    }
-
-    @Test
-    public void parsePhone_invalidValueWithoutFlag_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parsePhone(INVALID_PHONE, false));
-    }
-
-    @Test
-    public void parsePhone_invalidValueWithFlag_returnsPhone() throws Exception {
-        Phone expectedPhone = new Phone(INVALID_PHONE);
-        assertEquals(expectedPhone, ParserUtil.parsePhone(INVALID_PHONE, true));
-    }
-
-    @Test
-    public void parsePhone_invalidValueWithNullFlag_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parsePhone(INVALID_PHONE, null));
-    }
-
-    @Test
-    public void parsePhone_invalidValueWithNonNullFlag_returnsPhone() throws ParseException {
-        Phone expectedPhone = new Phone(INVALID_PHONE);
-        assertEquals(expectedPhone, ParserUtil.parsePhone(INVALID_PHONE, ""));
+    public void parsePhone_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parsePhone(INVALID_PHONE));
     }
 
     @Test

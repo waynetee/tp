@@ -31,7 +31,7 @@ public class ImportCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsImportCommand() {
-        assertParseSuccess(parser, ImportCommand.PROPERTIES, new ImportPropertiesCommand(false));
-        assertParseSuccess(parser, ImportCommand.BUYERS, new ImportBuyersCommand(false));
+        assertParseSuccess(parser, ImportCommand.PROPERTIES, new ImportPropertiesCommand());
+        assertParseSuccess(parser, ImportCommand.BUYERS, new ImportBuyersCommand());
     }
 }

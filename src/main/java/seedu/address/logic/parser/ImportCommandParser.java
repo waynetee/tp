@@ -1,7 +1,6 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NO_VALIDATE_PHONE;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_ACTOR;
 
 import seedu.address.logic.commands.ImportCommand;
@@ -24,7 +23,7 @@ public class ImportCommandParser implements Parser<ImportCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public ImportCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NO_VALIDATE_PHONE);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args);
         Actor actor;
 
         try {

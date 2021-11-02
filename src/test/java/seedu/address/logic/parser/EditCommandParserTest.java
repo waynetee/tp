@@ -9,7 +9,6 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC_TOO_LONG;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC_TOO_SHORT;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PRICE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_SELLER_DESC;
@@ -17,7 +16,6 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_CARL;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_BUYER;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_PROPERTY;
 import static seedu.address.logic.commands.CommandTestUtil.PRICE_DESC_AMY;
@@ -31,14 +29,12 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_CARL;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SELLER_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE_TAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NO_VALIDATE_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -125,9 +121,7 @@ public class EditCommandParserTest {
         assertParseFailure(parser, PREAMBLE_PROPERTY + " " + "1"
                 + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS); // invalid phone
         assertParseFailure(parser, PREAMBLE_PROPERTY + " " + "1"
-                + INVALID_PHONE_DESC_TOO_SHORT, Phone.MESSAGE_LENGTH_CONSTRAINTS); // invalid phone - too short
-        assertParseFailure(parser, PREAMBLE_PROPERTY + " " + "1"
-                + INVALID_PHONE_DESC_TOO_LONG, Phone.MESSAGE_LENGTH_CONSTRAINTS); // invalid phone - too long
+                + INVALID_PHONE_DESC_TOO_SHORT, Phone.MESSAGE_CONSTRAINTS); // invalid phone - too short
         assertParseFailure(parser, PREAMBLE_PROPERTY + " " + "1"
                 + INVALID_EMAIL_DESC, Email.MESSAGE_CONSTRAINTS); // invalid email
         assertParseFailure(parser, PREAMBLE_PROPERTY + " " + "1"
@@ -311,30 +305,5 @@ public class EditCommandParserTest {
                 + TAG_EMPTY + TAG_DELETE_CONDO;
 
         assertParseFailure(parser, userInput, EditCommand.MESSAGE_RESET_TAG_TOGETHER_WITH_MODIFY_TAG);
-    }
-
-    @Test
-    public void parse_longPhoneNumber_success() {
-        Index targetIndex = INDEX_THIRD;
-        String userInput = PREAMBLE_PROPERTY + " " + targetIndex.getOneBased() + PHONE_DESC_CARL;
-
-        EditPropertyCommand.EditPropertyDescriptor descriptor = new EditPropertyDescriptorBuilder()
-                .withPhone(VALID_PHONE_CARL).build();
-        EditPropertyCommand expectedCommand = new EditPropertyCommand(targetIndex, descriptor);
-
-        assertParseSuccess(parser, userInput, expectedCommand);
-    }
-
-    @Test
-    public void parse_commandWithNoValidatePhoneFlag_success() {
-        Index targetIndex = INDEX_THIRD;
-        String userInput = PREAMBLE_PROPERTY + " " + targetIndex.getOneBased() + INVALID_PHONE_DESC
-                + " " + PREFIX_NO_VALIDATE_PHONE;
-
-        EditPropertyCommand.EditPropertyDescriptor descriptor = new EditPropertyDescriptorBuilder()
-                .withPhone("911a").build();
-        EditPropertyCommand expectedCommand = new EditPropertyCommand(targetIndex, descriptor);
-
-        assertParseSuccess(parser, userInput, expectedCommand);
     }
 }

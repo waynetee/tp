@@ -9,7 +9,6 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC_TOO_LONG;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC_TOO_SHORT;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PRICE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_SELLER_DESC;
@@ -18,7 +17,6 @@ import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_CARL;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_BUYER;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_PROPERTY;
 import static seedu.address.logic.commands.CommandTestUtil.PRICE_DESC_AMY;
@@ -27,10 +25,8 @@ import static seedu.address.logic.commands.CommandTestUtil.SELLER_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.SELLER_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_CARL;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NO_VALIDATE_PHONE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_PREAMBLE;
@@ -247,36 +243,12 @@ public class AddCommandParserTest {
         assertParseFailure(parser, PREAMBLE_PROPERTY
                 + NAME_DESC_BOB + INVALID_PHONE_DESC_TOO_SHORT + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
                 + SELLER_DESC_BOB + PRICE_DESC_BOB
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Phone.MESSAGE_LENGTH_CONSTRAINTS);
-
-        // invalid phone - longer than maximum length
-        assertParseFailure(parser, PREAMBLE_PROPERTY
-                + NAME_DESC_BOB + INVALID_PHONE_DESC_TOO_LONG + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + SELLER_DESC_BOB + PRICE_DESC_BOB
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Phone.MESSAGE_LENGTH_CONSTRAINTS);
+                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Phone.MESSAGE_CONSTRAINTS);
 
         // invalid phone - contain non-numeric characters
         assertParseFailure(parser, PREAMBLE_PROPERTY
                 + NAME_DESC_BOB + INVALID_PHONE_DESC + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
                 + SELLER_DESC_BOB + PRICE_DESC_BOB
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Phone.MESSAGE_CONSTRAINTS);
-    }
-
-    @Test
-    public void parse_longPhoneNumber_success() {
-        Property expectedProperty = new PropertyBuilder(P_AMY).withPhone(VALID_PHONE_CARL).withTags().build();
-        assertParseSuccess(parser, PREAMBLE_PROPERTY
-                        + NAME_DESC_AMY + PHONE_DESC_CARL + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
-                        + SELLER_DESC_AMY + PRICE_DESC_AMY,
-                new AddPropertyCommand(expectedProperty));
-    }
-
-    @Test
-    public void parse_commandWithNoValidatePhoneFlag_success() {
-        Property expectedProperty = new PropertyBuilder(P_AMY).withPhone("911a").withTags().build();
-        assertParseSuccess(parser, PREAMBLE_PROPERTY
-                        + NAME_DESC_AMY + INVALID_PHONE_DESC + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
-                        + SELLER_DESC_AMY + PRICE_DESC_AMY + " " + PREFIX_NO_VALIDATE_PHONE,
-                new AddPropertyCommand(expectedProperty));
     }
 }
