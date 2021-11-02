@@ -41,7 +41,8 @@ public class PropertyListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PropertyCard(property, getIndex() + 1).getRoot());
+                PropertyCard card = new PropertyCard(property, getIndex() + 1, propertyListView.widthProperty());
+                setGraphic(card.getRoot());
             }
         }
     }

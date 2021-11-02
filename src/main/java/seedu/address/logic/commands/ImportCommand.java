@@ -23,7 +23,7 @@ public abstract class ImportCommand extends CommandWithFile {
     public static final String MESSAGE_FORMAT_FAILURE = "Import %s failed to recognize the file. "
             + "The csv file provided is incorrectly formatted.";
 
-    public static final String MESSAGE_DUPLICATE = "Import %s failed. PropertyWhiz contains duplicated %s.";
+    public static final String MESSAGE_DUPLICATE = "Import %s failed. Duplicate %s detected.";
 
     public static final String MESSAGE_SUCCESS = "Successfully imported %s.";
 

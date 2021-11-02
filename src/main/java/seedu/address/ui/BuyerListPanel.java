@@ -41,7 +41,8 @@ public class BuyerListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new BuyerCard(buyer, getIndex() + 1).getRoot());
+                BuyerCard card = new BuyerCard(buyer, getIndex() + 1, buyerListView.widthProperty());
+                setGraphic(card.getRoot());
             }
         }
     }
