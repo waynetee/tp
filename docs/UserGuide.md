@@ -146,7 +146,7 @@ Here are some fields that are shared amongst commands.
 
 #### Property/Buyer phone numbers 
 * Phone number should only contain alphanumeric characters, hyphens, parentheses, plus signs and spaces.
-* Phone numbers must have at least 3 characters, excluding leading and spaces
+* Phone numbers must have at least 3 characters, excluding leading and ending spaces
   * Valid: 
     * `9123 4567`
     * `(office) +65 6123 4567`
