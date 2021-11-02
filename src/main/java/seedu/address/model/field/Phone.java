@@ -10,8 +10,7 @@ public class Phone {
     public static final Integer MIN_LENGTH = 3;
     public static final String VALIDATION_REGEX = "[\\p{Alnum}\\-()+ ]{" + MIN_LENGTH + ",}";
     public static final String MESSAGE_CONSTRAINTS =
-            "Phone number should only contain alphanumeric characters, hyphens, "
-                    + "parentheses, asterisks, hashes and spaces.\n"
+            "Phone number should only contain alphanumeric characters, hyphens, parentheses and spaces.\n"
                     + "Phone number should be at least " + MIN_LENGTH + " characters\n";
 
     public final String value;
