@@ -1,8 +1,6 @@
 package seedu.address.ui;
 
-import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.List;
 
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.beans.value.ObservableDoubleValue;
@@ -13,7 +11,6 @@ import javafx.scene.layout.Region;
 import seedu.address.model.property.Buyer;
 import seedu.address.model.property.Match;
 import seedu.address.model.property.Property;
-import seedu.address.model.tag.Tag;
 
 /**
  * An UI component that displays information of a {@code Match}.
