@@ -362,7 +362,7 @@ Imports buyers or properties from csv file. Imported items will be added to the 
 Format: `import buyers` or `import properties`
 
 * You can select the import file location from a pop-up dialog box.
-* The buyer or property list imported must be valid. Some criteria are as follows:
+* The buyer or property list imported must be [valid](#valid-fields). Some criteria are as follows:
   * No duplicates
   * Valid fields e.g. name, email etc.
   * No missing fields
