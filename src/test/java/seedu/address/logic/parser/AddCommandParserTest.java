@@ -51,7 +51,7 @@ public class AddCommandParserTest {
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
 
-    private final AddCommandParser parser = new AddCommandParser();
+    private AddCommandParser parser = new AddCommandParser();
 
     @Test
     public void parse_missingParts_failure() {

@@ -98,8 +98,7 @@ public class CsvManager {
         writer.close();
     }
 
-    private static Property getProperty(Map<String, String> values)
-            throws ParseException {
+    private static Property getProperty(Map<String, String> values) throws ParseException {
         for (String header : propertyHeaders) {
             if (!values.containsKey(header)) {
                 throw new ParseException(MESSAGE_MISSING_HEADER + header);
@@ -147,8 +146,7 @@ public class CsvManager {
      * @throws IOException if there was any problem writing to the file.
      * @throws ParseException if the csv file content cannot be recognized.
      */
-    public static List<Property> importProperties(File file)
-            throws IOException, ParseException {
+    public static List<Property> importProperties(File file) throws IOException, ParseException {
         requireAllNonNull(file);
         CSVReaderHeaderAware reader;
         try {

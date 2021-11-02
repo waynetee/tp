@@ -32,7 +32,6 @@ public class ImportCommandParser implements Parser<ImportCommand> {
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ImportCommand.MESSAGE_USAGE), pe);
         }
-
         switch (actor) {
         case PROPERTY:
             return new ImportPropertiesCommand();

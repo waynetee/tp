@@ -12,7 +12,7 @@ public class Phone {
     public static final String MESSAGE_CONSTRAINTS =
             "Phone number should only contain alphanumeric characters, hyphens, "
                     + "parentheses, asterisks, hashes and spaces.\n"
-                    + "Phone number should be at least " + MIN_LENGTH + " digits\n";
+                    + "Phone number should be at least " + MIN_LENGTH + " characters\n";
 
     public final String value;
 
@@ -27,7 +27,7 @@ public class Phone {
     }
 
     /**
-     * Returns true if a given string only contain digits 0 - 9.
+     * Returns true if a given string matches the validation regex.
      */
     public static boolean isValidPhone(String test) {
         return test.matches(VALIDATION_REGEX);

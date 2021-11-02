@@ -15,7 +15,6 @@ import seedu.address.storage.Storage;
  * Imports buyers from csv file.
  */
 public class ImportBuyersCommand extends ImportCommand {
-
     @Override
     public CommandResult execute(Model model, File file) throws CommandException {
         if (file == null) {

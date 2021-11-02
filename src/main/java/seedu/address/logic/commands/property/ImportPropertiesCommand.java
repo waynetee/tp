@@ -15,7 +15,6 @@ import seedu.address.storage.Storage;
  * Imports properties from csv file.
  */
 public class ImportPropertiesCommand extends ImportCommand {
-
     @Override
     public CommandResult execute(Model model, File file) throws CommandException {
         if (file == null) {
