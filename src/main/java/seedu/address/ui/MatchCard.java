@@ -94,11 +94,9 @@ public class MatchCard extends UiPart<Region> {
         propertySeller.maxWidthProperty().bind(maxWidth);
         propertyEmail.maxWidthProperty().bind(maxWidth);
 
-        List<Tag> tagList = new ArrayList<>(property.getTags());
-        tagList.sort(Comparator.comparing(tag -> tag.tagName));
-        for (Tag tag : tagList) {
-            propertyTags.getChildren().add(makeLabel(tag.tagName));
-        }
+        property.getTags().stream()
+                .sorted(Comparator.comparing(tag -> tag.tagName))
+                .forEach(tag -> propertyTags.getChildren().add(makeLabel(tag.tagName)));
     }
 
     private void initBuyer(Buyer buyer) {
@@ -107,11 +105,9 @@ public class MatchCard extends UiPart<Region> {
         buyerPhone.setText(buyer.getPhone().value);
         buyerEmail.setText(buyer.getEmail().value);
 
-        List<Tag> tagList = new ArrayList<>(buyer.getTags());
-        tagList.sort(Comparator.comparing(tag -> tag.tagName));
-        for (Tag tag : tagList) {
-            buyerTags.getChildren().add(makeLabel(tag.tagName));
-        }
+        buyer.getTags().stream()
+                .sorted(Comparator.comparing(tag -> tag.tagName))
+                .forEach(tag -> buyerTags.getChildren().add(makeLabel(tag.tagName)));
     }
 
     private Label makeLabel(String text) {
