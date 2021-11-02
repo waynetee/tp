@@ -129,50 +129,18 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String phone} into a {@code Phone}.
-     * Leading and trailing whitespaces will be trimmed.
-     */
-    public static Phone parsePhone(String phone) {
-        requireNonNull(phone);
-        String trimmedPhone = phone.trim();
-        return new Phone(trimmedPhone);
-    }
-
-    /**
      * Parses a {@code String phone} into a {@code Phone}. If {@code hasFlag} is {@code false},
      * phone number will be validated.
      * Leading and trailing whitespaces will be trimmed.
      */
-    public static Phone parsePhone(String phone, boolean hasFlag) throws ParseException {
+    public static Phone parsePhone(String phone) throws ParseException {
         requireNonNull(phone);
         String trimmedPhone = phone.trim();
-        if (!Phone.isValidPhoneLength(trimmedPhone)) {
-            throw new ParseException(Phone.MESSAGE_LENGTH_CONSTRAINTS);
-        }
-
-        if (!hasFlag && !Phone.isValidPhone(trimmedPhone)) {
+        if (!Phone.isValidPhone(trimmedPhone)) {
             throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
         }
 
         return new Phone(trimmedPhone);
-    }
-
-    /**
-     * Parses a {@code String phone} into a {@code Phone}. If {@code flag} is null, phone number will be validated,
-     * else, phone will not be validated.
-     * Leading and trailing whitespaces will be trimmed.
-     */
-    public static Phone parsePhone(String phone, String flag) throws ParseException {
-        requireNonNull(phone);
-        boolean hasFlag = parseNoValidatePhoneFlag(flag);
-        return parsePhone(phone, hasFlag);
-    }
-
-    /**
-     * Returns {@code true} if the flag is not {@code null}.
-     */
-    public static boolean parseNoValidatePhoneFlag(String flag) {
-        return flag != null;
     }
 
     /**

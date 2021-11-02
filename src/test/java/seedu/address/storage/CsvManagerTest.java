@@ -108,7 +108,7 @@ public class CsvManagerTest {
 
     private List<Property> importProperties(File file) throws ParseException {
         try {
-            return CsvManager.importProperties(file, true);
+            return CsvManager.importProperties(file);
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error reading the file.", ioe);
         }
@@ -203,7 +203,7 @@ public class CsvManagerTest {
 
     private List<Buyer> importBuyers(File file) throws ParseException {
         try {
-            return CsvManager.importBuyers(file, true);
+            return CsvManager.importBuyers(file);
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error reading the file.", ioe);
         }

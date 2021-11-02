@@ -51,10 +51,10 @@ PropertyWhiz (PropertyWhiz) is a **desktop app for managing properties and prope
 
 Action | Format, Examples
 --------|------------------
-**Add** | **Property** <br>`add property n/PROPERTY_NAME a/PROPERTY_ADDRESS s/SELLER_NAME p/SELLER_PHONE e/SELLER_EMAIL $/PRICE [t/TAG]… [--nvp]​` <br> e.g., `add property n/Blk 123 a/123, Clementi Rd, #04-20, 1234665 s/James Lee sp/61234567 $/100000 t/HDB t/3rm` <br><br> **Buyer** <br>`add buyer n/BUYER_NAME p/BUYER_PHONE e/BUYER_EMAIL $/BUDGET) [t/TAG]… [--nvp]` <br> e.g., `add buyer n/Sam p/91234567 e/sam@email.com $/740000 t/hdb t/3rm`
+**Add** | **Property** <br>`add property n/PROPERTY_NAME a/PROPERTY_ADDRESS s/SELLER_NAME p/SELLER_PHONE e/SELLER_EMAIL $/PRICE [t/TAG]… ​` <br> e.g., `add property n/Blk 123 a/123, Clementi Rd, #04-20, 1234665 s/James Lee sp/61234567 $/100000 t/HDB t/3rm` <br><br> **Buyer** <br>`add buyer n/BUYER_NAME p/BUYER_PHONE e/BUYER_EMAIL $/BUDGET) [t/TAG]…` <br> e.g., `add buyer n/Sam p/91234567 e/sam@email.com $/740000 t/hdb t/3rm`
 **Clear** | `clear`
 **Delete** | `delete (property \| buyer) INDEX`<br> e.g., `delete property 3`
-**Edit** | **Property** <br>`edit property INDEX [n/PROPERTY_NAME] [a/PROPERTY_ADDRESS] [s/SELLER_NAME] [p/SELLER_PHONE] [e/SELLER_EMAIL] [$/PRICE] [([t/TAG]…​ \| [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]] [--nvp]​`<br> e.g.,`edit property 2 s/James Lee e/jameslee@example.com` <br><br> **Buyer** <br> `edit buyer INDEX [n/BUYER_NAME] [p/BUYER_PHONE] [e/BUYER_EMAIL] [$/BUDGET]) [([t/TAG]… \| [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)] [--nvp]` <br> e.g.,`edit buyer 2 n/Victor Lee p/88887777`
+**Edit** | **Property** <br>`edit property INDEX [n/PROPERTY_NAME] [a/PROPERTY_ADDRESS] [s/SELLER_NAME] [p/SELLER_PHONE] [e/SELLER_EMAIL] [$/PRICE] [([t/TAG]…​ \| [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]] ​`<br> e.g.,`edit property 2 s/James Lee e/jameslee@example.com` <br><br> **Buyer** <br> `edit buyer INDEX [n/BUYER_NAME] [p/BUYER_PHONE] [e/BUYER_EMAIL] [$/BUDGET]) [([t/TAG]… \| [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)] ` <br> e.g.,`edit buyer 2 n/Victor Lee p/88887777`
 **Find** | `find (properties \| buyers) [KEYWORDS] [t/TAG_TO_MATCH]…`<br> e.g., `find Jurong t/4rm t/near school`
 **List** | `list`
 **Exit** | `exit`
@@ -144,10 +144,16 @@ Here are some fields that are shared amongst commands.
 * Prices must be between 4 and 9 digits (both inclusive).
 * Leading zeroes will be ignored. For e.g., `00100` has 5 characters, but it only has 3 digits, not counting the leading 0s. Hence, `00100` is an invalid price.
 
-#### Property/Buyer phones
-* Phones must be within 3 to 30 characters (both inclusive).
-* By default, phone numbers can only contain digits 0 - 9. If there is a need to add a phone number containing other characters (e.g. spaces, alphabets), add ` --nvp` to the end of the command.
-* Regardless of whether the phone number contains non-numeric characters, the length of the phone number has to be between 3 and 30 characters (inclusive).
+#### Property/Buyer phone numbers 
+* Phone number should only contain alphanumeric characters, hyphens, parentheses, plus signs and spaces.
+* Phone numbers must have at least 3 characters, excluding leading and spaces
+  * Valid: 
+    * `9123 4567`
+    * `(office) +65 6123 4567`
+    * `nil`
+  * Invalid: 
+    * <code>&nbsp;&nbsp;&nbsp;a&nbsp;&nbsp;&nbsp;</code> (Excluding leading and ending spaces, the number only contains 1 character)
+    * `#123` (contains invalid hash symbol)
 
 #### Tags
 * Tags are always optional.
@@ -168,19 +174,17 @@ Format: `help`
 Adds a property/buyer to PropertyWhiz.
 
 * All other fields are compulsory other than tags.
-* To add phone number containing non-numeric characters, add `--nvp` at the end of the command.
 
 See [valid inputs](#valid-fields) for details on constraints on what you can enter.
 
 Format:
-* Adding a property: `add property n/PROPERTY_NAME a/PROPERTY_ADDRESS s/SELLER_NAME p/SELLER_PHONE e/SELLER_EMAIL $/PRICE [t/TAG]… [--nvp]`
-* Adding a buyer: `add buyer n/BUYER_NAME p/BUYER_PHONE e/BUYER_EMAIL $/BUDGET [t/TAG]… [--nvp]`
+* Adding a property: `add property n/PROPERTY_NAME a/PROPERTY_ADDRESS s/SELLER_NAME p/SELLER_PHONE e/SELLER_EMAIL $/PRICE [t/TAG]…`
+* Adding a buyer: `add buyer n/BUYER_NAME p/BUYER_PHONE e/BUYER_EMAIL $/BUDGET [t/TAG]…`
 
 Examples:
 * `add property n/Blk 123 a/123, Clementi Rd, #04-20, 1234665 s/James Lee p/61234567 e/james@email.com $/100000 t/hdb t/3rm`
-* `add property n/Blk 321 a/123, Clementi Rd, #04-20, 1234665 s/James Lee p/(hp) 61234567 e/james@email.com $/100000 t/hdb t/3rm --nvp`
+* `add property n/Blk 321 a/123, Clementi Rd, #04-20, 1234665 s/James Lee p/(hp) 61234567 e/james@email.com $/100000 t/hdb t/3rm`
 * `add buyer n/Sam p/91234567 e/sam@email.com $/740000 t/hdb t/3rm`
-* `add buyer n/Tam p/(hp) 91231313 e/sam@email.com $/740000 t/hdb t/3rm --nvp`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A property/buyer can have any number of tags (including 0). All tags will be converted to lowercase.
@@ -199,7 +203,6 @@ Format: `list`
 Edits the property/buyer at the specified `INDEX`. The index refers to the index number shown in the displayed property/buyer list. The index **must be a positive integer** 1, 2, 3, …
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* To edit phone number to contain non-numeric characters, add `--nvp` at the end of the command.
 * When editing tags, the existing tags of the property will be removed i.e adding of tags is not cumulative.
 * Like `add`, tags added via `edit` will be automatically converted to lower case.
 * You can remove all the property/buyer’s tags by typing `t/` without specifying any tags after it.
@@ -207,8 +210,8 @@ Edits the property/buyer at the specified `INDEX`. The index refers to the index
 See [valid inputs](#valid-fields) for details on constraints on what you can enter.
 
 Format:
-* Editing a property: `edit property INDEX [n/PROPERTY_NAME] [a/PROPERTY_ADDRESS] [s/SELLER_NAME] [p/SELLER_PHONE] [e/SELLER_EMAIL] [$/PRICE] [([t/TAG]… | [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)] [--nvp]`
-* Editing a buyer: `edit buyer INDEX [n/BUYER_NAME] [p/BUYER_PHONE] [e/BUYER_EMAIL] [$/BUDGET] [([t/TAG]… | [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)] [--nvp]`
+* Editing a property: `edit property INDEX [n/PROPERTY_NAME] [a/PROPERTY_ADDRESS] [s/SELLER_NAME] [p/SELLER_PHONE] [e/SELLER_EMAIL] [$/PRICE] [([t/TAG]… | [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]`
+* Editing a buyer: `edit buyer INDEX [n/BUYER_NAME] [p/BUYER_PHONE] [e/BUYER_EMAIL] [$/BUDGET] [([t/TAG]… | [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]`
 
 Examples:
 * `edit property 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st property to be `91234567` and `johndoe@example.com` respectively.
@@ -217,7 +220,6 @@ Examples:
 * `edit property 1 ta/4rm ta/near mrt` Edits the tag list of the 1st property by adding two tags called "4rm" and "near mrt" if they are not already present in the original tag list.
 * `edit property 1 ta/4rm td/near mrt` Edits the tag list of the 1st property by adding a tag called "4rm" if it does not already exist in the original tag list and removing a tag called "near mrt" if it is present in the original tag list.
 * `edit property 1 ta/near MRT` Edits the tag list of the 1st property by adding a tag called `near mrt` if it does not already exist in the original tag list. Notice that the case of `MRT` is lowered to `mrt`.
-* `edit property 1 p/no phone --nvp` Edits the phone number of the 1st property to be `no phone`.
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 The following example is invalid:
@@ -369,10 +371,9 @@ After running `match auto`, enter `back` into the command box to return to the p
 
 Imports buyers or properties from csv file. Imported items will be added to the front of the **currently displayed list**.
 
-Format: `import buyers [--nvp]` or `import properties [--nvp]`
+Format: `import buyers` or `import properties`
 
 * You can select the import file location from a pop-up dialog box.
-* Add `--nvp` to add phone numbers containing non-numeric characters. Note that it is not possible to input phone numbers shorter than 3 characters or longer than 30 characters as mentioned [here](#propertybuyer-phones). 
 
 See [below](#csvExample) for example csv files.
 

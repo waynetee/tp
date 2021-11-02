@@ -44,7 +44,7 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE,
-                PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG, PREFIX_SELLER, PREFIX_PRICE, PREFIX_NO_VALIDATE_PHONE);
+                PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG, PREFIX_SELLER, PREFIX_PRICE);
 
         Actor actor;
 
@@ -93,8 +93,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         Name propertyName = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Name sellerName = ParserUtil.parseName(argMultimap.getValue(PREFIX_SELLER).get());
-        Phone sellerPhone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get(),
-                argMultimap.getValue(PREFIX_NO_VALIDATE_PHONE).orElse(null));
+        Phone sellerPhone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Email sellerEmail = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Person seller = new Person(sellerName, sellerPhone, sellerEmail);
         Price price = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_PRICE).get());
@@ -106,8 +105,7 @@ public class AddCommandParser implements Parser<AddCommand> {
 
     private Buyer getBuyer(ArgumentMultimap argMultimap) throws ParseException {
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get(),
-                argMultimap.getValue(PREFIX_NO_VALIDATE_PHONE).orElse(null));
+        Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Price maxPrice = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_PRICE).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));

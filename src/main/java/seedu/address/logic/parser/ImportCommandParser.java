@@ -33,13 +33,12 @@ public class ImportCommandParser implements Parser<ImportCommand> {
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ImportCommand.MESSAGE_USAGE), pe);
         }
-        boolean hasValidatePhoneFlag = ParserUtil.parseNoValidatePhoneFlag(
-                argMultimap.getValue(PREFIX_NO_VALIDATE_PHONE).orElse(null));
+
         switch (actor) {
         case PROPERTY:
-            return new ImportPropertiesCommand(hasValidatePhoneFlag);
+            return new ImportPropertiesCommand();
         case BUYER:
-            return new ImportBuyersCommand(hasValidatePhoneFlag);
+            return new ImportBuyersCommand();
         default:
             throw new ParseException(MESSAGE_INVALID_ACTOR);
         }

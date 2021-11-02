@@ -27,13 +27,4 @@ public abstract class ImportCommand extends CommandWithFile {
 
     public static final String MESSAGE_SUCCESS = "Successfully imported %s.";
 
-    private final boolean hasValidatePhoneFlag;
-
-    public ImportCommand(boolean hasValidatePhoneFlag) {
-        this.hasValidatePhoneFlag = hasValidatePhoneFlag;
-    }
-
-    public boolean getHasValidatePhoneFlag() {
-        return hasValidatePhoneFlag;
-    }
 }

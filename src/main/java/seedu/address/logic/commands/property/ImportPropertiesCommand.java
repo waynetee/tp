@@ -16,17 +16,13 @@ import seedu.address.storage.Storage;
  */
 public class ImportPropertiesCommand extends ImportCommand {
 
-    public ImportPropertiesCommand(boolean hasValidatePhoneFlag) {
-        super(hasValidatePhoneFlag);
-    }
-
     @Override
     public CommandResult execute(Model model, File file) throws CommandException {
         if (file == null) {
             return new CommandResult(String.format(MESSAGE_CANCELLED, PROPERTIES));
         }
         try {
-            model.setAddressBook(Storage.importProperties(model.getAddressBook(), file, getHasValidatePhoneFlag()));
+            model.setAddressBook(Storage.importProperties(model.getAddressBook(), file));
             return new CommandResult(String.format(MESSAGE_SUCCESS, PROPERTIES));
         } catch (IOException ioe) {
             return new CommandResult(String.format(MESSAGE_IO_FAILURE, PROPERTIES));

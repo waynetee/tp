@@ -8,17 +8,11 @@ import static java.util.Objects.requireNonNull;
  */
 public class Phone {
     public static final Integer MIN_LENGTH = 3;
-    public static final Integer MAX_LENGTH = 30;
-    public static final String VALIDATION_DIGIT_REGEX = "\\d{" + MIN_LENGTH + "," + MAX_LENGTH + "}";
-    public static final String VALIDATION_LENGTH_REGEX = ".{" + MIN_LENGTH + "," + MAX_LENGTH + "}";
-    public static final String MESSAGE_LENGTH_CONSTRAINTS =
-            "The minimum and maximum length of a phone number is "
-                    + MIN_LENGTH + " and " + MAX_LENGTH + " respectively.";
+    public static final String VALIDATION_REGEX = "[\\p{Alnum}\\-()+ ]{" + MIN_LENGTH + ",}";
     public static final String MESSAGE_CONSTRAINTS =
-            "Phone number should only contain numbers, and it should be at least " + MIN_LENGTH
-                    + " digits and at most " + MAX_LENGTH + " digits long. \n"
-                    + "If you are sure that you want to add this phone number, "
-                    + "add \" --nvp\" to the end of the command to proceed.";
+            "Phone number should only contain alphanumeric characters, hyphens, "
+                    + "parentheses, asterisks, hashes and spaces.\n"
+                    + "Phone number should be at least " + MIN_LENGTH + " digits\n";
 
     public final String value;
 
@@ -33,17 +27,10 @@ public class Phone {
     }
 
     /**
-     * Returns true if a given string is within the min and max length of 3 and 30 respectively.
-     */
-    public static boolean isValidPhoneLength(String test) {
-        return test.matches(VALIDATION_LENGTH_REGEX);
-    }
-
-    /**
      * Returns true if a given string only contain digits 0 - 9.
      */
     public static boolean isValidPhone(String test) {
-        return test.matches(VALIDATION_DIGIT_REGEX);
+        return test.matches(VALIDATION_REGEX);
     }
 
     @Override
