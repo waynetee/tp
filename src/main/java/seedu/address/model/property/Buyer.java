@@ -108,7 +108,7 @@ public class Buyer extends Person implements Pricable, Listable, Taggable {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(super.toString())
-                .append("; Maximum Price: ")
+                .append("; Maximum Price: $")
                 .append(getPrice());
 
         Set<Tag> tags = getTags();
