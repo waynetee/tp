@@ -65,6 +65,22 @@ public class UniqueList<Item extends Listable> implements Iterable<Item> {
     }
 
     /**
+     * Adds a collection of elements to front of the list.
+     */
+    public void addAll(List<Item> toAdd) {
+        requireNonNull(toAdd);
+        if (!listablesAreUnique(toAdd)) {
+            throw new DuplicateListableException();
+        }
+        for (Item item: toAdd) {
+            if (contains(item)) {
+                throw new DuplicateListableException();
+            }
+        }
+        internalList.addAll(0, toAdd);
+    }
+
+    /**
      * Replaces the element {@code target} in the list with {@code editedListable}.
      * {@code target} must exist in the list.
      * The element identity of {@code editedListable} must not be the same as another existing element in the list.

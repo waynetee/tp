@@ -3,44 +3,35 @@ layout: page
 title: Jia Cheng's Project Portfolio Page
 ---
 
-### Project: AddressBook Level 3
+### Project: PropertyWhiz
 
-AddressBook - Level 3 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+Property Whiz is a CLI customer relationship management application made for property agents. PropertyWhiz helps to keep track of properties and prospective buyers, then match properties and buyers.
 
 Given below are my contributions to the project.
 
-* **New Feature**: Added the ability to undo/redo previous commands.
-  * What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-  * Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-  * Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-  * Credits: *{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}*
+* **New Feature**: Added the one to many matching command.
+  * What it does: Allows the user to match one property to many buyers, and to match one buyer to many properties.
+  * Justification: This feature allows the user (property agent) to find the most compatible properties for one of his/her clients, as well as to find the clients most likely to make a purchase on a certain property. 
+  * Highlights: This enhancement is the first command that requires some form of sorting, i.e. in addition to `Predicate`s for filtering, this command requires a `Comparator` to order buyers and properties in terms of compatibility. As the JavaFX library offers either `SortedList` and `FilteredList` and not both, we need to choose between several candidate implementations to stack predicates and comparators. This requires weighing of costs and benefits as some implementations, like wrapping `SortedList` around `FilteredList`, are easier with less boilerplate but slower in performance. The implementation choice of a list that can be both sorted and filtered will affect other commands manipulating the list as well.
 
-* **New Feature**: Added a history command that allows the user to navigate to previous commands using up/down keys.
-
-* **Code contributed**: [RepoSense link]()
+* **Code contributed**: [RepoSense link](https://nus-cs2103-ay2122s1.github.io/tp-dashboard/?search=sunjc826&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2021-09-17&tabOpen=true&zFR=false&tabType=zoom&zA=sunjc826&zR=AY2122S1-CS2103T-W11-4%2Ftp%5Bmaster%5D&zACS=258.55555555555554&zS=2021-09-17&zFS=sunjc826&zU=2021-10-31&zMG=false&zFTF=commit&zFGS=groupByRepos)
 
 * **Project management**:
-  * Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+  * Managed the final release of `v1.3` on Github
+  * Updated CI to ignore missing end of lines for txt files
+  * Managed documentation issues and tasks across milestones 
 
 * **Enhancements to existing features**:
-  * Updated the GUI color scheme (Pull requests [\#33](), [\#34]())
-  * Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests [\#36](), [\#38]())
+  * Updated the tagging command to append and remove tags ([\#31](https://github.com/AY2122S1-CS2103T-W11-4/tp/pull/31))
+  * Expanded CRUD commands, `add`, `edit`, and `delete` to act on properties and buyers ([\#56](https://github.com/AY2122S1-CS2103T-W11-4/tp/pull/56))
 
 * **Documentation**:
   * User Guide:
-    * Added documentation for the features `delete` and `find` [\#72]()
-    * Did cosmetic tweaks to existing documentation of features `clear`, `exit`: [\#74]()
+    * Added documentation for the features `add (property | buyer)`, `edit (property | buyer)` [\#56](https://github.com/AY2122S1-CS2103T-W11-4/tp/pull/56)
+    * Added documentation for the tagging improvements [\#31](https://github.com/AY2122S1-CS2103T-W11-4/tp/pull/31)
   * Developer Guide:
-    * Added implementation details of the `delete` feature.
+    * Refactor DG's Design section and diagrams from AddressBook3 to PropertyWhiz [\#94](https://github.com/AY2122S1-CS2103T-W11-4/tp/pull/94)
+    * Added implementation details of the `match (property | buyer)` (one to many matching) feature [\#112](https://github.com/AY2122S1-CS2103T-W11-4/tp/pull/112)
 
 * **Community**:
-  * PRs reviewed (with non-trivial review comments): [\#12](), [\#32](), [\#19](), [\#42]()
-  * Contributed to forum discussions (examples: [1](), [2](), [3](), [4]())
-  * Reported bugs and suggestions for other teams in the class (examples: [1](), [2](), [3]())
-  * Some parts of the history feature I added was adopted by several other class mates ([1](), [2]())
-
-* **Tools**:
-  * Integrated a third party library (Natty) to the project ([\#42]())
-  * Integrated a new Github plugin (CircleCI) to the team repo
-
-* _{you can add/remove categories in the list above}_
+  * PRs reviewed (with non-trivial review comments): [\#134](https://github.com/AY2122S1-CS2103T-W11-4/tp/pull/134), [\#114](https://github.com/AY2122S1-CS2103T-W11-4/tp/pull/114), [\#70](https://github.com/AY2122S1-CS2103T-W11-4/tp/pull/70), [\#97](https://github.com/AY2122S1-CS2103T-W11-4/tp/pull/97)

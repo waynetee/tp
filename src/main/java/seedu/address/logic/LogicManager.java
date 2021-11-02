@@ -84,8 +84,14 @@ public class LogicManager implements Logic {
 
         CommandResult commandResult;
         Optional<CommandWithFile> command = addressBookParser.parseCommandWithFile(commandText);
-        assert !command.isEmpty() : COMMANDTEXT_INVALID_MESSAGE;
+        assert command.isPresent() : COMMANDTEXT_INVALID_MESSAGE;
         commandResult = command.get().execute(model, file);
+
+        try {
+            storage.saveAddressBook(model.getAddressBook());
+        } catch (IOException ioe) {
+            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+        }
 
         return commandResult;
     }

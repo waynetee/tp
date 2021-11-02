@@ -37,6 +37,7 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_PREAMBLE = "Invalid preamble: %s\n"
             + "Expected preamble: '%s'\n"
             + "Given preamble: '%s'.\n";
+    public static final String MESSAGE_INVALID_FIND_PRICE_PREFIX = "Invalid command. Only one %s is allowed.";
 
     public static final List<String> PROPERTY_PATTERN = Arrays.asList("property", "properties");
 
@@ -275,6 +276,24 @@ public class ParserUtil {
         if (numOfPreamble != splitInputs.length) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_NUM_ARGUMENTS, numOfPreamble, splitInputs.length));
+        }
+    }
+
+    /**
+     * Parses the only {@code String} price in {@code Collection<String> prices} into a {@code Price}.
+     *
+     * @throws ParseException if more than one price is found in {@code prices}
+     *                        or the given input is an invalid {@code Price}.
+     */
+    public static Price parseFindPrice(Collection<String> prices, Prefix prefix) throws ParseException {
+        if (prices.size() > 1) {
+            throw new ParseException(String.format(MESSAGE_INVALID_FIND_PRICE_PREFIX, prefix));
+        }
+
+        try {
+            return prices.size() == 0 ? null : new Price(prices.iterator().next());
+        } catch (IllegalArgumentException e) {
+            throw new ParseException(e.getMessage());
         }
     }
 }

@@ -51,11 +51,11 @@ PropertyWhiz (PropertyWhiz) is a **desktop app for managing properties and prope
 
 Action | Format, Examples
 --------|------------------
-**Add** | **Property** <br>`add property n/PROPERTY_NAME a/PROPERTY_ADDRESS s/SELLER_NAME p/SELLER_PHONE e/SELLER_EMAIL $/PRICE [t/TAG]…​` <br> e.g., `add property n/Blk 123 a/123, Clementi Rd, #04-20, 1234665 s/James Lee sp/61234567 $/100000 t/HDB t/3rm` <br><br> **Buyer** <br>`add buyer n/BUYER_NAME p/BUYER_PHONE e/BUYER_EMAIL $/BUDGET) [t/TAG]…` <br> e.g., `add buyer n/Sam p/91234567 e/sam@email.com $/740000 t/hdb t/3rm`
+**Add** | **Property** <br>`add property n/PROPERTY_NAME a/PROPERTY_ADDRESS s/SELLER_NAME p/SELLER_PHONE e/SELLER_EMAIL $/PRICE [t/TAG]…​` <br><br> **Buyer** <br>`add buyer n/BUYER_NAME p/BUYER_PHONE e/BUYER_EMAIL $/BUDGET) [t/TAG]…`
 **Clear** | `clear`
-**Delete** | `delete (property \| buyer) INDEX`<br> e.g., `delete property 3`
-**Edit** | **Property** <br>`edit property INDEX [n/PROPERTY_NAME] [a/PROPERTY_ADDRESS] [s/SELLER_NAME] [p/SELLER_PHONE] [e/SELLER_EMAIL] [$/PRICE] [([t/TAG]…​ \| [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]]​`<br> e.g.,`edit property 2 s/James Lee e/jameslee@example.com` <br><br> **Buyer** <br> `edit buyer INDEX [n/BUYER_NAME] [p/BUYER_PHONE] [e/BUYER_EMAIL] [$/BUDGET]) [([t/TAG]… \| [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]` <br> e.g.,`edit buyer 2 n/Victor Lee p/88887777`
-**Find** | `find (properties \| buyers) [KEYWORDS] [t/TAG_TO_MATCH]…`<br> e.g., `find Jurong t/4rm t/near school`
+**Delete** | `delete (property \| buyer) INDEX`
+**Edit** | **Property** <br>`edit property INDEX [n/PROPERTY_NAME] [a/PROPERTY_ADDRESS] [s/SELLER_NAME] [p/SELLER_PHONE] [e/SELLER_EMAIL] [$/PRICE] [([t/TAG]…​ \| [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]]​`<br><br> **Buyer** <br> `edit buyer INDEX [n/BUYER_NAME] [p/BUYER_PHONE] [e/BUYER_EMAIL] [$/BUDGET]) [([t/TAG]… \| [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]`
+**Find** | `find (properties \| buyers) [KEYWORDS] [t/TAG_TO_MATCH]…`
 **List** | `list`
 **Exit** | `exit`
 **Help** | `help`
@@ -228,11 +228,11 @@ Format: `stat [(property | buyer)]`
 * Entering another `stat` command while the existing one is open  replaces the view in the pop-up window.
 * If only buyers or only properties are visible, `stat` automatically presents the only buyers/only properties view.
 
-### Locating properties by name: `find`
+### Locating properties/buyers by name, tags, price: `find`
 
-Finds properties or buyers whose names contain any of the given keywords and whose tag list contain all of the specified tags in the **currently displayed list**.
+Finds properties or buyers whose names contain any of the given keywords, whose tag list contain all of the specified tags and whose price is within the specified price range in the **currently displayed list**.
 
-Format: `find (properties | buyers) [KEYWORDS] [t/TAG_TO_MATCH]…`
+Format: `find (properties | buyers) [KEYWORDS] [t/TAG_TO_MATCH]… [$min/MIN_PRICE] [$max/MAX_PRICE]`
 
 * Finds only properties or buyers in the currently displayed list
 
@@ -245,13 +245,20 @@ Format: `find (properties | buyers) [KEYWORDS] [t/TAG_TO_MATCH]…`
 * Properties matching at least one keyword (i.e. `OR` search) and matching all the tags (i.e. `AND` search) will be returned.
     * e.g. For keywords, `Hillview Rise` will return `Hillview Grove`, `Rise Rivervale`
     * e.g. For tags, `t/4rm t/near school` will return properties with both `4rm` tag, and `near school` tag.
-
+* The price search is inclusive of the specified number
+  * e.g. `find properties $min/10000` will return properties that are at least $10000
+  * e.g. `find properties $max/100000` will return properties that are at most $100000
+* Only one `$min/` and `$max/` is allowed in the input
+  * e.g. `find properties $min/1000 $max/100000` is valid
+  * e.g. `find properties $min/10000 $min/1999999 $max/100000` is invalid
+  
 Examples:
 * `find properties Jurong` returns properties `jurong` and `Jurong East`
 * `find buyers Sally` returns buyers `sally` and `Sally Brown`
 * `find properties Jurong t/4rm t/near school` returns properties `jurong [4rm] [near school] [near mrt]` and `Jurong East [4rm] [near school] [near mrt]` but not `jurong [4rm] [near mrt]`
 * `find properties t/4rm t/near school` returns properties `jurong [4rm] [near school] [near mrt]` and `Clementi [4rm] [near school] [near mrt]`
 * `find buyers Sally t/4rm t/near school` returns buyers `Sally [4rm] [near school] [quiet]` and `sally brown [4rm] [near school]`
+* `find properties $min/10000 $max/1000000` returns properties that are at least $10000 and at most $1000000
 
 ------------------
 
@@ -350,35 +357,48 @@ After running `match auto`, enter `back` into the command box to return to the p
 
 ### Importing data from csv file : `import`
 
-Imports buyers or properties from csv file.
+Imports buyers or properties from csv file. Imported items will be added to the front of the **currently displayed list**.
 
 Format: `import buyers` or `import properties`
 
 * You can select the import file location from a pop-up dialog box.
+* The buyer or property list imported must be [valid](#valid-fields). Some criteria are as follows:
+  * No duplicates
+  * Valid fields e.g. name, email etc.
+  * No missing fields
+* The csv must begin with a header which includes the names of each column.
 
-TODO: Add example of valid csv
+See [below](#csvExample) for example csv files.
 
 ------------------
 
 ### Exporting data to csv file : `export`
 
-Exports buyers or properties from csv file.
+Exports buyers or properties in the **currently displayed list** to csv file.
 
 Format: `export buyers` or `export properties`
 
 * You can select the export file location from a pop-up dialog box.
 
-Example result of  `export property`
+Example csv output of  `export property`
+<a name="csvExample"> </a>
 ```
 "Name","Address","Seller Name","Phone","Email","Price","Tags"
-"Geylang St 29","Blk 30 Geylang Street 29, #06-40","Alex Yeoh","87438807","alexyeoh@example.com","654321","hdb,4-rm"
-"Dee Gardens","Blk 30 Lorong 3 Serangoon Gardens, #07-18","Beatrice Yu","99272758","berniceyu@example.com","654321","hdb,5-rm"
+"Geylang St 29","Blk 30 Geylang Street 29, #06-40","Alex Yeoh","87438807","alexyeoh@example.com","419999","flowers,garden"
+"Dee Gardens","Blk 30 Lorong 3 Serangoon Gardens, #07-18","Beatrice Yu","99272758","berniceyu@example.com","420000","quiet"
+"Olive Gardens","Blk 11 Ang Mo Kio Street 74, #11-04","Charlotte Oliveiro","93210283","charlotte@example.com","420001","cathedral"
+"Pear Gardens","Blk 436 Serangoon Gardens Street 26, #16-43","David Li","91031282","lidavid@example.com","420002","near cbd"
+"Tampa Bay","Blk 47 Tampines Street 20, #17-35","Irfan Ibrahim","92492021","irfan@example.com","420003","noisy,party"
 ```
 
-Example result of `export buyer`
+Example csv output of `export buyer`
 ```
 "Name","Phone","Email","Budget","Tags"
-"Alibaba","61234567","alibaba@baba.com","1999999","condo,landed"
+"Sally Focal","94420945","focal@gmail.com","419999","flowers,near school,garden"
+"Duke Mason","93320325","mason@example.com","420000","4rm"
+"Mate Automaton","94423513","auto@email.com","420001","near cdb"
+"Neet Bitterman","91234567","bit@bucket.com","420002","huge house,noisy,party"
+"Frail Duckie","93234267","fail@mega.com","420003","tiny,1rm"
 ```
 
 ------------------

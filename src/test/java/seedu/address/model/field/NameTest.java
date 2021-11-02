@@ -19,6 +19,10 @@ public class NameTest {
     private static final String NAME_OF_LENGTH_51 = StringUtil.repeat(51, "A");
     private static final String NAME_OF_LENGTH_52 = StringUtil.repeat(52, "A");
 
+    private static final String UPPERCASE_NAME = "JOHN CONNOR";
+    private static final String MIXEDCASE_NAME = "JoHn coNNoR";
+    private static final String LOWERCASE_NAME = "john connor";
+
     @Test
     public void constructor_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new Name(null));
@@ -66,5 +70,14 @@ public class NameTest {
         assertTrue(Name.isValidName(NAME_OF_LENGTH_49));
         assertTrue(Name.isValidName(NAME_OF_LENGTH_50)); // length boundary
 
+    }
+
+    @Test
+    public void equals() {
+        Name upperCaseName = new Name(UPPERCASE_NAME);
+        Name mixedCaseName = new Name(MIXEDCASE_NAME);
+        Name lowerCaseName = new Name(LOWERCASE_NAME);
+        assertTrue(upperCaseName.equals(mixedCaseName));
+        assertTrue(mixedCaseName.equals(lowerCaseName));
     }
 }

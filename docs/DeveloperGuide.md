@@ -333,7 +333,7 @@ Given below are the steps for executing `ImportBuyersCommand`:
 3. `Storage#importBuyers` calls `CsvManager#importBuyers` with the given file.
 4. `CsvManager#importBuyers` creates a new `CSVReaderHeaderAware` to read the CSV headers.
 5. `CSVReaderHeaderAware` parses each row in the csv file, to create a new `Buyer` object. `CsvManager#importBuyers` collects `Buyer` objects into a list, then returns the list of `Buyer`.
-6. Upon receiving list of `Buyer`, `Storage#importBuyers` creates then returns a new `AddressBook` with modified buyers.
+6. Upon receiving list of `Buyer`, `Storage#importBuyers` creates then returns a new `AddressBook` containing original and imported buyers.
 7. Upon receiving an `AddressBook`, `ImportBuyersCommand#execute` replaces the current `AddressBook` in `ModelManager`.
 
 Given below is a sequence diagram for the execution of `ImportBuyersCommand`.

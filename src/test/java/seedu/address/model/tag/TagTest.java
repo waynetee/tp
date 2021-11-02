@@ -78,5 +78,4 @@ public class TagTest {
         assertTrue(mixedCaseTag.equals(lowerCaseTag));
         assertFalse(hyphenTag.equals(upperCaseTag));
     }
-
 }
