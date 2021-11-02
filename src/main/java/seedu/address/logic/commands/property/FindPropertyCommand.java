@@ -42,6 +42,9 @@ public class FindPropertyCommand extends FindCommand<Property> {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredPropertyList(getComposedPredicate());
+        if (model.getFilteredPropertyList().size() == 1) {
+            return new CommandResult(Messages.MESSAGE_PROPERTY_LISTED_OVERVIEW);
+        }
         return new CommandResult(
                 String.format(Messages.MESSAGE_PROPERTIES_LISTED_OVERVIEW, model.getFilteredPropertyList().size()));
     }

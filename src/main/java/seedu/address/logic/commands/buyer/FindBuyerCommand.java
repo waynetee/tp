@@ -41,6 +41,9 @@ public class FindBuyerCommand extends FindCommand<Buyer> {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredBuyerList(getComposedPredicate());
+        if (model.getFilteredBuyerList().size() == 1) {
+            return new CommandResult(Messages.MESSAGE_BUYER_LISTED_OVERVIEW);
+        }
         return new CommandResult(
                 String.format(Messages.MESSAGE_BUYERS_LISTED_OVERVIEW, model.getFilteredBuyerList().size()));
     }
