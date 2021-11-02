@@ -28,8 +28,9 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_ACTOR = "Only property or buyer can be specified as target.";
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
-    public static final String MESSAGE_INVALID_PREAMBLE = "Obtained invalid Preamble: \"%s\".\n"
-            + "The following fields are expected: %s";
+    public static final String MESSAGE_INVALID_PREAMBLE = "Invalid preamble: %s\n"
+            + "Expected preamble: '%s'\n"
+            + "Given preamble: '%s'.\n";
 
     public static final List<String> PROPERTY_PATTERN = Arrays.asList("property", "properties");
 
@@ -49,7 +50,7 @@ public class ParserUtil {
         } else if (BUYER_PATTERN.contains(trimmedActor)) {
             return Actor.BUYER;
         } else {
-            throw new ParseException(MESSAGE_INVALID_ACTOR);
+            throw new ParseException("Not 'property' or 'buyer': " + trimmedActor);
         }
     }
 
@@ -64,7 +65,7 @@ public class ParserUtil {
     public static Actor parseActor(String actor, int index) throws ParseException {
         String[] splitInputs = actor.trim().split("\\s+");
         if (index >= splitInputs.length) {
-            throw new ParseException(MESSAGE_INVALID_PREAMBLE);
+            throw new ParseException("Argument " + index + " is neither 'property' nor 'buyer'.");
         }
         return parseActor(splitInputs[index]);
     }
@@ -78,7 +79,7 @@ public class ParserUtil {
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
         String trimmedIndex = oneBasedIndex.trim();
         if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex)) {
-            throw new ParseException(MESSAGE_INVALID_INDEX);
+            throw new ParseException("Index provided is less than 1: " + trimmedIndex);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }
@@ -92,7 +93,7 @@ public class ParserUtil {
     public static Index parseIndex(String oneBasedIndex, int index) throws ParseException {
         String[] splitInputs = oneBasedIndex.trim().split("\\s+");
         if (index >= splitInputs.length) {
-            throw new ParseException(MESSAGE_INVALID_PREAMBLE);
+            throw new ParseException("Index not found at argument " + index + ".");
         }
         return parseIndex(splitInputs[index]);
     }
@@ -221,7 +222,7 @@ public class ParserUtil {
     public static SortType parseSortType(String sortType, int index) throws ParseException {
         String[] splitInputs = sortType.trim().split("\\s+");
         if (index >= splitInputs.length) {
-            throw new ParseException(MESSAGE_INVALID_PREAMBLE);
+            throw new ParseException("Sort type not found at argument " + index + ".");
         }
         return parseSortType(splitInputs[index]);
     }
@@ -253,7 +254,7 @@ public class ParserUtil {
     public static SortDirection parseSortDir(String sortDir, int index) throws ParseException {
         String[] splitInputs = sortDir.trim().split("\\s+");
         if (index >= splitInputs.length) {
-            throw new ParseException(MESSAGE_INVALID_PREAMBLE);
+            throw new ParseException("Sort direction not found at argument " + index + ".");
         }
         return parseSortDir(splitInputs[index]);
     }
@@ -266,7 +267,9 @@ public class ParserUtil {
     public static void assertPreambleArgsCount(String args, int numOfPreamble) throws ParseException {
         String[] splitInputs = args.trim().split("\\s+");
         if (numOfPreamble != splitInputs.length) {
-            throw new ParseException(MESSAGE_INVALID_PREAMBLE);
+            throw new ParseException(
+                    String.format("Expected %d arguments in preamble, provided %d arguments.",
+                            numOfPreamble, splitInputs.length));
         }
     }
 }
