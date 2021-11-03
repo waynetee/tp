@@ -3,51 +3,37 @@ layout: page
 title: Wayne Tee's Project Portfolio Page
 ---
 
-### Project: AddressBook Level 3
+### Project: PropertyWhiz
 
-AddressBook - Level 3 is a desktop address book application used for teaching Software Engineering principles. The user
-interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+PropertyWhiz is a desktop application that helps property agents manage their properties and clients.
 
 Given below are my contributions to the project.
 
-* **New Feature**: Added the ability to undo/redo previous commands.
-    * What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed
-      by using the redo command.
-    * Justification: This feature improves the product significantly because a user can make mistakes in commands and
-      the app should provide a convenient way to rectify them.
-    * Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth
-      analysis of design alternatives. The implementation too was challenging as it required changes to existing
-      commands.
-    * Credits: *{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in
-      the feature so that a reader can make a more accurate judgement of how much effort went into the feature}*
+* **New Feature**: Added intelligent matching functionality. [\#97](https://github.com/AY2122S1-CS2103T-W11-4/tp/pull/97)
+  * What it does: Automatically match buyers and properties together based on price and tags, returning a list of one-to-one matches with the most compatible pair at the top.
+  * Justification: This allows the property agent to discover and prioritise the most compatible properties and buyers, and allows them to make better recommendations to their clients.
+  * Highlights: This feature required in-depth consideration of the target users' priorities, followed by designing a suitable algorithm to determine the best matching. Adding this command required the introduction of multiple UI views as a concept and additional code had to be added to support the switching of views.
 
-* **New Feature**: Added a history command that allows the user to navigate to previous commands using up/down keys.
+* **Enhancement**: Added system tests. [\#41](https://github.com/AY2122S1-CS2103T-W11-4/tp/pull/41)
+  * What it does: Runs list of commands from text file and compare output (feedback to user + program state) to previous results.
+  * Justification: This allows us to automatically detect regressions in code not caught by unit tests.
+  * Highlights: This feature required consideration of the "developer experience". It was implemented in a way that allows developers to easily update it with new input and easily compare the actual vs expected output when the test fails.
 
-* **Code contributed**: [RepoSense link]()
+* **Code contributed**: [RepoSense link](https://nus-cs2103-ay2122s1.github.io/tp-dashboard/?search=waynetee&sort=groupTitle&sortWithin=title&since=2021-09-17&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=false)
 
 * **Project management**:
-    * Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+  * Set up GitHub team org + repo
+  * Managed releases `v1.2` - `v1.3` (2 releases) on GitHub
+  * Triaged bugs reported
 
 * **Enhancements to existing features**:
-    * Updated the GUI color scheme (Pull requests [\#33](), [\#34]())
-    * Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests [\#36]()
-      , [\#38]())
+  * Made various additions, fixes and enhancements to the UI [\#38](https://github.com/AY2122S1-CS2103T-W11-4/tp/pull/38) [\#67](https://github.com/AY2122S1-CS2103T-W11-4/tp/pull/67) [\#125](https://github.com/AY2122S1-CS2103T-W11-4/tp/pull/125) [\#188](https://github.com/AY2122S1-CS2103T-W11-4/tp/pull/188)
 
 * **Documentation**:
-    * User Guide:
-        * Added documentation for the features `delete` and `find` [\#72]()
-        * Did cosmetic tweaks to existing documentation of features `clear`, `exit`: [\#74]()
-    * Developer Guide:
-        * Added implementation details of the `delete` feature.
+  * Added to User Guide and Developer Guide for intelligent matching feature. [\#97](https://github.com/AY2122S1-CS2103T-W11-4/tp/pull/97)
+  * Added to User Guide for multi-command input feature. [\#41](https://github.com/AY2122S1-CS2103T-W11-4/tp/pull/41)
 
 * **Community**:
-    * PRs reviewed (with non-trivial review comments): [\#12](), [\#32](), [\#19](), [\#42]()
-    * Contributed to forum discussions (examples: [1](), [2](), [3](), [4]())
-    * Reported bugs and suggestions for other teams in the class (examples: [1](), [2](), [3]())
-    * Some parts of the history feature I added was adopted by several other class mates ([1](), [2]())
-
-* **Tools**:
-    * Integrated a third party library (Natty) to the project ([\#42]())
-    * Integrated a new Github plugin (CircleCI) to the team repo
-
-* _{you can add/remove categories in the list above}_
+  * Reviewed [20+ PRs](https://github.com/AY2122S1-CS2103T-W11-4/tp/pulls?q=is%3Apr+is%3Aclosed+reviewed-by%3Awaynetee+-author%3Awaynetee+sort%3Acomments-desc+)
+  * Sample PRs reviewed: [\#31](https://github.com/AY2122S1-CS2103T-W11-4/tp/pull/31), [\#62](https://github.com/AY2122S1-CS2103T-W11-4/tp/pull/62), [\#70](https://github.com/AY2122S1-CS2103T-W11-4/tp/pull/70), [\#76](https://github.com/AY2122S1-CS2103T-W11-4/tp/pull/76)
+  * Reported bugs for others in the class (examples: https://github.com/waynetee/ped/issues)
