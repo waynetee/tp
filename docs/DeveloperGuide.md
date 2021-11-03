@@ -451,8 +451,17 @@ Priorities: High (must have) - `H`, Medium (nice to have) - `M`, Low (unlikely t
 | `H`  | user                                       | list all buyers                | easily see all buyers                                                      |
 | `H`  | user                                       | update buyer tags              | provide details about a buyer                                              |
 | `H`  | user                                       | find buyer by tags             | easily see related buyers with a given tag                                 |
-
-*{More to be added}*
+| `H`  | user                                       | sort properties by price       | easily see the cheapest or most expensive properties                       |
+| `H`  | user                                       | sort buyers by budget          | easily see the buyers with highest or lowest budgets                       |
+| `H`  | user                                       | match properties to given buyer| see all properties that are suitable for a buyer                           |
+| `H`  | user                                       | match buyers to given property | see all buyers that are suitable for a property                            |
+| `H`  | user                                       | match buyers to property 1 to 1| see most suitable matches between buyers and properties                    |
+| `M`  | multi-platform user                        | import data from csv file      | migrate data from other apps such as excel to propertyWhiz                 |
+| `M`  | multi-platform user                        | export data to csv file        | migrate data from propertyWhiz to other apps such as excel                 |
+| `M`  | user                                       | show histogram for properties prices| see the distribution of prices among properties                       |
+| `M`  | user                                       | show histogram for buyer budgets| see the distribution of budgets among buyers                              |
+| `L`  | user                                       | show pie chart for property tags| see the distribution of tags among properties                             |
+| `L`  | user                                       | show pie chart for buyer tags  | see the distribution of tags among buyers                                  |
 
 ### Use cases
 
