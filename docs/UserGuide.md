@@ -21,10 +21,10 @@ If you fit the descriptions below, then PropertyWhiz will address many of your i
 ### Purpose of this guide
 
 This guide is
-* a summary of all the features offered by PropertyWhiz, and a high level overview on how they operate so you can use this as a reference sheet.
-* a high level overview of what user input is considered as valid so you can quickly get started with PropertyWhiz.
+* a summary of all the *features* offered by PropertyWhiz, and a high level overview on how they operate so you can use this as a reference sheet.
+* a high level overview of what *user input* is considered as valid so you can quickly get started with PropertyWhiz.
 
-This guide is not
+This guide is **not**
 * an exhaustive case study of all possible ways of using PropertyWhiz's features.
 * an exhaustive list of valid and invalid inputs as the application itself will hint you when your input is invalid.
 
@@ -44,11 +44,13 @@ Here are some tips on how to read this guide more efficiently, so that you will 
 5. We have tried our best to make the command format as intuitive and unambiguous as possible. If you have doubts, do refer to our [detailed guide](#features) on command syntax.
 
 ### Conventions
+
 Symbols | Meaning
 --------|------------------
 :information_source: | This is general information that improves your background understanding of this guide as well as PropertyWhiz.
 :bulb: | This is additional (but not crucial) information that may help you to use PropertyWhiz more effectively.
 :exclamation: | This is something important that you should be aware of.
+
 
 Formatting | Meaning
 --------|------------------
