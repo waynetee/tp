@@ -467,58 +467,177 @@ Priorities: High (must have) - `H`, Medium (nice to have) - `M`, Low (unlikely t
 
 (For all use cases below, the **System** is the `PropertyWhiz` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: UC01 - Delete property**
+**Use case: UC01 - Add property**
+
+1. `User` requests a property to be added by specifying its details.
+2. `PropertyWhiz` adds the property.
+
+    Use case ends.
+
+**Extensions**
+* 1a. The given details are in an incorrect format.
+  * 1a1. `PropertyWhiz` shows an error message.
+
+    Use case ends.
+
+* 1b. Details are in correct format, but the property already exists in TutorsPet.
+  * 1b1. `PropertyWhiz` shows an error message. 
+    
+    Use case ends.
+
+**Use case: UC02 - Delete property**
 
 **MSS**
 
-1.  `User` requests to delete a specific _property_ by specifying its index
-2.  `PropertyWhiz` deletes the property
+1.  `User` requests to delete a specific property by specifying its index.
+2.  `PropertyWhiz` deletes the property.
 
     Use case ends.
 
 **Extensions**
 
 * 1a. The index is invalid.
-
-  * 1a1. `PropertyWhiz` throws an error message.
+  * 1a1. `PropertyWhiz` shows an error message.
 
     Use case ends.
-
-
-**Use case: UC02 - Modify property**
+  
+**Use case: UC03 - Edit property**
 
 **MSS**
 
-1. `User` requests to modify a property
-2. `PropertyWhiz` edits attributes of the property
+1. `User` requests to modify a property by specifying its index and new details.
+2. `PropertyWhiz` edits attributes of the property.
 
     Use case ends.
 
 **Extensions**
 
-* 1a. `User` does not provide new attributes.
+* 1a. The index is invalid.
+    * 1a1. `PropertyWhiz` shows an error message.
 
-  * 1a1. `PropertyWhiz` throws an error message.
+      Use case ends.
+
+* 1b. `User` does not provide new attributes.
+  * 1b1. `PropertyWhiz` shows an error message.
 
     Use case ends.
 
-*{More to be added}*
+* 2a. Edited property is equal to another property in `PropertyWhiz`.
+  * 2a1. `PropertyWhiz` shows an error message.
+
+    Use case ends.
+
+**Use case: UC04 - Sort properties**
+
+**MSS**
+
+1. `User` requests to sort the current property list by specifying a sorting criteria and direction.
+2.  `PropertyWhiz` sorts the current property list by the sorting criteria and direction.
+
+Use case ends.
+
+**Use case: UC05 - Find properties**
+
+**MSS**
+
+1. `User` requests to find properties by specifying keywords and a set of tags.
+2.  `PropertyWhiz` filters the current property list to include only properties that contain the specified keywords in the name and have the specified tags.
+
+Use case ends.
+
+**Use case: UC06 - Import properties**
+1. `User` requests to import properties.
+2. `User` chooses the source csv file.
+3. `PropertyWhiz` imports the rows within the csv file as properties to the current property list.
+
+**Extensions**
+
+* 2a. `User` cancels while choosing a csv file.
+    * 2a1. `PropertyWhiz` shows an error message.
+
+      Use case ends.
+
+* 3a. The csv file cannot be opened or read from.
+    * 3a1. `PropertyWhiz` shows an error message.
+
+      Use case ends.
+
+* 3b. The csv file is incorrectly formatted.
+    * 3b1. `PropertyWhiz` shows an error message.
+
+      Use case ends.
+
+* 3c. Importing creates duplicate properties within `PropertyWhiz`.
+    * 3c1. `PropertyWhiz` shows an error message.
+
+      Use case ends.
+
+**Use case: UC07 - Export properties**
+1. `User` requests to export properties.
+2. `User` chooses the destination csv file.
+3. `PropertyWhiz` exports properties from the current property list to the csv file.
+
+**Extensions**
+
+* 2a. `User` cancels while choosing a csv file.
+    * 2a1. `PropertyWhiz` shows an error message.
+
+      Use case ends.
+
+* 3a. The csv file cannot be opened or written to.
+    * 3a1. `PropertyWhiz` shows an error message.
+
+      Use case ends.
+
+**Use case: UC08 - Match auto**
+1. `User` requests to match properties to buyers 1 to 1.
+2. `PropertyWhiz` displays a view containing a list of 1 to 1 matching between properties and buyers in the current lists.
+3. `User` requests to return to the original view.
+
+**Extensions**
+
+* 2a. There are either no properties, or no buyers.
+    * 2a1. `PropertyWhiz` shows an error message.
+
+      Use case ends.
+
+* 2b. User sends another command within the 1 to 1 matching view.
+    * 2b1. `PropertyWhiz` shows an error message.
+
+      Use case resumes at step 2.
+
+**Use case: UC09 - Stat Properties**
+1. `User` requests to draw a histogram of property prices.
+2. `PropertyWhiz` draws and shows in a new window, a histogram of property prices within the current property list. 
+
+**Extensions**
+
+* 2a. There are no properties in the current property list.
+    * 2a1. `PropertyWhiz` shows an error message.
+
+      Use case ends.
+
+* 2b. There is already a window containing a previously drawn histogram.
+    * 2a1. `PropertyWhiz` closes the window containing the previously drawn histogram.
+
+      Use case resumes at step 2.
 
 ### Non-Functional Requirements
 
 1. Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
-2. Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+2. Should be able to hold up to 500 properties and buyers without a noticeable sluggishness in performance for typical usage.
 3. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 4. Should be able to function without internet access.
 5. Should be able to restart without loss of data.
-
-*{More to be added}*
+6. Should be packaged within a single jar, without requiring an installer.
+7. Files created for storage should not exceed 100MB in total.
 
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, OS-X
 * **Property**: A property listed for sale
 * **Buyer**: A person who expresses interest in a range of properties
+* **Current property list**: The current list of properties visible to the buyer.
 
 --------------------------------------------------------------------------------------------------------------------
 
