@@ -26,8 +26,8 @@ import seedu.address.model.tag.Tag;
 public abstract class EditCommand extends SimpleCommand {
     public static final String COMMAND_WORD = "edit";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Overwrites the details of the property or buyer "
-            + "identified by the index number used in the displayed property/buyer list. "
-            + "Only tags are added and not overwritten.\n"
+            + "identified by the index number used in the displayed property/buyer list.\n"
+            + "Only tags with modifiers ta/ or td/ are added/deleted and not overwritten.\n"
             + "Parameters (property): property INDEX "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
