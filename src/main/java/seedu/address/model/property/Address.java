@@ -11,7 +11,7 @@ public class Address {
 
     public static final Integer MAX_LENGTH = 100;
     public static final String MESSAGE_CONSTRAINTS = "Addresses should only contain alphanumeric characters, "
-            + "hashes (#), hyphens, and spaces, and it should not be blank.\n"
+            + "hashes (#), commas(,), semicolons (;), hyphens (-), and spaces, and it should not be blank.\n"
             + "Addresses should also be at most " + MAX_LENGTH + " characters long.";
 
     /*
