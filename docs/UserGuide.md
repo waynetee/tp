@@ -18,7 +18,7 @@ PropertyWhiz (PropertyWhiz) is a **desktop app for managing properties and prope
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
-1. Download the latest `propertywhiz.jar` from [here]().
+1. Download the latest `propertywhiz.jar` from [here](https://github.com/AY2122S1-CS2103T-W11-4/tp/releases).
 
 1. Copy the file to the folder you want to use as the _home folder_ for your PropertyWhiz.
 
@@ -29,7 +29,7 @@ PropertyWhiz (PropertyWhiz) is a **desktop app for managing properties and prope
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-    * **`clear`** : Deletes all properties/buyers. Enter `clear` start from scratch!
+    * **`clear`** : Deletes all properties/buyers. Enter `clear` to start from scratch!
 
     * **`list`** : Lists all properties/buyers.
 
@@ -42,27 +42,27 @@ PropertyWhiz (PropertyWhiz) is a **desktop app for managing properties and prope
 
     * **`exit`** : Exits the app.
 
-1. Refer to the [Features](#features) below for details of each command, 
-   or the [Command Summary](#command-summary).
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## Command summary
+
+Refer to the section [Input formatting](#input-formatting) below for how to interpret our commands, 
+or [Commands](#commands) for a more detailed version of each action.
 
 Action | Format, Examples
 --------|------------------
 **Add** | **Property** <br>`add property n/PROPERTY_NAME a/PROPERTY_ADDRESS s/SELLER_NAME p/SELLER_PHONE e/SELLER_EMAIL $/PRICE [t/TAG]…​` <br><br> **Buyer** <br>`add buyer n/BUYER_NAME p/BUYER_PHONE e/BUYER_EMAIL $/BUDGET) [t/TAG]…`
 **Clear** | `clear`
-**Delete** | `delete (property \| buyer) INDEX`
-**Edit** | **Property** <br>`edit property INDEX [n/PROPERTY_NAME] [a/PROPERTY_ADDRESS] [s/SELLER_NAME] [p/SELLER_PHONE] [e/SELLER_EMAIL] [$/PRICE] [([t/TAG]…​ \| [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]]​`<br><br> **Buyer** <br> `edit buyer INDEX [n/BUYER_NAME] [p/BUYER_PHONE] [e/BUYER_EMAIL] [$/BUDGET]) [([t/TAG]… \| [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]`
-**Find** | `find (properties \| buyers) [KEYWORDS] [t/TAG_TO_MATCH]…`
+**Delete** | `delete (property | buyer) INDEX`
+**Edit** | **Property** <br>`edit property INDEX [n/PROPERTY_NAME] [a/PROPERTY_ADDRESS] [s/SELLER_NAME] [p/SELLER_PHONE] [e/SELLER_EMAIL] [$/PRICE] [([t/TAG]…​ | [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]]​`<br><br> **Buyer** <br> `edit buyer INDEX [n/BUYER_NAME] [p/BUYER_PHONE] [e/BUYER_EMAIL] [$/BUDGET]) [([t/TAG]… | [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]`
+**Find** | `find (property | buyer) [KEYWORDS] [t/TAG_TO_MATCH]…`
 **List** | `list`
 **Exit** | `exit`
 **Help** | `help`
-**Sort** | `sort (properties \| buyers) (price \| name) (asc \| desc)`
-**Match** | `match ( auto \| property INDEX \| buyer INDEX )`
-**Import** | `import (properties \| buyers)`
-**Export** | `export (properties \| buyers)`
+**Sort** | `sort (property | buyer) (price | name) (asc | desc)`
+**Match** | `match ( auto | property INDEX | buyer INDEX )`
+**Import** | `import (property | buyer)`
+**Export** | `export (property | buyer)`
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -99,24 +99,28 @@ Item | Description
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Features
+## Usage
 
+### Input formatting
 TODO: Define named parameters, positional parameters
 
 <div markdown="block" class="alert alert-info">
 
 **:information_source: Notes about the command format:**<br>
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
+* The action keywords `property`, `properties` can both be used to refer to properties, and similarly for `buyer` and `buyers` as well.
+  e.g. `find property Condo` can also be entered as `find properties Condo`.
+
+* Words in `UPPER_CASE` must be supplied by the user.<br>
   e.g. in `add property n/PROPERTY_NAME`, `PROPERTY_NAME` is a parameter which can be used as `add property n/Beautiful Condo`.
 
-* Items in square brackets are optional.<br>
+* `[]` : Items in square brackets are optional.<br>
   e.g `n/PROPERTY_NAME [t/TAG]` can be used as `n/Beautiful Condo t/condo` or as `n/Beautiful Condo`.
 
-* Items with `…` after them can be repeated any number of times.<br>
+* `...` : Items with `…` after them can be repeated any number of times.<br>
   e.g. `[t/TAG]…` can be omitted, used once:`t/condo`, twice:`t/condo t/family` or more times.
 
-* Items in circle brackets `()` separated by `|` means that you can only choose 1 of the partitioned items <br>
+* `( | )` : Items in circle brackets `()` separated by `|` means that you can only choose 1 of the partitioned items <br>
   e.g. `([t/TAG] | [ta/TAG_TO_ADD] [t/TAG_TO_DELETE])` can be used as `t/condo`, `ta/condo td/small condo` but not `t/condo ta/condo`, `t/condo td/small condo`, `t/condo ta/condo td/small condo`
 
 * Parameters can be in any order.<br>
@@ -127,18 +131,30 @@ TODO: Define named parameters, positional parameters
 
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
+  
+* As many of our commands use slashes `/`, if possible do not use `/` in your inputs as it may lead to unexpected results.
 
 </div>
 
 ------------------
 
-TODO: I suggest we centralize common input requirements here.
-### Valid Fields
+### Valid properties/buyers
 Here are some fields that are shared amongst commands.
 
 #### Property/Buyer names
 * Names must start with a letter or number, and only contain alphanumerical characters, spaces and hyphens (`-`).
 * Names have a maximum allowed length of 50.
+* Buyers with identical names are not allowed.
+
+#### Property addresses
+* Addresses must start with a letter or number, and only contain alphanumerical characters, and the following special characters:
+  * spaces,
+  * hyphens (`-`),
+  * commas (`,`),
+  * semicolons (`;`),
+  * and hashes (`#`).
+* Addresses have a maximum allowed length of 100.
+* Properties with identical addresses are not allowed.
 
 #### Property Prices/Buyer Budget
 * Prices must be between 4 and 9 digits (both inclusive).
@@ -148,6 +164,10 @@ Here are some fields that are shared amongst commands.
 * Tags are always optional.
 * Tags must start with a letter or number, and only contain alphanumerical characters, spaces and hyphens (`-`).
 * Tags have a maximum allowed length of 100.
+
+------------------
+
+## Commands
 
 ### Viewing help : `help`
 
@@ -164,7 +184,7 @@ Adds a property/buyer to PropertyWhiz.
 
 * All other fields are compulsory other than tags.
 
-See [valid inputs](#valid-fields) for details on constraints on what you can enter.
+See the section [Valid properties/buyers](#valid-propertiesbuyers) for details on constraints on what you can enter.
 
 Format:
 * Adding a property: `add property n/PROPERTY_NAME a/PROPERTY_ADDRESS s/SELLER_NAME p/SELLER_PHONE e/SELLER_EMAIL $/PRICE [t/TAG]…`
@@ -195,7 +215,7 @@ Edits the property/buyer at the specified `INDEX`. The index refers to the index
 * Like `add`, tags added via `edit` will be automatically converted to lower case.
 * You can remove all the property/buyer’s tags by typing `t/` without specifying any tags after it.
 
-See [valid inputs](#valid-fields) for details on constraints on what you can enter.
+See the section [Valid properties/buyers](#valid-propertiesbuyers) for details on constraints on what you can enter.
 
 Format:
 * Editing a property: `edit property INDEX [n/PROPERTY_NAME] [a/PROPERTY_ADDRESS] [s/SELLER_NAME] [p/SELLER_PHONE] [e/SELLER_EMAIL] [$/PRICE] [([t/TAG]… | [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]`
@@ -217,9 +237,9 @@ The following example is invalid:
 </div>
 
 
-### Viewing price histogram of listed properties and/or buyers : `stat`
+### Viewing price chart of listed properties and/or buyers : `stat`
 
-Creates a pop-up with the price histogram of the currently listed properties and/or buyers in the view.
+Creates a pop-up with the price chart of the currently listed properties and/or buyers in the view.
 
 Format: `stat [(property | buyer)]`
 
@@ -228,15 +248,19 @@ Format: `stat [(property | buyer)]`
 * Entering another `stat` command while the existing one is open  replaces the view in the pop-up window.
 * If only buyers or only properties are visible, `stat` automatically presents the only buyers/only properties view.
 
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+TODO: insert warning for MacOS users
+</div>
+
 ### Locating properties/buyers by name, tags, price: `find`
 
 Finds properties or buyers whose names contain any of the given keywords, whose tag list contain all of the specified tags and whose price is within the specified price range in the **currently displayed list**.
 
-Format: `find (properties | buyers) [KEYWORDS] [t/TAG_TO_MATCH]… [$min/MIN_PRICE] [$max/MAX_PRICE]`
+Format: `find (property | buyers) [KEYWORDS] [t/TAG_TO_MATCH]… [$min/MIN_PRICE] [$max/MAX_PRICE]`
 
 * Finds only properties or buyers in the currently displayed list
 
-    e.g If `find properties hillview` return properties `Hillview` and `Hillview Rise`, then applying another find command `find properties grove` will return an empty list, even if PropertyWhiz has a property `Grove`.
+    e.g If `find property hillview` return properties `Hillview` and `Hillview Rise`, then applying another find command `find property grove` will return an empty list, even if PropertyWhiz has a property `Grove`.
 * The keyword search is case-insensitive. e.g `hillview` will match `Hillview`
 * The order of the keywords does not matter. e.g. `Hillview Rise` will match `Rise Hillview`
 * Only the property name is searched.
@@ -245,22 +269,20 @@ Format: `find (properties | buyers) [KEYWORDS] [t/TAG_TO_MATCH]… [$min/MIN_PRI
 * Properties matching at least one keyword (i.e. `OR` search) and matching all the tags (i.e. `AND` search) will be returned.
     * e.g. For keywords, `Hillview Rise` will return `Hillview Grove`, `Rise Rivervale`
     * e.g. For tags, `t/4rm t/near school` will return properties with both `4rm` tag, and `near school` tag.
-* The price search is inclusive of the specified number
-  * e.g. `find properties $min/10000` will return properties that are at least $10000
-  * e.g. `find properties $max/100000` will return properties that are at most $100000
+* The price search is inclusive of the specified number.
+  * e.g. `find property $min/10000` will return properties that are at least $10000
+  * e.g. `find property $max/100000` will return properties that are at most $100000
 * Only one `$min/` and `$max/` is allowed in the input
-  * e.g. `find properties $min/1000 $max/100000` is valid
-  * e.g. `find properties $min/10000 $min/1999999 $max/100000` is invalid
+  * e.g. `find property $min/1000 $max/100000` is valid
+  * e.g. `find property $min/10000 $min/1999999 $max/100000` is invalid
   
 Examples:
-* `find properties Jurong` returns properties `jurong` and `Jurong East`
-* `find buyers Sally` returns buyers `sally` and `Sally Brown`
-* `find properties Jurong t/4rm t/near school` returns properties `jurong [4rm] [near school] [near mrt]` and `Jurong East [4rm] [near school] [near mrt]` but not `jurong [4rm] [near mrt]`
-* `find properties t/4rm t/near school` returns properties `jurong [4rm] [near school] [near mrt]` and `Clementi [4rm] [near school] [near mrt]`
-* `find buyers Sally t/4rm t/near school` returns buyers `Sally [4rm] [near school] [quiet]` and `sally brown [4rm] [near school]`
-* `find properties $min/10000 $max/1000000` returns properties that are at least $10000 and at most $1000000
-
-------------------
+* `find property Jurong` returns properties `jurong` and `Jurong East`
+* `find buyer Sally` returns buyer `sally` and `Sally Brown`
+* `find property Jurong t/4rm t/near school` returns properties `jurong [4rm] [near school] [near mrt]` and `Jurong East [4rm] [near school] [near mrt]` but not `jurong [4rm] [near mrt]`
+* `find property t/4rm t/near school` returns properties `jurong [4rm] [near school] [near mrt]` and `Clementi [4rm] [near school] [near mrt]`
+* `find buyer Sally t/4rm t/near school` returns buyer `Sally [4rm] [near school] [quiet]` and `sally brown [4rm] [near school]`
+* `find property $min/10000 $max/1000000` returns properties that are at least $10000 and at most $1000000
 
 ### Deleting a property/buyer : `delete`
 
@@ -276,20 +298,18 @@ Examples:
 * `list` followed by `delete property 2` deletes the 2nd property in PropertyWhiz.
 * `find East Coast` followed by `delete property 1` deletes the 1st property in the results of the `find` command.
 
-------------------
-
 ### Sorting properties/buyers: `sort`
 
 Sorts the properties / buyers in PropertyWhiz.
 
-Format: `sort (properties | buyers) (price | name) (asc | desc)`
+Format: `sort (property | buyers) (price | name) (asc | desc)`
 
 * Sort the properties in the **current** view based on properties `price`/`name` in `asc`(ascending) / `desc`(descending) order
 * Sort the buyers in the **current** view based on buyers `price`/`name` in `asc`(ascending) / `desc`(descending) order
 
 Examples:
 
-* `sort properties price asc` returns the property list sorted by price in ascending order
+* `sort property price asc` returns the property list sorted by price in ascending order
 * `sort buyers name desc` returns the buyer list sorted by name in descending order
 
 ### Matching properties and buyers: `match`
@@ -362,21 +382,19 @@ Imports buyers or properties from csv file. Imported items will be added to the 
 Format: `import buyers` or `import properties`
 
 * You can select the import file location from a pop-up dialog box.
-* The buyer or property list imported must be [valid](#valid-fields). Some criteria are as follows:
+* The buyer or property list imported must be [valid](#valid-propertiesbuyers). Some criteria are as follows:
   * No duplicates
   * Valid fields e.g. name, email etc.
   * No missing fields
 * The csv must begin with a header which includes the names of each column.
 
-See [below](#csvExample) for example csv files.
-
-------------------
+See [below](#exporting-data-to-csv-file--export) for example csv files.
 
 ### Exporting data to csv file : `export`
 
 Exports buyers or properties in the **currently displayed list** to csv file.
 
-Format: `export buyers` or `export properties`
+Format: `export buyer` or `export property`
 
 * You can select the export file location from a pop-up dialog box.
 
@@ -400,6 +418,10 @@ Example csv output of `export buyer`
 "Neet Bitterman","91234567","bit@bucket.com","420002","huge house,noisy,party"
 "Frail Duckie","93234267","fail@mega.com","420003","tiny,1rm"
 ```
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+Try copying these to a spreadsheet and saving it as a .csv file. Then import them as sample inputs!
+</div>
 
 ------------------
 
