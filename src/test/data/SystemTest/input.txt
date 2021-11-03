@@ -9,8 +9,10 @@ delete property 10000
 list
 find property la
 find property dee
+list
 edit property 1 n/new name
 edit property 2 n/Olive Gardens a/Blk 11 Ang Mo Kio Street 74, #11-04 $/6457654 s/Charlotte Oliveiro p/93210283 e/charlotte@example.com t/Condo
+export property
 delete property 3
 edit property 1 ta/condo1 ta/condo2 ta/condo3 ta/condo4
 edit property 1 td/condo2 td/condo3
@@ -19,6 +21,10 @@ add buyer n/Sam p/91234567 e/sam@email.com t/hdb t/3rm $/4444
 add buyer n/bob p/91234567 e/sam@email.com t/hdb t/3rm $/2222
 add buyer n/tim p/91234567 e/sam@email.com t/condo t/3rm $/4444
 add buyer n/tom p/91234567 e/sam@email.com t/condo t/3rm $/10000
+export buyer
+stat
+stat buyer
+stat property
 sort    buyer  price    asc
 sort    buyer  name    asc
 list

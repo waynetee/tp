@@ -655,40 +655,127 @@ testers are expected to do more *exploratory* testing.
 1. Initial launch
 
    1. Download the jar file and copy into an empty folder
-
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   2. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
 1. Saving window preferences
 
    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
-
-   1. Re-launch the app by double-clicking the jar file.<br>
+   2. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
+   
+### Keeping track of properties
 
-1. _{ more test cases …​ }_
+1. Add a property
+   1. Test case: `add property n/Hasta La Vista a/20 Clementi Ave 2, #02-25 $/1652000 s/John Doe p/98765432 e/johnd@example.com t/Condo t/4 rm t/621 sqft t/EW23 Clementi`<br>
+      Expected: Property successfully added to front of buyer list.
 
-TODO: More test cases needed
-### Deleting a property
-
-1. Deleting a property while all properties are being shown
+2. Edit a property while all properties are being shown
+   1. Prerequisites: List all properties using the `list` command.
+   2. Test case: `edit property 1`<br>
+      Expected: No fields are provided, property is not edited
+   3. Test case: `edit property 1 ta/condo1 ta/condo2 ta/condo3 ta/condo4`<br>
+      Expected: 4 new tags `condo1`, `condo2`, `condo3`, `condo4` are added to the first property in the current property list. 
+3. Deleting a property while all properties are being shown
 
    1. Prerequisites: List all properties using the `list` command. Multiple properties in the list.
 
-   1. Test case: `delete property 1`<br>
+   2. Test case: `delete property 1`<br>
       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 
-   1. Test case: `delete property 0`<br>
+   3. Test case: `delete property 0`<br>
       Expected: No property is deleted. Error details shown in the status message. Status bar remains the same.
 
-   1. Other incorrect delete commands to try: `delete`, `delete property x`, `...` (where x is larger than the list size)<br>
+   4. Other incorrect delete commands to try: `delete`, `delete property x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
-1. _{ more test cases …​ }_
+4. Sort properties that are in the current list
+   1. Test case: `sort property name desc`<br>
+      Expected: Sorted all properties in the current properties list by name in descending order.
+   2. Test case: `sort property name`<br>
+      Expected: There is no sort direction given. Properties are not sorted.
+
+### Exporting and importing data
+
+1. Testing properties export/import csv
+   1. Remove `addressbook.json` file in the /data folder.
+   2. Run `PropertyWhiz` to obtain an initialized list of properties and buyers.
+   3. Enter Command: `export properties`, select a csv file at a convenient location..<br>
+      Expected: csv file is created, containing a header and 1 property per row.
+   4. Enter Command: `clear` to clear existing properties.
+   5. Enter Command: `import properties` from the csv file.<br>
+      Expected: Properties are successfully imported.
+   6. Enter Command: `import properties` from the csv file.<br>
+      Expected: Import properties failed due to duplicates.
+2. Repeat the commands above to test for buyers.
+
+### Testing multiple commands quickly
+1. `PropertyWhiz` allows users to copy and paste multiple commands, with one command on each line.<br>
+   Expected: The first line of command will be displayed in the Command Box.
+
+2. Press enter to run the command in the command box. <br>
+   Expected: The current command in the Command Box will be run, and the output will be displayed as per normal.
+   The next line containing a command will replace the current command, regardless of whether the current command was successful.
+3. Repeat until all commands are run. After all pasted commands are run, the command box will be emptied instead of being replaced with another command.
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+If a command that was previously multi-line pasted is edited then executed, the next and subsequent pasted lines will be ignored.
+In other words, `PropertyWhiz` treats the edited command as the last line that has been pasted.
+</div>
+
+Sample list of interactions:<br>
+```clear
+add buyer n/ben p/91234567 e/sam@email.com t/hdb t/3rm $/123
+add buyer n/alice p/91234567 e/sam@email.com t/hdb t/3rm $/1000
+add property n/Hasta La Vista a/20 Clementi Ave 2, #02-25 $/1652000 s/John Doe p/98765432 e/johnd@example.com t/Condo t/4 rm t/621 sqft t/EW23 Clementi
+add property n/Dee Gardens a/Blk 30 Lorong 3 Serangoon Gardens, #07-18 $/3423432 s/Beatrice Yu p/99272758 e/berniceyu@example.com
+add property n/Olive Gardens a/Blk 11 Ang Mo Kio Street 74, #11-04 $/6457654 s/Charlotte Oliveiro p/93210283 e/charlotte@example.com t/Condo
+edit property 3
+delete property 10000
+list
+find property la
+find property dee
+list
+edit property 1 n/new name
+edit property 2 n/Olive Gardens a/Blk 11 Ang Mo Kio Street 74, #11-04 $/6457654 s/Charlotte Oliveiro p/93210283 e/charlotte@example.com t/Condo
+export property
+delete property 3
+edit property 1 ta/condo1 ta/condo2 ta/condo3 ta/condo4
+edit property 1 td/condo2 td/condo3
+find property t/condo1 t/condo4
+add buyer n/Sam p/91234567 e/sam@email.com t/hdb t/3rm $/4444
+add buyer n/bob p/91234567 e/sam@email.com t/hdb t/3rm $/2222
+add buyer n/tim p/91234567 e/sam@email.com t/condo t/3rm $/4444
+add buyer n/tom p/91234567 e/sam@email.com t/condo t/3rm $/10000
+export buyer
+stat
+stat buyer
+stat property
+sort    buyer  price    asc
+sort    buyer  name    asc
+list
+sort    property  name    desc
+edit buyer  3 td/3rm ta/4rm
+delete buyer 2
+sort buyers price desc
+match auto
+back
+clear
+match auto
+add property n/Olive Gardens a/Blk 11 Ang Mo Kio Street 74, #11-04 $/6457654 s/Charlotte Oliveiro p/93210283 e/charlotte@example.com t/Condo
+match auto
+add buyer n/tom p/91234567 e/sam@email.com t/condo t/3rm $/10000
+match    auto
+clear
+```
 
 ### Saving data
 
 1. Dealing with missing/corrupted data files
+   * Make sure the `PropertyWhiz` is currently not running.
+   * Open the `addressbook.json` file in the /data folder with your favourite text editor.
+   * Remove the first character: `{`.
+   * Run `PropertyWhiz`. Since the data file is not in the correct format, `PropertyWhiz` should start without any data.
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
-1. _{ more test cases …​ }_
+--------------------------------------------------------------------------------------------------------------------
+
+## **Appendix: Effort**
