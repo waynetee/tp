@@ -36,4 +36,4 @@ Given below are my contributions to the project.
 * **Community**:
   * Reviewed [20+ PRs](https://github.com/AY2122S1-CS2103T-W11-4/tp/pulls?q=is%3Apr+is%3Aclosed+reviewed-by%3Awaynetee+-author%3Awaynetee+sort%3Acomments-desc+)
   * Sample PRs reviewed: [\#31](https://github.com/AY2122S1-CS2103T-W11-4/tp/pull/31), [\#62](https://github.com/AY2122S1-CS2103T-W11-4/tp/pull/62), [\#70](https://github.com/AY2122S1-CS2103T-W11-4/tp/pull/70), [\#76](https://github.com/AY2122S1-CS2103T-W11-4/tp/pull/76)
-  * Reported bugs for others in the class (examples: https://github.com/waynetee/ped/issues)
+  * [Reported bugs](https://github.com/waynetee/ped/issues) for others in the class
