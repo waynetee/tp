@@ -35,7 +35,7 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_NUM_ARGUMENTS =
             "Expected %d arguments in preamble, provided %d arguments.";
     public static final String MESSAGE_INVALID_PREAMBLE = "Invalid preamble: %s\n"
-            + "Expected preamble: '%s'\n"
+            + "Expected preamble: '%s'.\n"
             + "Given preamble: '%s'.\n";
     public static final String MESSAGE_INVALID_FIND_PRICE_PREFIX = "Invalid command. Only one %s is allowed.";
 
