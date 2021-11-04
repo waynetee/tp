@@ -63,7 +63,8 @@ public class CommandTestUtil {
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
-    public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
+    public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911#"; // '#' not allowed in phones
+    public static final String INVALID_PHONE_DESC_TOO_SHORT = " " + PREFIX_PHONE + "9"; // min phone length is 3
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_SELLER_DESC = " " + PREFIX_SELLER + "James&"; // '&' not allowed in seller
@@ -140,7 +141,7 @@ public class CommandTestUtil {
 
         Property property = model.getFilteredPropertyList().get(targetIndex.getZeroBased());
         final String[] splitName = property.getName().fullName.split("\\s+");
-        model.updateFilteredPropertyList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredPropertyList(new NameContainsKeywordsPredicate<>(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredPropertyList().size());
     }
