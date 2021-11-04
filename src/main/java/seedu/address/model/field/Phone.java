@@ -7,6 +7,12 @@ import static java.util.Objects.requireNonNull;
  * Guarantees: immutable; Is always valid.
  */
 public class Phone {
+    private static final Integer MIN_LENGTH = 3;
+    private static final String VALIDATION_REGEX = "[\\p{Alnum}\\-()+ ]{" + MIN_LENGTH + ",}";
+    public static final String MESSAGE_CONSTRAINTS =
+            "Phone number should only contain alphanumeric characters, hyphens, parentheses, plus signs and spaces.\n"
+                    + "Phone number should be at least " + MIN_LENGTH + " characters long.\n";
+
     public final String value;
 
     /**
@@ -17,6 +23,13 @@ public class Phone {
     public Phone(String phone) {
         requireNonNull(phone);
         value = phone;
+    }
+
+    /**
+     * Returns true if a given string matches the validation regex.
+     */
+    public static boolean isValidPhone(String test) {
+        return test.matches(VALIDATION_REGEX);
     }
 
     @Override

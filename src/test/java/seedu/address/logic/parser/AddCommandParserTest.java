@@ -8,6 +8,8 @@ import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC_TOO_SHORT;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PRICE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_SELLER_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
@@ -40,6 +42,7 @@ import seedu.address.logic.commands.buyer.AddBuyerCommand;
 import seedu.address.logic.commands.property.AddPropertyCommand;
 import seedu.address.model.field.Email;
 import seedu.address.model.field.Name;
+import seedu.address.model.field.Phone;
 import seedu.address.model.field.Price;
 import seedu.address.model.property.Address;
 import seedu.address.model.property.Property;
@@ -243,5 +246,17 @@ public class AddCommandParserTest {
         assertParseFailure(parser, PREAMBLE_PROPERTY
                 + INVALID_NAME_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB + INVALID_ADDRESS_DESC
                 + SELLER_DESC_BOB + PRICE_DESC_BOB, Name.MESSAGE_CONSTRAINTS);
+
+        // invalid phone - shorter than minimum length
+        assertParseFailure(parser, PREAMBLE_PROPERTY
+                + NAME_DESC_BOB + INVALID_PHONE_DESC_TOO_SHORT + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
+                + SELLER_DESC_BOB + PRICE_DESC_BOB
+                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Phone.MESSAGE_CONSTRAINTS);
+
+        // invalid phone - contain non-numeric characters
+        assertParseFailure(parser, PREAMBLE_PROPERTY
+                + NAME_DESC_BOB + INVALID_PHONE_DESC + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
+                + SELLER_DESC_BOB + PRICE_DESC_BOB
+                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Phone.MESSAGE_CONSTRAINTS);
     }
 }

@@ -144,6 +144,17 @@ Here are some fields that are shared amongst commands.
 * Prices must be between 4 and 9 digits (both inclusive).
 * Leading zeroes will be ignored. For e.g., `00100` has 5 characters, but it only has 3 digits, not counting the leading 0s. Hence, `00100` is an invalid price.
 
+#### Phone numbers 
+* Phone number should only contain alphanumeric characters, hyphens (`-`), parentheses (`()`), plus signs (`+`) and spaces.
+* Phone numbers must have at least 3 characters, excluding leading and trailing spaces
+  * Valid: 
+    * `9123 4567`
+    * `(office) +65 6123 4567`
+    * `nil`
+  * Invalid: 
+    * <code>&nbsp;&nbsp;&nbsp;a&nbsp;&nbsp;&nbsp;</code> (Excluding leading and trailing spaces, the phone number only contains 1 character)
+    * `#123` (contains invalid hash symbol)
+
 #### Tags
 * Tags are always optional.
 * Tags must start with a letter or number, and only contain alphanumerical characters, spaces and hyphens (`-`).
@@ -172,6 +183,7 @@ Format:
 
 Examples:
 * `add property n/Blk 123 a/123, Clementi Rd, #04-20, 1234665 s/James Lee p/61234567 e/james@email.com $/100000 t/hdb t/3rm`
+* `add property n/Blk 321 a/123, Clementi Rd, #04-20, 1234665 s/James Lee p/(hp) 61234567 e/james@email.com $/100000 t/hdb t/3rm`
 * `add buyer n/Sam p/91234567 e/sam@email.com $/740000 t/hdb t/3rm`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
