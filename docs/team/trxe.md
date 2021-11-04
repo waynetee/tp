@@ -43,4 +43,4 @@ Given below are my contributions to the project.
       Lacking error checking or alerting user of erroneous input
 
 * **Tools**:
-  * Integrated a third party library (JFreeChart) to the project ([\#42]())
+  * Integrated a third party library (JFreeChart) to the project
