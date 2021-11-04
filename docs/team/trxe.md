@@ -3,44 +3,44 @@ layout: page
 title: Pei Xian's Project Portfolio Page
 ---
 
-### Project: AddressBook Level 3
+### Project: PropertyWhiz
 
-AddressBook - Level 3 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+PropertyWhiz is a desktop application that helps property agents manage their properties and clients.
 
 Given below are my contributions to the project.
 
-* **New Feature**: Added the ability to undo/redo previous commands.
-  * What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-  * Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-  * Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-  * Credits: *{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}*
+* **New Feature**: Added the `stat` command. ([\#92](https://github.com/AY2122S1-CS2103T-W11-4/tp/pull/92))
+  * What it does: Lets users visualise visible properties/buyers' prices in a bar chart.
+  * Justification: This provides property agents with a fuss free way of visualising the market.
+  * Highlights: Uses a third-party library [JFreeChart](https://www.jfree.org/jfreechart/) to generate the graphs. 
+    The default implementation of a histogram in JFreeChart was buggy with sample data that is too small, 
+    hence I wrote a custom implementation of the bar chart to use here instead.
+  * Credits: With thanks to [JFreeChart](https://www.jfree.org/jfreechart/).
 
-* **New Feature**: Added a history command that allows the user to navigate to previous commands using up/down keys.
+* **New Feature**: Developing the model for the separate buyer and property panels in the app. 
+  ([\#58](https://github.com/AY2122S1-CS2103T-W11-4/tp/pull/58))
+  * What was added/changed: Refactored `UniquePersonList` into a generic `UniqueList` from which `UniqueBuyerList`, 
+  `UniquePropertyList` and now `UniqueMatchList` inherits. 
 
-* **Code contributed**: [RepoSense link]()
-
-* **Project management**:
-  * Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+* **Code contributed**: [RepoSense link](https://nus-cs2103-ay2122s1.github.io/tp-dashboard/?search=WONG%20PEI%20XIAN&sort=groupTitle&sortWithin=title%20dsc&timeframe=commit&mergegroup=koh-jx~ZhaoPeiduo~wangpeialex~yongxiangng~Chesterwongz~tanjiaxian99~syoopie~peilinye~wyrchris~xianlinc~Wilfredwongkc~timothywongej~trxe~EthanWong6362~xiangjunn~wpinrui&groupSelect=groupByAuthors&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=trxe&tabRepo=AY2122S1-CS2103T-W11-4%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code~other&authorshipIsBinaryFileTypeChecked=false&since=2021-09-17)
 
 * **Enhancements to existing features**:
-  * Updated the GUI color scheme (Pull requests [\#33](), [\#34]())
-  * Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests [\#36](), [\#38]())
+  * Update tags, address validation to include special characters instead of just alphanumericals. 
+    ([\#123](https://github.com/AY2122S1-CS2103T-W11-4/tp/pull/123), [\#189](https://github.com/AY2122S1-CS2103T-W11-4/tp/pull/189))
 
 * **Documentation**:
   * User Guide:
-    * Added documentation for the features `delete` and `find` [\#72]()
-    * Did cosmetic tweaks to existing documentation of features `clear`, `exit`: [\#74]()
+    * Cleaned up User Guide bugs after PE Dry Run [\#194](https://github.com/AY2122S1-CS2103T-W11-4/tp/pull/194)
   * Developer Guide:
-    * Added implementation details of the `delete` feature.
+    * Added implementation details of the `stat` feature.
 
 * **Community**:
-  * PRs reviewed (with non-trivial review comments): [\#12](), [\#32](), [\#19](), [\#42]()
-  * Contributed to forum discussions (examples: [1](), [2](), [3](), [4]())
-  * Reported bugs and suggestions for other teams in the class (examples: [1](), [2](), [3]())
-  * Some parts of the history feature I added was adopted by several other class mates ([1](), [2]())
+  * PRs reviewed (with non-trivial review comments): [\#55](https://github.com/AY2122S1-CS2103T-W11-4/tp/pull/55), [\#31](https://github.com/AY2122S1-CS2103T-W11-4/tp/pull/31)
+  * Reported critical bugs and suggestions for other teams in the class
+    * [\#237](https://github.com/AY2122S1-CS2103T-W17-4/tp/issues/237): Academic week number exceeds real academic week, and doesn't show any weeks past week 20 (2021-12-27)
+    * [\#275](https://github.com/AY2122S1-CS2103T-W17-4/tp/issues/275): Week number underflow (negative integers allowed up until -20)
+    * [\#243](https://github.com/AY2122S1-CS2103T-W17-4/tp/issues/243), [\#225](https://github.com/AY2122S1-CS2103T-W17-4/tp/issues/225): 
+      Lacking error checking or alerting user of erroneous input
 
 * **Tools**:
-  * Integrated a third party library (Natty) to the project ([\#42]())
-  * Integrated a new Github plugin (CircleCI) to the team repo
-
-* _{you can add/remove categories in the list above}_
+  * Integrated a third party library (JFreeChart) to the project ([\#42]())
