@@ -3,73 +3,71 @@ package seedu.address.model.property;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.field.Name;
+import seedu.address.model.field.Person;
+import seedu.address.model.field.Price;
 import seedu.address.model.tag.Tag;
 
 /**
  * Represents a Property in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Property {
-
-    // Identity fields
+public class Property implements Listable, Taggable, Nameable, Pricable {
     private final Name name;
-    private final Phone phone;
-    private final Email email;
-    private final Seller seller;
-
-    // Data fields
     private final Address address;
+    private final Person seller;
     private final Price price;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Property(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Seller seller, Price min) {
-        requireAllNonNull(name, phone, email, address, tags, seller);
+    public Property(Name name, Address address, Person seller, Price min, Set<Tag> tags) {
+        requireAllNonNull(name, address, seller, min, tags);
         this.name = name;
-        this.phone = phone;
-        this.email = email;
         this.address = address;
-        this.tags.addAll(tags);
         this.seller = seller;
         this.price = min;
+        this.tags.addAll(tags);
     }
 
+    @Override
     public Name getName() {
         return name;
-    }
-
-    public Phone getPhone() {
-        return phone;
-    }
-
-    public Email getEmail() {
-        return email;
     }
 
     public Address getAddress() {
         return address;
     }
 
-    /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
+    public Person getSeller() {
+        return seller;
+    }
+
+    @Override
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
     }
 
-    public Seller getSeller() {
-        return seller;
-    }
-
     public Price getPrice() {
         return price;
+    }
+
+    /**
+     * Returns true if the {@code Listable} item is a {@code Property} and has the same name.
+     * Used by the UniqueList to identify unique properties as a Listable.
+     */
+    @Override
+    public boolean isSameListable(Listable item) {
+        if (!(item instanceof Property)) {
+            return false;
+        }
+        return isSameProperty((Property) item);
     }
 
     /**
@@ -101,10 +99,8 @@ public class Property {
 
         Property otherProperty = (Property) other;
         return otherProperty.getName().equals(getName())
-                && otherProperty.getPhone().equals(getPhone())
-                && otherProperty.getSeller().equals(getPhone())
-                && otherProperty.getEmail().equals(getEmail())
                 && otherProperty.getAddress().equals(getAddress())
+                && otherProperty.getSeller().equals(getSeller())
                 && otherProperty.getPrice().equals(getPrice())
                 && otherProperty.getTags().equals(getTags());
     }
@@ -112,7 +108,7 @@ public class Property {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags, seller, price);
+        return Objects.hash(name, address, seller, price, tags);
     }
 
     @Override
@@ -124,11 +120,7 @@ public class Property {
                 .append("; Seller: ")
                 .append(getSeller())
                 .append("; Price: ")
-                .append(getPrice())
-                .append("; Phone: ")
-                .append(getPhone())
-                .append("; Email: ")
-                .append(getEmail());
+                .append(getPrice());
 
         Set<Tag> tags = getTags();
         if (!tags.isEmpty()) {
@@ -138,4 +130,11 @@ public class Property {
         return builder.toString();
     }
 
+    public static Comparator<Property> getPriceComparator() {
+        return Comparator.comparing(Property::getPrice);
+    }
+
+    public static Comparator<Property> getNameComparator() {
+        return Comparator.comparing(Property::getName);
+    }
 }

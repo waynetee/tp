@@ -1,0 +1,80 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":ImportBuyersCommand" as ImportBuyersCommand LOGIC_COLOR
+end box
+
+box Storage STORAGE_COLOR_T1
+participant "<<class>>\nStorage" as Storage STORAGE_COLOR
+participant "<<class>>\nCsvManager" as CsvManager STORAGE_COLOR
+participant "r:CSVReaderHeaderAware" as CSVReaderHeaderAware STORAGE_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "newAB:AddressBook" as AddressBook MODEL_COLOR
+participant ":ModelManager" as Model MODEL_COLOR
+end box
+
+activate ImportBuyersCommand
+
+ImportBuyersCommand -> Model : getAddressBook()
+activate Model
+
+return addressBook
+deactivate Model
+
+ImportBuyersCommand -> Storage : importBuyers(addressBook, file)
+activate Storage
+Storage -> CsvManager : importBuyers(file)
+activate CsvManager
+
+Create CSVReaderHeaderAware
+CsvManager -> CSVReaderHeaderAware: CSVReaderHeaderAware(file)
+activate CSVReaderHeaderAware
+return
+deactivate CSVReaderHeaderAware
+
+loop until end of csv
+
+CsvManager -> CSVReaderHeaderAware : readMap()
+activate CSVReaderHeaderAware
+
+return values
+
+deactivate CSVReaderHeaderAware
+
+CsvManager -> CsvManager: buyers.add(getBuyer(values))
+end
+
+deactivate CSVReaderHeaderAware
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+CSVReaderHeaderAware -[hidden]-> CsvManager
+destroy CSVReaderHeaderAware
+
+CsvManager --> Storage: buyers
+deactivate CsvManager
+
+create AddressBook
+Storage -> AddressBook: AddressBook(addressBook)
+activate AddressBook
+
+return
+deactivate AddressBook
+
+Storage -> AddressBook: addAllBuyers(buyers)
+activate AddressBook
+
+return
+deactivate AddressBook
+
+Storage --> ImportBuyersCommand: newAB
+deactivate Storage
+
+ImportBuyersCommand -> Model: setAddressBook(newAB)
+activate Model
+
+return
+deactivate Model
+
+@enduml

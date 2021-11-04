@@ -112,7 +112,7 @@
 }
 
 .list-cell:filled:selected #cardPane {
-    -fx-border-color: #3e7b91;
+    -fx-border-color: #c42fb3;
     -fx-border-width: 1;
 }
 
@@ -148,8 +148,8 @@
 
 .result-display {
     -fx-background-color: transparent;
-    -fx-font-family: "Open Sans Light";
-    -fx-font-size: 13pt;
+    -fx-font-family: "Open Sans Regular";
+    -fx-font-size: 11pt;
     -fx-text-fill: white;
 }
 
@@ -337,16 +337,28 @@
     -fx-background-radius: 0;
 }
 
-#tags {
+.tags {
     -fx-hgap: 7;
     -fx-vgap: 3;
 }
 
-#tags .label {
+.tags .label {
     -fx-text-fill: white;
-    -fx-background-color: #3e7b91;
+    -fx-background-color: #c42fb3;
     -fx-padding: 1 3 1 3;
     -fx-border-radius: 2;
     -fx-background-radius: 2;
     -fx-font-size: 11;
+}
+
+.price {
+    -fx-font-family: "Open Sans SemiBold";
+    -fx-font-size: 13px;
+}
+
+.list_label {
+    -fx-font-family: "Open Sans Semibold";
+    -fx-font-size: 16px;
+    -fx-text-fill: white;
+    -fx-padding: 3px;
 }

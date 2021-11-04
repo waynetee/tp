@@ -1,0 +1,25 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor UI_COLOR_T4
+skinparam classBackgroundColor UI_COLOR
+
+package UI <<Rectangle>> {
+Class "{abstract}\nUiPart" as UiPart
+Class MainWindow
+Class StatWindow
+interface "<<interface>>\nUiElement" as UiElement
+interface "<<interface>>\nStat" as Stat
+HistogramStat .up.|> Stat
+}
+
+MainWindow *-down-> "0..1" StatWindow
+MainWindow --|> UiPart
+
+StatWindow -down-|> UiPart
+StatWindow --> "1" Stat : displays
+
+Stat -up-|> UiElement
+
+MainWindow -[hidden]-|> UiPart
+@enduml

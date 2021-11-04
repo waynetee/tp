@@ -10,6 +10,8 @@ title: Developer Guide
 ## **Acknowledgements**
 
 * {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
+* [JFreeChart](https://www.jfree.org/jfreechart/) for providing the API to display statistics and charts.
+* [JavaFX](https://gluonhq.com/products/javafx/) for providing the API to render GUI.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -23,7 +25,7 @@ Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
 <div markdown="span" class="alert alert-primary">
 
-:bulb: **Tip:** The `.puml` files used to create diagrams in this document can be found in the [diagrams](https://github.com/se-edu/addressbook-level3/tree/master/docs/diagrams/) folder. Refer to the [_PlantUML Tutorial_ at se-edu/guides](https://se-education.org/guides/tutorials/plantUml.html) to learn how to create and edit diagrams.
+:bulb: **Tip:** The `.puml` files used to create diagrams in this document can be found in the [diagrams](https://github.com/AY2122S1-CS2103T-W11-4/tp/tree/master/docs/diagrams/) folder. Refer to the [_PlantUML Tutorial_ at se-edu/guides](https://se-education.org/guides/tutorials/plantUml.html) to learn how to create and edit diagrams.
 </div>
 
 ### Architecture
@@ -36,7 +38,7 @@ Given below is a quick overview of main components and how they interact with ea
 
 **Main components of the architecture**
 
-**`Main`** has two classes called [`Main`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/Main.java) and [`MainApp`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/MainApp.java). It is responsible for,
+**`Main`** has two classes called [`Main`](https://github.com/AY2122S1-CS2103T-W11-4/tp/blob/master/src/main/java/seedu/address/Main.java) and [`MainApp`](https://github.com/AY2122S1-CS2103T-W11-4/tp/blob/master/src/main/java/seedu/address/MainApp.java). It is responsible for,
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup methods where necessary.
 
@@ -52,7 +54,7 @@ The rest of the App consists of four components.
 
 **How the architecture components interact with each other**
 
-The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete property 1`.
 
 <img src="images/ArchitectureSequenceDiagram.png" width="574" />
 
@@ -69,24 +71,24 @@ The sections below give more details of each component.
 
 ### UI component
 
-The **API** of this component is specified in [`Ui.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/Ui.java)
+The **API** of this component is specified in [`Ui.java`](https://github.com/AY2122S1-CS2103T-W11-4/tp/blob/master/src/main/java/seedu/address/ui/Ui.java)
 
 ![Structure of the UI Component](images/UiClassDiagram.png)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PropertyListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
-The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/resources/view/MainWindow.fxml)
+The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/AY2122S1-CS2103T-W11-4/tp/blob/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/AY2122S1-CS2103T-W11-4/tp/blob/master/src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
 
 * executes user commands using the `Logic` component.
 * listens for changes to `Model` data so that the UI can be updated with the modified data.
 * keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
-* depends on some classes in the `Model` component, as it displays `Person` object residing in the `Model`.
+* depends on some classes in the `Model` component, as it displays `Property` and `Buyer` objects residing in the `Model`.
 
 ### Logic component
 
-**API** : [`Logic.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/logic/Logic.java)
+**API** : [`Logic.java`](https://github.com/AY2122S1-CS2103T-W11-4/tp/blob/master/src/main/java/seedu/address/logic/Logic.java)
 
 Here's a (partial) class diagram of the `Logic` component:
 
@@ -94,11 +96,12 @@ Here's a (partial) class diagram of the `Logic` component:
 
 How the `Logic` component works:
 1. When `Logic` is called upon to execute a command, it uses the `AddressBookParser` class to parse the user command.
-1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `AddCommand`) which is executed by the `LogicManager`.
-1. The command can communicate with the `Model` when it is executed (e.g. to add a property).
-1. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
+2. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `ListCommand`) which is executed by the `LogicManager`.
+   Some subclassed commands are themselves abstract (e.g. `AddCommand` is an abstract subclass of `Command`, and `AddPropertyCommand` is a concrete subclass of the `AddCommand`. In this case, an instance of `AddPropertyComand` will be created).
+3. The command can communicate with the `Model` when it is executed (e.g. to add a property).
+4. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
 
-The Sequence Diagram below illustrates the interactions within the `Logic` component for the `execute("delete 1")` API call.
+The Sequence Diagram below illustrates the interactions within the `Logic` component for the `execute("delete property 1")` API call.
 
 ![Interactions Inside the Logic Component for the `delete 1` Command](images/DeleteSequenceDiagram.png)
 
@@ -114,18 +117,19 @@ How the parsing works:
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
 ### Model component
-**API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
+**API** : [`Model.java`](https://github.com/AY2122S1-CS2103T-W11-4/tp/blob/master/src/main/java/seedu/address/model/Model.java)
 
 <img src="images/ModelClassDiagram.png" width="450" />
 
 
 The `Model` component,
 
-* stores the address book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
-* stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the address book data i.e., all `Property`, `Buyer` and `Match` objects (which are contained in a `UniquePropertyList` (resp. `UniqueBuyerList`, `UniqueMatchList`) object).
+* stores the currently 'selected' `Property` and `Buyer` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Property>` (resp. `ObservableList<Buyer>`) that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
+TODO: Should this be removed?
 <div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
 
 <img src="images/BetterModelClassDiagram.png" width="450" />
@@ -135,7 +139,7 @@ The `Model` component,
 
 ### Storage component
 
-**API** : [`Storage.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/storage/Storage.java)
+**API** : [`Storage.java`](https://github.com/AY2122S1-CS2103T-W11-4/tp/blob/master/src/main/java/seedu/address/storage/Storage.java)
 
 <img src="images/StorageClassDiagram.png" width="550" />
 
@@ -154,90 +158,251 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-### \[Proposed\] Undo/redo feature
+### One to many matching between properties and buyers
 
-#### Proposed Implementation
+This family of commands all extend from the abstract `MatchOneToManyCommand` class. 
+* The `MatchPropertyCommand` class matches 1 property to many buyers. It is triggered when the user enters the `match property INDEX` command.
+* The `MatchBuyerCommand` class matches 1 buyer to many properties. It is triggered when the user enters the `match buyer INDEX` command.
 
-The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
+Due to the highly symmetrical nature of these 2 commands, only `MatchPropertyCommand` will be elaborated upon.
 
-* `VersionedAddressBook#commit()` — Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` — Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` — Restores a previously undone address book state from its history.
+The property to be matched with buyers is chosen by index based on the currently visible list of properties. The potential buyer matches are taken from the currently visible list of buyers. There may be buyers in the address book that are not being displayed, perhaps due to a currently active filter. Such buyers will not be taken into consideration when conducting the matching. The rationale for this is so that the `match` command's output is predictable.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+Given a property, the algorithm first aims to filter out the incompatible matches, then outputs a sorted list of compatible buyers ordered by decreasing desirability. A buyer is compatible with a property if the buyer's budget is greater than or equal to the property's selling price. If a buyer can afford a property, then the level of desirability is determined by the number of tags that the buyer and the property have in common.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+The sequence diagram below shows the algorithm at work. 
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+![MatchOneToManySequenceDiagram](images/MatchOneToManySequenceDiagram.png)
 
-![UndoRedoState0](images/UndoRedoState0.png)
+1. The algorithm first retrieves the currently visible property list and selects the property `p` to be matched using the `targetIndex` attribute of `MatchPropertyCommand`.
+2. The algorithm creates a property filter `pp` to only show `p` in the visible property list. The rationale here is so that the user can clearly see which property the buyers are matched to.
+3. The algorithm creates a buyer filter `bp` to select only the buyers whose `maxPrice` attribute (budget) is greater than or equal to the `price` attribute (selling price) of the property `p`.
+4. The algorithm creates a comparator `bc` to which will be used later to sort the filtered buyers. Buyers with more tags in common with `p` will come first. Amongst buyers with the same number of tags in common, buyers with a higher budget will come first.
+5. The algorithm calls the `model` to update the visible property list with predicate `pp` and updates the visible buyer list with predicate `bp` and comparator `bc`.
 
-Step 2. The user executes `delete 5` command to delete the 5th property in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Please refer to the `MatchOneToManyCommand`, `MatchPropertyCommand`, `MatchBuyerCommand` classes for the full details of the implementation.
 
-![UndoRedoState1](images/UndoRedoState1.png)
+#### Design considerations:
+As mentioned above, only `MatchPropertyCommand` will be elaborated upon, hence these design considerations are discussed in the context of matching one property to many buyers.
 
-Step 3. The user executes `add n/David …​` to add a new property. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+**Aspect: Displaying property after match**
+* **Alternative 1 (current choice)**: Display only the property to be matched, so that the resulting property list only has 1 visible property.
+    * Pros: Easy to implement. Also, this is less distracting for the user as there are no other properties displayed to cause confusion.
+    * Cons: In the current UI implementation, there is wastage of space as the property side of the display only has 1 property list item, and the property box is mostly empty.
+* **Alternative 2**: Continue to display all the previously visible properties, and bring the property to be matched to the top of the list. Additionally, extra CSS classes and styles are added to the list item containing the property to be matched for emphasis.
+    * Pros: No space is wasted as the original visible list is retained. Additionally, this can be more convenient. The user can enter `match property INDEX`, choosing to match another property without needing to reset the property list via the `list` command.
+    * Cons: More difficult to implement as it requires additional UI flourishes. Even with the CSS classes and styles added for emphasis, the resulting display may still be visually messy and negatively impact the user experience.
 
-![UndoRedoState2](images/UndoRedoState2.png)
+**Aspect: One-to-many matching algorithm**
+* **Alternative 1 (current choice)**: Filter out buyers whose budgets are below property's selling price.
+    * Pros: Easily testable implementation.
+    * Cons: The criteria may be too strict as in real life, there can be negotiations that can change the selling price of a property, or the price a buyer is willing to pay. 
+* **Alternative 2**: Allow matches between buyers and sellers even when the buyer's budget is below the property's selling price.
+    * Pros: A more realistic implementation.
+    * Cons: More difficult to test.
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+Comments: **Alternative 2** is the approach taken by the intelligent matching algorithm explained below. The intelligent matching algorithm reflects a less rigid, more heuristic focused matching philosophy and aims to attain a "smarter" matching.
 
-</div>
+### Intelligent matching of properties and buyers
 
-Step 4. The user now decides that adding the property was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+The intelligent matching feature performs a one-to-one matching of buyers to properties based on price and tags in common. This section describes the algorithm and explains its rationale.
 
-![UndoRedoState3](images/UndoRedoState3.png)
+This matching is done by the `MatchAutoCommand` class, and is triggered when the user enters the `match auto` command. The algorithm takes in the currently visible list of properties and buyers, and outputs a list of buyer-property matches. Note that each buyer is matched to at most one property and vice versa.
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index 0, pointing to the initial AddressBook state, then there are no previous AddressBook states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather
-than attempting to perform the undo.
+The goal of the algorithm is to allow the user to discover compatible buyers and properties. Compatibility is determined by a _Match Score_, which is calculated based on the number of tags the buyer and property have in common, as well as the buyer's budget and property price.
 
-</div>
+The activity diagram below illustrates the algorithm:
 
-The following sequence diagram shows how the undo operation works:
+![MatchAutoActivityDiagram](images/MatchAutoActivityDiagram.png)
 
-![UndoSequenceDiagram](images/UndoSequenceDiagram.png)
+1. The algorithm generates all possible pairs between the list of buyers and properties.
+2. The algorithm sorts all these candidate matches by the match score.
+3. Starting with the match with the highest score, the algorithm accepts each match whose buyer and property have not been previously matched. This continues until all candidate matches are evaluated.
+4. The list of accepted matches is then returned to the UI to be displayed.
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-</div>
-
-The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone AddressBook states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-</div>
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-![UndoRedoState4](images/UndoRedoState4.png)
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
-
-![UndoRedoState5](images/UndoRedoState5.png)
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-<img src="images/CommitActivityDiagram.png" width="250" />
+Please refer to the `MatchAutoCommand` and `Match` classes for the full details of the implementation, including the calculation of the _Match Score_.
 
 #### Design considerations:
 
-**Aspect: How undo & redo executes:**
+**Aspect: Matching Output**
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** One-to-one matching between properties and buyers.
+    * Currently, each buyer is matched to at most one property and vice versa.
+    * Pros: Easier for users to comprehend.
+    * Cons: Displays less information to users.
+
+* **Alternative 2:** Many-to-many matching
+    * Alternatively, each buyer and property can be simultaneously matched to many others.
+    * Pros: Potentially convey more information to the user.
+    * Cons: Harder for users to comprehend and navigate the information.
+
+We decided to go with Alternative 1 as we prioritised presenting a simpler and more intuitive output to our users.
+
+**Aspect: Matching algorithm**
+
+* **Alternative 1 (current choice):** Prioritise top matches
+    * The current algorithm selects matches starting with the best possible match. This optimises for the compatibility of the first few matches.
+    * Pros: First few matches are likely to be very compatible.
+    * Cons: Last few matches are likely to be poor.
+
+* **Alternative 2:** Prioritise overall fairness of matches
+    * An alternative algorithm might optimise for the number of acceptable matches.
+    * Pros: Allows more buyers to be matched with acceptable properties.
+    * Cons: First few matches may not be as compatible as Alternative 1.
+
+We chose Alternative 1 as we expect the user to focus on the top matches, hence we optimised for those.
+
+### Sort feature
+The sort feature allows the user to sort the properties and buyers in PropertyWhiz.
+The feature consists of the following commands:
+* `sort properties` - Sorts the properties in PropertyWhiz.
+* `sort buyers` - Sorts the buyers in PropertyWhiz.
+
+There are 2 sorting options in PropertyWhiz:
+* `SortType` - Enum class that represents the attributes of buyers and properties that can be sorted. Currently, only names and prices of buyers and properties can be sorted. These are represented by `SortType.NAME` and `SortType.PRICE` respectively.
+* `SortDirection` - Enum class that represents the direction, ascending or descending, of the sort. These are represented by `SortDirection.ASC` and `SortDirection.DESC`.
+
+#### Parsing of commands within the `Logic` component
+The parsing of commands is done in the `LogicManager` and when executed, which results in `SortCommand` object being created. 
+Since both properties and buyers can be sorted, `SortCommand` is abstract and `SortPropertyCommand` and `SortBuyerCommand`are concrete subclasses that extend `SortComand`.
+The `SortCommandParser` serves as the intermediate layer between `LogicManager` and `SortCommand` to handle parsing of arguments of the user sort command. 
+
+Given below are the steps to parse a sort user command:
+
+Step 1. `AddressBookParser` will check if the command is a sort command. The `AddressBookParser` will then create a `SortCommandParser`.
+
+Step 2. `SortCommandParser` will parse the arguments of the command to get the list, sort type and sort direction to be sorted by calling static methods in `ParserUtil`.
+
+Step 3. Depending on the list to be sorted, the corresponding subclass of `SortCommand` will be created:
+   * `sort properties <args>`: `SortPropertyCommand`
+   * `sort buyers <args>`: `SortBuyerCommand`
+
+   The user input for types of `<args>` can be found in the [UserGuide](UserGuide.md#sorting-propertiesbuyers-sort).
+
+Given below is a sequence diagram for interactions inside the `Logic` component for the `execute("sort properties price asc")` API call.
+
+![SortParsingSequenceDiagram](images/SortParsingSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `SortCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+</div>
+
+#### Execution of commands within the `Logic` component
+After parsing of the user input into a `SortCommand`, the `LogicManager` calls `SortCommand#execute(model)` with a `model`.
+
+The `Model` interface exposes the following operations to sort the buyers and properties list:
+* `Model#sortProperties(sortType, sortDirection)`
+* `Model#sortBuyers(sortType, sortDirection)`
+
+`ModelManager` implements the the `Model` interface. `SortPropertyCommand` will call `ModelManager#sortProperties(sortType, sortDirection)` and `SortBuyerCommand` will call `ModelManager#sortBuyers(SortType, SortDirection)`.
+
+`ModelManager` will call methods of the encapsulated `AddressBook`: `AddressBook#sortProperties(sortType, sortDirection)` or  `AddressBook#sortBuyers(sortType, sortDirection)`.
+
+`AddressBook` will call the `sort(sortType, sortDirection)` method of either `UniquePropertyList` or `UniqueBuyerList` to sort the properties or buyers.
+
+Lastly, a `CommandResult` object containing the message to be displayed to the user is created and returned to the `LogicManager`.
+
+Given below is a sequence diagram for the execution of a `SortPropertyCommand`.
+![SortExecutionSequenceDiagram](images/SortExecutionSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `SortPropertyCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+</div>
+
+#### Design considerations:
+**Aspect: Implementation of `SortCommand#execute(model)`** 
+* **Alternative 1 (current choice)**: Pass the `SortType` and `SortDirection` from the `SortCommand` to the `Model`.
   * Pros: Easy to implement.
-  * Cons: May have performance issues in terms of memory usage.
+  * Cons: Need to pass the arguments through many layers before reaching `UniquePropertyList`.
+* **Alternative 2** : Implement many methods in the `Model` to represent the different combinations of sort types and directions and call these method directly in `SortCommand#execute(model)`.
+  * Pros: Better abstraction.
+  * Cons: Too many different combinations, and as a result, too many methods in the `model`, if there is a need to extend the sort options in the future.
 
-* **Alternative 2:** Individual command knows how to undo/redo by
-  itself.
-  * Pros: Will use less memory (e.g. for `delete`, just save the property being deleted).
-  * Cons: We must ensure that the implementation of each individual command are correct.
+### Import feature
 
-_{more aspects and alternatives to be added}_
+The import feature imports from a csv file of buyers/properties chosen by the user, to the AddressBook. 
 
-### \[Proposed\] Data archiving
+[opencsv](http://opencsv.sourceforge.net/) is a simple library for reading and writing CSV in Java. PropertyWhiz uses opencsv when importing (and exporting) csv files.
 
-_{Explain here how the data archiving feature will be implemented}_
+Given below are the steps for importing buyers from a csv file:
+1. The user executes `import buyers`. The `import` command is parsed by `AddressBookParser#getCommandPreAction`, returning a `CommandPreAction` that indicates a file is required for `import`.
+2. `MainWindow#getCsvFile` creates a `FileChooserDialog`. The user selects a csv file to import from disk.
+3. `AddressBookParser#parseCommandWithFile` parses `import buyers` and creates a `ImportBuyersCommand`.
 
+Given below are the steps for executing `ImportBuyersCommand`:
+1. `LogicManager` calls `ImportBuyersCommand#execute` with the file selected by the user.
+2. `ImportBuyersCommand#execute` calls `Storage#importBuyers` with the current `AddressBook` and file.
+3. `Storage#importBuyers` calls `CsvManager#importBuyers` with the given file.
+4. `CsvManager#importBuyers` creates a new `CSVReaderHeaderAware` to read the CSV headers.
+5. `CSVReaderHeaderAware` parses each row in the csv file, to create a new `Buyer` object. `CsvManager#importBuyers` collects `Buyer` objects into a list, then returns the list of `Buyer`.
+6. Upon receiving list of `Buyer`, `Storage#importBuyers` creates then returns a new `AddressBook` containing original and imported buyers.
+7. Upon receiving an `AddressBook`, `ImportBuyersCommand#execute` replaces the current `AddressBook` in `ModelManager`.
+
+Given below is a sequence diagram for the execution of `ImportBuyersCommand`.
+![ImportParsingSequenceDiagram](images/ImportExecutionSequenceDiagram.png)
+
+#### Design considerations:
+**Aspect: Implementation of `CsvManager#importBuyers`**
+* **Alternative 1 (current choice)**: Use a `CSVReaderHeaderAware` to parse the csv rows.
+    * Pros: Easy to implement, especially without specialized knowledge on `opencsv`.
+    * Cons: `CsvManager` becomes bloated with functions to build objects from parsed rows.
+* **Alternative 2** : Create csv-adapted objects (beans) for parsing. Use `opencsv` beans to parse rows.
+    * Pros: Better abstraction.
+    * Cons: Greater overhead (runtime, memory, human effort) in maintaining multiple types of the same object: `Buyer`, `JsonAdaptedBuyer`, and `BuyerBeans`.
+
+### Statistics Diagram Pop-ups
+
+#### Implementation
+
+The mechanism for handling and presenting statistics is facilitated by the classes implementing `Stat`.
+
+[JFreeChart](https://www.jfree.org/jfreechart/) is the third-party library used to generate charts in the
+program. If more charts are to be implemented in the future, JFreeChart supports a wide range of graphing
+and chart drawing capabilities, as can be seen from its 
+[API](https://www.jfree.org/jfreechart/javadoc/index.html) here.
+
+Currently the only type of diagram supported is a price histogram of the visible properties and/or buyers,
+facilitated by `HistogramStat` in the subpackage `seedu.address.ui.stats`.
+
+The `CommandResult` class now includes an attribute that contains an `Optional<UiElement>` that contains
+an element that a `UiPart` can handle the rendering of.
+
+![StatUiClassDiagram](images/StatUiClassDiagram.png)
+
+Given below is an example usage scenario and how the statistics diagram is generated and then presented.
+
+Step 1. The user executes `stat property` to display the statistics of the properties on screen. The `stat` command is parsed by `AddressBookParser#parseCommand`, which creates
+a `StatCommandParser` which parses the argument `property` passed to it.
+
+Step 2. `StatCommandParser` identifies if the user want to show the prices for buyers, properties or both, and creates a `StatCommand` which creates
+a `Stat` object that is passed via a `CommandResult` to the MainWindow.
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The `Stat` interface implements the `Stat#create` method that creates a `JFreeChart`. 
+
+</div>
+
+Step 3. Upon receiving the `Stat` object, the `MainWindow` creates the `JFreeChart` to be presented by calling `Stat#create`, before passing the chart to `StatWindow`.
+
+Step 4. `StatWindow` updates the statistics window with the latest `JFreeChart` it has received.
+
+#### Future extensions:
+
+Currently the `stat` command only displays a price histogram with a fixed number of 10 bins (columns).
+Here are several extensions that can be implemented in the future:
+
+1. Allow the user to enter how many bins they want to see in the histogram.
+
+1. Allow the user to choose between different types of charts.
+
+#### Design considerations:
+
+**Aspect: How to create the `JFreeChart` histogram's dataset before `ChartFactory` creates the chart:**
+
+* **Alternative 1:** Use the `HistogramDataset` class to automatically generate the dataset.
+    * Pros: Easy to implement.
+    * Cons: JFreeChart's default dataset generated by `HistogramDataset` has many visual bugs with small datasets.
+
+* **Alternative 2 (current choice):** Create a fixed number of `SimpleHistogramBins`, rendered by a `BarRenderer`.
+    * Pros: Less visual bugs, finer control of graph visuals.
+    * Cons: More verbose code, may have a greater performance hit when dealing with larger datasets.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -374,19 +539,20 @@ testers are expected to do more *exploratory* testing.
 
 1. _{ more test cases …​ }_
 
+TODO: More test cases needed
 ### Deleting a property
 
 1. Deleting a property while all properties are being shown
 
    1. Prerequisites: List all properties using the `list` command. Multiple properties in the list.
 
-   1. Test case: `delete 1`<br>
+   1. Test case: `delete property 1`<br>
       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 
-   1. Test case: `delete 0`<br>
+   1. Test case: `delete property 0`<br>
       Expected: No property is deleted. Error details shown in the status message. Status bar remains the same.
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
+   1. Other incorrect delete commands to try: `delete`, `delete property x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
 1. _{ more test cases …​ }_

@@ -1,8 +1,13 @@
 {
-  "persons": [ {
-    "name": "Hans Muster",
-    "phone": "9482424",
-    "email": "invalid@email!3e",
-    "address": "4th street"
-  } ]
+  "properties": [ {
+    "name" : "Hans Muster",
+    "address" : "4th street",
+    "seller" : {
+      "name" : "Amy Bee",
+      "phone" : "9482424",
+      "email" : "invalid@email!3e"
+    },
+    "price" : "571000"
+  } ],
+  "buyers": []
 }

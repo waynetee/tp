@@ -1,201 +1,149 @@
 package seedu.address.logic.commands;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SELLER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PROPERTIES;
 
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
+import javafx.util.Pair;
 import seedu.address.commons.util.CollectionUtil;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-import seedu.address.model.property.Address;
-import seedu.address.model.property.Email;
-import seedu.address.model.property.Name;
-import seedu.address.model.property.Phone;
-import seedu.address.model.property.Price;
-import seedu.address.model.property.Property;
-import seedu.address.model.property.Seller;
+import seedu.address.model.property.Taggable;
 import seedu.address.model.tag.Tag;
 
 /**
- * Edits the details of an existing property in the address book.
+ * Edits the details of an existing entity (property or buyer) in the address book.
  */
-public class EditCommand extends Command {
-
+public abstract class EditCommand extends SimpleCommand {
     public static final String COMMAND_WORD = "edit";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the property identified "
-            + "by the index number used in the displayed property list. "
-            + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the property or buyer identified"
+            + "by the index number used in the displayed property/buyer list.\n"
+            + "Input values overwrite existing ones, "
+            + "with the exception of adding tags, "
+            + "which are appended to the current tags, "
+            + "and the argument INDEX must be positive.\n\n"
+            + "Parameters (property): property INDEX "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_PRICE + "PRICE] "
             + "[" + PREFIX_SELLER + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " 1 "
+            + "[ "
+                + "( "
+                    + "[" + PREFIX_TAG + "TAG]..." + " | "
+                    + "[" + PREFIX_ADD_TAG + "TAG_TO_ADD]... "
+                    + "[" + PREFIX_DELETE_TAG + "TAG_TO_DELETE]..."
+                + " )"
+            + " ]"
+            + "\n"
+            + "Parameters (buyer): buyer INDEX "
+            + "[" + PREFIX_NAME + "NAME] "
+            + "[" + PREFIX_PHONE + "PHONE] "
+            + "[" + PREFIX_EMAIL + "EMAIL] "
+            + "[" + PREFIX_PRICE + "BUDGET] "
+            + "[" + PREFIX_TAG + "TAG]..."
+            + "\n"
+            + "Example: " + COMMAND_WORD + " property 1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
 
-    public static final String MESSAGE_EDIT_PROPERTY_SUCCESS = "Edited Property: %1$s";
+    public static final String MESSAGE_EDIT_PROPERTY_SUCCESS = "Edited Property: %1$s\n";
+
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PROPERTY = "This property already exists in the address book.";
+    public static final String MESSAGE_RESET_TAG_TOGETHER_WITH_MODIFY_TAG = "Tags can either be reset or modified.\n"
+            + "You cannot do both at the same time.\n"
+            + "An edit command can either have [t/TAG]... or [ta/TAG_TO_ADD]... [td/TAG_TO_DELETE]...";
+    public static final String MESSAGE_DUPLICATE_ADD_AND_DELETE_TAG = "A tag cannot be both added and deleted.";
+    public static final String EXPECTED_PREAMBLE = "(property | buyer) INDEX";
 
-    private final Index index;
-    private final EditPropertyDescriptor editPropertyDescriptor;
 
-    /**
-     * @param index of the property in the filtered property list to edit
-     * @param editPropertyDescriptor details to edit the property with
-     */
-    public EditCommand(Index index, EditPropertyDescriptor editPropertyDescriptor) {
-        requireNonNull(index);
-        requireNonNull(editPropertyDescriptor);
+    protected Pair<Set<Tag>, String> getTags(Taggable taggableToEdit,
+                                             EditCommand.EditTaggableDescriptor editTaggableDescriptor) {
+        String messageEditTaggableTags = "";
+        Set<Tag> originalTags = editTaggableDescriptor.getTags().orElse(taggableToEdit.getTags());
+        Set<Tag> tagsToAdd = editTaggableDescriptor.getTagsToAdd().orElse(Collections.emptySet());
+        Set<Tag> tagsToDelete = editTaggableDescriptor.getTagsToDelete().orElse(Collections.emptySet());
 
-        this.index = index;
-        this.editPropertyDescriptor = new EditPropertyDescriptor(editPropertyDescriptor);
-    }
-
-    @Override
-    public CommandResult execute(Model model) throws CommandException {
-        requireNonNull(model);
-        List<Property> lastShownList = model.getFilteredPropertyList();
-
-        if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PROPERTY_DISPLAYED_INDEX);
+        Set<Tag> tagsAlreadyPresent = new HashSet<>(tagsToAdd);
+        tagsAlreadyPresent.retainAll(originalTags);
+        if (!tagsAlreadyPresent.isEmpty()) {
+            messageEditTaggableTags += "These tags were already present:\n";
+            for (Tag t : tagsAlreadyPresent) {
+                messageEditTaggableTags += t + " ";
+            }
+            messageEditTaggableTags += "\n";
         }
 
-        Property propertyToEdit = lastShownList.get(index.getZeroBased());
-        Property editedProperty = createdEditedProperty(propertyToEdit, editPropertyDescriptor);
-
-        if (!propertyToEdit.isSameProperty(editedProperty) && model.hasProperty(editedProperty)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PROPERTY);
+        Set<Tag> tagsAlreadyAbsent = new HashSet<>(tagsToDelete);
+        tagsAlreadyAbsent.removeAll(originalTags);
+        if (!tagsAlreadyAbsent.isEmpty()) {
+            messageEditTaggableTags += "These tags were not present:\n";
+            for (Tag t : tagsAlreadyAbsent) {
+                messageEditTaggableTags += t + " ";
+            }
+            messageEditTaggableTags += "\n";
         }
 
-        model.setProperty(propertyToEdit, editedProperty);
-        model.updateFiltedPropertyList(PREDICATE_SHOW_ALL_PROPERTIES);
-        return new CommandResult(String.format(MESSAGE_EDIT_PROPERTY_SUCCESS, editedProperty));
+        Set<Tag> mergedSet = new HashSet<>(originalTags);
+        mergedSet.removeAll(tagsToDelete);
+        mergedSet.addAll(tagsToAdd);
+
+        Set<Tag> editedTags = Collections.unmodifiableSet(mergedSet);
+        return new Pair<>(editedTags, messageEditTaggableTags);
     }
 
-    /**
-     * Creates and returns a {@code Property} with the details of {@code propertyToEdit}
-     * edited with {@code editPropertyDescriptor}.
-     */
-    private static Property createdEditedProperty(Property propertyToEdit, EditPropertyDescriptor
-            editPropertyDescriptor) {
-        assert propertyToEdit != null;
-
-        Name updatedName = editPropertyDescriptor.getName().orElse(propertyToEdit.getName());
-        Seller updatedSeller = editPropertyDescriptor.getSeller().orElse(propertyToEdit.getSeller());
-        Price updatedPrice = editPropertyDescriptor.getPrice().orElse(propertyToEdit.getPrice());
-        Phone updatedPhone = editPropertyDescriptor.getPhone().orElse(propertyToEdit.getPhone());
-        Email updatedEmail = editPropertyDescriptor.getEmail().orElse(propertyToEdit.getEmail());
-        Address updatedAddress = editPropertyDescriptor.getAddress().orElse(propertyToEdit.getAddress());
-        Set<Tag> updatedTags = editPropertyDescriptor.getTags().orElse(propertyToEdit.getTags());
-
-        return new Property(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags,
-                updatedSeller, updatedPrice);
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        // short circuit if same object
-        if (other == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(other instanceof EditCommand)) {
-            return false;
-        }
-
-        // state check
-        EditCommand e = (EditCommand) other;
-        return index.equals(e.index)
-                && editPropertyDescriptor.equals(e.editPropertyDescriptor);
-    }
-
-    /**
-     * Stores the details to edit the property with. Each non-empty field value will replace the
-     * corresponding field value of the property.
-     */
-    public static class EditPropertyDescriptor {
-        private Name name;
-        private Seller seller;
-        private Address address;
-        private Price price;
-        private Phone phone;
-        private Email email;
+    public static class EditTaggableDescriptor {
         private Set<Tag> tags;
+        private Set<Tag> tagsToAdd;
+        private Set<Tag> tagsToDelete;
 
-        public EditPropertyDescriptor() {}
+        public EditTaggableDescriptor() {}
 
         /**
          * Copy constructor.
-         * A defensive copy of {@code tags} is used internally.
+         * A defense copy of {@code tags}, {@tagsToAdd} and {@tagsToSDelete} is used internally.
          */
-        public EditPropertyDescriptor(EditPropertyDescriptor toCopy) {
-            setName(toCopy.name);
-            setSeller(toCopy.seller);
-            setAddress(toCopy.address);
-            setPrice(toCopy.price);
-            setPhone(toCopy.phone);
-            setEmail(toCopy.email);
+        public EditTaggableDescriptor(EditTaggableDescriptor toCopy) {
             setTags(toCopy.tags);
+            setTagsToAdd(toCopy.tagsToAdd);
+            setTagsToDelete(toCopy.tagsToDelete);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags, seller, price);
+            return CollectionUtil.isAnyNonNull(tags, tagsToAdd, tagsToDelete);
         }
 
-        public void setName(Name name) {
-            this.name = name;
+        /**
+         * Returns true if tags are reset and tags are modified by addition or deletion.
+         */
+        public boolean isTagsBothResetAndModified() {
+            return tags != null && (CollectionUtil.isAnyNonNull(tagsToAdd, tagsToDelete));
         }
 
-        public Optional<Name> getName() {
-            return Optional.ofNullable(name);
-        }
-
-        public void setPhone(Phone phone) {
-            this.phone = phone;
-        }
-
-        public Optional<Phone> getPhone() {
-            return Optional.ofNullable(phone);
-        }
-
-        public void setEmail(Email email) {
-            this.email = email;
-        }
-
-        public Optional<Email> getEmail() {
-            return Optional.ofNullable(email);
-        }
-
-        public void setAddress(Address address) {
-            this.address = address;
-        }
-
-        public Optional<Address> getAddress() {
-            return Optional.ofNullable(address);
+        /**
+         * Returns true if the same tag is both to be added and deleted.
+         */
+        public boolean isAddAndDeleteTagsOverlapping() {
+            if (tagsToAdd == null || tagsToDelete == null) {
+                return false;
+            }
+            Set<Tag> intersection = new HashSet<>(tagsToAdd);
+            intersection.retainAll(tagsToDelete);
+            return !intersection.isEmpty();
         }
 
         /**
@@ -207,6 +155,22 @@ public class EditCommand extends Command {
         }
 
         /**
+         * Sets {@code tags} to this object's {@code tagsToAppend}.
+         * A defensive copy of {@code tags} is used internally.
+         */
+        public void setTagsToAdd(Set<Tag> tags) {
+            this.tagsToAdd = (tags != null) ? new HashSet<>(tags) : null;
+        }
+
+        /**
+         * Sets {@code tags} to this object's {@code tagsToDelete}.
+         * A defensive copy of {@code tags} is used internally.
+         */
+        public void setTagsToDelete(Set<Tag> tags) {
+            this.tagsToDelete = (tags != null) ? new HashSet<>(tags) : null;
+        }
+
+        /**
          * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
          * if modification is attempted.
          * Returns {@code Optional#empty()} if {@code tags} is null.
@@ -215,20 +179,22 @@ public class EditCommand extends Command {
             return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
         }
 
-        public void setSeller(Seller seller) {
-            this.seller = seller;
+        /**
+         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
+         * if modification is attempted.
+         * Returns {@code Optional#empty()} if {@code tagsToAdd} is null.
+         */
+        public Optional<Set<Tag>> getTagsToAdd() {
+            return (tagsToAdd != null) ? Optional.of(Collections.unmodifiableSet(tagsToAdd)) : Optional.empty();
         }
 
-        public Optional<Seller> getSeller() {
-            return Optional.ofNullable(seller);
-        }
-
-        public void setPrice(Price price) {
-            this.price = price;
-        }
-
-        public Optional<Price> getPrice() {
-            return Optional.ofNullable(price);
+        /**
+         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
+         * if modification is attempted.
+         * Returns {@code Optional#empty()} if {@code tagsToDelete} is null.
+         */
+        public Optional<Set<Tag>> getTagsToDelete() {
+            return (tagsToDelete != null) ? Optional.of(Collections.unmodifiableSet(tagsToDelete)) : Optional.empty();
         }
 
         @Override
@@ -239,20 +205,16 @@ public class EditCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof EditPropertyDescriptor)) {
+            if (!(other instanceof EditCommand.EditTaggableDescriptor)) {
                 return false;
             }
 
             // state check
-            EditPropertyDescriptor e = (EditPropertyDescriptor) other;
+            EditCommand.EditTaggableDescriptor e = (EditCommand.EditTaggableDescriptor) other;
 
-            return getName().equals(e.getName())
-                    && getSeller().equals(e.getSeller())
-                    && getPhone().equals(e.getPhone())
-                    && getEmail().equals(e.getEmail())
-                    && getAddress().equals(e.getAddress())
-                    && getPrice().equals(e.getPrice())
-                    && getTags().equals(e.getTags());
+            return getTags().equals(e.getTags())
+                    && getTagsToAdd().equals(e.getTagsToAdd())
+                    && getTagsToDelete().equals(e.getTagsToDelete());
         }
     }
 }

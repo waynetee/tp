@@ -1,0 +1,52 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":MatchPropertyCommand" as MatchPropertyCommand LOGIC_COLOR
+participant "pp:Predicate<Property>" as PropertyPredicate LOGIC_COLOR
+participant "bp:Predicate<Buyer>" as BuyerPredicate LOGIC_COLOR
+participant "bc:Comparator<Buyer>" as BuyerComparator LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":ModelManager" as Model MODEL_COLOR
+end box
+
+-> MatchPropertyCommand : execute(model)
+activate MatchPropertyCommand
+
+MatchPropertyCommand -> Model : getFilteredPropertyList()
+activate Model
+Model --> MatchPropertyCommand : currently displayed property list
+deactivate Model
+
+create PropertyPredicate
+MatchPropertyCommand -> PropertyPredicate : Predicate<Property>()
+activate PropertyPredicate
+PropertyPredicate --> MatchPropertyCommand
+deactivate PropertyPredicate
+
+create BuyerPredicate
+MatchPropertyCommand -> BuyerPredicate : Predicate<Buyer>()
+activate BuyerPredicate
+BuyerPredicate --> MatchPropertyCommand
+deactivate BuyerPredicate
+
+create BuyerComparator
+MatchPropertyCommand -> BuyerComparator : Comparator<Buyer>()
+activate BuyerComparator
+BuyerComparator --> MatchPropertyCommand
+deactivate BuyerComparator
+
+MatchPropertyCommand -> Model : updateFilteredPropertyList(pp)
+activate Model
+Model --> MatchPropertyCommand
+deactivate Model
+
+MatchPropertyCommand -> Model : updateFilteredAndSortedBuyerList(bp, bc)
+activate Model
+
+Model --> MatchPropertyCommand
+deactivate Model
+
+@enduml

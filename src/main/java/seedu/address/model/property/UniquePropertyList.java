@@ -1,15 +1,15 @@
 package seedu.address.model.property;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
-import java.util.Iterator;
+import java.util.Comparator;
 import java.util.List;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import seedu.address.model.field.SortDirection;
+import seedu.address.model.field.SortType;
+import seedu.address.model.property.exceptions.DuplicateListableException;
 import seedu.address.model.property.exceptions.DuplicatePropertyException;
+import seedu.address.model.property.exceptions.ListableNotFoundException;
 import seedu.address.model.property.exceptions.PropertyNotFoundException;
+
 
 /**
  * A list of properties that enforces uniqueness between its elements and does not allow nulls.
@@ -23,116 +23,90 @@ import seedu.address.model.property.exceptions.PropertyNotFoundException;
  *
  * @see Property#isSameProperty(Property)
  */
-public class UniquePropertyList implements Iterable<Property> {
+public class UniquePropertyList extends UniqueList<Property> {
 
-    private final ObservableList<Property> internalList = FXCollections.observableArrayList();
-    private final ObservableList<Property> internalUnmodifiableList =
-            FXCollections.unmodifiableObservableList(internalList);
-
-    /**
-     * Returns true if the list contains an equivalent property as the given argument.
-     */
-    public boolean contains(Property toCheck) {
-        requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSameProperty);
-    }
-
-    /**
-     * Adds a property to the list.
-     * The property must not already exist in the list.
-     */
+    @Override
     public void add(Property toAdd) {
-        requireNonNull(toAdd);
-        if (contains(toAdd)) {
+        try {
+            super.add(toAdd);
+        } catch (DuplicateListableException e) {
             throw new DuplicatePropertyException();
         }
-        internalList.add(toAdd);
     }
 
-    /**
-     * Replaces the property {@code target} in the list with {@code editedProperty}.
-     * {@code target} must exist in the list.
-     * The property identity of {@code editedProperty} must not be the same as another existing property in the list.
-     */
-    public void setProperty(Property target, Property editedProperty) {
-        requireAllNonNull(target, editedProperty);
-
-        int index = internalList.indexOf(target);
-        if (index == -1) {
-            throw new PropertyNotFoundException();
-        }
-
-        if (!target.isSameProperty(editedProperty) && contains(editedProperty)) {
+    @Override
+    public void addFront(Property toAdd) {
+        try {
+            super.addFront(toAdd);
+        } catch (DuplicateListableException e) {
             throw new DuplicatePropertyException();
         }
-
-        internalList.set(index, editedProperty);
     }
 
-    /**
-     * Removes the equivalent property from the list.
-     * The property must exist in the list.
-     */
+    @Override
+    public void addAll(List<Property> toAdd) {
+        try {
+            super.addAll(toAdd);
+        } catch (DuplicateListableException e) {
+            throw new DuplicatePropertyException();
+        }
+    }
+
+    @Override
     public void remove(Property toRemove) {
-        requireNonNull(toRemove);
-        if (!internalList.remove(toRemove)) {
+        try {
+            super.remove(toRemove);
+        } catch (ListableNotFoundException e) {
             throw new PropertyNotFoundException();
+        }
+    }
+
+    public void setProperties(List<Property> properties) {
+        try {
+            super.setListables(properties);
+        } catch (DuplicateListableException e) {
+            throw new DuplicatePropertyException();
         }
     }
 
     public void setProperties(UniquePropertyList replacement) {
-        requireNonNull(replacement);
-        internalList.setAll(replacement.internalList);
-    }
-
-    /**
-     * Replaces the contents of this list with {@code properties}.
-     * {@code properties} must not contain duplicate properties.
-     */
-    public void setProperties(List<Property> properties) {
-        requireAllNonNull(properties);
-        if (!propertiesAreUnique(properties)) {
+        try {
+            super.setListables(replacement);
+        } catch (DuplicateListableException e) {
             throw new DuplicatePropertyException();
         }
-
-        internalList.setAll(properties);
     }
 
-    /**
-     * Returns the backing list as an unmodifiable {@code ObservableList}.
-     */
-    public ObservableList<Property> asUnmodifiableObservableList() {
-        return internalUnmodifiableList;
-    }
-
-    @Override
-    public Iterator<Property> iterator() {
-        return internalList.iterator();
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof UniquePropertyList // instanceof handles nulls
-                        && internalList.equals(((UniquePropertyList) other).internalList));
-    }
-
-    @Override
-    public int hashCode() {
-        return internalList.hashCode();
-    }
-
-    /**
-     * Returns true if {@code properties} contains only unique properties.
-     */
-    private boolean propertiesAreUnique(List<Property> properties) {
-        for (int i = 0; i < properties.size() - 1; i++) {
-            for (int j = i + 1; j < properties.size(); j++) {
-                if (properties.get(i).isSameProperty(properties.get(j))) {
-                    return false;
-                }
-            }
+    public void setProperty(Property target, Property editedProperty) {
+        try {
+            super.setListable(target, editedProperty);
+        } catch (DuplicateListableException e) {
+            throw new DuplicatePropertyException();
+        } catch (ListableNotFoundException e) {
+            throw new PropertyNotFoundException();
         }
-        return true;
+    }
+
+    /**
+     * Sorts the list by the given {@code sortType} and {@code sortDirection}.
+     */
+    public void sort(SortType sortType, SortDirection sortDirection) {
+        Comparator<Property> comparator = null;
+
+        switch (sortType) {
+        case PRICE:
+            comparator = Property.getPriceComparator();
+            break;
+        case NAME:
+            comparator = Property.getNameComparator();
+            break;
+        default:
+            assert false;
+        }
+
+        if (sortDirection == SortDirection.DESC) {
+            comparator = comparator.reversed();
+        }
+        super.sortListables(comparator);
     }
 }

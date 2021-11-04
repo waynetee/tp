@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.Region?>
+
+<HBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+  <GridPane fx:id="gridPane" HBox.hgrow="ALWAYS" >
+      <padding>
+        <Insets top="10" right="5" bottom="10" left="15" />
+      </padding>
+      <columnConstraints>
+        <ColumnConstraints hgrow="ALWAYS" prefWidth="150"  />
+        <ColumnConstraints hgrow="ALWAYS" prefWidth="150"  />
+      </columnConstraints>
+
+      <!-- Property -->
+      <HBox spacing="5" alignment="CENTER_LEFT" GridPane.columnIndex="0" GridPane.rowIndex="0">
+        <Label fx:id="id" styleClass="cell_big_label">
+          <minWidth>
+            <!-- Ensures that the label text is never truncated -->
+            <Region fx:constant="USE_PREF_SIZE" />
+          </minWidth>
+        </Label>
+        <Label fx:id="propertyName" wrapText="true" styleClass="cell_big_label" />
+      </HBox>
+      <FlowPane fx:id="propertyTags" minWidth="0" styleClass="tags" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+      <Label fx:id="propertyPrice" styleClass="cell_small_label, price" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+      <Label fx:id="propertyAddress" wrapText="true" styleClass="cell_small_label" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+      <FlowPane hgap="5.0" minWidth="0" GridPane.columnIndex="0" GridPane.columnSpan="1" GridPane.rowIndex="4">
+        <children>
+          <Label fx:id="propertySeller" wrapText="true" styleClass="cell_small_label"/>
+          <Label fx:id="propertyPhone" wrapText="true" styleClass="cell_small_label" />
+          <Label fx:id="propertyEmail" wrapText="true" styleClass="cell_small_label" />
+        </children>
+      </FlowPane>
+
+      <!-- Buyer -->
+      <Label fx:id="buyerName" wrapText="true" styleClass="cell_big_label" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+      <FlowPane fx:id="buyerTags" minWidth="0" styleClass="tags" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <Label fx:id="buyerPrice" styleClass="cell_small_label, price" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <Label fx:id="buyerPhone" wrapText="true" styleClass="cell_small_label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <Label fx:id="buyerEmail" wrapText="true" styleClass="cell_small_label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+  </GridPane>
+</HBox>

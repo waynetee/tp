@@ -3,26 +3,30 @@ package seedu.address.model.tag;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import seedu.address.commons.util.StringUtil;
+
 /**
- * Represents a Tag in the address book.
+ * Represents a Tag in the address book with lowercase tag name.
  * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}
  */
 public class Tag {
-
-    public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric";
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final Integer MAX_LENGTH = 100;
+    public static final String MESSAGE_CONSTRAINTS = "Tags names should only contain alphanumeric characters,"
+            + "hyphens, and spaces and it should not be blank.\n"
+            + "Tags should also be at most " + MAX_LENGTH + " characters long.";
+    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum}\\- ]{0," + (MAX_LENGTH - 1) + "}";
 
     public final String tagName;
 
     /**
-     * Constructs a {@code Tag}.
+     * Converts name of tag to lowercase and constructs a {@code Tag}.
      *
      * @param tagName A valid tag name.
      */
     public Tag(String tagName) {
         requireNonNull(tagName);
         checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
-        this.tagName = tagName;
+        this.tagName = StringUtil.compressWhitespace(tagName.toLowerCase());
     }
 
     /**

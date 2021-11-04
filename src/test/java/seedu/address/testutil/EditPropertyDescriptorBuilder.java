@@ -4,11 +4,12 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.property.EditPropertyCommand;
+import seedu.address.model.field.Email;
+import seedu.address.model.field.Name;
+import seedu.address.model.field.Phone;
+import seedu.address.model.field.Price;
 import seedu.address.model.property.Address;
-import seedu.address.model.property.Email;
-import seedu.address.model.property.Name;
-import seedu.address.model.property.Phone;
 import seedu.address.model.property.Property;
 import seedu.address.model.tag.Tag;
 
@@ -17,35 +18,37 @@ import seedu.address.model.tag.Tag;
  */
 public class EditPropertyDescriptorBuilder {
 
-    private EditCommand.EditPropertyDescriptor descriptor;
+    private EditPropertyCommand.EditPropertyDescriptor descriptor;
 
     public EditPropertyDescriptorBuilder() {
-        descriptor = new EditCommand.EditPropertyDescriptor();
+        descriptor = new EditPropertyCommand.EditPropertyDescriptor();
     }
 
-    public EditPropertyDescriptorBuilder(EditCommand.EditPropertyDescriptor descriptor) {
-        this.descriptor = new EditCommand.EditPropertyDescriptor(descriptor);
+    public EditPropertyDescriptorBuilder(EditPropertyCommand.EditPropertyDescriptor descriptor) {
+        this.descriptor = new EditPropertyCommand.EditPropertyDescriptor(descriptor);
     }
 
     /**
      * Returns an {@code EditPropertyDescriptor} with fields containing {@code property}'s details
      */
     public EditPropertyDescriptorBuilder(Property property) {
-        descriptor = new EditCommand.EditPropertyDescriptor();
-        descriptor.setName(property.getName());
-        descriptor.setSeller(property.getSeller());
+        descriptor = new EditPropertyCommand.EditPropertyDescriptor();
+        descriptor.setPropertyName(property.getName());
         descriptor.setAddress(property.getAddress());
+        descriptor.setSellerName(property.getSeller().getName());
+        descriptor.setSellerPhone(property.getSeller().getPhone());
+        descriptor.setSellerEmail(property.getSeller().getEmail());
         descriptor.setPrice(property.getPrice());
-        descriptor.setPhone(property.getPhone());
-        descriptor.setEmail(property.getEmail());
         descriptor.setTags(property.getTags());
+        descriptor.setTagsToAdd(null);
+        descriptor.setTagsToDelete(null);
     }
 
     /**
      * Sets the {@code Name} of the {@code EditPropertyDescriptor} that we are building.
      */
     public EditPropertyDescriptorBuilder withName(String name) {
-        descriptor.setName(new Name(name));
+        descriptor.setPropertyName(new Name(name));
         return this;
     }
 
@@ -53,7 +56,7 @@ public class EditPropertyDescriptorBuilder {
      * Sets the {@code Phone} of the {@code EditPropertyDescriptor} that we are building.
      */
     public EditPropertyDescriptorBuilder withPhone(String phone) {
-        descriptor.setPhone(new Phone(phone));
+        descriptor.setSellerPhone(new Phone(phone));
         return this;
     }
 
@@ -61,7 +64,7 @@ public class EditPropertyDescriptorBuilder {
      * Sets the {@code Email} of the {@code EditPropertyDescriptor} that we are building.
      */
     public EditPropertyDescriptorBuilder withEmail(String email) {
-        descriptor.setEmail(new Email(email));
+        descriptor.setSellerEmail(new Email(email));
         return this;
     }
 
@@ -74,6 +77,23 @@ public class EditPropertyDescriptorBuilder {
     }
 
     /**
+     * Sets the {@code Seller} of the {@code EditPropertyDescriptor} that we are building.
+     */
+    public EditPropertyDescriptorBuilder withSeller(String seller) {
+        descriptor.setSellerName(new Name(seller));
+        return this;
+    }
+
+    /**
+     * Sets the {@code Price} of the {@code EditPropertyDescriptor} that we are building.
+     */
+    public EditPropertyDescriptorBuilder withPrice(String price) {
+        descriptor.setPrice(new Price(price));
+        return this;
+    }
+
+
+    /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditPropertyDescriptor}
      * that we are building.
      */
@@ -83,7 +103,27 @@ public class EditPropertyDescriptorBuilder {
         return this;
     }
 
-    public EditCommand.EditPropertyDescriptor build() {
+    /**
+     * Parses the {@code tagsToAdd} into a {@code Set<Tag>} and set it to the {@code EditPropertyDescriptor}
+     * that we are building.
+     */
+    public EditPropertyDescriptorBuilder withTagsToAdd(String... tagsToAdd) {
+        Set<Tag> tagSet = Stream.of(tagsToAdd).map(Tag::new).collect(Collectors.toSet());
+        descriptor.setTagsToAdd(tagSet);
+        return this;
+    }
+
+    /**
+     * Parses the {@code tagsToDelete} into a {@code Set<Tag>} and set it to the {@code EditPropertyDescriptor}
+     * that we are building.
+     */
+    public EditPropertyDescriptorBuilder withTagsToDelete(String... tagsToDelete) {
+        Set<Tag> tagSet = Stream.of(tagsToDelete).map(Tag::new).collect(Collectors.toSet());
+        descriptor.setTagsToDelete(tagSet);
+        return this;
+    }
+
+    public EditPropertyCommand.EditPropertyDescriptor build() {
         return descriptor;
     }
 }

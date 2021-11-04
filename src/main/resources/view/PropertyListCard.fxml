@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.FlowPane?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
   <GridPane HBox.hgrow="ALWAYS">
@@ -25,12 +20,21 @@
             <Region fx:constant="USE_PREF_SIZE" />
           </minWidth>
         </Label>
-        <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
+        <Label fx:id="name" wrapText="true" styleClass="cell_big_label" text="\$first" />
       </HBox>
-      <FlowPane fx:id="tags" />
-      <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
-      <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
-      <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
-    </VBox>
+      <FlowPane fx:id="tags" minWidth="0" styleClass="tags" />
+      <Label fx:id="price" styleClass="cell_small_label, price" text="\$price" />
+      <Label fx:id="address" wrapText="true" styleClass="cell_small_label" text="\$address" />
+      <FlowPane hgap="5.0" minWidth="0">
+        <children>
+          <Label fx:id="seller" wrapText="true" styleClass="cell_small_label" text="\$seller" />
+          <Label fx:id="phone" wrapText="true" styleClass="cell_small_label" text="\$phone" />
+          <Label fx:id="email" wrapText="true" styleClass="cell_small_label" text="\$email" />
+        </children>
+      </FlowPane>
+      </VBox>
+      <rowConstraints>
+         <RowConstraints />
+      </rowConstraints>
   </GridPane>
 </HBox>

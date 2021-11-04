@@ -1,0 +1,19 @@
+{
+  "_comment" : "AddressBook save file which purely contains valid buyer values",
+  "properties" : [],
+  "buyers" : [
+    {
+      "name": "Amy Bee",
+      "phone": "9482427",
+      "email": "lydia@example.com",
+      "maxPrice" : "42000",
+      "tagged": [ "friends" ]
+    },
+    {
+      "name" : "Benson Meier",
+      "phone" : "98765432",
+      "email" : "johnd@example.com",
+      "maxPrice" : "42001"
+    }
+  ]
+}

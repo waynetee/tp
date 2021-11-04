@@ -1,14 +1,23 @@
 {
-  "persons": [ {
-    "name": "Alice Pauline",
-    "phone": "94351253",
-    "email": "alice@example.com",
-    "address": "123, Jurong West Ave 6, #08-111",
+  "properties": [ {
+    "name" : "Alice Pauline",
+    "address" : "123, Jurong West Ave 6, #08-111",
+    "seller" : {
+      "name" : "Valid Seller",
+      "phone" : "94351253",
+      "email" : "alice@example.com"
+    },
+    "price" : "10000",
     "tagged": [ "friends" ]
   }, {
-    "name": "Alice Pauline",
-    "phone": "94351253",
-    "email": "pauline@example.com",
-    "address": "4th street"
-  } ]
+    "name" : "Alice Pauline",
+    "address" : "4th street",
+    "seller" : {
+      "name" : "Valid Seller",
+      "phone" : "94351253",
+      "email" : "pauline@example.com"
+    },
+    "price" : "10000"
+  } ],
+  "buyers": []
 }

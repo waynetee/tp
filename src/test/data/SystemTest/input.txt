@@ -1,0 +1,42 @@
+clear
+add buyer n/ben p/91234567 e/sam@email.com t/hdb t/3rm $/123
+add buyer n/alice p/91234567 e/sam@email.com t/hdb t/3rm $/1000
+add property n/Hasta La Vista a/20 Clementi Ave 2, #02-25 $/1652000 s/John Doe p/98765432 e/johnd@example.com t/Condo t/4 rm t/621 sqft t/EW23 Clementi
+add property n/Dee Gardens a/Blk 30 Lorong 3 Serangoon Gardens, #07-18 $/3423432 s/Beatrice Yu p/99272758 e/berniceyu@example.com
+add property n/Olive Gardens a/Blk 11 Ang Mo Kio Street 74, #11-04 $/6457654 s/Charlotte Oliveiro p/93210283 e/charlotte@example.com t/Condo
+edit property 3
+delete property 10000
+list
+find property la
+find property dee
+edit property 1 n/new name
+edit property 2 n/Olive Gardens a/Blk 11 Ang Mo Kio Street 74, #11-04 $/6457654 s/Charlotte Oliveiro p/93210283 e/charlotte@example.com t/Condo
+delete property 3
+edit property 1 ta/condo1 ta/condo2 ta/condo3 ta/condo4
+edit property 1 td/condo2 td/condo3
+find property t/condo1 t/condo4
+add buyer n/Sam p/91234567 e/sam@email.com t/hdb t/3rm $/4444
+add buyer n/bob p/91234567 e/sam@email.com t/hdb t/3rm $/2222
+add buyer n/tim p/91234567 e/sam@email.com t/condo t/3rm $/4444
+add buyer n/tom p/91234567 e/sam@email.com t/condo t/3rm $/10000
+sort    buyer  price    asc
+sort    buyer  name    asc
+list
+sort    property  name    desc
+edit buyer  3 td/3rm ta/4rm
+delete buyer 2
+sort buyers price desc
+match auto
+back
+clear
+match auto
+add property n/Olive Gardens a/Blk 11 Ang Mo Kio Street 74, #11-04 $/6457654 s/Charlotte Oliveiro p/93210283 e/charlotte@example.com t/Condo
+match auto
+add buyer n/tom p/91234567 e/sam@email.com t/condo t/3rm $/10000
+match    auto
+clear
+match buyer 1
+back
+back
+match auto
+list

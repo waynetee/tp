@@ -17,6 +17,18 @@ src/main/resources/docs/
 # Test sandbox files
 src/test/data/sandbox/
 
+src/test/data/SystemTest/actual_output.txt
+
+src/test/data/JsonSerializableAddressBookTest/test.json
+
 # MacOS custom attributes files created by Finder
 .DS_Store
 docs/_site/
+
+# Vscode/Eclipse
+.vscode/
+.classpath
+.project
+.settings/
+bin/
+.vscode

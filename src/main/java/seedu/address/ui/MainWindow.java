@@ -1,5 +1,8 @@
 package seedu.address.ui;
 
+import java.io.File;
+import java.nio.file.Paths;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -8,14 +11,21 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
+import seedu.address.logic.commands.CommandPreAction;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.ExportCommand;
+import seedu.address.logic.commands.ImportCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.ui.stats.Stat;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -32,8 +42,13 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private PropertyListPanel propertyListPanel;
+    private BuyerListPanel buyerListPanel;
+    private MatchListPanel matchListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private StatWindow statWindow;
+
+    private boolean showingMatchAutoView = false;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -42,7 +57,19 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
+    private HBox defaultView;
+
+    @FXML
+    private VBox matchAutoView;
+
+    @FXML
     private StackPane propertyListPanelPlaceholder;
+
+    @FXML
+    private StackPane buyerListPanelPlaceholder;
+
+    @FXML
+    private StackPane matchListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -66,6 +93,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        statWindow = new StatWindow();
     }
 
     public Stage getPrimaryStage() {
@@ -78,6 +106,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -113,6 +142,12 @@ public class MainWindow extends UiPart<Stage> {
         propertyListPanel = new PropertyListPanel(logic.getFilteredPropertyList());
         propertyListPanelPlaceholder.getChildren().add(propertyListPanel.getRoot());
 
+        buyerListPanel = new BuyerListPanel(logic.getFilteredBuyerList());
+        buyerListPanelPlaceholder.getChildren().add(buyerListPanel.getRoot());
+
+        matchListPanel = new MatchListPanel(logic.getMatchList());
+        matchListPanelPlaceholder.getChildren().add(matchListPanel.getRoot());
+
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -135,6 +170,73 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    void show() {
+        primaryStage.show();
+    }
+
+    public PropertyListPanel getPropertyListPanel() {
+        return propertyListPanel;
+    }
+
+
+
+    /**
+     * Imports Properties.
+     */
+    @FXML
+    public void handleImportProperties() {
+        try {
+            executeCommand(ImportCommand.COMMAND_WORD + " " + ImportCommand.PROPERTIES);
+        } catch (CommandException | ParseException e) {
+            logger.warning("handleImportProperties failed!");
+        }
+    }
+
+    /**
+     * Imports Buyers.
+     */
+    @FXML
+    public void handleImportBuyers() {
+        try {
+            executeCommand(ImportCommand.COMMAND_WORD + " " + ImportCommand.BUYERS);
+        } catch (CommandException | ParseException e) {
+            logger.warning("handleImportBuyers failed!");
+        }
+    }
+
+    /**
+     * Exports Properties.
+     */
+    @FXML
+    public void handleExportProperties() {
+        try {
+            executeCommand(ExportCommand.COMMAND_WORD + " " + ExportCommand.PROPERTIES);
+        } catch (CommandException | ParseException e) {
+            logger.warning("handleExportProperties failed!");
+        }
+    }
+
+    /**
+     * Exports Buyers.
+     */
+    @FXML
+    public void handleExportBuyers() {
+        try {
+            executeCommand(ExportCommand.COMMAND_WORD + " " + ExportCommand.BUYERS);
+        } catch (CommandException | ParseException e) {
+            logger.warning("handleExportBuyers failed!");
+        }
+    }
+
+    /**
+     * Handles
+     */
+    @FXML
+    public void handleStat(Stat stat) {
+        statWindow.setStat(stat);
+        statWindow.show();
+    }
+
     /**
      * Opens the help window or focuses on it if it's already opened.
      */
@@ -147,10 +249,6 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    void show() {
-        primaryStage.show();
-    }
-
     /**
      * Closes the application.
      */
@@ -160,11 +258,8 @@ public class MainWindow extends UiPart<Stage> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
+        statWindow.hide();
         primaryStage.hide();
-    }
-
-    public PropertyListPanel getPropertyListPanel() {
-        return propertyListPanel;
     }
 
     /**
@@ -174,17 +269,20 @@ public class MainWindow extends UiPart<Stage> {
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
-            CommandResult commandResult = logic.execute(commandText);
+            logic.validateCommand(commandText, showingMatchAutoView);
+            CommandResult commandResult;
+            CommandPreAction commandPreAction = logic.getCommandPreAction(commandText);
+            if (commandPreAction.requiresFile()) {
+                File file = getCsvFile(commandPreAction.getFileDialogPrompt(), commandPreAction.isFileSave());
+                commandResult = logic.execute(commandText, file);
+            } else {
+                commandResult = logic.execute(commandText);
+            }
+
+            handleUiAction(commandResult);
+
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-
-            if (commandResult.isShowHelp()) {
-                handleHelp();
-            }
-
-            if (commandResult.isExit()) {
-                handleExit();
-            }
 
             return commandResult;
         } catch (CommandException | ParseException e) {
@@ -193,4 +291,67 @@ public class MainWindow extends UiPart<Stage> {
             throw e;
         }
     }
+
+    /**
+     * Gets user to select a destination for saving csv.
+     *
+     * @param title Title of fileChooser dialog box
+     * @return File object chosen by user
+     */
+    public File getCsvFile(String title, boolean isFileSave) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle(title);
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Csv Files", "*.csv"));
+        fileChooser.setInitialDirectory(Paths.get(".").toFile());
+        if (isFileSave) {
+            return fileChooser.showSaveDialog(primaryStage);
+        } else {
+            return fileChooser.showOpenDialog(primaryStage);
+        }
+    }
+
+    private void handleUiAction(CommandResult commandResult) {
+        switch (commandResult.getUiAction()) {
+        case STAT:
+            Optional<UiElement> stat = commandResult.getUiElement();
+            assert !stat.isEmpty() && stat.get() instanceof Stat;
+            handleStat((Stat) stat.get());
+            break;
+        case HELP:
+            handleHelp();
+            break;
+        case EXIT:
+            handleExit();
+            break;
+        case SHOW_MATCHES:
+            showMatchAutoView();
+            break;
+        case SHOW_DEFAULT:
+            hideMatchAutoView();
+            break;
+        default:
+            break;
+        }
+    }
+
+    private void showMatchAutoView() {
+        setView(true);
+    }
+
+    private void hideMatchAutoView() {
+        setView(false);
+    }
+
+    /**
+     * Sets the current UI being shown to the user (match auto view or default view)
+     */
+    private void setView(boolean showMatchAutoView) {
+        showingMatchAutoView = showMatchAutoView;
+        defaultView.setVisible(!showingMatchAutoView);
+        defaultView.setManaged(!showingMatchAutoView);
+        matchAutoView.setVisible(showingMatchAutoView);
+        matchAutoView.setManaged(showingMatchAutoView);
+    }
+
 }
