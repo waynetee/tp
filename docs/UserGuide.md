@@ -59,7 +59,7 @@ Action | Format, Examples
 **List** | `list`
 **Exit** | `exit`
 **Help** | `help`
-**Sort** | `sort (property | buyer) (price | name) (asc | desc)`
+**Sort** | `sort ( property | buyer ) (price | name) (asc | desc)`
 **Match** | `match ( auto | property INDEX | buyer INDEX )`
 **Import** | `import (property | buyer)`
 **Export** | `export (property | buyer)`
@@ -379,7 +379,7 @@ After running `match auto`, enter `back` into the command box to return to the p
 
 Imports buyers or properties from csv file. Imported items will be added to the front of the **currently displayed list**.
 
-Format: `import buyers` or `import properties`
+Format: `import buyer` or `import property`
 
 * You can select the import file location from a pop-up dialog box.
 * The buyer or property list imported must be [valid](#valid-propertiesbuyers). Some criteria are as follows:
