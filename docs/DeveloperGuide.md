@@ -262,7 +262,7 @@ There are 2 sorting options in PropertyWhiz:
 * `SortType` - Enum class that represents the attributes of buyers and properties that can be sorted. Currently, only names and prices of buyers and properties can be sorted. These are represented by `SortType.NAME` and `SortType.PRICE` respectively.
 * `SortDirection` - Enum class that represents the direction, ascending or descending, of the sort. These are represented by `SortDirection.ASC` and `SortDirection.DESC`.
 
-#### Parsing of commands within the `Logic` component
+#### Parsing of commands
 The parsing of commands is done in the `LogicManager` and when executed, which results in `SortCommand` object being created. 
 Since both properties and buyers can be sorted, `SortCommand` is abstract and `SortPropertyCommand` and `SortBuyerCommand`are concrete subclasses that extend `SortComand`.
 The `SortCommandParser` serves as the intermediate layer between `LogicManager` and `SortCommand` to handle parsing of arguments of the user sort command. 
@@ -279,25 +279,25 @@ Step 3. Depending on the list to be sorted, the corresponding subclass of `SortC
 
    The user input for types of `<args>` can be found in the [UserGuide](UserGuide.md#sorting-propertiesbuyers-sort).
 
-Given below is a sequence diagram for interactions inside the `Logic` component for the `execute("sort properties price asc")` API call.
+Given below is a sequence diagram for execution of `execute("sort properties price asc")` in the `Logic` component.
 
 ![SortParsingSequenceDiagram](images/SortParsingSequenceDiagram.png)
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `SortCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 </div>
 
-#### Execution of commands within the `Logic` component
-After parsing of the user input into a `SortCommand`, the `LogicManager` calls `SortCommand#execute(model)` with a `model`.
+#### Execution of commands
+After parsing of the user input into a `SortCommand`, the `LogicManager` calls `SortCommand#execute`.
 
 The `Model` interface exposes the following operations to sort the buyers and properties list:
 * `Model#sortProperties(sortType, sortDirection)`
 * `Model#sortBuyers(sortType, sortDirection)`
 
-`ModelManager` implements the the `Model` interface. `SortPropertyCommand` will call `ModelManager#sortProperties(sortType, sortDirection)` and `SortBuyerCommand` will call `ModelManager#sortBuyers(SortType, SortDirection)`.
+`ModelManager` implements the the `Model` interface. `SortPropertyCommand` will call `ModelManager#sortProperties` and `SortBuyerCommand` will call `ModelManager#sortBuyers` with the given `SortType` and `SortDirection`.
 
-`ModelManager` will call methods of the encapsulated `AddressBook`: `AddressBook#sortProperties(sortType, sortDirection)` or  `AddressBook#sortBuyers(sortType, sortDirection)`.
+`ModelManager` will call methods of the encapsulated `AddressBook`: `ModelManager#sortProperties` calls `AddressBook#sortProperties` and  `ModelManager#sortBuyers` calls `AddressBook#sortBuyers`.
 
-`AddressBook` will call the `sort(sortType, sortDirection)` method of either `UniquePropertyList` or `UniqueBuyerList` to sort the properties or buyers.
+`AddressBook#sortProperties` will call `UniquePropertyList#sort` and `Address#sortBuyers` will call `UniqueBuyerList#sort` to sort the currently displayed properties or buyers respectively.
 
 Lastly, a `CommandResult` object containing the message to be displayed to the user is created and returned to the `LogicManager`.
 
@@ -308,11 +308,11 @@ Given below is a sequence diagram for the execution of a `SortPropertyCommand`.
 </div>
 
 #### Design considerations:
-**Aspect: Implementation of `SortCommand#execute(model)`** 
+**Aspect: Implementation of `SortPropertyCommand#execute`** 
 * **Alternative 1 (current choice)**: Pass the `SortType` and `SortDirection` from the `SortCommand` to the `Model`.
   * Pros: Easy to implement.
   * Cons: Need to pass the arguments through many layers before reaching `UniquePropertyList`.
-* **Alternative 2** : Implement many methods in the `Model` to represent the different combinations of sort types and directions and call these method directly in `SortCommand#execute(model)`.
+* **Alternative 2** : Implement many methods in the `Model` to represent the different combinations of sort types and directions and call these methods directly in `SortCommand#execute(model)`.
   * Pros: Better abstraction.
   * Cons: Too many different combinations, and as a result, too many methods in the `model`, if there is a need to extend the sort options in the future.
 
