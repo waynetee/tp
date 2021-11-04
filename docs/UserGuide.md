@@ -144,15 +144,15 @@ Here are some fields that are shared amongst commands.
 * Prices must be between 4 and 9 digits (both inclusive).
 * Leading zeroes will be ignored. For e.g., `00100` has 5 characters, but it only has 3 digits, not counting the leading 0s. Hence, `00100` is an invalid price.
 
-#### Property/Buyer phone numbers 
-* Phone number should only contain alphanumeric characters, hyphens, parentheses, plus signs and spaces.
-* Phone numbers must have at least 3 characters, excluding leading and ending spaces
+#### Phone numbers 
+* Phone number should only contain alphanumeric characters, hyphens (`-`), parentheses (`()`), plus signs (`+`) and spaces.
+* Phone numbers must have at least 3 characters, excluding leading and trailing spaces
   * Valid: 
     * `9123 4567`
     * `(office) +65 6123 4567`
     * `nil`
   * Invalid: 
-    * <code>&nbsp;&nbsp;&nbsp;a&nbsp;&nbsp;&nbsp;</code> (Excluding leading and ending spaces, the phone number only contains 1 character)
+    * <code>&nbsp;&nbsp;&nbsp;a&nbsp;&nbsp;&nbsp;</code> (Excluding leading and trailing spaces, the phone number only contains 1 character)
     * `#123` (contains invalid hash symbol)
 
 #### Tags

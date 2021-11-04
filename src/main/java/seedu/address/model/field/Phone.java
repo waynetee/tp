@@ -7,11 +7,11 @@ import static java.util.Objects.requireNonNull;
  * Guarantees: immutable; Is always valid.
  */
 public class Phone {
-    public static final Integer MIN_LENGTH = 3;
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}\\-()+ ]{" + MIN_LENGTH + ",}";
+    private static final Integer MIN_LENGTH = 3;
+    private static final String VALIDATION_REGEX = "[\\p{Alnum}\\-()+ ]{" + MIN_LENGTH + ",}";
     public static final String MESSAGE_CONSTRAINTS =
-            "Phone number should only contain alphanumeric characters, hyphens, parentheses and spaces.\n"
-                    + "Phone number should be at least " + MIN_LENGTH + " characters\n";
+            "Phone number should only contain alphanumeric characters, hyphens, parentheses, plus signs and spaces.\n"
+                    + "Phone number should be at least " + MIN_LENGTH + " characters long.\n";
 
     public final String value;
 
