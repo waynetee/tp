@@ -5,12 +5,12 @@ title: Elizabeth Chow's Project Portfolio Page
 
 ### Project: PropertyWhiz
 
-PropertyWhiz is a desktop application that helps property agents mangae their properties and clients.
+PropertyWhiz is a desktop application that helps property agents manage their properties and clients.
 
 Given below are my contributions to the project.
 
 * **New Feature**: Added the `sort` command ([\#70](https://github.com/AY2122S1-CS2103T-W11-4/tp/pull/70)).
-  * What it does: allows the user to sort the properties and clients by name and budgets in ascending/descending order.
+  * What it does: Allows the user to sort the properties and clients by name and prices or budgets in ascending/descending order.
   * Justification: This allows property agents to prioritise clients and priorities that are more valuable.
   * Highlights: Considered a variation of command formats, including using normal prefixes for easy parsing.
   * However, decided on the current format without the prefixes as it was easier to type but it required additional work to redesign the parser. 
