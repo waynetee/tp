@@ -10,6 +10,7 @@ title: Developer Guide
 ## **Acknowledgements**
 
 * {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
+* [opencsv](http://opencsv.sourceforge.net/) for providing an API to read, parse and write csv files.
 * [JFreeChart](https://www.jfree.org/jfreechart/) for providing the API to display statistics and charts.
 * [JavaFX](https://gluonhq.com/products/javafx/) for providing the API to render GUI.
 
@@ -779,3 +780,25 @@ clear
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Appendix: Effort**
+If AB3 required an implementation effort of 10, `PropertyWhiz`’s implementation effort is 15.
+
+### Challenges faced
+* Two major entity types are involved: `Property` and `Buyer`
+  * These two classes share certain fields, but are fundamentally different. 
+  For example, `Property` contains `Person` but `Buyer` extends from `Person`.
+  * Command parers have to work for both `Property` and `Buyer`. We considered several user command formats that can work with both `Property` and `Buyer`,
+  and settled on adding `property/properties`, `buyer/buyers` after a command word. 
+  * Separate command logic and test, storage is required for `Property` and `Buyer` classes. This greatly increased the workload of implementation and testing. 
+* Import and export csv file commands
+  * A new workflow was required for the UI to handle files. We must first parse the command text to check if it requires a file, request for a file if needed, then consider executing the command. 
+  * Solution: we added a new type of command- `CommandWithFile` to represent commands that require a file. We then added `CommandPreAction` to indicate that a FileChooserDialog is required for the user to select a file. 
+  * `CsvManager` was added as a static, purely functional class. The parsing of csv file was tricky and involved in multiple exceptions. Careful analysis of cases was required to display an appropriate error message.
+  * Here, [opencsv](http://opencsv.sourceforge.net/) played an important role in dealing with the huge number of possible errors while parsing csv files.
+* Intelligent Matching functionality
+  * This feature required in-depth consideration of the target users’ priorities. We created a scoring metric based on the number of common tags between the buyer and seller, and the difference of the prices.
+  * We then designed a suitable algorithm to determine the best matching.
+  * Adding this command required the introduction of multiple UI views as a concept and additional code had to be added to support the switching of views.
+
+### Achievements
+* Explored a great number of features with only two entities created by users: `Property` and `Buyer`
+* Worked strictly within deadlines given for the project.
