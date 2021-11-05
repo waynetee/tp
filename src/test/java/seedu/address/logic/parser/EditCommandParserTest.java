@@ -38,6 +38,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
+import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_NUM_ARGUMENTS;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_PREAMBLE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
@@ -75,12 +77,16 @@ public class EditCommandParserTest {
     @Test
     public void parse_missingParts_failure() {
         // no index specified
-        assertParseFailure(parser, PREAMBLE_PROPERTY, String.format(MESSAGE_INVALID_PREAMBLE, PREAMBLE_PROPERTY,
-                EditCommand.EXPECTED_PREAMBLE));
+        assertParseFailure(parser, PREAMBLE_PROPERTY,
+                String.format(MESSAGE_INVALID_PREAMBLE,
+                        String.format(MESSAGE_INVALID_NUM_ARGUMENTS, 2, 1),
+                        EditCommand.EXPECTED_PREAMBLE, PREAMBLE_PROPERTY));
 
-        // no actor specified
-        assertParseFailure(parser, "1", String.format(MESSAGE_INVALID_PREAMBLE, "1",
-                EditCommand.EXPECTED_PREAMBLE));
+        // no index specified
+        assertParseFailure(parser, "1",
+                String.format(MESSAGE_INVALID_PREAMBLE,
+                        String.format(MESSAGE_INVALID_NUM_ARGUMENTS, 2, 1),
+                        EditCommand.EXPECTED_PREAMBLE, "1"));
 
         // no property field specified
         assertParseFailure(parser, PREAMBLE_PROPERTY + " " + "1", EditCommand.MESSAGE_NOT_EDITED
@@ -97,21 +103,33 @@ public class EditCommandParserTest {
     @Test
     public void parse_invalidPreamble_failure() {
         // negative index
-        assertParseFailure(parser, PREAMBLE_PROPERTY + " -5" + NAME_DESC_AMY,
-                String.format(MESSAGE_INVALID_PREAMBLE, PREAMBLE_PROPERTY + " -5", EditCommand.EXPECTED_PREAMBLE));
+        String userPreamble = PREAMBLE_PROPERTY + " -5";
+        assertParseFailure(parser, userPreamble + NAME_DESC_AMY,
+                String.format(MESSAGE_INVALID_PREAMBLE,
+                        String.format(MESSAGE_INVALID_INDEX, -5),
+                        EditCommand.EXPECTED_PREAMBLE, userPreamble));
 
         // zero index
-        assertParseFailure(parser, PREAMBLE_PROPERTY + " 0" + NAME_DESC_AMY,
-                String.format(MESSAGE_INVALID_PREAMBLE, PREAMBLE_PROPERTY + " 0", EditCommand.EXPECTED_PREAMBLE));
+        userPreamble = PREAMBLE_PROPERTY + " 0";
+        assertParseFailure(parser, userPreamble + NAME_DESC_AMY,
+                String.format(MESSAGE_INVALID_PREAMBLE,
+                        String.format(MESSAGE_INVALID_INDEX, 0),
+                        EditCommand.EXPECTED_PREAMBLE, userPreamble));
 
         // invalid number of arguments being parsed as preamble
-        assertParseFailure(parser, PREAMBLE_PROPERTY + " 1 some random string",
-                String.format(MESSAGE_INVALID_PREAMBLE, PREAMBLE_PROPERTY + " 1 some random string",
-                        EditCommand.EXPECTED_PREAMBLE));
+        String invalidPreamble = PREAMBLE_PROPERTY + " 1 some random string";
+        int lengthInvalidPreamble = invalidPreamble.split(" ").length;
+        int lengthValidPreamble = 2;
+        assertParseFailure(parser, invalidPreamble,
+                String.format(MESSAGE_INVALID_PREAMBLE,
+                        String.format(MESSAGE_INVALID_NUM_ARGUMENTS, lengthValidPreamble, lengthInvalidPreamble),
+                        EditCommand.EXPECTED_PREAMBLE, invalidPreamble));
 
         // invalid actor in preamble
-        assertParseFailure(parser, "buy", String.format(MESSAGE_INVALID_PREAMBLE, "buy",
-                EditCommand.EXPECTED_PREAMBLE));
+        assertParseFailure(parser, "buy",
+                String.format(MESSAGE_INVALID_PREAMBLE,
+                        String.format(MESSAGE_INVALID_NUM_ARGUMENTS, 2, 1),
+                        EditCommand.EXPECTED_PREAMBLE, "buy"));
     }
 
     @Test

@@ -55,8 +55,8 @@ public class AddCommandParser implements Parser<AddCommand> {
             ParserUtil.assertPreambleArgsCount(preamble, NUM_OF_PREAMBLE_ARGS);
             actor = ParserUtil.parseActor(preamble, ACTOR_POSITIONAL_INDEX);
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_PREAMBLE, preamble,
-                    AddCommand.EXPECTED_PREAMBLE), pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_PREAMBLE,
+                    pe.getLocalizedMessage(), AddCommand.EXPECTED_PREAMBLE, preamble));
         }
 
         switch (actor) {
