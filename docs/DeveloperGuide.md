@@ -472,18 +472,18 @@ Priorities: High (must have) - `H`, Medium (nice to have) - `M`, Low (unlikely t
 1. `User` requests a property to be added by specifying its details.
 2. `PropertyWhiz` adds the property.
 
-    Use case ends.
+Use case ends.
 
 **Extensions**
 * 1a. The given details are in an incorrect format.
   * 1a1. `PropertyWhiz` shows an error message as well as the correct input format.
 
-    Use case ends.
+  Use case ends.
 
 * 1b. Details are in correct format, but the property already exists in `PropertyWhiz`.
   * 1b1. `PropertyWhiz` shows an error message. 
     
-    Use case ends.
+  Use case ends.
 
 **Use case: UC02 - Delete property**
 
@@ -492,14 +492,14 @@ Priorities: High (must have) - `H`, Medium (nice to have) - `M`, Low (unlikely t
 1.  `User` requests to delete a specific property by specifying its index.
 2.  `PropertyWhiz` deletes the property.
 
-    Use case ends.
+Use case ends.
 
 **Extensions**
 
 * 1a. The index is invalid.
   * 1a1. `PropertyWhiz` shows an error message.
 
-    Use case ends.
+  Use case ends.
   
 **Use case: UC03 - Edit property**
 
@@ -508,24 +508,24 @@ Priorities: High (must have) - `H`, Medium (nice to have) - `M`, Low (unlikely t
 1. `User` requests to modify a property by specifying its index and new details.
 2. `PropertyWhiz` edits attributes of the property.
 
-    Use case ends.
+Use case ends.
 
 **Extensions**
 
 * 1a. The index is invalid.
     * 1a1. `PropertyWhiz` shows an error message.
 
-      Use case ends.
+    Use case ends.
 
 * 1b. `User` does not provide new attributes.
   * 1b1. `PropertyWhiz` shows an error message.
 
-    Use case ends.
+  Use case ends.
 
 * 2a. Edited property already exists as another property in `PropertyWhiz`.
   * 2a1. `PropertyWhiz` shows an error message.
 
-    Use case ends.
+  Use case ends.
 
 **Use case: UC04 - Edit property tags**
 
@@ -540,22 +540,22 @@ Priorities: High (must have) - `H`, Medium (nice to have) - `M`, Low (unlikely t
 * 1a. The index is invalid.
     * 1a1. `PropertyWhiz` shows an error message.
 
-      Use case ends.
+    Use case ends.
 
 * 1b. User requests to both override all tags, and add/delete tags.
     * 1b1. `PropertyWhiz` shows an error message.
 
-      Use case ends.
+    Use case ends.
 
 * 1c. User requests to simultaneously chooses to add and delete the same tag.
     * 1c1. `PropertyWhiz` shows an error message.
 
-      Use case ends.
+    Use case ends.
 
 * 1d. User requests to add a tag that is already present or delete a tag that is absent.
     * 1d1. `PropertyWhiz` warns the user about the tag's presence (in the case of add tag) or absence (in the case of delete tag).
 
-      Use case resumes at step 2. 
+    Use case resumes at step 2. 
 
 **Use case: UC05 - Find properties**
 
@@ -564,88 +564,92 @@ Priorities: High (must have) - `H`, Medium (nice to have) - `M`, Low (unlikely t
 1. `User` requests to find properties by specifying keywords and a set of tags.
 2.  `PropertyWhiz` filters the displayed property list to include only properties that contain the specified keywords in the name and have the specified tags.
 
-    Use case ends.
+Use case ends.
 
 **Use case: UC06 - Import properties**
 1. `User` requests to import properties.
 2. `User` chooses the source csv file.
 3. `PropertyWhiz` imports the rows within the csv file as properties, and prepends the imported properties the displayed property list.
 
-    Use case ends.
+Use case ends.
 
 **Extensions**
 
 * 2a. `User` cancels while choosing a csv file.
     * 2a1. `PropertyWhiz` shows an error message.
 
-      Use case ends.
+    Use case ends.
 
 * 3a. The csv file cannot be opened or read from.
     * 3a1. `PropertyWhiz` shows an error message.
 
-      Use case ends.
+    Use case ends.
 
 * 3b. The csv file is incorrectly formatted.
     * 3b1. `PropertyWhiz` shows an error message.
 
-      Use case ends.
+    Use case ends.
 
 * 3c. Importing creates duplicate properties within `PropertyWhiz`.
     * 3c1. `PropertyWhiz` shows an error message.
 
-      Use case ends.
+    Use case ends.
 
 **Use case: UC07 - Export properties**
 1. `User` requests to export properties.
 2. `User` chooses the destination csv file.
 3. `PropertyWhiz` exports properties from the displayed property list to the csv file.
-    Use case ends.
+
+Use case ends.
 
 **Extensions**
 
 * 2a. `User` cancels while choosing a csv file.
     * 2a1. `PropertyWhiz` shows an error message.
 
-      Use case ends.
+    Use case ends.
 
 * 3a. The csv file cannot be opened or written to.
     * 3a1. `PropertyWhiz` shows an error message.
 
-      Use case ends.
+    Use case ends.
 
 **Use case: UC08 - Match auto**
 1. `User` requests to match properties to buyers 1 to 1.
 2. `PropertyWhiz` displays a view containing a list of 1 to 1 matching between properties and buyers in the displayed lists.
 3. `User` requests to return to the original view.
-    Use case ends.
+    
+Use case ends.
 
 **Extensions**
 
 * 2a. There are either no properties, or no buyers.
     * 2a1. `PropertyWhiz` shows an error message.
 
-      Use case ends.
+    Use case ends.
 
 * 2b. User sends another command within the 1 to 1 matching view.
     * 2b1. `PropertyWhiz` shows an error message.
 
-      Use case resumes at step 2.
+    Use case resumes at step 2.
 
 **Use case: UC09 - Stat Properties**
 1. `User` requests to draw a histogram of property prices.
 2. `PropertyWhiz` draws and shows in a new window, a histogram of property prices within the displayed property list. 
+
+Use case ends.
 
 **Extensions**
 
 * 1a. There are no properties in the displayed property list.
     * 1a1. `PropertyWhiz` shows an error message.
 
-      Use case ends.
+    Use case ends.
 
 * 1b. There is already a window containing a previously drawn histogram.
     * 1b1. `PropertyWhiz` closes the window containing the previously drawn histogram.
 
-      Use case resumes at step 2.
+    Use case resumes at step 2.
 
 ### Non-Functional Requirements
 
