@@ -469,6 +469,8 @@ Priorities: High (must have) - `H`, Medium (nice to have) - `M`, Low (unlikely t
 
 **Use case: UC01 - Add property**
 
+**MSS**
+
 1. `User` requests a property to be added by specifying its details.
 2. `PropertyWhiz` adds the property.
 
@@ -567,6 +569,9 @@ Use case ends.
 Use case ends.
 
 **Use case: UC06 - Import properties**
+
+**MSS**
+
 1. `User` requests to import properties.
 2. `User` chooses the source csv file.
 3. `PropertyWhiz` imports the rows within the csv file as properties, and prepends the imported properties the displayed property list.
@@ -596,6 +601,9 @@ Use case ends.
     Use case ends.
 
 **Use case: UC07 - Export properties**
+
+**MSS**
+
 1. `User` requests to export properties.
 2. `User` chooses the destination csv file.
 3. `PropertyWhiz` exports properties from the displayed property list to the csv file.
@@ -615,6 +623,9 @@ Use case ends.
     Use case ends.
 
 **Use case: UC08 - Match auto**
+
+**MSS**
+
 1. `User` requests to match properties to buyers 1 to 1.
 2. `PropertyWhiz` displays a view containing a list of 1 to 1 matching between properties and buyers in the displayed lists.
 3. `User` requests to return to the original view.
@@ -634,6 +645,9 @@ Use case ends.
     Use case resumes at step 2.
 
 **Use case: UC09 - Stat Properties**
+
+**MSS**
+
 1. `User` requests to draw a histogram of property prices.
 2. `PropertyWhiz` draws and shows in a new window, a histogram of property prices within the displayed property list. 
 
