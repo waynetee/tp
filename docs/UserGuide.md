@@ -129,10 +129,11 @@ TODO: Define named parameters, positional parameters
 * If a parameter is expected only once in the command but you specified it multiple times, only the last occurrence of the parameter will be taken.<br>
   e.g. if you specify `p/12341234 p/56785678`, only `p/56785678` will be taken.
 
+* Our commands use slashes `/` as prefix identifiers, so do not use `/` in command arguments to prevent unintended results.
+    * `edit property 3 s/Anish s/o Reyaz` will save the seller name as `o Reyaz`.
+
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
-  
-* As many of our commands use slashes `/`, if possible do not use `/` in your inputs as it may lead to unexpected results.
 
 </div>
 
@@ -432,7 +433,7 @@ Example csv output of `export buyer`
 ```
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-Try copying these to a spreadsheet and saving it as a .csv file. Then import them as sample inputs!
+Try copying these to a .csv file. Then import them as sample inputs!
 </div>
 
 ------------------
