@@ -9,7 +9,6 @@ title: Developer Guide
 
 ## **Acknowledgements**
 
-* {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
 * [opencsv](http://opencsv.sourceforge.net/) for providing an API to read, parse and write csv files.
 * [JFreeChart](https://www.jfree.org/jfreechart/) for providing the API to display statistics and charts.
 * [JavaFX](https://gluonhq.com/products/javafx/) for providing the API to render GUI.
@@ -457,8 +456,8 @@ Priorities: High (must have) - `H`, Medium (nice to have) - `M`, Low (unlikely t
 | `H`  | user                                       | match properties to given buyer| see all properties that are suitable for a buyer                           |
 | `H`  | user                                       | match buyers to given property | see all buyers that are suitable for a property                            |
 | `H`  | user                                       | match buyers to property 1 to 1| see most suitable matches between buyers and properties                    |
-| `M`  | multi-platform user                        | import data from csv file      | migrate data from other apps such as excel to propertyWhiz                 |
-| `M`  | multi-platform user                        | export data to csv file        | migrate data from propertyWhiz to other apps such as excel                 |
+| `M`  | multi-platform user                        | import data from csv file      | migrate data from other apps such as Excel to PropertyWhiz                 |
+| `M`  | multi-platform user                        | export data to csv file        | migrate data from PropertyWhiz to other apps such as Excel                 |
 | `M`  | user                                       | show histogram for properties prices| see the distribution of prices among properties                       |
 | `M`  | user                                       | show histogram for buyer budgets| see the distribution of budgets among buyers                              |
 | `L`  | user                                       | show pie chart for property tags| see the distribution of tags among properties                             |
@@ -477,11 +476,11 @@ Priorities: High (must have) - `H`, Medium (nice to have) - `M`, Low (unlikely t
 
 **Extensions**
 * 1a. The given details are in an incorrect format.
-  * 1a1. `PropertyWhiz` shows an error message.
+  * 1a1. `PropertyWhiz` shows an error message as well as the correct input format.
 
     Use case ends.
 
-* 1b. Details are in correct format, but the property already exists in TutorsPet.
+* 1b. Details are in correct format, but the property already exists in `PropertyWhiz`.
   * 1b1. `PropertyWhiz` shows an error message. 
     
     Use case ends.
@@ -523,33 +522,49 @@ Priorities: High (must have) - `H`, Medium (nice to have) - `M`, Low (unlikely t
 
     Use case ends.
 
-* 2a. Edited property is equal to another property in `PropertyWhiz`.
+* 2a. Edited property already exists as another property in `PropertyWhiz`.
   * 2a1. `PropertyWhiz` shows an error message.
 
     Use case ends.
 
-**Use case: UC04 - Sort properties**
+**Use case: UC04 - Edit property tags**
 
 **MSS**
 
-1. `User` requests to sort the current property list by specifying a sorting criteria and direction.
-2.  `PropertyWhiz` sorts the current property list by the sorting criteria and direction.
+1. `User` requests to override all tags, add, or delete tags of a property by specifying its index and tag details.
+2.  `PropertyWhiz` override all tags, adds or deletes tags of the property.
 
 Use case ends.
+
+**Extensions**
+* 1a. The index is invalid.
+    * 1a1. `PropertyWhiz` shows an error message.
+
+      Use case ends.
+
+* 1b. User requests to both override all tags, and add/delete tags.
+    * 1b1. `PropertyWhiz` shows an error message.
+
+      Use case ends.
+
+* 1c. User requests to simultaneously chooses to add and delete the same tag.
+    * 1c1. `PropertyWhiz` shows an error message.
+
+      Use case ends.
 
 **Use case: UC05 - Find properties**
 
 **MSS**
 
 1. `User` requests to find properties by specifying keywords and a set of tags.
-2.  `PropertyWhiz` filters the current property list to include only properties that contain the specified keywords in the name and have the specified tags.
+2.  `PropertyWhiz` filters the displayed property list to include only properties that contain the specified keywords in the name and have the specified tags.
 
 Use case ends.
 
 **Use case: UC06 - Import properties**
 1. `User` requests to import properties.
 2. `User` chooses the source csv file.
-3. `PropertyWhiz` imports the rows within the csv file as properties to the current property list.
+3. `PropertyWhiz` imports the rows within the csv file as properties, and prepends the imported properties the displayed property list.
 
 **Extensions**
 
@@ -576,7 +591,7 @@ Use case ends.
 **Use case: UC07 - Export properties**
 1. `User` requests to export properties.
 2. `User` chooses the destination csv file.
-3. `PropertyWhiz` exports properties from the current property list to the csv file.
+3. `PropertyWhiz` exports properties from the displayed property list to the csv file.
 
 **Extensions**
 
@@ -592,7 +607,7 @@ Use case ends.
 
 **Use case: UC08 - Match auto**
 1. `User` requests to match properties to buyers 1 to 1.
-2. `PropertyWhiz` displays a view containing a list of 1 to 1 matching between properties and buyers in the current lists.
+2. `PropertyWhiz` displays a view containing a list of 1 to 1 matching between properties and buyers in the displayed lists.
 3. `User` requests to return to the original view.
 
 **Extensions**
@@ -609,17 +624,17 @@ Use case ends.
 
 **Use case: UC09 - Stat Properties**
 1. `User` requests to draw a histogram of property prices.
-2. `PropertyWhiz` draws and shows in a new window, a histogram of property prices within the current property list. 
+2. `PropertyWhiz` draws and shows in a new window, a histogram of property prices within the displayed property list. 
 
 **Extensions**
 
-* 2a. There are no properties in the current property list.
-    * 2a1. `PropertyWhiz` shows an error message.
+* 1a. There are no properties in the displayed property list.
+    * 1a1. `PropertyWhiz` shows an error message.
 
       Use case ends.
 
-* 2b. There is already a window containing a previously drawn histogram.
-    * 2a1. `PropertyWhiz` closes the window containing the previously drawn histogram.
+* 1b. There is already a window containing a previously drawn histogram.
+    * 1b1. `PropertyWhiz` closes the window containing the previously drawn histogram.
 
       Use case resumes at step 2.
 
@@ -638,7 +653,8 @@ Use case ends.
 * **Mainstream OS**: Windows, Linux, Unix, OS-X
 * **Property**: A property listed for sale
 * **Buyer**: A person who expresses interest in a range of properties
-* **Current property list**: The current list of properties visible to the buyer.
+* **Displayed property list**: The current list of properties visible to the user.
+* **Displayed buyer list**: The current list of buyers visible to the user.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -675,7 +691,7 @@ testers are expected to do more *exploratory* testing.
    2. Test case: `edit property 1`<br>
       Expected: No fields are provided, property is not edited
    3. Test case: `edit property 1 ta/condo1 ta/condo2 ta/condo3 ta/condo4`<br>
-      Expected: 4 new tags `condo1`, `condo2`, `condo3`, `condo4` are added to the first property in the current property list. 
+      Expected: 4 new tags `condo1`, `condo2`, `condo3`, `condo4` are added to the first property in the displayed property list. 
 3. Deleting a property while all properties are being shown
 
    1. Prerequisites: List all properties using the `list` command. Multiple properties in the list.
@@ -689,20 +705,20 @@ testers are expected to do more *exploratory* testing.
    4. Other incorrect delete commands to try: `delete`, `delete property x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
-4. Sort properties that are in the current list
+4. Sort properties that are in the displayed list
    1. Test case: `sort property name desc`<br>
-      Expected: Sorted all properties in the current properties list by name in descending order.
+      Expected: Sorted all properties in the displayed properties list by name in descending order.
    2. Test case: `sort property name`<br>
       Expected: There is no sort direction given. Properties are not sorted.
 
 ### Exporting and importing data
 
 1. Testing properties export/import csv
-   1. Remove `addressbook.json` file in the /data folder.
+   1. Remove `propertywhiz.json` file in the /data folder.
    2. Run `PropertyWhiz` to obtain an initialized list of properties and buyers.
    3. Enter Command: `export properties`, select a csv file at a convenient location..<br>
       Expected: csv file is created, containing a header and 1 property per row.
-   4. Enter Command: `clear` to clear existing properties.
+   4. Enter Command: `clear` to clear existing properties and buyers.
    5. Enter Command: `import properties` from the csv file.<br>
       Expected: Properties are successfully imported.
    6. Enter Command: `import properties` from the csv file.<br>
@@ -714,8 +730,8 @@ testers are expected to do more *exploratory* testing.
    Expected: The first line of command will be displayed in the Command Box.
 
 2. Press enter to run the command in the command box. <br>
-   Expected: The current command in the Command Box will be run, and the output will be displayed as per normal.
-   The next line containing a command will replace the current command, regardless of whether the current command was successful.
+   Expected: The displayed command in the Command Box will be run, and the output will be displayed as per normal.
+   The next line containing a command will replace the displayed command, regardless of whether the displayed command was successful.
 3. Repeat until all commands are run. After all pasted commands are run, the command box will be emptied instead of being replaced with another command.
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 If a command that was previously multi-line pasted is edited then executed, the next and subsequent pasted lines will be ignored.
@@ -772,7 +788,7 @@ clear
 
 1. Dealing with missing/corrupted data files
    * Make sure the `PropertyWhiz` is currently not running.
-   * Open the `addressbook.json` file in the /data folder with your favourite text editor.
+   * Open the `propertywhiz.json` file in the /data folder with your favourite text editor.
    * Remove the first character: `{`.
    * Run `PropertyWhiz`. Since the data file is not in the correct format, `PropertyWhiz` should start without any data.
 
