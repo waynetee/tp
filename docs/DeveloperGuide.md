@@ -534,7 +534,7 @@ Priorities: High (must have) - `H`, Medium (nice to have) - `M`, Low (unlikely t
 1. `User` requests to override all tags, add, or delete tags of a property by specifying its index and tag details.
 2.  `PropertyWhiz` override all tags, adds or deletes tags of the property.
 
-Use case ends.
+    Use case ends.
 
 **Extensions**
 * 1a. The index is invalid.
@@ -552,6 +552,11 @@ Use case ends.
 
       Use case ends.
 
+* 1d. User requests to add a tag that is already present or delete a tag that is absent.
+    * 1d1. `PropertyWhiz` warns the user about the tag's presence (in the case of add tag) or absence (in the case of delete tag).
+
+      Use case resumes at step 2. 
+
 **Use case: UC05 - Find properties**
 
 **MSS**
@@ -559,12 +564,14 @@ Use case ends.
 1. `User` requests to find properties by specifying keywords and a set of tags.
 2.  `PropertyWhiz` filters the displayed property list to include only properties that contain the specified keywords in the name and have the specified tags.
 
-Use case ends.
+    Use case ends.
 
 **Use case: UC06 - Import properties**
 1. `User` requests to import properties.
 2. `User` chooses the source csv file.
 3. `PropertyWhiz` imports the rows within the csv file as properties, and prepends the imported properties the displayed property list.
+
+    Use case ends.
 
 **Extensions**
 
@@ -592,6 +599,7 @@ Use case ends.
 1. `User` requests to export properties.
 2. `User` chooses the destination csv file.
 3. `PropertyWhiz` exports properties from the displayed property list to the csv file.
+    Use case ends.
 
 **Extensions**
 
@@ -609,6 +617,7 @@ Use case ends.
 1. `User` requests to match properties to buyers 1 to 1.
 2. `PropertyWhiz` displays a view containing a list of 1 to 1 matching between properties and buyers in the displayed lists.
 3. `User` requests to return to the original view.
+    Use case ends.
 
 **Extensions**
 
