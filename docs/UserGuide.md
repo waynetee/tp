@@ -109,31 +109,31 @@ TODO: Define named parameters, positional parameters
 **:information_source: Notes about the command format:**<br>
 
 * The action keywords `property`, `properties` can both be used to refer to properties, and similarly for `buyer` and `buyers` as well.
-  e.g. `find property Condo` can also be entered as `find properties Condo`.
+  * e.g. `find property Condo` can also be entered as `find properties Condo`.
 
 * Words in `UPPER_CASE` must be supplied by the user.<br>
-  e.g. in `add property n/PROPERTY_NAME`, `PROPERTY_NAME` is a parameter which can be used as `add property n/Beautiful Condo`.
+  * e.g. in `add property n/PROPERTY_NAME`, `PROPERTY_NAME` is a parameter which can be used as `add property n/Beautiful Condo`.
 
 * `[]` : Items in square brackets are optional.<br>
-  e.g `n/PROPERTY_NAME [t/TAG]` can be used as `n/Beautiful Condo t/condo` or as `n/Beautiful Condo`.
+  * e.g `n/PROPERTY_NAME [t/TAG]` can be used as `n/Beautiful Condo t/condo` or as `n/Beautiful Condo`.
 
 * `...` : Items with `…` after them can be repeated any number of times.<br>
-  e.g. `[t/TAG]…` can be omitted, used once:`t/condo`, twice:`t/condo t/family` or more times.
+  * e.g. `[t/TAG]…` can be omitted, used once:`t/condo`, twice:`t/condo t/family` or more times.
 
 * `( | )` : Items in circle brackets `()` separated by `|` means that you can only choose 1 of the partitioned items <br>
-  e.g. `([t/TAG] | [ta/TAG_TO_ADD] [t/TAG_TO_DELETE])` can be used as `t/condo`, `ta/condo td/small condo` but not `t/condo ta/condo`, `t/condo td/small condo`, `t/condo ta/condo td/small condo`
+  * e.g. `([t/TAG] | [ta/TAG_TO_ADD] [t/TAG_TO_DELETE])` can be used as `t/condo`, `ta/condo td/small condo` but not `t/condo ta/condo`, `t/condo td/small condo`, `t/condo ta/condo td/small condo`
 
 * Parameters can be in any order.<br>
-  e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+  * e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
 * If a parameter is expected only once in the command but you specified it multiple times, only the last occurrence of the parameter will be taken.<br>
-  e.g. if you specify `p/12341234 p/56785678`, only `p/56785678` will be taken.
+  * e.g. if you specify `p/12341234 p/56785678`, only `p/56785678` will be taken.
 
 * Our commands use slashes `/` as prefix identifiers, so do not use `/` in command arguments to prevent unintended results.
-    * `edit property 3 s/Anish s/o Reyaz` will save the seller name as `o Reyaz`.
+  * e.g. `edit property 3 s/Anish s/o Reyaz` will save the seller name as `o Reyaz`.
 
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
-  e.g. if the command specifies `help 123`, it will be interpreted as `help`.
+  * e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 </div>
 
