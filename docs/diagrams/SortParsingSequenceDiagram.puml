@@ -6,7 +6,7 @@ participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
 participant ":SortCommandParser" as SortCommandParser LOGIC_COLOR
 participant "<<class>>\nParserUtil" as ParserUtil LOGIC_COLOR
-participant "s:SortPropertyCommand" as SortPropertyCommand LOGIC_COLOR
+participant "spc:SortPropertyCommand" as SortPropertyCommand LOGIC_COLOR
 end box
 
 [-> LogicManager : execute("sort properties price asc")
@@ -47,16 +47,16 @@ create SortPropertyCommand
 SortCommandParser -> SortPropertyCommand
 activate SortPropertyCommand
 
-SortPropertyCommand --> SortCommandParser : s
+SortPropertyCommand --> SortCommandParser : spc
 deactivate SortPropertyCommand
 
-SortCommandParser --> AddressBookParser : s
+SortCommandParser --> AddressBookParser : spc
 deactivate SortCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
 SortCommandParser -[hidden]-> AddressBookParser
 destroy SortCommandParser
 
-AddressBookParser --> LogicManager : s
+AddressBookParser --> LogicManager : spc
 deactivate AddressBookParser
 
 [<--LogicManager
