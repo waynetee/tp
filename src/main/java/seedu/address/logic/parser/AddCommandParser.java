@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_ACTOR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -35,6 +36,7 @@ import seedu.address.model.tag.Tag;
 public class AddCommandParser implements Parser<AddCommand> {
     private static final int ACTOR_POSITIONAL_INDEX = 0;
     private static final int NUM_OF_PREAMBLE_ARGS = 1;
+
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
@@ -42,50 +44,58 @@ public class AddCommandParser implements Parser<AddCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE,
-                PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG, PREFIX_SELLER, PREFIX_PRICE);
-
         Actor actor;
-
-        String preamble = argMultimap.getPreamble();
-        if (preamble.isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-        }
         try {
-            ParserUtil.assertPreambleArgsCount(preamble, NUM_OF_PREAMBLE_ARGS);
-            actor = ParserUtil.parseActor(preamble, ACTOR_POSITIONAL_INDEX);
+            actor = ParserUtil.parseActor(args, ACTOR_POSITIONAL_INDEX);
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_PREAMBLE,
-                    pe.getLocalizedMessage(), AddCommand.EXPECTED_PREAMBLE, preamble));
+            throw new ParseException(String.format(MESSAGE_UNKNOWN_ACTOR,
+                    AddCommand.COMMAND_WORD, AddCommand.MESSAGE_USAGE));
         }
 
         switch (actor) {
         case PROPERTY:
-            return getAddPropertyCommand(argMultimap);
+            return getAddPropertyCommand(args);
         case BUYER:
-            return getAddBuyerCommand(argMultimap);
+            return getAddBuyerCommand(args);
         default:
-            throw new ParseException(MESSAGE_INVALID_ACTOR);
+            assert false;
+            return null;
         }
     }
 
-    private AddPropertyCommand getAddPropertyCommand(ArgumentMultimap argMultimap) throws ParseException {
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS,
-                PREFIX_PHONE, PREFIX_EMAIL, PREFIX_SELLER, PREFIX_PRICE)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    AddPropertyCommand.MESSAGE_USAGE));
+    private AddPropertyCommand getAddPropertyCommand(String args) throws ParseException {
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args,
+                PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG, PREFIX_SELLER, PREFIX_PRICE);
+
+        assertPreambleSize(argMultimap.getPreamble());
+        if (!arePrefixesPresent(argMultimap,
+                PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_SELLER, PREFIX_PRICE)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPropertyCommand.MESSAGE_USAGE));
         }
+
         Property property = getProperty(argMultimap);
         return new AddPropertyCommand(property);
     }
 
-    private AddBuyerCommand getAddBuyerCommand(ArgumentMultimap argMultimap) throws ParseException {
+    private AddBuyerCommand getAddBuyerCommand(String args) throws ParseException {
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args,
+                PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_TAG, PREFIX_PRICE);
+
+        assertPreambleSize(argMultimap.getPreamble());
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_PRICE)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    AddBuyerCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddBuyerCommand.MESSAGE_USAGE));
         }
+
         Buyer buyer = getBuyer(argMultimap);
         return new AddBuyerCommand(buyer);
+    }
+
+    private void assertPreambleSize(String preamble) throws ParseException {
+        try {
+            ParserUtil.assertPreambleArgsCount(preamble, NUM_OF_PREAMBLE_ARGS);
+        } catch (ParseException pe) {
+            throw new ParseException(String.format(MESSAGE_INVALID_PREAMBLE, AddCommand.EXPECTED_PREAMBLE, preamble));
+        }
     }
 
     private Property getProperty(ArgumentMultimap argMultimap) throws ParseException {
