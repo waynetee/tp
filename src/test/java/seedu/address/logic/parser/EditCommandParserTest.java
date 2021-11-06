@@ -226,7 +226,7 @@ public class EditCommandParserTest {
     }
 
     @Test
-    public void parse_multipleRepeatedFields_fails() {
+    public void parse_multipleRepeatedFields_failure() {
         Index targetIndex = INDEX_FIRST;
         String userInput = PREAMBLE_PROPERTY + " " + targetIndex.getOneBased()
                 + PHONE_DESC_AMY + ADDRESS_DESC_AMY + EMAIL_DESC_AMY
