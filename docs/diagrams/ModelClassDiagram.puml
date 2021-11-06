@@ -64,9 +64,10 @@ Buyer *--> "*" Tag
 
 AddressBook *--> "1" UniqueMatchList
 UniqueMatchList -[hidden]left-> UniqueBuyerList
-UniqueMatchList -down--> "*" Match
-Match -down-> "1" Property
-Match -down-> "1" Buyer
+UniqueMatchList -down---> "*" Match
+Match -right--> "1" Buyer
+Match -right--> "     1" Property
+Buyer -[hidden]right--> "1" Property
 
 Property -[hidden]right-> Buyer
 
