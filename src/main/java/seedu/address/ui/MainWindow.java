@@ -233,6 +233,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleStat(Stat stat) {
+        statWindow.hide();
         statWindow.setStat(stat);
         statWindow.show();
     }
