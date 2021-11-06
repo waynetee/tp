@@ -10,8 +10,8 @@
     "price" : "10000",
     "tagged": [ "friends" ]
   }, {
-    "name" : "Alice Pauline",
-    "address" : "4th street",
+    "name" : "Madeline Chan",
+    "address" : "123, Jurong West Ave 6, #08-111",
     "seller" : {
       "name" : "Valid Seller",
       "phone" : "94351253",

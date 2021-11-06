@@ -34,10 +34,10 @@ import seedu.address.model.property.Property;
 public class TypicalProperties {
 
     public static final Property P_ALICE = new PropertyBuilder()
-            .withName("Jurong West Ave 6")
+            .withName("Jurong West St 62")
             .withPrice(MICROSCOPIC_PRICE)
             .withSeller("Alice Pauline")
-            .withAddress("123, Jurong West Ave 6, #08-111")
+            .withAddress("123, Jurong West St 62, #08-111")
             .withEmail("alice@example.com")
             .withPhone("94351253")
             .withTags("HDB", "condo")

@@ -2,8 +2,8 @@
   "_comment": "AddressBook save file which contains the same Property values as in TypicalProperties#getTypicalAddressBook()",
   "properties": [
     {
-      "name": "Jurong West Ave 6",
-      "address": "123, Jurong West Ave 6, #08-111",
+      "name": "Jurong West St 62",
+      "address": "123, Jurong West St 62, #08-111",
       "seller": {
         "name": "Alice Pauline",
         "phone": "94351253",

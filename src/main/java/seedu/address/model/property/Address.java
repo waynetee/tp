@@ -2,12 +2,14 @@ package seedu.address.model.property;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.address.commons.util.StringUtil.compressWhitespace;
+import static seedu.address.commons.util.StringUtil.startCaseSentence;
 
 /**
  * Represents a Property's address in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidAddress(String)}
  */
-public class Address {
+public class Address implements Comparable<Address> {
 
     public static final Integer MAX_LENGTH = 100;
     public static final String MESSAGE_CONSTRAINTS = "Addresses should only contain alphanumeric characters, "
@@ -31,7 +33,7 @@ public class Address {
     public Address(String address) {
         requireNonNull(address);
         checkArgument(isValidAddress(address), MESSAGE_CONSTRAINTS);
-        value = address;
+        value = startCaseSentence(compressWhitespace(address));
     }
 
     /**
@@ -56,6 +58,11 @@ public class Address {
     @Override
     public int hashCode() {
         return value.hashCode();
+    }
+
+    @Override
+    public int compareTo(Address otherAddress) {
+        return value.toLowerCase().compareTo(otherAddress.value.toLowerCase());
     }
 
 }

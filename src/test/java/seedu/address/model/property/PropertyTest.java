@@ -33,22 +33,21 @@ public class PropertyTest {
         // null -> returns false
         assertFalse(P_ALICE.isSameProperty(null));
 
-        // same name, all other attributes different -> returns true
-        Property editedAlice = new PropertyBuilder(P_ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
-                .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(P_ALICE.isSameProperty(editedAlice));
+        // same address, all other attributes different -> returns true
+        Property editedAlice = new PropertyBuilder(P_ALICE).withAddress(VALID_ADDRESS_BOB).build();
+        assertTrue(P_BOB.isSameProperty(editedAlice));
 
-        // different name, all other attributes same -> returns false
-        editedAlice = new PropertyBuilder(P_ALICE).withName(VALID_NAME_BOB).build();
+        // different address, all other attributes same -> returns false
+        editedAlice = new PropertyBuilder(P_ALICE).withAddress(VALID_NAME_BOB).build();
         assertFalse(P_ALICE.isSameProperty(editedAlice));
 
-        // name differs in case, all other attributes same -> returns true
-        Property editedBob = new PropertyBuilder(P_BOB).withName(VALID_NAME_BOB.toLowerCase()).build();
+        // address differs in case, all other attributes same -> returns true
+        Property editedBob = new PropertyBuilder(P_BOB).withAddress(VALID_ADDRESS_BOB.toLowerCase()).build();
         assertTrue(P_BOB.isSameProperty(editedBob));
 
-        // name has trailing spaces, all other attributes same -> returns false
-        String nameWithTrailingSpaces = VALID_NAME_BOB + " ";
-        editedBob = new PropertyBuilder(P_BOB).withName(nameWithTrailingSpaces).build();
+        // address has trailing spaces, all other attributes same -> returns false
+        String addressWithTrailingSpaces = VALID_ADDRESS_BOB + "  ";
+        editedBob = new PropertyBuilder(P_BOB).withAddress(addressWithTrailingSpaces).build();
         assertTrue(P_BOB.isSameProperty(editedBob));
     }
 
