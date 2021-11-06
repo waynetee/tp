@@ -29,7 +29,7 @@ public abstract class FindCommand<T extends Nameable & Taggable & Pricable> exte
             + "and whose prices is greater or equal to the min price (if specified) "
             + "and whose prices is smaller or equal to the max price (if specified).\n"
             + "The matching properties are displayed as a list with index numbers.\n"
-            + "Parameters: ( property | buyer ) KEYWORD [MORE_KEYWORDS]..."
+            + "Parameters: ( property | buyer ) [KEYWORD]..."
             + "[" + PREFIX_TAG + "TAG]... "
             + "[" + PREFIX_MIN_PRICE + "PRICE] "
             + "[" + PREFIX_MAX_PRICE + "PRICE] "
