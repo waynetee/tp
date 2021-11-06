@@ -28,15 +28,14 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_ACTOR = "Not 'property' or 'buyer'.";
     public static final String MESSAGE_INVALID_ACTOR_ARGUMENT = "Argument %d is neither 'property' nor 'buyer'.";
-    public static final String MESSAGE_INVALID_INDEX = "Index %s is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_INDEX = "Index %s is not a positive number.";
     public static final String MESSAGE_INVALID_INDEX_ARGUMENT = "Argument %d is not in range.";
     public static final String MESSAGE_INVALID_SORT_TYPE_ARGUMENT = "Argument %d is not a sort type.";
     public static final String MESSAGE_INVALID_SORT_DIR_ARGUMENT = "Argument %d is not a sort direction.";
-    public static final String MESSAGE_INVALID_NUM_ARGUMENTS =
-            "Expected %d arguments in preamble, provided %d arguments.";
-    public static final String MESSAGE_INVALID_PREAMBLE = "Invalid preamble: %s\n"
-            + "Expected preamble: '%s'.\n"
-            + "Given preamble: '%s'.\n";
+    public static final String MESSAGE_INVALID_NUM_ARGUMENTS = "Expected %d arguments, provided %d arguments.";
+    public static final String MESSAGE_INVALID_PREAMBLE = "Invalid target.\n"
+            + "Expected: %s\n"
+            + "Received: %s\n";
     public static final String MESSAGE_INVALID_FIND_PRICE_PREFIX = "Invalid command. Only one %s is allowed.";
 
     public static final List<String> PROPERTY_PATTERN = Arrays.asList("property", "properties");
