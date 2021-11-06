@@ -9,7 +9,7 @@ import static seedu.address.commons.util.StringUtil.startCaseSentence;
  * Represents a Property's address in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidAddress(String)}
  */
-public class Address implements Comparable<Address> {
+public class Address {
 
     public static final Integer MAX_LENGTH = 100;
     public static final String MESSAGE_CONSTRAINTS = "Addresses should only contain alphanumeric characters, "
@@ -58,11 +58,6 @@ public class Address implements Comparable<Address> {
     @Override
     public int hashCode() {
         return value.hashCode();
-    }
-
-    @Override
-    public int compareTo(Address otherAddress) {
-        return value.toLowerCase().compareTo(otherAddress.value.toLowerCase());
     }
 
 }
