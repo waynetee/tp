@@ -2,6 +2,8 @@ package seedu.address.model.property;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.address.commons.util.StringUtil.compressWhitespace;
+import static seedu.address.commons.util.StringUtil.startCaseSentence;
 
 /**
  * Represents a Property's address in the address book.
@@ -31,7 +33,7 @@ public class Address {
     public Address(String address) {
         requireNonNull(address);
         checkArgument(isValidAddress(address), MESSAGE_CONSTRAINTS);
-        value = address;
+        value = startCaseSentence(compressWhitespace(address));
     }
 
     /**

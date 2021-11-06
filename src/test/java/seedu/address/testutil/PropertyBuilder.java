@@ -16,7 +16,7 @@ import seedu.address.model.util.SampleDataUtil;
 public class PropertyBuilder {
 
     public static final String DEFAULT_NAME = "Paradise Park";
-    public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_ADDRESS = "432, Jurong West Ave 6, #19-987";
     public static final String DEFAULT_PRICE = "571000";
 
     private Name name;
