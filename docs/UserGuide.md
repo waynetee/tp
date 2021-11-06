@@ -10,7 +10,7 @@ title: User Guide
 
 ## Introduction
 
-PropertyWhiz is a **desktop app for managing properties and property buyers**, tailor made for property agents. PropertyWhiz is optimized for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). PropertyWhiz has inbuilt data analysis features like bar chart generation, as well as smart matching features to pair up your properties and buyers. 
+PropertyWhiz is a **desktop app for managing properties and property buyers**, tailor made for property agents. PropertyWhiz is optimized for use via a [Command Line Interface (CLI)](#glossary) while still having the benefits of a [Graphical User Interface (GUI)](#glossary). PropertyWhiz has inbuilt data analysis features like chart generation, as well as smart matching features to pair up your properties and buyers. 
 
 ### Is this for me?
 
@@ -37,11 +37,11 @@ Here are some tips on how to read this guide more efficiently, so that you will 
 ### Navigating the guide
 
 1. First, you can read the [Quick Start](#quick-start) section to check the compatibility of your system with PropertyWhiz. We recommend that you download PropertyWhiz and follow along with the commands introduced in this guide. Practice makes perfect and it is the best way to learn PropertyWhiz!
-2. Before going further, do have a glance at the [conventions](#conventions) on symbols and formatting used across this guide.
+2. Before going further, do have a glance at the [conventions](#conventions) on symbols and formatting used across this guide. If you see any unfamiliar terminology, fret not, for you can find an explanation in the [glossary](#glossary).
 3. Now that you have had an initial look at PropertyWhiz, we have a detailed listing of the UI components [here](#navigating-the-user-interface).
    By this step, you may have already tried out some commands in the command box. If you haven't or don't know what the command box is, don't worry! The information is in the UI component listing.
 4. Now you are ready to take a deeper dive into our commands. We have some [general guidelines](#valid-fields) on what user input is considered valid. Feel free to look through the detailed descriptions of our [commands](#commands).
-5. We have tried our best to make the command format as intuitive and unambiguous as possible. If you have doubts, do refer to our [detailed guide](#features) on command syntax.
+5. We have tried our best to make the command format as intuitive and unambiguous as possible. If you have doubts, do refer to our [detailed guide](#command-syntax-guide) on command syntax.
 
 ### Conventions
 
@@ -57,6 +57,13 @@ Formatting | Meaning
 *italics* | This is used to give slight emphasis to certain words.
 **boldface** | This is used to emphasize certain words, for instance restrictions on input. The degree of emphasis is stronger than *italics*.
 `code` | This is used to denote user input or names of files used by the PropertyWhiz.
+
+### Glossary
+
+Word | Meaning
+-----|------------------
+Command Line Interface (CLI) | Text based user interface.
+Graphical User Interface (GUI) | User interface that allows users to interact via mouse and graphics.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -109,8 +116,8 @@ two view columns for **Property** and **Buyer** each.
 
 Item | Description
 --------|------------------
-**Input box** | Also known as the command box, this is PropertyWhiz's command line. All typed input goes here.
-**Output box** | The output box displays additional information from a command. <br> For a *successful* command, the output box may show metadata like number of entries listed. <br> For an *unsuccessful* command, such as invalid input, the output box will give detailed feedback about which part of the command is invalid and how to fix it.
+**Input box** | Also known as the command box, this is PropertyWhiz's command line. All typed input goes here. <br> :bulb: For an *unsuccessful* command, the input will be colored <span style="color:red">red</span>.
+**Output box** | The output box displays additional information from a command. <br> :bulb: For a *successful* command, the output box may show metadata like number of entries listed. <br> :bulb: For an *unsuccessful* command, such as invalid input, the output box will give detailed feedback about which part of the command is invalid and how to fix it.
 **Properties view** | A listing of properties.
 **Buyers view** | A listing of buyers.
 
@@ -121,6 +128,7 @@ Here is the breakdown of an individual *property card*.
 Item | Description
 --------|------------------
 **Name** | Name of property listing.
+**Tags** | Tags describing notable qualities of the property.
 **Price** | Quoted price of seller.
 **Address** | Address of property listing.
 **Seller** | Name of seller.
@@ -134,6 +142,7 @@ Here is the breakdown of an individual *buyer card*.
 Item | Description
 --------|------------------
 **Name** | Name of buyer.
+**Tags** | Tags describing desirable qualities of a property the buyer is looking out for.
 **Budget** | The buyer's budget.
 **Phone** | Phone number of buyer.
 **Email** | Email of buyer.
