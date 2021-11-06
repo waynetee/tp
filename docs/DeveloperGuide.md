@@ -636,6 +636,8 @@ Use case ends.
 
     Use case ends.
 
+_________________
+
 **Use case: UC08 - Match auto**
 
 **MSS**
@@ -720,10 +722,10 @@ testers are expected to do more *exploratory* testing.
    1. Prerequisites: List all properties using the `list` command. Multiple properties in the list.
 
    2. Test case: `delete property 1`<br>
-      Expected: First property is deleted from the list. Details of the deleted property shown in the status message.
+      Expected: First property is deleted from the list. Details of the deleted property shown.
 
    3. Test case: `delete property 0`<br>
-      Expected: No property is deleted. Error message shown in the status message.
+      Expected: No property is deleted. Error message shown.
 
    4. Other incorrect delete commands to try: `delete`, `delete property x` (where x is larger than the list size)<br>
       Expected: Similar to previous test cases.
