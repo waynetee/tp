@@ -38,7 +38,8 @@ public class ArgumentTokenizerTest {
      * Asserts all the arguments in {@code argMultimap} with {@code prefix} match the {@code expectedValues}
      * and only the last value is returned upon calling {@code ArgumentMultimap#getValue(Prefix)}.
      */
-    private void assertArgumentPresent(ArgumentMultimap argMultimap, Prefix prefix, String... expectedValues) throws ParseException {
+    private void assertArgumentPresent(ArgumentMultimap argMultimap, Prefix prefix, String... expectedValues)
+            throws ParseException {
 
         // Verify the last value is returned
         assertEquals(expectedValues[expectedValues.length - 1], argMultimap.getValue(prefix).get());
