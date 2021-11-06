@@ -17,11 +17,12 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class ArgumentMultimap {
 
+    public static final String MESSAGE_REPEATED_PREFIX = "Invalid command.\nPrefix '%s' is repeated";
+
     /**
      * Prefixes mapped to their respective arguments
      **/
     private final Map<Prefix, List<String>> argMultimap = new HashMap<>();
-    private static final String MESSAGE_REPEATED_PREFIX = "Invalid command.\nPrefix '%s' is repeated";
 
 
     /**
