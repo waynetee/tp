@@ -209,10 +209,6 @@ Under the [`find` command](#locating-propertiesbuyers-by-name-tags-price-find), 
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
   * e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
-TODO: Define named parameters, positional parameters
-
-
-TODO: Fix links regarding valid fields
 ## Valid properties/buyers
 Here are some fields that are shared amongst commands.
 
