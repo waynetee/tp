@@ -577,6 +577,7 @@ _________________
 2. `PropertyWhiz` displays properties/buyers that fulfill the criteria.
 
 Use case ends.
+
 _________________
 
 **Use case: UC06 - Import properties/buyers**
