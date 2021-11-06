@@ -45,7 +45,7 @@ public class PropertyTest {
         Property editedBob = new PropertyBuilder(P_BOB).withAddress(VALID_ADDRESS_BOB.toLowerCase()).build();
         assertTrue(P_BOB.isSameProperty(editedBob));
 
-        // address has trailing spaces, all other attributes same -> returns false
+        // address has trailing spaces, all other attributes same -> returns true
         String addressWithTrailingSpaces = VALID_ADDRESS_BOB + "  ";
         editedBob = new PropertyBuilder(P_BOB).withAddress(addressWithTrailingSpaces).build();
         assertTrue(P_BOB.isSameProperty(editedBob));
