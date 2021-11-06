@@ -68,8 +68,7 @@ Graphical User Interface (GUI) | User interface that allows users to interact vi
 --------------------------------------------------------------------------------------------------------------------
 
 ## Quick start
-TODO: Check if MacOS is supported, if yes, then we can remove this portion.
-TODO: Add link in point 2
+
 <div markdown="block" class="alert alert-info">
 
 **:information_source: Supported platforms:**<br>
@@ -107,7 +106,7 @@ PropertyWhiz has been extensively tested on Microsoft Windows 10 and Ubuntu 20.0
    or the [Command Summary](#command-summary).
 
 --------------------------------------------------------------------------------------------------------------------
---------------------------------------------------------------------------------------------------------------------
+
 
 ## Command summary
 
@@ -173,7 +172,7 @@ Item | Description
 
 --------------------------------------------------------------------------------------------------------------------
 
-### Command Syntax Guide
+## Command Syntax Guide
 
 * The action keywords `property`, `properties` can both be used to refer to properties, and similarly for `buyer` and `buyers` as well.
   * e.g. `find property Condo` can also be entered as `find properties Condo`.
@@ -208,6 +207,8 @@ Under the [`find` command](#locating-propertiesbuyers-by-name-tags-price-find), 
 
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
   * e.g. if the command specifies `help 123`, it will be interpreted as `help`.
+
+------------------
 
 ## Valid properties/buyers
 Here are some fields that are shared amongst commands.
@@ -519,23 +520,17 @@ Example csv output of `export buyer`
 Try copying these to a .csv file. Then import them as sample inputs!
 </div>
 
-------------------
-
 ### Clearing all entries : `clear`
 
 Clears all entries from PropertyWhiz.
 
 Format: `clear`
 
-------------------
-
 ### Exiting the program : `exit`
 
 Exits the program.
 
 Format: `exit`
-
-------------------
 
 ### Saving the data
 
