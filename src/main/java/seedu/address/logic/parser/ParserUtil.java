@@ -28,7 +28,7 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_ACTOR = "Not 'property' or 'buyer'.";
     public static final String MESSAGE_INVALID_ACTOR_ARGUMENT = "Argument %d is neither 'property' nor 'buyer'.";
-    public static final String MESSAGE_INVALID_INDEX = "Index %s is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_INDEX = "Index %s is not a positive number.";
     public static final String MESSAGE_INVALID_INDEX_ARGUMENT = "Argument %d is not in range.";
     public static final String MESSAGE_INVALID_SORT_TYPE_ARGUMENT = "Argument %d is not a sort type.";
     public static final String MESSAGE_INVALID_SORT_DIR_ARGUMENT = "Argument %d is not a sort direction.";
