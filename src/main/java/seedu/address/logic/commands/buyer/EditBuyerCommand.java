@@ -1,6 +1,8 @@
 package seedu.address.logic.commands.buyer;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -39,12 +41,18 @@ public class EditBuyerCommand extends EditCommand {
             + "Existing values will be overwritten by the input values.\n"
             + "with the exception of adding tags. "
             + "Added tags will be appended to the current tags.\n"
-            + "Parameters: buyer INDEX (must be a positive integer) "
+            + "Parameters: INDEX "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_PRICE + "MAX_PRICE] "
-            + "[" + PREFIX_TAG + "TAG]..."
+            + "["
+            + "("
+            + "[" + PREFIX_TAG + "TAG]..." + " | "
+            + "[" + PREFIX_ADD_TAG + "TAG_TO_ADD]... "
+            + "[" + PREFIX_DELETE_TAG + "TAG_TO_DELETE]..."
+            + ")"
+            + "]"
             + "\n"
             + "Example: " + COMMAND_WORD + " buyer 1 "
             + PREFIX_PHONE + "91234567 "
