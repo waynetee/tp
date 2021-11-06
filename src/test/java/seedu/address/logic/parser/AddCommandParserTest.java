@@ -8,6 +8,8 @@ import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC_TOO_SHORT;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PRICE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_SELLER_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
@@ -27,6 +29,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_ACTOR;
+import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_NUM_ARGUMENTS;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_PREAMBLE;
 import static seedu.address.testutil.TypicalProperties.P_AMY;
 import static seedu.address.testutil.TypicalProperties.P_BOB;
@@ -38,6 +42,7 @@ import seedu.address.logic.commands.buyer.AddBuyerCommand;
 import seedu.address.logic.commands.property.AddPropertyCommand;
 import seedu.address.model.field.Email;
 import seedu.address.model.field.Name;
+import seedu.address.model.field.Phone;
 import seedu.address.model.field.Price;
 import seedu.address.model.property.Address;
 import seedu.address.model.property.Property;
@@ -62,13 +67,19 @@ public class AddCommandParserTest {
     @Test
     public void parse_invalidPreamble_failure() {
         // invalid number of arguments being parsed as preamble
-        assertParseFailure(parser, PREAMBLE_PROPERTY + " some random string",
-                String.format(MESSAGE_INVALID_PREAMBLE, PREAMBLE_PROPERTY + " some random string",
-                        AddCommand.EXPECTED_PREAMBLE));
+        String invalidPreamble = PREAMBLE_PROPERTY + " some random string";
+        int lengthInvalidPreamble = invalidPreamble.split(" ").length;
+        int lengthValidPreamble = 1;
+        assertParseFailure(parser, invalidPreamble,
+                String.format(MESSAGE_INVALID_PREAMBLE,
+                String.format(MESSAGE_INVALID_NUM_ARGUMENTS, lengthValidPreamble, lengthInvalidPreamble),
+                AddCommand.EXPECTED_PREAMBLE,
+                PREAMBLE_PROPERTY + " some random string"));
 
         // invalid actor in preamble
-        assertParseFailure(parser, "buy", String.format(MESSAGE_INVALID_PREAMBLE, "buy",
-                AddCommand.EXPECTED_PREAMBLE));
+        assertParseFailure(parser, "buy",
+                String.format(MESSAGE_INVALID_PREAMBLE,
+                MESSAGE_INVALID_ACTOR, AddCommand.EXPECTED_PREAMBLE, "buy"));
     }
 
     @Test
@@ -235,5 +246,17 @@ public class AddCommandParserTest {
         assertParseFailure(parser, PREAMBLE_PROPERTY
                 + INVALID_NAME_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB + INVALID_ADDRESS_DESC
                 + SELLER_DESC_BOB + PRICE_DESC_BOB, Name.MESSAGE_CONSTRAINTS);
+
+        // invalid phone - shorter than minimum length
+        assertParseFailure(parser, PREAMBLE_PROPERTY
+                + NAME_DESC_BOB + INVALID_PHONE_DESC_TOO_SHORT + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
+                + SELLER_DESC_BOB + PRICE_DESC_BOB
+                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Phone.MESSAGE_CONSTRAINTS);
+
+        // invalid phone - contain non-numeric characters
+        assertParseFailure(parser, PREAMBLE_PROPERTY
+                + NAME_DESC_BOB + INVALID_PHONE_DESC + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
+                + SELLER_DESC_BOB + PRICE_DESC_BOB
+                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Phone.MESSAGE_CONSTRAINTS);
     }
 }

@@ -6,13 +6,13 @@ participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
 participant ":SortCommandParser" as SortCommandParser LOGIC_COLOR
 participant "<<class>>\nParserUtil" as ParserUtil LOGIC_COLOR
-participant "s:SortPropertyCommand" as SortPropertyCommand LOGIC_COLOR
+participant "spc:SortPropertyCommand" as SortPropertyCommand LOGIC_COLOR
 end box
 
 [-> LogicManager : execute("sort properties price asc")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand("sort properties price asc")
+LogicManager -> AddressBookParser : parseSimpleCommand("sort properties price asc")
 activate AddressBookParser
 
 create SortCommandParser
@@ -25,19 +25,19 @@ deactivate SortCommandParser
 AddressBookParser -> SortCommandParser : parse("properties price asc")
 activate SortCommandParser
 
-SortCommandParser -> ParserUtil : parseActor(str)
+SortCommandParser -> ParserUtil : parseActor(str, 0)
 activate ParserUtil
 
 ParserUtil --> SortCommandParser
 deactivate ParserUtil
 
-SortCommandParser -> ParserUtil : parseSortType(str)
+SortCommandParser -> ParserUtil : parseSortType(str, 1)
 activate ParserUtil
 
 ParserUtil --> SortCommandParser
 deactivate ParserUtil
 
-SortCommandParser -> ParserUtil : parseSortDirection(str)
+SortCommandParser -> ParserUtil : parseSortDirection(str, 2)
 activate ParserUtil
 
 ParserUtil --> SortCommandParser
@@ -47,16 +47,16 @@ create SortPropertyCommand
 SortCommandParser -> SortPropertyCommand
 activate SortPropertyCommand
 
-SortPropertyCommand --> SortCommandParser : s
+SortPropertyCommand --> SortCommandParser : spc
 deactivate SortPropertyCommand
 
-SortCommandParser --> AddressBookParser : s
+SortCommandParser --> AddressBookParser : spc
 deactivate SortCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
 SortCommandParser -[hidden]-> AddressBookParser
 destroy SortCommandParser
 
-AddressBookParser --> LogicManager : s
+AddressBookParser --> LogicManager : spc
 deactivate AddressBookParser
 
 [<--LogicManager
