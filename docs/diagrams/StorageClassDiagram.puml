@@ -13,6 +13,7 @@ Class JsonUserPrefsStorage
 
 Interface Storage <<Interface>>
 Class StorageManager
+Class CsvManager
 
 package "AddressBook Storage" #F4F6F6{
 Interface AddressBookStorage <<Interface>>
@@ -32,6 +33,7 @@ HiddenOutside ..> Storage
 StorageManager .up.|> Storage
 StorageManager -up-> "1" UserPrefsStorage
 StorageManager -up-> "1" AddressBookStorage
+Storage -up- CsvManager
 
 Storage -left-|> UserPrefsStorage
 Storage -right-|> AddressBookStorage
