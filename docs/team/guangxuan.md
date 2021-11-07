@@ -21,7 +21,7 @@ Given below are my contributions to the project.
   * Highlights: Together with Export Command, `CsvManager` was added as a static, purely functional class. The parsing of csv file was tricky and involved in multiple exceptions. Careful analysis of cases was required to display an appropriate error message.
   * Credits: [opencsv](http://opencsv.sourceforge.net/) for reading and parsing csv files
 
-* **Code contributed**: [RepoSense link](https://nus-cs2103-ay2122s1.github.io/tp-dashboard/?search=guangxuan&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2021-09-17&tabOpen=true&tabType=zoom&zA=guangxuan&zR=AY2122S1-CS2103T-W11-4%2Ftp%5Bmaster%5D&zACS=203.78947368421052&zS=2021-09-17&zFS=guangxuan&zU=2021-10-31&zMG=false&zFTF=commit&zFGS=groupByRepos&zFR=false)
+* **Code contributed**: [RepoSense link](https://nus-cs2103-ay2122s1.github.io/tp-dashboard/?search=guangxuan&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2021-09-17&tabOpen=true&tabType=authorship&tabAuthor=guangxuan&tabRepo=AY2122S1-CS2103T-W11-4%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code~other&authorshipIsBinaryFileTypeChecked=false)
 
 * **Project management**:
   * Created `v1.3`, `v1.4` milestones
