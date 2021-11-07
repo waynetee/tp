@@ -758,7 +758,7 @@ In other words, `PropertyWhiz` treats the edited command as the last line that h
 </div>
 
 Sample list of interactions:<br>
-```clear
+<pre><code style="white-space: pre-wrap;">clear
 add buyer n/ben p/91234567 e/sam@email.com t/hdb t/3rm $/123
 add buyer n/alice p/91234567 e/sam@email.com t/hdb t/3rm $/1000
 add property n/Hasta La Vista a/20 Clementi Ave 2, #02-25 $/1652000 s/John Doe p/98765432 e/johnd@example.com t/Condo t/4 rm t/621 sqft t/EW23 Clementi
@@ -802,7 +802,7 @@ add buyer n/tom p/91234567 e/sam@email.com t/condo t/3rm $/10000
 match    auto
 back
 clear
-```
+</code></pre>
 
 ### Saving data
 
