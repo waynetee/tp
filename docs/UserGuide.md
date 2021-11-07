@@ -419,7 +419,7 @@ Examples of invalid usages of `find` are: `find properties` and `find buyers`.
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 
-You can use the `list` command to reset all the filters and view all the properties and buyers in `PropertyWhiz`.
+You can use the [`list`](#listing-all-propertiesbuyers--list) command to reset all the filters and view all the properties and buyers in `PropertyWhiz`.
 
 </div>
 
