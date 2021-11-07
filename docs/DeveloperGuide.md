@@ -357,6 +357,8 @@ facilitated by `HistogramStat` in the subpackage `seedu.address.ui.stats`.
 The `CommandResult` class now includes an attribute that contains an `Optional<UiElement>` that contains
 an element that a `UiPart` can handle the rendering of.
 
+The following class diagram shows the relationship between classes used to implement this feature.
+
 ![StatUiClassDiagram](images/StatUiClassDiagram.png)
 
 Given below is an example usage scenario and how the statistics diagram is generated and then presented.
