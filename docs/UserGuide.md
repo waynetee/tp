@@ -218,6 +218,19 @@ Shows a list of all properties and buyers in PropertyWhiz.
 
 Format: `list`
 
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+
+As `list` resets all active filters and sort orderings, one of the most common uses of the `list` command to reset the display lists to display all the properties and buyers in `PropertyWhiz`.
+Some places where you might want to make use of the `list` are when:
+* [`find`ing](#locating-propertiesbuyers-by-name-tags-price-find) properties/buyers based on certain criteria
+* [`sort`ing](#sorting-propertiesbuyers-sort) properties/buyers
+* [`match`ing](#matching-properties-and-buyers-match) properties and buyers together
+
+You may wish to use `list` **before** any of these commands in order to process the *full* list of data within `PropertyWhiz`.
+
+You may wish to use `list` **after** any of these commands in order to return to the *full* list.
+
+</div>
 
 ### Editing a property/buyer : `edit`
 
@@ -258,11 +271,11 @@ Format: `stat [(property | buyer)]`
 
 ![stat example](images/StatUi.png)
 
-* Entering another `stat` command while the existing one is open  replaces the view in the pop-up window.
+* Entering another `stat` command while the existing one is open replaces the view in the pop-up window.
 * If only buyers or only properties are visible, `stat` automatically presents the only buyers/only properties view.
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-TODO: insert warning for MacOS users
+If you are using macOS, you may have some issues with this command, due to incompatibilities with the underlying library. We recommend that you make use of other commands like `sort` or `match` for data analysis. Fixing these platform incompabilities is one of our main priorities for future development, and we are confident that `stat` will serve you well in the near future.
 </div>
 
 ### Locating properties/buyers by name, tags, price: `find`
@@ -351,10 +364,10 @@ To illustrate, suppose you have 5 buyers in total (Adam, Ben, Carl, Daniel, Elle
 
 </div>
 
-TODO: This part can be moved to a more general area.
-
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-You can use the `list` command to reset the display lists to display all the available buyers before using `match property`. This will find compatible buyers from the full pool of available buyers.
+
+You can use the `list` command to reset the display lists to display all the available buyers before using `match property`. This will allow you to find compatible buyers from the full pool of available buyers so that you don't miss out on the *best* matches.
+
 </div>
 
 Example:<br>
