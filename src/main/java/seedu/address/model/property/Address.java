@@ -2,6 +2,8 @@ package seedu.address.model.property;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.address.commons.util.StringUtil.compressWhitespace;
+import static seedu.address.commons.util.StringUtil.startCaseSentence;
 
 /**
  * Represents a Property's address in the address book.
@@ -9,13 +11,17 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Address {
 
-    public static final String MESSAGE_CONSTRAINTS = "Addresses can take any values, and it should not be blank";
+    public static final Integer MAX_LENGTH = 100;
+    public static final String MESSAGE_CONSTRAINTS = "Addresses should only contain alphanumeric characters, "
+            + "hashes (#), commas(,), semicolons (;), hyphens (-), and spaces, and it should not be blank.\n"
+            + "Addresses should also be at most " + MAX_LENGTH + " characters long.";
 
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
+     * The other characters include hyphens, hashes and spaces.
      */
-    public static final String VALIDATION_REGEX = "[^\\s].*";
+    public static final String VALIDATION_REGEX = "[\\p{Alnum}\\-][\\p{Alnum}\\-#,; ]{0," + (MAX_LENGTH - 1) + "}";
 
     public final String value;
 
@@ -27,7 +33,7 @@ public class Address {
     public Address(String address) {
         requireNonNull(address);
         checkArgument(isValidAddress(address), MESSAGE_CONSTRAINTS);
-        value = address;
+        value = startCaseSentence(compressWhitespace(address));
     }
 
     /**

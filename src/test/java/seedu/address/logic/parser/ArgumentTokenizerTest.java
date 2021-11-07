@@ -3,9 +3,12 @@ package seedu.address.logic.parser;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
+
+import seedu.address.logic.parser.exceptions.ParseException;
 
 public class ArgumentTokenizerTest {
 
@@ -15,7 +18,7 @@ public class ArgumentTokenizerTest {
     private final Prefix hatQ = new Prefix("^Q");
 
     @Test
-    public void tokenize_emptyArgsString_noValues() {
+    public void tokenize_emptyArgsString_noValues() throws ParseException {
         String argsString = "  ";
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(argsString, pSlash);
 
@@ -23,11 +26,11 @@ public class ArgumentTokenizerTest {
         assertArgumentAbsent(argMultimap, pSlash);
     }
 
-    private void assertPreamblePresent(ArgumentMultimap argMultimap, String expectedPreamble) {
+    private void assertPreamblePresent(ArgumentMultimap argMultimap, String expectedPreamble) throws ParseException {
         assertEquals(expectedPreamble, argMultimap.getPreamble());
     }
 
-    private void assertPreambleEmpty(ArgumentMultimap argMultimap) {
+    private void assertPreambleEmpty(ArgumentMultimap argMultimap) throws ParseException {
         assertTrue(argMultimap.getPreamble().isEmpty());
     }
 
@@ -35,7 +38,8 @@ public class ArgumentTokenizerTest {
      * Asserts all the arguments in {@code argMultimap} with {@code prefix} match the {@code expectedValues}
      * and only the last value is returned upon calling {@code ArgumentMultimap#getValue(Prefix)}.
      */
-    private void assertArgumentPresent(ArgumentMultimap argMultimap, Prefix prefix, String... expectedValues) {
+    private void assertArgumentPresent(ArgumentMultimap argMultimap, Prefix prefix, String... expectedValues)
+            throws ParseException {
 
         // Verify the last value is returned
         assertEquals(expectedValues[expectedValues.length - 1], argMultimap.getValue(prefix).get());
@@ -49,12 +53,16 @@ public class ArgumentTokenizerTest {
         }
     }
 
-    private void assertArgumentAbsent(ArgumentMultimap argMultimap, Prefix prefix) {
+    private void assertArgumentAbsent(ArgumentMultimap argMultimap, Prefix prefix) throws ParseException {
         assertFalse(argMultimap.getValue(prefix).isPresent());
     }
 
+    private void assertArgumentThrow(ArgumentMultimap argMultimap, Prefix prefix) {
+        assertThrows(ParseException.class, () -> argMultimap.getValue(prefix));
+    }
+
     @Test
-    public void tokenize_noPrefixes_allTakenAsPreamble() {
+    public void tokenize_noPrefixes_allTakenAsPreamble() throws ParseException {
         String argsString = "  some random string /t tag with leading and trailing spaces ";
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(argsString);
 
@@ -64,7 +72,7 @@ public class ArgumentTokenizerTest {
     }
 
     @Test
-    public void tokenize_oneArgument() {
+    public void tokenize_oneArgument() throws ParseException {
         // Preamble present
         String argsString = "  Some preamble string p/ Argument value ";
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(argsString, pSlash);
@@ -80,7 +88,7 @@ public class ArgumentTokenizerTest {
     }
 
     @Test
-    public void tokenize_multipleArguments() {
+    public void tokenize_multipleArguments() throws ParseException {
         // Only two arguments are present
         String argsString = "SomePreambleString -t dashT-Value p/pSlash value";
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(argsString, pSlash, dashT, hatQ);
@@ -116,18 +124,18 @@ public class ArgumentTokenizerTest {
     }
 
     @Test
-    public void tokenize_multipleArgumentsWithRepeats() {
+    public void tokenize_multipleArgumentsWithRepeats() throws ParseException {
         // Two arguments repeated, some have empty values
         String argsString = "SomePreambleString -t dashT-Value ^Q ^Q -t another dashT value p/ pSlash value -t";
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(argsString, pSlash, dashT, hatQ);
         assertPreamblePresent(argMultimap, "SomePreambleString");
         assertArgumentPresent(argMultimap, pSlash, "pSlash value");
-        assertArgumentPresent(argMultimap, dashT, "dashT-Value", "another dashT value", "");
-        assertArgumentPresent(argMultimap, hatQ, "", "");
+        assertArgumentThrow(argMultimap, dashT);
+        assertArgumentThrow(argMultimap, hatQ);
     }
 
     @Test
-    public void tokenize_multipleArgumentsJoined() {
+    public void tokenize_multipleArgumentsJoined() throws ParseException {
         String argsString = "SomePreambleStringp/ pSlash joined-tjoined -t not joined^Qjoined";
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(argsString, pSlash, dashT, hatQ);
         assertPreamblePresent(argMultimap, "SomePreambleStringp/ pSlash joined-tjoined");

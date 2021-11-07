@@ -10,8 +10,9 @@ public abstract class DeleteCommand extends SimpleCommand {
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the property/buyer identified by the index number used in the displayed property/buyer list.\n"
-            + "Parameters: (property|buyer) INDEX (must be a positive integer)\n"
+            + ": Deletes the property/buyer identified by the index (must be a positive integer) "
+            + "used in the displayed property/buyer list.\n"
+            + "Parameters: ( property | buyer ) INDEX \n"
             + "Example: " + COMMAND_WORD + " property 1";
 
     protected final Index targetIndex;

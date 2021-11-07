@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_ACTOR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MAX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MIN_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -34,10 +35,18 @@ public class FindCommandParser implements Parser<FindCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the FindCommand
      * and returns a FindCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public FindCommand parse(String args) throws ParseException {
-        Actor actor = ParserUtil.parseActor(args, ACTOR_POSITIONAL_INDEX);
+
+        Actor actor;
+        try {
+            actor = ParserUtil.parseActor(args, ACTOR_POSITIONAL_INDEX);
+        } catch (ParseException pe) {
+            throw new ParseException(String.format(MESSAGE_UNKNOWN_ACTOR,
+                    FindCommand.COMMAND_WORD, FindCommand.MESSAGE_USAGE));
+        }
 
         // Replaces the actor with empty string
         String argsWithoutActor = args.trim().replaceFirst("^[a-z-]*", "");

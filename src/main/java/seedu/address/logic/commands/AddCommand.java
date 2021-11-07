@@ -45,5 +45,5 @@ public abstract class AddCommand extends SimpleCommand {
             + PREFIX_TAG + "621 sqft "
             + PREFIX_TAG + "EW23 Clementi";
 
-    public static final String EXPECTED_PREAMBLE = "(property | buyer)";
+    public static final String EXPECTED_PREAMBLE = "( property | buyer )";
 }

@@ -26,10 +26,16 @@ import seedu.address.model.tag.Tag;
  */
 public class ParserUtil {
 
-    public static final String MESSAGE_INVALID_ACTOR = "Only property or buyer can be specified as target.";
-    public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
-    public static final String MESSAGE_INVALID_PREAMBLE = "Obtained invalid Preamble: \"%s\".\n"
-            + "The following fields are expected: %s";
+    public static final String MESSAGE_INVALID_ACTOR = "Not 'property' or 'buyer'.";
+    public static final String MESSAGE_INVALID_ACTOR_ARGUMENT = "Argument %d is neither 'property' nor 'buyer'.";
+    public static final String MESSAGE_INVALID_INDEX = "Index %s is not a positive number.";
+    public static final String MESSAGE_INVALID_INDEX_ARGUMENT = "Argument %d is not in range.";
+    public static final String MESSAGE_INVALID_SORT_TYPE_ARGUMENT = "Argument %d is not a sort type.";
+    public static final String MESSAGE_INVALID_SORT_DIR_ARGUMENT = "Argument %d is not a sort direction.";
+    public static final String MESSAGE_INVALID_NUM_ARGUMENTS = "Expected %d arguments, provided %d arguments.";
+    public static final String MESSAGE_INVALID_PREAMBLE = "Invalid target.\n"
+            + "Expected: %s\n"
+            + "Received: %s\n";
     public static final String MESSAGE_INVALID_FIND_PRICE_PREFIX = "Invalid command. Only one %s is allowed.";
 
     public static final List<String> PROPERTY_PATTERN = Arrays.asList("property", "properties");
@@ -65,7 +71,7 @@ public class ParserUtil {
     public static Actor parseActor(String actor, int index) throws ParseException {
         String[] splitInputs = actor.trim().split("\\s+");
         if (index >= splitInputs.length) {
-            throw new ParseException(MESSAGE_INVALID_PREAMBLE);
+            throw new ParseException(String.format(MESSAGE_INVALID_ACTOR_ARGUMENT, index));
         }
         return parseActor(splitInputs[index]);
     }
@@ -79,7 +85,7 @@ public class ParserUtil {
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
         String trimmedIndex = oneBasedIndex.trim();
         if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex)) {
-            throw new ParseException(MESSAGE_INVALID_INDEX);
+            throw new ParseException(String.format(MESSAGE_INVALID_INDEX, trimmedIndex));
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }
@@ -93,7 +99,7 @@ public class ParserUtil {
     public static Index parseIndex(String oneBasedIndex, int index) throws ParseException {
         String[] splitInputs = oneBasedIndex.trim().split("\\s+");
         if (index >= splitInputs.length) {
-            throw new ParseException(MESSAGE_INVALID_PREAMBLE);
+            throw new ParseException(String.format(MESSAGE_INVALID_INDEX_ARGUMENT, index));
         }
         return parseIndex(splitInputs[index]);
     }
@@ -227,7 +233,7 @@ public class ParserUtil {
     public static SortType parseSortType(String sortType, int index) throws ParseException {
         String[] splitInputs = sortType.trim().split("\\s+");
         if (index >= splitInputs.length) {
-            throw new ParseException(MESSAGE_INVALID_PREAMBLE);
+            throw new ParseException(String.format(MESSAGE_INVALID_SORT_TYPE_ARGUMENT, index));
         }
         return parseSortType(splitInputs[index]);
     }
@@ -259,7 +265,7 @@ public class ParserUtil {
     public static SortDirection parseSortDir(String sortDir, int index) throws ParseException {
         String[] splitInputs = sortDir.trim().split("\\s+");
         if (index >= splitInputs.length) {
-            throw new ParseException(MESSAGE_INVALID_PREAMBLE);
+            throw new ParseException(String.format(MESSAGE_INVALID_SORT_DIR_ARGUMENT, index));
         }
         return parseSortDir(splitInputs[index]);
     }
@@ -272,7 +278,8 @@ public class ParserUtil {
     public static void assertPreambleArgsCount(String args, int numOfPreamble) throws ParseException {
         String[] splitInputs = args.trim().split("\\s+");
         if (numOfPreamble != splitInputs.length) {
-            throw new ParseException(MESSAGE_INVALID_PREAMBLE);
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_NUM_ARGUMENTS, numOfPreamble, splitInputs.length));
         }
     }
 

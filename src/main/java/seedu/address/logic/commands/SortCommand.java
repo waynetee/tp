@@ -10,8 +10,8 @@ public abstract class SortCommand extends SimpleCommand {
     public static final String COMMAND_WORD = "sort";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sort properties or buyers by price or name. \n"
-            + "Existing properties or buyers list will be overwritten by the sorted list.\n"
-            + "Parameters: ( buyers | properties ) ( name | price ) ( asc | desc )";
+            + "Note that this replaces the list of visible properties or buyers.\n"
+            + "Parameters: ( buyer | property ) ( name | price ) ( asc | desc )";
 
     private final SortType sortType;
     private final SortDirection sortDirection;

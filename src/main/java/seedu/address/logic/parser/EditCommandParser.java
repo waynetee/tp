@@ -1,7 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_ACTOR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE_TAG;
@@ -11,7 +11,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SELLER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_ACTOR;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_PREAMBLE;
 
 import java.util.Collection;
@@ -42,35 +41,53 @@ public class EditCommandParser implements Parser<EditCommand> {
      */
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE,
-                PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG, PREFIX_SELLER, PREFIX_PRICE, PREFIX_ADD_TAG,
-                PREFIX_DELETE_TAG);
 
         Actor actor;
-        Index index;
-
-        String preamble = argMultimap.getPreamble();
-        if (preamble.isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
-        }
         try {
-            ParserUtil.assertPreambleArgsCount(preamble, NUM_OF_PREAMBLE_ARGS);
-            actor = ParserUtil.parseActor(preamble, ACTOR_POSITIONAL_INDEX);
-            index = ParserUtil.parseIndex(preamble, INDEX_POSITIONAL_INDEX);
+            actor = ParserUtil.parseActor(args, ACTOR_POSITIONAL_INDEX);
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_PREAMBLE, preamble,
-                    EditCommand.EXPECTED_PREAMBLE), pe);
+            throw new ParseException(String.format(MESSAGE_UNKNOWN_ACTOR,
+                    EditCommand.COMMAND_WORD, EditCommand.MESSAGE_USAGE));
         }
 
         switch (actor) {
         case PROPERTY:
-            EditPropertyCommand.EditPropertyDescriptor editPropertyDescriptor = getEditPropertyDescriptor(argMultimap);
-            return new EditPropertyCommand(index, editPropertyDescriptor);
+            return getEditPropertyCommand(args);
         case BUYER:
-            EditBuyerCommand.EditBuyerDescriptor editBuyerDescriptor = getEditBuyerDescriptor(argMultimap);
-            return new EditBuyerCommand(index, editBuyerDescriptor);
+            return getEditBuyerCommand(args);
         default:
-            throw new ParseException(MESSAGE_INVALID_ACTOR);
+            assert false;
+            return null;
+        }
+    }
+
+    private EditPropertyCommand getEditPropertyCommand(String args) throws ParseException {
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
+                PREFIX_ADDRESS, PREFIX_SELLER, PREFIX_PRICE, PREFIX_TAG, PREFIX_ADD_TAG, PREFIX_DELETE_TAG);
+
+        assertPreambleSize(argMultimap.getPreamble());
+        Index index = ParserUtil.parseIndex(argMultimap.getPreamble(), INDEX_POSITIONAL_INDEX);
+
+        EditPropertyCommand.EditPropertyDescriptor editPropertyDescriptor = getEditPropertyDescriptor(argMultimap);
+        return new EditPropertyCommand(index, editPropertyDescriptor);
+    }
+
+    private EditBuyerCommand getEditBuyerCommand(String args) throws ParseException {
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
+                PREFIX_PRICE, PREFIX_TAG, PREFIX_ADD_TAG, PREFIX_DELETE_TAG);
+
+        assertPreambleSize(argMultimap.getPreamble());
+        Index index = ParserUtil.parseIndex(argMultimap.getPreamble(), INDEX_POSITIONAL_INDEX);
+
+        EditBuyerCommand.EditBuyerDescriptor editBuyerDescriptor = getEditBuyerDescriptor(argMultimap);
+        return new EditBuyerCommand(index, editBuyerDescriptor);
+    }
+
+    private void assertPreambleSize(String preamble) throws ParseException {
+        try {
+            ParserUtil.assertPreambleArgsCount(preamble, NUM_OF_PREAMBLE_ARGS);
+        } catch (ParseException pe) {
+            throw new ParseException(String.format(MESSAGE_INVALID_PREAMBLE, EditCommand.EXPECTED_PREAMBLE, preamble));
         }
     }
 

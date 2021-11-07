@@ -1,6 +1,6 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_ACTOR;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
@@ -23,9 +23,7 @@ import static seedu.address.logic.commands.CommandTestUtil.SELLER_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
@@ -33,11 +31,14 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SELLER_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.parser.ArgumentMultimap.MESSAGE_REPEATED_PREFIX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_PREAMBLE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
@@ -63,24 +64,20 @@ public class EditCommandParserTest {
     private static final String T_CONDO = "condo";
     private static final String T_NEAR_SCHOOL = "near school";
     private static final String TAG_ADD_CONDO = " " + PREFIX_ADD_TAG + T_CONDO;
-    private static final String TAG_ADD_NEAR_SCHOOL = " " + PREFIX_ADD_TAG + T_NEAR_SCHOOL;
     private static final String TAG_DELETE_CONDO = " " + PREFIX_DELETE_TAG + T_CONDO;
     private static final String TAG_DELETE_NEAR_SCHOOL = " " + PREFIX_DELETE_TAG + T_NEAR_SCHOOL;
-
-    private static final String MESSAGE_INVALID_FORMAT =
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
 
     private EditCommandParser parser = new EditCommandParser();
 
     @Test
     public void parse_missingParts_failure() {
         // no index specified
-        assertParseFailure(parser, PREAMBLE_PROPERTY, String.format(MESSAGE_INVALID_PREAMBLE, PREAMBLE_PROPERTY,
-                EditCommand.EXPECTED_PREAMBLE));
+        assertParseFailure(parser, PREAMBLE_PROPERTY,
+                String.format(MESSAGE_INVALID_PREAMBLE, EditCommand.EXPECTED_PREAMBLE, PREAMBLE_PROPERTY));
 
         // no actor specified
-        assertParseFailure(parser, "1", String.format(MESSAGE_INVALID_PREAMBLE, "1",
-                EditCommand.EXPECTED_PREAMBLE));
+        assertParseFailure(parser, "1",
+                String.format(MESSAGE_UNKNOWN_ACTOR, EditCommand.COMMAND_WORD, EditCommand.MESSAGE_USAGE));
 
         // no property field specified
         assertParseFailure(parser, PREAMBLE_PROPERTY + " " + "1", EditCommand.MESSAGE_NOT_EDITED
@@ -91,27 +88,28 @@ public class EditCommandParserTest {
                 + "\n" + EditBuyerCommand.MESSAGE_USAGE);
 
         // empty command
-        assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "",
+                String.format(MESSAGE_UNKNOWN_ACTOR, EditCommand.COMMAND_WORD, EditCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_invalidPreamble_failure() {
         // negative index
-        assertParseFailure(parser, PREAMBLE_PROPERTY + " -5" + NAME_DESC_AMY,
-                String.format(MESSAGE_INVALID_PREAMBLE, PREAMBLE_PROPERTY + " -5", EditCommand.EXPECTED_PREAMBLE));
+        String userPreamble = PREAMBLE_PROPERTY + " -5";
+        assertParseFailure(parser, userPreamble + NAME_DESC_AMY, String.format(MESSAGE_INVALID_INDEX, -5));
 
         // zero index
-        assertParseFailure(parser, PREAMBLE_PROPERTY + " 0" + NAME_DESC_AMY,
-                String.format(MESSAGE_INVALID_PREAMBLE, PREAMBLE_PROPERTY + " 0", EditCommand.EXPECTED_PREAMBLE));
+        userPreamble = PREAMBLE_PROPERTY + " 0";
+        assertParseFailure(parser, userPreamble + NAME_DESC_AMY, String.format(MESSAGE_INVALID_INDEX, 0));
 
         // invalid number of arguments being parsed as preamble
-        assertParseFailure(parser, PREAMBLE_PROPERTY + " 1 some random string",
-                String.format(MESSAGE_INVALID_PREAMBLE, PREAMBLE_PROPERTY + " 1 some random string",
-                        EditCommand.EXPECTED_PREAMBLE));
+        String invalidPreamble = PREAMBLE_PROPERTY + " 1 some random string";
+        assertParseFailure(parser, invalidPreamble,
+                String.format(MESSAGE_INVALID_PREAMBLE, EditCommand.EXPECTED_PREAMBLE, invalidPreamble));
 
         // invalid actor in preamble
-        assertParseFailure(parser, "buy", String.format(MESSAGE_INVALID_PREAMBLE, "buy",
-                EditCommand.EXPECTED_PREAMBLE));
+        assertParseFailure(parser, "buy",
+                String.format(MESSAGE_UNKNOWN_ACTOR, EditCommand.COMMAND_WORD, EditCommand.MESSAGE_USAGE));
     }
 
     @Test
@@ -228,41 +226,14 @@ public class EditCommandParserTest {
     }
 
     @Test
-    public void parse_multipleRepeatedFields_acceptsLast() {
+    public void parse_multipleRepeatedFields_failure() {
         Index targetIndex = INDEX_FIRST;
         String userInput = PREAMBLE_PROPERTY + " " + targetIndex.getOneBased()
                 + PHONE_DESC_AMY + ADDRESS_DESC_AMY + EMAIL_DESC_AMY
                 + TAG_DESC_FRIEND + PHONE_DESC_AMY + ADDRESS_DESC_AMY + EMAIL_DESC_AMY + TAG_DESC_FRIEND
                 + PHONE_DESC_BOB + ADDRESS_DESC_BOB + EMAIL_DESC_BOB + TAG_DESC_HUSBAND;
 
-        EditPropertyCommand.EditPropertyDescriptor descriptor = new EditPropertyDescriptorBuilder()
-                .withPhone(VALID_PHONE_BOB)
-                .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND).build();
-        EditCommand expectedCommand = new EditPropertyCommand(targetIndex, descriptor);
-
-        assertParseSuccess(parser, userInput, expectedCommand);
-    }
-
-    @Test
-    public void parse_invalidValueFollowedByValidValue_success() {
-        // no other valid values specified
-        Index targetIndex = INDEX_FIRST;
-        String userInput = PREAMBLE_PROPERTY + " " + targetIndex.getOneBased()
-                + INVALID_PHONE_DESC + PHONE_DESC_BOB;
-        EditPropertyCommand.EditPropertyDescriptor descriptor = new EditPropertyDescriptorBuilder()
-                .withPhone(VALID_PHONE_BOB).build();
-        EditPropertyCommand expectedCommand = new EditPropertyCommand(targetIndex, descriptor);
-        assertParseSuccess(parser, userInput, expectedCommand);
-
-        // other valid values specified
-        userInput = PREAMBLE_PROPERTY + " " + targetIndex.getOneBased()
-                + EMAIL_DESC_BOB + INVALID_PHONE_DESC + ADDRESS_DESC_BOB
-                + PHONE_DESC_BOB;
-        descriptor = new EditPropertyDescriptorBuilder().withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
-                .withAddress(VALID_ADDRESS_BOB).build();
-        expectedCommand = new EditPropertyCommand(targetIndex, descriptor);
-        assertParseSuccess(parser, userInput, expectedCommand);
+        assertParseFailure(parser, userInput, String.format(MESSAGE_REPEATED_PREFIX, PREFIX_PHONE));
     }
 
     @Test

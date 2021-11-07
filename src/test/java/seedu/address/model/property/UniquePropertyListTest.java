@@ -47,7 +47,7 @@ public class UniquePropertyListTest {
 
     @Test
     public void contains_propertyWithSameIdentityFieldsInList_returnsTrue() {
-        uniquePropertyList.add(P_ALICE);
+        uniquePropertyList.add(P_BOB);
         Property editedAlice = new PropertyBuilder(P_ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(uniquePropertyList.contains(editedAlice));

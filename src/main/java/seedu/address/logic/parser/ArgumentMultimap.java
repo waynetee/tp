@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import seedu.address.logic.parser.exceptions.ParseException;
+
 /**
  * Stores mapping of prefixes to their respective arguments.
  * Each key may be associated with multiple argument values.
@@ -15,14 +17,19 @@ import java.util.Optional;
  */
 public class ArgumentMultimap {
 
-    /** Prefixes mapped to their respective arguments**/
+    public static final String MESSAGE_REPEATED_PREFIX = "Invalid command.\nPrefix '%s' is repeated";
+
+    /**
+     * Prefixes mapped to their respective arguments
+     */
     private final Map<Prefix, List<String>> argMultimap = new HashMap<>();
+
 
     /**
      * Associates the specified argument value with {@code prefix} key in this map.
      * If the map previously contained a mapping for the key, the new value is appended to the list of existing values.
      *
-     * @param prefix   Prefix key with which the specified argument value is to be associated
+     * @param prefix Prefix key with which the specified argument value is to be associated
      * @param argValue Argument value to be associated with the specified prefix key
      */
     public void put(Prefix prefix, String argValue) {
@@ -32,11 +39,19 @@ public class ArgumentMultimap {
     }
 
     /**
-     * Returns the last value of {@code prefix}.
+     * Returns the value of {@code prefix}.
+     *
+     * @throws ParseException if the given prefix is duplicated.
      */
-    public Optional<String> getValue(Prefix prefix) {
+    public Optional<String> getValue(Prefix prefix) throws ParseException {
         List<String> values = getAllValues(prefix);
-        return values.isEmpty() ? Optional.empty() : Optional.of(values.get(values.size() - 1));
+        if (values.size() > 1) {
+            throw new ParseException(String.format(MESSAGE_REPEATED_PREFIX, prefix));
+        }
+        if (values.isEmpty()) {
+            return Optional.empty();
+        }
+        return Optional.of(values.get(0));
     }
 
     /**
@@ -54,7 +69,7 @@ public class ArgumentMultimap {
     /**
      * Returns the preamble (text before the first valid prefix). Trims any leading/trailing spaces.
      */
-    public String getPreamble() {
+    public String getPreamble() throws ParseException {
         return getValue(new Prefix("")).orElse("");
     }
 }
