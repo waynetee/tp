@@ -119,12 +119,12 @@ Action | Format, Examples
 **Clear** | `clear`
 **Delete** | `delete (property | buyer) INDEX`
 **Edit** | **Property** <br>`edit property INDEX [n/PROPERTY_NAME] [a/PROPERTY_ADDRESS] [s/SELLER_NAME] [p/SELLER_PHONE] [e/SELLER_EMAIL] [$/PRICE] [([t/TAG]…​ | [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]]​`<br><br> **Buyer** <br> `edit buyer INDEX [n/BUYER_NAME] [p/BUYER_PHONE] [e/BUYER_EMAIL] [$/BUDGET]) [([t/TAG]… | [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]`
-**Find** | `find (property | buyer) [KEYWORDS] [t/TAG_TO_MATCH]…`
+**Find** | `find (property | buyer) [KEYWORDS] [t/TAG_TO_MATCH]… [$min/MIN_PRICE] [$max/MAX_PRICE]`
 **List** | `list`
 **Exit** | `exit`
 **Help** | `help`
-**Sort** | `sort ( property | buyer ) (price | name) (asc | desc)`
-**Match** | `match ( auto | property INDEX | buyer INDEX )`
+**Sort** | `sort (property | buyer) (price | name) (asc | desc)`
+**Match** | `match (auto | property INDEX | buyer INDEX)`
 **Import** | `import (property | buyer)`
 **Export** | `export (property | buyer)`
 
@@ -199,8 +199,8 @@ Under the [`find` command](#locating-propertiesbuyers-by-name-tags-price-find), 
 * Parameters can be in any order.<br>
   * e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
-* Our commands use slashes `/` as prefix identifiers, so do not use `/` in command arguments to prevent unintended results.
-  * e.g. `edit property 3 s/Anish s/o Reyaz` will save the seller name as `o Reyaz`.
+* Our commands use slashes `/` as prefix identifiers, so do not use `/` in command arguments.
+  * e.g. `edit property 3 s/Anish s/o Reyaz` will result in an error message displayed in the output box.
 
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
   * e.g. if the command specifies `help 123`, it will be interpreted as `help`.
@@ -229,7 +229,7 @@ Here are some fields that are shared amongst commands.
 * Prices must be between 4 and 9 digits (both inclusive).
 * Leading zeroes will be ignored. For e.g., `00100` has 5 characters, but it only has 3 digits, not counting the leading 0s. Hence, `00100` is an invalid price.
 
-### Phone numbers 
+### Phone numbers
 * Phone number should only contain alphanumeric characters, hyphens (`-`), parentheses (`()`), plus signs (`+`) and spaces.
 * Phone numbers must have at least 3 characters, excluding leading and trailing spaces
   * Valid: 
@@ -256,7 +256,7 @@ Don't worry if your first few commands fail! PropertyWhiz's [output box](#naviga
 
 ### Viewing help : `help`
 
-Shows a message explaning how to access the help page.
+Shows a message explaining how to access the help page.
 
 ![help message](images/helpMessage.png)
 
@@ -308,12 +308,18 @@ Format:
 * Editing a buyer: `edit buyer INDEX [n/BUYER_NAME] [p/BUYER_PHONE] [e/BUYER_EMAIL] [$/BUDGET] [([t/TAG]… | [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]`
 
 Examples:
-* `edit property 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st property to be `91234567` and `johndoe@example.com` respectively.
-* `edit property 2 n/Blk 298 Toa Payoh Central t/` Edits the name of the 2nd property to be `Blk 298 Toa Payoh Central` and clears all existing tags.
-* `edit buyer 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st buyer to be `91234567` and `johndoe@example.com` respectively.
-* `edit property 1 ta/4rm ta/near mrt` Edits the tag list of the 1st property by adding two tags called "4rm" and "near mrt" if they are not already present in the original tag list.
-* `edit property 1 ta/4rm td/near mrt` Edits the tag list of the 1st property by adding a tag called "4rm" if it does not already exist in the original tag list and removing a tag called "near mrt" if it is present in the original tag list.
-* `edit property 1 ta/near MRT` Edits the tag list of the 1st property by adding a tag called `near mrt` if it does not already exist in the original tag list. Notice that the case of `MRT` is lowered to `mrt`.
+* `edit property 1 p/91234567 e/johndoe@example.com`
+  * Edits the phone number and email address of the 1st property to be `91234567` and `johndoe@example.com` respectively.
+* `edit property 2 n/Blk 298 Toa Payoh Central t/` 
+  * Edits the name of the 2nd property to be `Blk 298 Toa Payoh Central` and clears all existing tags.
+* `edit buyer 1 p/91234567 e/johndoe@example.com` 
+  * Edits the phone number and email address of the 1st buyer to be `91234567` and `johndoe@example.com` respectively.
+* `edit property 1 ta/4rm ta/near mrt` 
+  * Edits the tag list of the 1st property by adding two tags called "4rm" and "near mrt" if they are not already present in the original tag list.
+* `edit property 1 ta/4rm td/near mrt`
+  * Edits the tag list of the 1st property by adding a tag called "4rm" if it does not already exist in the original tag list and removing a tag called "near mrt" if it is present in the original tag list.
+* `edit buyer 1 ta/near MRT`
+  * Edits the tag list of the 1st buyer by adding a tag called `near mrt` if it does not already exist in the original tag list. Notice that the case of `MRT` is lowered to `mrt`.
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 The following example is invalid:
@@ -327,34 +333,32 @@ The following example is invalid:
 
 Creates a pop-up with the price chart of the currently listed properties and/or buyers in the view.
 
-Format: `stat [(property | buyer)]`
+Format: 
+* View price chart of properties and buyers: `stat` 
+* View price chart of properties: `stat property`
+* View price chart of buyers: `stat buyer`
 
 ![stat example](images/StatUi.png)
-
-* Entering another `stat` command while the existing one is open  replaces the view in the pop-up window.
-* If only buyers or only properties are visible, `stat` automatically presents the only buyers/only properties view.
-
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-TODO: insert warning for MacOS users
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+If only buyers or only properties are visible, `stat` automatically presents the only buyers/only properties view.
 </div>
 
 ### Locating properties/buyers by name, tags, price: `find`
 
 Finds properties or buyers whose names contain any of the given keywords, whose tag list contain all of the specified tags and whose price is within the specified price range in the **currently displayed list**.
 
-Format: `find (property | buyers) [KEYWORDS] [t/TAG_TO_MATCH]… [$min/MIN_PRICE] [$max/MAX_PRICE]`
+Format: `find (property | buyer) [KEYWORDS] [t/TAG_TO_MATCH]… [$min/MIN_PRICE] [$max/MAX_PRICE]`
 
 * Finds only properties or buyers in the currently displayed list
-
-    e.g If `find property hillview` return properties `Hillview` and `Hillview Rise`, then applying another find command `find property grove` will return an empty list, even if PropertyWhiz has a property `Grove`.
-* The keyword search is case-insensitive. e.g `hillview` will match `Hillview`
+  * e.g. If `find property hillview` return properties `Hillview` and `Hillview Rise`, then applying another find command `find property grove` will return an empty list, even if PropertyWhiz has a property `Grove`.
+* The keyword search is case-insensitive. e.g. `hillview` will match `Hillview`
 * The order of the keywords does not matter. e.g. `Hillview Rise` will match `Rise Hillview`
-* Only the property name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hillview`
+* Only full words will be matched e.g. `Hill` will not match `Hillview`
 * The tag search is case-insensitive, e.g. both `t/mrt`, `t/MRT` will match the `mrt` tag.
-* Properties matching at least one keyword (i.e. `OR` search) and matching all the tags (i.e. `AND` search) will be returned.
-    * e.g. For keywords, `Hillview Rise` will return `Hillview Grove`, `Rise Rivervale`
-    * e.g. For tags, `t/4rm t/near school` will return properties with both `4rm` tag, and `near school` tag.
+* Properties/buyers matching at least one keyword will be returned.
+    * e.g. `find property Hillview Rise` will return properties `Hillview Grove`, `Rise Rivervale`
+* Only properties/buyers that match all the tags will be returned.
+    * e.g. `find property t/4rm t/near school` will return properties with both `4rm` tag, and `near school` tag.
 * The price search is inclusive of the specified number.
   * e.g. `find property $min/10000` will return properties that are at least $10000
   * e.g. `find property $max/100000` will return properties that are at most $100000
@@ -363,18 +367,30 @@ Format: `find (property | buyers) [KEYWORDS] [t/TAG_TO_MATCH]… [$min/MIN_PRICE
   * e.g. `find property $min/10000 $min/1999999 $max/100000` is invalid
   
 Examples:
-* `find property Jurong` returns properties `jurong` and `Jurong East`
-* `find buyer Sally` returns buyer `sally` and `Sally Brown`
-* `find property Jurong t/4rm t/near school` returns properties `jurong [4rm] [near school] [near mrt]` and `Jurong East [4rm] [near school] [near mrt]` but not `jurong [4rm] [near mrt]`
-* `find property t/4rm t/near school` returns properties `jurong [4rm] [near school] [near mrt]` and `Clementi [4rm] [near school] [near mrt]`
-* `find buyer Sally t/4rm t/near school` returns buyer `Sally [4rm] [near school] [quiet]` and `sally brown [4rm] [near school]`
-* `find property $min/10000 $max/1000000` returns properties that are at least $10000 and at most $1000000
+* `find property Jurong`
+  * Returns properties `jurong` and `Jurong East`
+* `find buyer Sally` 
+  * Returns buyers `sally` and `Sally Brown`
+* `find property Jurong t/4rm t/near school` 
+  * Returns properties `jurong [4rm] [near school] [near mrt]` and `Jurong East [4rm] [near school] [near mrt]` but not `jurong [4rm] [near mrt]`
+* `find property t/4rm t/near school` 
+  * Returns properties `jurong [4rm] [near school] [near mrt]` and `Clementi [4rm] [near school] [near mrt]`
+* `find buyer Sally t/4rm t/near school` 
+  * Returns buyers `Sally [4rm] [near school] [quiet]` and `sally brown [4rm] [near school]`
+* `find property $min/10000 $max/1000000` 
+  * Returns properties that are at least $10000 and at most $1000000
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 
 As mentioned in the [syntax guide](#command-syntax-guide), `find` is an exception to the optional parameter syntax. While each of `[KEYWORDS] [t/TAG_TO_MATCH]… [$min/MIN_PRICE] [$max/MAX_PRICE]` are listed as optional, it is invalid to leave out all of them.
 
 Examples of invalid usages of `find` are: `find properties` and `find buyers`.
+
+</div>
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+
+You can use the `list` command to reset all the filters and view all the properties and buyers in `PropertyWhiz`.
 
 </div>
 
@@ -396,21 +412,23 @@ Examples:
 
 Sorts the properties / buyers in PropertyWhiz.
 
-Format: `sort (property | buyers) (price | name) (asc | desc)`
+Format: `sort (property | buyer) (price | name) (asc | desc)`
 
 * Sort the properties in the **current** view based on properties `price`/`name` in `asc`(ascending) / `desc`(descending) order
 * Sort the buyers in the **current** view based on buyers `price`/`name` in `asc`(ascending) / `desc`(descending) order
 
 Examples:
 
-* `sort property price asc` returns the property list sorted by price in ascending order
-* `sort buyers name desc` returns the buyer list sorted by name in descending order
+* `sort property price asc` 
+  * Returns the property list sorted by price in ascending order
+* `sort buyer name desc` 
+  * Returns the buyer list sorted by name in descending order
 
 ### Matching properties and buyers: `match`
 
 Matches properties and buyers to one another.
 
-Format: `match ( auto | property INDEX | buyer INDEX )`
+Format: `match (auto | property INDEX | buyer INDEX)`
 
 #### One to many matching of property to buyers
 
@@ -432,15 +450,26 @@ To illustrate, suppose you have 5 buyers in total (Adam, Ben, Carl, Daniel, Elle
 
 </div>
 
-TODO: This part can be moved to a more general area.
-
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 You can use the `list` command to reset the display lists to display all the available buyers before using `match property`. This will find compatible buyers from the full pool of available buyers.
 </div>
 
-Example:<br>
-Suppose there are 5 properties currently displayed in the property list. `match property 2` matches all buyers compatible with the second displayed property. Let's call this property "Greendale Heights" and assume it has a selling price of `1,000,000` and has tags `4rm`, `near school`. Then a buyer whose budget is `900,000` would not be compatible, and a buyer whose budget is `1,100,000` is compatible.<br>
-Suppose 3 buyers, "Richard", "Sam", and "Tim" , are both compatible with Greendale Heights. Richard has tags `5rm`, `far from school`, Sam has one tag `4rm`, and Tim has tags `4rm`, `near school`. Then Tim has the greatest number of tags in common and is the most desirable buyer match, whereas Richard has the least number of tags in common and is the least desirable buyer match.
+Example:
+* `match property 2` will match all displayed buyers with the second displayed property. Suppose the second displayed property has a selling price of `1,000,000` and has tags `4rm`, `near school`.
+  * Price Compatibility:
+    * Compatible buyers: 
+      * All buyers whose budget is at least `1,000,000` 
+      * e.g. A buyer whose budget is `1,100,000` is compatible
+    * Incompatible buyers: 
+      * All buyers whose budget is lower than `1,000,000` 
+      * e.g. A buyer whose budget is `900,000` is not compatible
+  * Tag Compatibility:
+    * Suppose we have 3 buyers:
+      * Richard has tags `5rm`, `far from school`
+      * Sam has tag `4rm`
+      * Tim has tags `4rm`, `near school`
+    * Order of tag compatibility (most to least compatible): Tim, Sam, Richard. 
+    * Tim has the greatest number of tags in common and is the most desirable buyer match, whereas Richard has the least number of tags in common and is the least desirable buyer match.
 
 #### One to many matching of buyer to properties
 
@@ -453,9 +482,22 @@ Format: `match buyer INDEX`
 * When 2 properties have the same number of tags in common with a buyer, the property with a lower selling price is ranked higher in desirability, in other words, cheaper is better.
 * Similar to `match property`, the matching for `match buyer` is done on the currently displayed property list. You can use the `list` command to reset the display lists to display all the available properties before using `match buyer`.
 
-Example:<br>
-Suppose there are 5 buyers currently displayed in the buyer list. `match buyer 2` matches all properties compatible with the second displayed buyer. Let's call this buyer "Sam" and assume Sam has a budget of `1,000,000` and has tags `4rm`, `near school`. Then a property whose selling price is `1,100,000` would not be compatible, and a property whose selling price is `900,000` is compatible.<br>
-Suppose 3 properties, "Dee Gardens", "Olive Gardens", and "Pear Gardens" are all compatible with Sam. Dee Gardens has tags `5rm`, `far from school`, Olive Gardens has one tag `4rm`, and Pear Gardens has tags `4rm`, `near school`. Then Pear Gardens has the greatest number of tags in common and is the most desirable property match, whereas Dee Gardens has the least number of tags in common and is the least desirable property match.
+Example:
+* `match buyer 2` will match all displayed properties with the second displayed buyer. Suppose the second displayed buyer has budget of `1,000,000` and has tags `4rm`, `near school`.
+    * Budget Compatibility:
+        * Compatible properties: 
+          * All properties with selling price at most `1,000,000` 
+          * e.g. A property with selling price of `900,000` is compatible
+        * Incompatible properties: 
+          * All properties with selling price larger than `1,000,000` 
+          * e.g. A property with selling price of `1,100,000` is not compatible
+    * Tag Compatibility:
+        * Suppose we have 3 properties:
+            * Dee Gardens has tags `5rm`, `far from school`
+            * Olive Gardens has tag `4rm`
+            * Pear Gardens has tags `4rm`, `near school`
+        * Order of tag compatibility (most to least compatible): Pear Gardens, Olive Gardens, Dee Gardens.
+        * Pear Gardens has the greatest number of tags in common and is the most desirable property match, whereas Dee Gardens has the least number of tags in common and is the least desirable property match.
 
 #### Intelligent matching of properties and buyers
 
@@ -473,7 +515,7 @@ After running `match auto`, enter `back` into the command box to return to the p
 
 Imports buyers or properties from csv file. Imported items will be added to the front of the **currently displayed list**.
 
-Format: `import buyer` or `import property`
+Format: `import (buyer | property)`
 
 * You can select the import file location from a pop-up dialog box.
 * The buyer or property list imported must be [valid](#valid-propertiesbuyers). Some criteria are as follows:
@@ -488,7 +530,7 @@ See [below](#exporting-data-to-csv-file--export) for example csv files.
 
 Exports buyers or properties in the **currently displayed list** to csv file.
 
-Format: `export buyer` or `export property`
+Format: `export (buyer | property)`
 
 * You can select the export file location from a pop-up dialog box.
 
