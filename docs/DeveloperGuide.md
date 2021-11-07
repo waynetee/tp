@@ -129,13 +129,6 @@ The `Model` component,
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
-TODO: Should this be removed?
-<div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
-
-<img src="images/BetterModelClassDiagram.png" width="450" />
-
-</div>
-
 
 ### Storage component
 
@@ -323,9 +316,9 @@ The import feature imports from a csv file of buyers/properties chosen by the us
 [opencsv](http://opencsv.sourceforge.net/) is a simple library for reading and writing CSV in Java. PropertyWhiz uses opencsv when importing (and exporting) csv files.
 
 Given below are the steps for importing buyers from a csv file:
-1. The user executes `import buyers`. The `import` command is parsed by `AddressBookParser#getCommandPreAction`, returning a `CommandPreAction` that indicates a file is required for `import`.
+1. The user executes `import buyer`. The `import` command is parsed by `AddressBookParser#getCommandPreAction`, returning a `CommandPreAction` that indicates a file is required for `import`.
 2. `MainWindow#getCsvFile` creates a `FileChooserDialog`. The user selects a csv file to import from disk.
-3. `AddressBookParser#parseCommandWithFile` parses `import buyers` and creates a `ImportBuyersCommand`.
+3. `AddressBookParser#parseCommandWithFile` parses `import buyer` and creates a `ImportBuyersCommand`.
 
 Given below are the steps for executing `ImportBuyersCommand`:
 1. `LogicManager` calls `ImportBuyersCommand#execute` with the file selected by the user.
@@ -422,11 +415,11 @@ Here are several extensions that can be implemented in the future:
 
 **Target user profile**:
 
-* property agents who need to manage a significant number of properties and buyers
-* prefer desktop apps
-* can type fast
-* prefers typing to mouse interactions
-* is reasonably comfortable using CLI apps
+* Property agents who need to manage a significant number of properties and buyers
+* Prefer desktop apps
+* Can type fast
+* Prefers typing to mouse interactions
+* Is reasonably comfortable using CLI apps
 
 **Value proposition**: Allow property agents to manage and match properties and buyers faster than a typical mouse/GUI driven app.
 
@@ -593,7 +586,7 @@ Use case ends.
 **Extensions**
 
 * 1a. `User` cancels while choosing a CSV file.
-    * 1a1. `PropertyWhiz` shows an error message.
+    * 1a1. `PropertyWhiz` reports that import has been cancelled.
 
     Use case ends.
 
@@ -627,7 +620,7 @@ Use case ends.
 **Extensions**
 
 * 1a. `User` cancels while choosing a CSV file.
-    * 1a1. `PropertyWhiz` shows an error message.
+    * 1a1. `PropertyWhiz` reports that export has been cancelled.
 
     Use case ends.
 
@@ -672,7 +665,7 @@ Use case ends.
 3. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 4. Should be able to function without internet access.
 5. Should be able to restart without loss of data.
-6. Should be packaged within a single jar, without requiring an installer.
+6. Should be packaged within a single JAR file, without requiring an installer.
 
 ### Glossary
 
@@ -696,13 +689,14 @@ testers are expected to do more *exploratory* testing.
 
 1. Initial launch
 
-   1. Download the jar file and copy into an empty folder
-   2. Double-click the jar file Expected: Shows the GUI with a set of sample properties and buyers. The window size may not be optimum.
+   1. Download the JAR file and copy into an empty folder
+   2. Double-click the JAR file<br>
+       Expected: Shows the GUI with a set of sample properties and buyers. The window size may not be optimum.
 
 1. Saving window preferences
 
    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
-   2. Re-launch the app by double-clicking the jar file.<br>
+   2. Re-launch the app by double-clicking the JAR file.<br>
        Expected: The most recent window size and location is retained.
    
 ### Keeping track of properties
@@ -732,21 +726,21 @@ testers are expected to do more *exploratory* testing.
 
 4. Sort properties that are in the displayed list
    1. Test case: `sort property name desc`<br>
-      Expected: Sorted all properties in the displayed properties list by name in descending order.
+      Expected: Sorted all properties in the displayed property list by name in descending order.
    2. Test case: `sort property name`<br>
-      Expected: As there is no sort direction given, properties are not sorted.
+      Expected: As there is no sort direction given, error message is shown.
 
 ### Exporting and importing data
 
 1. Testing properties export/import CSV
    1. Remove `propertywhiz.json` file in the /data folder.
    2. Run `PropertyWhiz` to obtain an initialized list of properties and buyers.
-   3. Enter Command: `export properties`, select a CSV file at a convenient location.<br>
+   3. Enter Command: `export property`, select a CSV file at a convenient location.<br>
       Expected: CSV file is created, containing a header and 1 property per row.
    4. Enter Command: `clear` to clear existing properties and buyers.
-   5. Enter Command: `import properties` from the CSV file.<br>
+   5. Enter Command: `import property` from the CSV file.<br>
       Expected: Properties are successfully imported.
-   6. Enter Command: `import properties` from the CSV file.<br>
+   6. Enter Command: `import property` from the CSV file.<br>
       Expected: Import properties failed due to duplicates.
 2. Repeat the commands above to test for buyers.
 
@@ -806,6 +800,7 @@ add property n/Olive Gardens a/Blk 11 Ang Mo Kio Street 74, #11-04 $/6457654 s/C
 match auto
 add buyer n/tom p/91234567 e/sam@email.com t/condo t/3rm $/10000
 match    auto
+back
 clear
 ```
 
@@ -833,7 +828,7 @@ If AB3 required an implementation effort of 10, `PropertyWhiz`’s implementatio
 * Import and export CSV file commands
   * A new workflow was required for the UI to handle files. We must first parse the command text to check if it requires a file, request for a file if needed, then consider executing the command. 
   * Solution: we added a new type of command- `CommandWithFile` to represent commands that require a file. We then added `CommandPreAction` to indicate that a FileChooserDialog is required for the user to select a file. 
-  * `CsvManager` was added as a static, purely functional class. The parsing of CSV file was tricky and involved in multiple exceptions. Careful analysis of cases was required to display an appropriate error message.
+  * `CsvManager` was added as a static, purely functional class. The parsing of CSV files was tricky and involved in multiple exceptions. Careful analysis of cases was required to display an appropriate error message.
   * Here, [opencsv](http://opencsv.sourceforge.net/) played an important role in dealing with the huge number of possible errors while parsing CSV files.
 * Intelligent Matching functionality
   * This feature required in-depth consideration of the target users’ priorities. We created a scoring metric based on the number of common tags between the buyer and seller, and the difference of the prices.
