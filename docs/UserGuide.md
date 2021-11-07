@@ -445,7 +445,7 @@ Examples:
 * `sort buyer name desc` 
   * Returns the buyer list sorted by name in descending order
 
-Shown below is the output for the valid input `sort buyer name asc` after having typed in
+Shown below is the output for the valid input `sort buyer price asc` after having typed in
 `find buyer $min/200000 $max/400000`.
 
 ![Find Buyer](images/SortBuyerUi.png)
