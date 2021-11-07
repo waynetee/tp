@@ -10,7 +10,7 @@ title: User Guide
 
 ## Introduction
 
-PropertyWhiz helps you, a property agent, manage your properties and clients. PropertyWhiz allows you to easily access information, create visualisations, and match your properties to potential buyers.
+PropertyWhiz helps you, a property agent, manage your properties and clients. PropertyWhiz allows you to easily access information, create visualizations, and match your properties to potential buyers.
 
 ### Is this for me?
 
@@ -60,7 +60,7 @@ Formatting | Meaning
 --------|------------------
 *italics* | This is used to give slight emphasis to certain words.
 **boldface** | This is used to emphasize certain words, for instance restrictions on input. The degree of emphasis is stronger than *italics*.
-`code` | This is used to denote user input or names of files used by the PropertyWhiz.
+`code` | This is used to denote user input or special text.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -137,7 +137,7 @@ two view columns for **Properties** and **Buyers**.
 Item | Description
 --------|------------------
 **Command box** | This is where you enter your commands to PropertyWhiz. <br> :bulb: For an *unsuccessful* command, the input will be colored <span style="color:red">red</span>.
-**Output box** | The output box displays additional information from a command. <br> :bulb: For a *successful* command, the output box may information such as the number of entries listed. <br> :bulb: For an *unsuccessful* command, such as invalid input, the output box will give detailed feedback about which part of the command is invalid and how to fix it.
+**Output box** | The output box displays additional information from a command. <br> :bulb: For a *successful* command, the output box may contain information such as the number of entries listed. <br> :bulb: For an *unsuccessful* command, such as invalid input, the output box will give detailed feedback about which part of the command is invalid and how to fix it.
 **Properties view** | A list of properties and their details.
 **Buyers view** | A list of buyers and their details.
 
@@ -170,34 +170,22 @@ Item | Description
 --------------------------------------------------------------------------------------------------------------------
 
 ## Command Syntax Guide
+This section helps you understand the format of the commands listed in the [commands section](#commands). If you find this section difficult to understand, feel free to skip ahead and learn the commands by following the examples given.
 
-* The action keywords `property`, `properties` can both be used to refer to properties, and similarly for `buyer` and `buyers` as well.
+* The action keywords `property` and `properties` are interchangeable, and likewise for `buyer` and `buyers`.
   * e.g. `find property Condo` can also be entered as `find properties Condo`.
 
-* Words in `UPPER_CASE` must be supplied by the user.<br>
+* Words in `UPPER_CASE` must be replaced with corresponding field by the user.<br>
   * e.g. in `add property n/PROPERTY_NAME`, `PROPERTY_NAME` is a parameter which can be used as `add property n/Beautiful Condo`.
 
 * `[]` : Items in square brackets are optional.<br>
   * e.g `n/PROPERTY_NAME [t/TAG]` can be used as `n/Beautiful Condo t/condo` or as `n/Beautiful Condo`.
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-There is one exception to this optional parameter syntax.
-
-Under the [`find` command](#locating-propertiesbuyers-by-name-tags-price-find), while each individual argument is optional, it is not valid to leave out all arguments. For example, `find properties` alone is invalid. See the [`find` command](#locating-propertiesbuyers-by-name-tags-price-find) for more detailed examples.
-
-</div>
-
 * `…` : Items with `…` after them can be repeated any number of times.<br>
   * e.g. `[t/TAG]…` can be omitted, used once:`t/condo`, twice:`t/condo t/family` or more times.
 
-* `( | )` : Items in circle brackets `()` separated by `|` means that you can only choose 1 of the partitioned items <br>
-  * e.g. `([t/TAG] | [ta/TAG_TO_ADD] [t/TAG_TO_DELETE])` can be used as `t/condo`, `ta/condo td/small condo` but not `t/condo ta/condo`, `t/condo td/small condo`, `t/condo ta/condo td/small condo`
-
-* Parameters can be in any order.<br>
-  * e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
-
-* Our commands use slashes `/` as prefix identifiers, so do not use `/` in command arguments.
-  * e.g. `edit property 3 s/Anish s/o Reyaz` will result in an error message displayed in the output box.
+* `( | )` : Items in round brackets `()` separated by `|` means that you can only choose 1 of the items <br>
+  * e.g. `([t/TAG] | [ta/TAG_TO_ADD] [t/TAG_TO_DELETE])` can be used as `t/condo` or `ta/condo td/small condo` but not `t/condo ta/condo` or `t/condo td/small condo`
 
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
   * e.g. if the command specifies `help 123`, it will be interpreted as `help`.
@@ -205,9 +193,9 @@ Under the [`find` command](#locating-propertiesbuyers-by-name-tags-price-find), 
 ------------------
 
 ## Valid properties/buyers
-Here are some fields that are shared amongst commands.
+This section describes the requirements of certain fields.
 
-### Property/Buyer names
+### Property/buyer names
 * Names must start with a letter or number, and only contain alphanumerical characters, spaces and hyphens (`-`).
 * Names have a maximum allowed length of 50.
 * Buyers with identical names are not allowed.
@@ -222,24 +210,23 @@ Here are some fields that are shared amongst commands.
 * Addresses have a maximum allowed length of 100.
 * Properties with identical addresses are not allowed.
 
-### Property Prices/Buyer Budget
-* Prices must be between 4 and 9 digits (both inclusive).
+### Property prices and buyer budget
+* Prices must be numbers between 4 and 9 digits (both inclusive).
 * Leading zeroes will be ignored. For e.g., `00100` has 5 characters, but it only has 3 digits, not counting the leading 0s. Hence, `00100` is an invalid price.
 
 ### Phone numbers
-* Phone number should only contain alphanumeric characters, hyphens (`-`), parentheses (`()`), plus signs (`+`) and spaces.
+* Phone numbers should only contain alphanumeric characters, hyphens (`-`), parentheses (`()`), plus signs (`+`) and spaces.
 * Phone numbers must have at least 3 characters, excluding leading and trailing spaces
   * Valid: 
     * `9123 4567`
     * `(office) +65 6123 4567`
     * `nil`
-  * Invalid: 
-    * <code>&nbsp;&nbsp;&nbsp;a&nbsp;&nbsp;&nbsp;</code> (Excluding leading and trailing spaces, the phone number only contains 1 character)
+  * Invalid:
     * `#123` (contains invalid hash symbol)
 
 ### Tags
 * Tags are always optional.
-* Tags must start with a letter or number, and only contain alphanumerical characters, spaces and hyphens (`-`).
+* Tags must start with a letter or number, and only contain alphanumeric characters, spaces and hyphens (`-`).
 * Tags have a maximum allowed length of 100.
 
 ------------------
@@ -342,9 +329,14 @@ If only buyers or only properties are visible, `stat` automatically presents the
 
 ### Locating properties/buyers by name, tags, price: `find`
 
-Finds properties or buyers whose names contain any of the given keywords, whose tag list contain all of the specified tags and whose price is within the specified price range in the **currently displayed list**.
+Finds properties or buyers in the **displayed lists** whose names contain any of the given keywords, has all the specified tags and whose price is within the specified price range.
 
 Format: `find (property | buyer) [KEYWORDS] [t/TAG_TO_MATCH]… [$min/MIN_PRICE] [$max/MAX_PRICE]`
+
+
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+Note that while each criteria is optional, at least one criteria must be specified.
+</div>
 
 * Finds only properties or buyers in the currently displayed list
   * e.g. If `find property hillview` return properties `Hillview` and `Hillview Rise`, then applying another find command `find property grove` will return an empty list, even if PropertyWhiz has a property `Grove`.
@@ -604,3 +596,4 @@ Word | Meaning
 -----|------------------
 Command Line Interface (CLI) | Text based user interface.
 Graphical User Interface (GUI) | User interface that allows users to interact via mouse and graphics.
+alphanumeric | Containing letters and numbers
