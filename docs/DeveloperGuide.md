@@ -782,8 +782,6 @@ add buyer n/tim p/91234567 e/sam@email.com t/condo t/3rm $/4444
 add buyer n/tom p/91234567 e/sam@email.com t/condo t/3rm $/10000
 export buyer
 stat
-stat buyer
-stat property
 sort    buyer  price    asc
 sort    buyer  name    asc
 list
