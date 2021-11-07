@@ -174,7 +174,7 @@ Action | Format
 --------------------------------------------------------------------------------------------------------------------
 
 ## Command Syntax Guide
-This section helps you understand the format of the commands listed in the [commands section](#commands). If you find this section difficult to understand, feel free to skip ahead and learn the commands by following the examples given.
+This section helps you understand the format of the commands listed above and in the [commands section](#commands). If you find this section difficult to understand, feel free to skip ahead and learn the commands by following the examples given.
 
 * The action keywords `property` and `properties` are interchangeable, and likewise for `buyer` and `buyers`.
   * e.g. `find property Condo` can also be entered as `find properties Condo`.
@@ -427,7 +427,7 @@ This command matches compatible buyers to a specified property, and displays the
 Format: `match property INDEX`
 
 * A buyer is compatible with a property if the buyer's budget is greater than or equal to the property's selling price.
-* When 2 buyers, say `A` and `B` are both compatible with a property, then `A` is more desirable than `B` if `A` has more tags in common with the property than `B`. This is because a buyer's tags represents what the buyer would want in a property, and a property's tags represents the features the property has to offer.
+* When 2 buyers, say `A` and `B` are both compatible with a property, then `A` is more desirable than `B` if `A` has more tags in common with the property than `B`. This is because a buyer's tags represent what the buyer would want in a property, and a property's tags represent the features the property has to offer.
 * When 2 buyers have the same number of tags in common with a property, the buyer with a higher budget is ranked higher in desirability.
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
@@ -500,7 +500,7 @@ Format: `import (buyer | property)`
   * No duplicates
   * All fields [valid](#valid-propertiesbuyers)
   * No missing fields
-* The CSV must begin with a header which includes the names of each column.
+* The CSV must begin with a header that includes the names of each column.
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 
@@ -508,7 +508,7 @@ If you are using Microsoft Excel, you can easily export your data to a CSV file 
 
 </div>
 
-See [below](#exporting-data-to-csv-file--export) for example csv files.
+See [below](#exporting-data-to-csv-file--export) for example CSV files.
 
 ### Exporting data to CSV file : `export`
 
@@ -570,7 +570,7 @@ This section contains features intended for advanced users.
 PropertyWhiz's data are saved as a JSON (JavaScript Object Notation) file `[JAR file location]/data/propertywhiz.json`. Advanced users are welcome to update data directly by editing that data file.
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-If your changes to the data file makes its format invalid, PropertyWhiz will discard all data and start with an empty data file at the next run.
+If your changes to the data file make its format invalid, PropertyWhiz will discard all data and start with an empty data file at the next run.
 </div>
 
 ### Multi-command input
@@ -582,14 +582,14 @@ You may copy and paste multiple lines of commands into the command box. Press th
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Simply install the app in the other computer and overwrite the empty data file it creates with the data file located at your previous PropertyWhiz home folder.
+**A**: Simply install the app on the other computer and overwrite the empty data file it creates with the data file located at your previous PropertyWhiz home folder.
 
 
 ## Glossary
 
 Word | Meaning
 -----|------------------
-Command Line Interface (CLI) | Text based user interface
+Command Line Interface (CLI) | Text-based user interface
 Graphical User Interface (GUI) | User interface that allows users to interact via mouse and graphics
 Alphanumeric | Containing letters and numbers only
 CSV file | Comma-separated values file, a file format Microsoft Excel can export to
