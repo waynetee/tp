@@ -10,19 +10,22 @@ title: User Guide
 
 ## Introduction
 
-PropertyWhiz is a **desktop app for managing properties and property buyers**, tailor made for property agents. PropertyWhiz is optimized for use via a [Command Line Interface (CLI)](#glossary) while still having the benefits of a [Graphical User Interface (GUI)](#glossary). PropertyWhiz has inbuilt data analysis features like chart generation, as well as smart matching features to pair up your properties and buyers. 
+PropertyWhiz helps you, a property agent, manage your properties and clients. PropertyWhiz allows you to easily access information, create visualisations, and match your properties to potential buyers.
 
 ### Is this for me?
 
-If you fit the descriptions below, then PropertyWhiz will address many of your important needs.
-1. Do you face difficulties *managing client information on pen and paper*? PropertyWhiz handles the data required for your day to day work and makes sure that you enter them correctly.
-2. Do you fumble with *finding where certain buttons are at when using general purpose software like Excel*? PropertyWhiz has a small and mentally manageable number of commands that fit on an A4 page. Furthermore, if you can type fast, PropertyWhiz can get your tasks done faster than traditional GUI apps.
+If you fit the descriptions below, then PropertyWhiz will suit you well.
+
+1. Do you face difficulties *managing client information on pen and paper*? With PropertyWhiz, the data you need will always be at your fingertips.
+2. Do you fumble with *the complexities of general purpose software like Microsoft Excel*? PropertyWhiz has a simple yet powerful set of commands purpose-built for you. With a [Command Line Interface (CLI)](#glossary), PropertyWhiz helps you complete your tasks even more efficiently.
 
 ### Purpose of this guide
 
-This guide is
-* a summary of all the *features* offered by PropertyWhiz, and a high level overview on how they operate so you can use this as a reference sheet.
-* a high level overview of what *user input* is considered as valid so you can quickly get started with PropertyWhiz.
+This guide will gently introduce you to the various features offered by PropertyWhiz. Use this guide as a tutorial to get started with PropertyWhiz. When you are proficient, you can still refer back to this document as a reference sheet.
+
+This guide is:
+* A summary of all the *features* offered by PropertyWhiz, and provides a high level overview on how they operate.
+* A overview of what *user input* is considered as valid so you can quickly get started with PropertyWhiz.
 
 This guide is **not**
 * an exhaustive case study of all possible ways of using PropertyWhiz's features.
@@ -31,14 +34,15 @@ This guide is **not**
 --------------------------------------------------------------------------------------------------------------------
 
 ## How to use this guide
-Thank you for investing some of your time to learn more about PropertyWhiz. We, the development team, are certain that your time is well-spent and will greatly improve your effectiveness in using PropertyWhiz.
+Thank you for investing your time to learn more about PropertyWhiz.
 
-Here are some tips on how to read this guide more efficiently, so that you will become a whiz in no time.
+Here are some tips on how to read this guide more efficiently, so that you can improve your effectiveness in using PropertyWhiz.
+
 ### Navigating the guide
 
-1. First, you can read the [Quick Start](#quick-start) section to check the compatibility of your system with PropertyWhiz. We recommend that you download PropertyWhiz and follow along with the commands introduced in this guide. Practice makes perfect and it is the best way to learn PropertyWhiz!
+1. First, you can read the [Quick Start](#quick-start) section to check the compatibility of your system with PropertyWhiz. We recommend that you download PropertyWhiz and follow along with the commands introduced in this guide. Practice makes perfect and it is the best way to learn how to use PropertyWhiz!
 2. Before going further, do have a glance at the [conventions](#conventions) on symbols and formatting used across this guide. If you see any unfamiliar terminology, fret not, for you can find an explanation in the [glossary](#glossary).
-3. Now that you have had an initial look at PropertyWhiz, we have a detailed listing of the UI components [here](#navigating-the-user-interface).
+3. Now that you have had an initial look at PropertyWhiz, we have a detailed listing of the user interface (UI) components [here](#navigating-the-user-interface).
    By this step, you may have already tried out some commands in the command box. If you haven't or don't know what the command box is, don't worry! The information is in the UI component listing.
 4. Now you are ready to take a deeper dive into our commands. We have some [general guidelines](#valid-propertiesbuyers) on what user input is considered valid. Feel free to look through the detailed descriptions of our [commands](#commands).
 5. We have tried our best to make the command format as intuitive and unambiguous as possible. If you have doubts, do refer to our [detailed guide](#command-syntax-guide) on command syntax.
@@ -58,13 +62,6 @@ Formatting | Meaning
 **boldface** | This is used to emphasize certain words, for instance restrictions on input. The degree of emphasis is stronger than *italics*.
 `code` | This is used to denote user input or names of files used by the PropertyWhiz.
 
-### Glossary
-
-Word | Meaning
------|------------------
-Command Line Interface (CLI) | Text based user interface.
-Graphical User Interface (GUI) | User interface that allows users to interact via mouse and graphics.
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## Quick start
@@ -72,28 +69,28 @@ Graphical User Interface (GUI) | User interface that allows users to interact vi
 <div markdown="block" class="alert alert-info">
 
 **:information_source: Supported platforms:**<br>
-PropertyWhiz has been extensively tested on Microsoft Windows 10 and Ubuntu 20.04. However, recent versions of Windows and GNU Linux are also likely to work.
+PropertyWhiz has been extensively tested on Microsoft Windows 10 and Ubuntu 20.04. However, recent versions of Windows and GNU Linux are also likely to work with PropertyWhiz.
 
 </div>
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
-2. Download the latest `propertywhiz.jar` from [here](https://github.com/AY2122S1-CS2103T-W11-4/tp/releases).
+2. Download the latest `propertywhiz.jar` file from [here](https://github.com/AY2122S1-CS2103T-W11-4/tp/releases).
 
 3. Copy the file to the folder you want to use as the _home folder_ for your PropertyWhiz.
 
-4. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
+4. Double-click the file to start the app. The [GUI](#glossary) similar to below should appear in a few seconds. Note how the app contains some sample data.<br>
     
    ![Ui](images/Ui.png)
    
-5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+5. PropertyWhiz has a [Command Line Interface (CLI)](#glossary). To tell PropertyWhiz what to do, type a command into the command box at the top and press Enter to execute it. Don't worry if you make a mistake, PropertyWhiz will tell you what went wrong and let you try again.<br>
    Some example commands you can try:
 
     * **`clear`** : Deletes all properties/buyers. Enter `clear` to start from scratch!
 
     * **`list`** : Lists all properties/buyers.
 
-    * **`add`** Adds a property/buyer.
+    * **`add`** : Adds a property/buyer.
         * e.g. `add property n/Blk 123 a/123, Clementi Rd, #04-20, 1234665 s/James Lee p/61234567 e/example@email.com $/100000 t/HDB t/3rm`
 
     * **`delete`** : Deletes a property/buyer shown in the current list at the given index.
@@ -111,9 +108,9 @@ PropertyWhiz has been extensively tested on Microsoft Windows 10 and Ubuntu 20.0
 ## Command summary
 
 Refer to the section [Command Syntax Guide](#command-syntax-guide) below for how to interpret our commands, 
-or [Commands](#commands) for a more detailed version of each action.
+or [Commands](#commands) for a detailed explanation of each action.
 
-Action | Format, Examples
+Action | Format
 --------|------------------
 **Add** | **Property** <br>`add property n/PROPERTY_NAME a/PROPERTY_ADDRESS s/SELLER_NAME p/SELLER_PHONE e/SELLER_EMAIL $/PRICE [t/TAG]…​` <br><br> **Buyer** <br>`add buyer n/BUYER_NAME p/BUYER_PHONE e/BUYER_EMAIL $/BUDGET) [t/TAG]…`
 **Clear** | `clear`
@@ -134,19 +131,19 @@ Action | Format, Examples
 
 ![Ui](images/NavigatingUi.png)
 
-The UI is split into the input and output sections, as well as
-two view columns for **Property** and **Buyer** each.
+The user interface is split into the input and output sections, as well as
+two view columns for **Properties** and **Buyers**.
 
 Item | Description
 --------|------------------
-**Input box** | Also known as the command box, this is PropertyWhiz's command line. All typed input goes here. <br> :bulb: For an *unsuccessful* command, the input will be colored <span style="color:red">red</span>.
-**Output box** | The output box displays additional information from a command. <br> :bulb: For a *successful* command, the output box may show metadata like number of entries listed. <br> :bulb: For an *unsuccessful* command, such as invalid input, the output box will give detailed feedback about which part of the command is invalid and how to fix it.
-**Properties view** | A listing of properties.
-**Buyers view** | A listing of buyers.
-
-![](images/PropertyCardUi.png)
+**Command box** | This is where you enter your commands to PropertyWhiz. <br> :bulb: For an *unsuccessful* command, the input will be colored <span style="color:red">red</span>.
+**Output box** | The output box displays additional information from a command. <br> :bulb: For a *successful* command, the output box may information such as the number of entries listed. <br> :bulb: For an *unsuccessful* command, such as invalid input, the output box will give detailed feedback about which part of the command is invalid and how to fix it.
+**Properties view** | A list of properties and their details.
+**Buyers view** | A list of buyers and their details.
 
 Here is the breakdown of an individual *property card*.
+
+![](images/PropertyCardUi.png)
 
 Item | Description
 --------|------------------
@@ -158,14 +155,14 @@ Item | Description
 **Phone** | Phone number of seller.
 **Email** | Email of seller.
 
-![](images/BuyerCardUi-03.png)
-
 Here is the breakdown of an individual *buyer card*.
+
+![](images/BuyerCardUi-03.png)
 
 Item | Description
 --------|------------------
 **Name** | Name of buyer.
-**Tags** | Tags describing desirable qualities of a property the buyer is looking out for.
+**Tags** | Tags describing the buyer's preferences.
 **Budget** | The buyer's budget.
 **Phone** | Phone number of buyer.
 **Email** | Email of buyer.
@@ -557,3 +554,11 @@ You may copy and paste multiple lines of commands into the command box. Press th
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous PropertyWhiz home folder.
+
+
+## Glossary
+
+Word | Meaning
+-----|------------------
+Command Line Interface (CLI) | Text based user interface.
+Graphical User Interface (GUI) | User interface that allows users to interact via mouse and graphics.
