@@ -9,14 +9,19 @@ Interface Ui <<Interface>>
 Class "{abstract}\nUiPart" as UiPart
 Class UiManager
 Class MainWindow
-Class HelpWindow
-Class ResultDisplay
-Class PropertyListPanel
+together {
+    Class HelpWindow
+    Class StatWindow
+    Class ResultDisplay
+    Class PropertyListPanel
+    Class BuyerListPanel
+    Class MatchListPanel
+    Class StatusBarFooter
+    Class CommandBox
+}
 Class PropertyCard
-Class BuyerListPanel
 Class BuyerCard
-Class StatusBarFooter
-Class CommandBox
+Class MatchCard
 }
 
 package Model <<Rectangle>> {
@@ -36,11 +41,14 @@ MainWindow *-down->  "1" CommandBox
 MainWindow *-down-> "1" ResultDisplay
 MainWindow *-down-> "1" PropertyListPanel
 MainWindow *-down-> "1" BuyerListPanel
+MainWindow *-down-> "1" MatchListPanel
 MainWindow *-down-> "1" StatusBarFooter
 MainWindow --> "0..1" HelpWindow
+MainWindow --> "0..1" StatWindow
 
 PropertyListPanel --down-> "*" PropertyCard
 BuyerListPanel --down-> "*" BuyerCard
+MatchListPanel --down-> "*" MatchCard
 
 MainWindow -left-|> UiPart
 
@@ -50,14 +58,19 @@ PropertyListPanel --|> UiPart
 PropertyCard --|> UiPart
 BuyerListPanel --|> UiPart
 BuyerCard --|> UiPart
+MatchListPanel --|> UiPart
+MatchCard --|> UiPart
 StatusBarFooter --|> UiPart
 HelpWindow --|> UiPart
+StatWindow --|> UiPart
 
 PropertyCard ..down.> Model
 BuyerCard ..down.> Model
+MatchCard ..down.> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
+MatchListPanel -[hidden]left- BuyerListPanel
 BuyerListPanel -[hidden]left- PropertyListPanel
 PropertyListPanel -[hidden]left- HelpWindow
 HelpWindow -[hidden]left- CommandBox

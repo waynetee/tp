@@ -18,8 +18,10 @@ Class ReadOnlyUserPrefs
 
 Class UniquePropertyList
 Class UniqueBuyerList
+Class UniqueMatchList
 Class Property
 Class Buyer
+Class Match
 Class Price
 Class Person
 Class Address
@@ -43,6 +45,7 @@ ModelManager -right-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
 AddressBook *--> "1" UniquePropertyList
+AddressBook *--> "1 sorted" UniquePropertyList
 UniquePropertyList -down---> "~* all" Property
 Property *--> Name
 Property *--> Person
@@ -51,11 +54,20 @@ Property *--> Price
 Property *--> "*" Tag
 
 AddressBook *--> "1" UniqueBuyerList
+AddressBook *--> "1 sorted" UniqueBuyerList
 UniqueBuyerList -[hidden]left-> UniquePropertyList
 UniqueBuyerList --> "~* all" Buyer
 Buyer --|> Person
 Buyer *--> Price
 Buyer *--> "*" Tag
+
+
+AddressBook *--> "1" UniqueMatchList
+UniqueMatchList -[hidden]left-> UniqueBuyerList
+UniqueMatchList -down---> "*" Match
+Match -right--> "1" Buyer
+Match -right--> "     1" Property
+Buyer -[hidden]right--> "1" Property
 
 Property -[hidden]right-> Buyer
 

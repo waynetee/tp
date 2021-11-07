@@ -1,4 +1,4 @@
-___---
+---
 layout: page
 title: Elizabeth Chow's Project Portfolio Page
 ---
@@ -13,13 +13,16 @@ Given below are my contributions to the project.
   * What it does: Allows the user to sort the properties and clients by name and prices or budgets in ascending/descending order.
   * Justification: This allows property agents to prioritise clients and priorities that are more valuable.
   * Highlights: Considered a variation of command formats, including using normal prefixes for easy parsing.
-  * However, decided on the current format without the prefixes as it was easier to type but it required additional work to redesign the parser. 
-  
-* **Code contributed**: [RepoSense link](https://nus-cs2103-ay2122s1.github.io/tp-dashboard/?search=&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2021-09-17&tabOpen=true&tabType=authorship&tabAuthor=lizchow&tabRepo=AY2122S1-CS2103T-W11-4%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code&authorshipIsBinaryFileTypeChecked=true)
+  * However, decided on the current format without the prefixes as it was easier to type but it required additional work to redesign the parser.
+
+* **Code contributed**: [RepoSense link](https://nus-cs2103-ay2122s1.github.io/tp-dashboard/?search=lizchow&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2021-09-17&tabOpen=true&tabType=authorship&tabAuthor=lizchow&tabRepo=AY2122S1-CS2103T-W11-4%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code&authorshipIsBinaryFileTypeChecked=false)
+
+* **Project management**:
+  * Created `v1.1`, `v1.2` milestones
 
 * **Enhancements to existing features**:
   * Extended the `find` command to find properties and buyers by price range (Pull request [\#134](https://github.com/AY2122S1-CS2103T-W11-4/tp/pull/134))
-  * Extended `AddressBook` to keep track of items currently displayed  so that all operations are only performed on the currently displayed lists. 
+  * Extended `AddressBook` to keep track of items currently displayed so that all operations are only performed on the currently displayed lists.
 
 * **Documentation**:
   * User Guide:
@@ -30,5 +33,5 @@ Given below are my contributions to the project.
 
 * **Community**:
   * PRs reviewed (with non-trivial review comments): [\#56](https://github.com/AY2122S1-CS2103T-W11-4/tp/pull/56), [\#58](https://github.com/AY2122S1-CS2103T-W11-4/tp/pull/58)
-  * Reported bugs and suggestions for other teams in the class ([PE-D issues](https://github.com/lizchow/ped/issues))___
+  * Reported bugs and suggestions for other teams in the class ([PE-D issues](https://github.com/lizchow/ped/issues))
   

@@ -129,14 +129,6 @@ The `Model` component,
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
-TODO: Should this be removed?
-<div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
-
-<img src="images/BetterModelClassDiagram.png" width="450" />
-
-</div>
-
-
 ### Storage component
 
 **API** : [`Storage.java`](https://github.com/AY2122S1-CS2103T-W11-4/tp/blob/master/src/main/java/seedu/address/storage/Storage.java)
@@ -323,9 +315,9 @@ The import feature imports from a csv file of buyers/properties chosen by the us
 [opencsv](http://opencsv.sourceforge.net/) is a simple library for reading and writing CSV in Java. PropertyWhiz uses opencsv when importing (and exporting) csv files.
 
 Given below are the steps for importing buyers from a csv file:
-1. The user executes `import buyers`. The `import` command is parsed by `AddressBookParser#getCommandPreAction`, returning a `CommandPreAction` that indicates a file is required for `import`.
+1. The user executes `import buyer`. The `import` command is parsed by `AddressBookParser#getCommandPreAction`, returning a `CommandPreAction` that indicates a file is required for `import`.
 2. `MainWindow#getCsvFile` creates a `FileChooserDialog`. The user selects a csv file to import from disk.
-3. `AddressBookParser#parseCommandWithFile` parses `import buyers` and creates a `ImportBuyersCommand`.
+3. `AddressBookParser#parseCommandWithFile` parses `import buyer` and creates a `ImportBuyersCommand`.
 
 Given below are the steps for executing `ImportBuyersCommand`:
 1. `LogicManager` calls `ImportBuyersCommand#execute` with the file selected by the user.
@@ -364,6 +356,8 @@ facilitated by `HistogramStat` in the subpackage `seedu.address.ui.stats`.
 
 The `CommandResult` class now includes an attribute that contains an `Optional<UiElement>` that contains
 an element that a `UiPart` can handle the rendering of.
+
+The following class diagram shows the relationship between classes used to implement this feature.
 
 ![StatUiClassDiagram](images/StatUiClassDiagram.png)
 
@@ -422,13 +416,13 @@ Here are several extensions that can be implemented in the future:
 
 **Target user profile**:
 
-* has a need to manage a significant number of properties and buyers
-* prefer desktop apps over other types
-* can type fast
-* prefers typing to mouse interactions
-* is reasonably comfortable using CLI apps
+* Property agents who need to manage a significant number of properties and buyers
+* Prefer desktop apps
+* Can type fast
+* Prefers typing to mouse interactions
+* Is reasonably comfortable using CLI apps
 
-**Value proposition**: manage properties and buyers faster than a typical mouse/GUI driven app
+**Value proposition**: Allow property agents to manage and match properties and buyers faster than a typical mouse/GUI driven app.
 
 
 ### User stories
@@ -455,7 +449,7 @@ Priorities: High (must have) - `H`, Medium (nice to have) - `M`, Low (unlikely t
 | `H`  | user                                       | sort buyers by budget          | easily see the buyers with highest or lowest budgets                       |
 | `H`  | user                                       | match properties to given buyer| see all properties that are suitable for a buyer                           |
 | `H`  | user                                       | match buyers to given property | see all buyers that are suitable for a property                            |
-| `H`  | user                                       | match buyers to property 1 to 1| see most suitable matches between buyers and properties                    |
+| `H`  | user                                       | match buyers to property 1-to-1| see most suitable matches between buyers and properties                    |
 | `M`  | multi-platform user                        | import data from csv file      | migrate data from other apps such as Excel to PropertyWhiz                 |
 | `M`  | multi-platform user                        | export data to csv file        | migrate data from PropertyWhiz to other apps such as Excel                 |
 | `M`  | user                                       | show histogram for properties prices| see the distribution of prices among properties                       |
@@ -467,48 +461,35 @@ Priorities: High (must have) - `H`, Medium (nice to have) - `M`, Low (unlikely t
 
 (For all use cases below, the **System** is the `PropertyWhiz` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: UC01 - Add property**
+**Use case: UC01 - Add property/buyer**
 
 **MSS**
 
-1. `User` requests a property to be added by specifying its details.
-2. `PropertyWhiz` adds the property.
+1. `User` requests a property/buyer to be added by specifying its details.
+2. `PropertyWhiz` adds the property/buyer.
 
 Use case ends.
 
 **Extensions**
+
 * 1a. The given details are in an incorrect format.
-  * 1a1. `PropertyWhiz` shows an error message as well as the correct input format.
+    * 1a1. `PropertyWhiz` shows an error message as well as the correct input format.
 
   Use case ends.
 
-* 1b. Details are in correct format, but the property already exists in `PropertyWhiz`.
-  * 1b1. `PropertyWhiz` shows an error message. 
-    
+* 1b. Details are in correct format, but the property/buyer already exists in `PropertyWhiz`.
+    * 1b1. `PropertyWhiz` shows an error message.
+
   Use case ends.
 
-**Use case: UC02 - Delete property**
+_________________
+
+**Use case: UC02 - Delete property/buyer**
 
 **MSS**
 
-1.  `User` requests to delete a specific property by specifying its index.
-2.  `PropertyWhiz` deletes the property.
-
-Use case ends.
-
-**Extensions**
-
-* 1a. The index is invalid.
-  * 1a1. `PropertyWhiz` shows an error message.
-
-  Use case ends.
-  
-**Use case: UC03 - Edit property**
-
-**MSS**
-
-1. `User` requests to modify a property by specifying its index and new details.
-2. `PropertyWhiz` edits attributes of the property.
+1. `User` requests to delete a specific property/buyer by specifying its index.
+2. `PropertyWhiz` deletes the property/buyer.
 
 Use case ends.
 
@@ -517,28 +498,49 @@ Use case ends.
 * 1a. The index is invalid.
     * 1a1. `PropertyWhiz` shows an error message.
 
-    Use case ends.
-
-* 1b. `User` does not provide new attributes.
-  * 1b1. `PropertyWhiz` shows an error message.
-
   Use case ends.
 
-* 2a. Edited property already exists as another property in `PropertyWhiz`.
-  * 2a1. `PropertyWhiz` shows an error message.
+_________________
 
-  Use case ends.
-
-**Use case: UC04 - Edit property tags**
+**Use case: UC03 - Edit property/buyer**
 
 **MSS**
 
-1. `User` requests to override all tags, add, or delete tags of a property by specifying its index and tag details.
-2.  `PropertyWhiz` override all tags, adds or deletes tags of the property.
+1. `User` requests to modify a property/buyer by specifying its index and new details.
+2. `PropertyWhiz` edits attributes of the property/buyer.
 
-    Use case ends.
+Use case ends.
 
 **Extensions**
+
+* 1a. The index is invalid.
+    * 1a1. `PropertyWhiz` shows an error message.
+
+  Use case ends.
+
+* 1b. `User` does not provide new attributes.
+    * 1b1. `PropertyWhiz` shows an error message.
+
+  Use case ends.
+
+* 1c. Edited property/buyer already exists as another property/buyer in `PropertyWhiz`.
+    * 1c1. `PropertyWhiz` shows an error message.
+
+  Use case ends.
+
+_________________
+
+**Use case: UC04 - Edit property/buyer tags**
+
+**MSS**
+
+1. `User` requests to override all tags, add, or delete tags of a property/buyer by specifying its index and tag details.
+2. `PropertyWhiz` override all tags, adds or deletes tags of the property/buyer.
+
+Use case ends.
+
+**Extensions**
+
 * 1a. The index is invalid.
     * 1a1. `PropertyWhiz` shows an error message.
 
@@ -557,131 +559,121 @@ Use case ends.
 * 1d. User requests to add a tag that is already present or delete a tag that is absent.
     * 1d1. `PropertyWhiz` warns the user about the tag's presence (in the case of add tag) or absence (in the case of delete tag).
 
-    Use case resumes at step 2. 
+    Use case resumes from step 2.
 
-**Use case: UC05 - Find properties**
+_________________
+
+**Use case: UC05 - Find properties/buyers**
 
 **MSS**
 
-1. `User` requests to find properties by specifying keywords and a set of tags.
-2.  `PropertyWhiz` filters the displayed property list to include only properties that contain the specified keywords in the name and have the specified tags.
+1. `User` requests to find properties/buyers by specifying keywords, tags or price range.
+2. `PropertyWhiz` displays properties/buyers that fulfill the criteria.
 
 Use case ends.
 
-**Use case: UC06 - Import properties**
+_________________
+
+**Use case: UC06 - Import properties/buyers**
 
 **MSS**
 
-1. `User` requests to import properties.
-2. `User` chooses the source csv file.
-3. `PropertyWhiz` imports the rows within the csv file as properties, and prepends the imported properties the displayed property list.
-
-Use case ends.
-
-**Extensions**
-
-* 2a. `User` cancels while choosing a csv file.
-    * 2a1. `PropertyWhiz` shows an error message.
-
-    Use case ends.
-
-* 3a. The csv file cannot be opened or read from.
-    * 3a1. `PropertyWhiz` shows an error message.
-
-    Use case ends.
-
-* 3b. The csv file is incorrectly formatted.
-    * 3b1. `PropertyWhiz` shows an error message.
-
-    Use case ends.
-
-* 3c. Importing creates duplicate properties within `PropertyWhiz`.
-    * 3c1. `PropertyWhiz` shows an error message.
-
-    Use case ends.
-
-**Use case: UC07 - Export properties**
-
-**MSS**
-
-1. `User` requests to export properties.
-2. `User` chooses the destination csv file.
-3. `PropertyWhiz` exports properties from the displayed property list to the csv file.
+1. `User` requests to import properties/buyers.
+2. `User` chooses the source CSV file.
+3. `PropertyWhiz` imports the properties/buyers from the source file.
 
 Use case ends.
 
 **Extensions**
 
-* 2a. `User` cancels while choosing a csv file.
+* 1a. `User` cancels while choosing a CSV file.
+    * 1a1. `PropertyWhiz` reports that import has been cancelled.
+
+    Use case ends.
+
+* 2a. The CSV file cannot be opened or read from.
     * 2a1. `PropertyWhiz` shows an error message.
 
     Use case ends.
 
-* 3a. The csv file cannot be opened or written to.
-    * 3a1. `PropertyWhiz` shows an error message.
+* 2b. The CSV file is incorrectly formatted.
+    * 2b1. `PropertyWhiz` shows an error message.
 
     Use case ends.
+
+* 2c. Importing creates duplicates within `PropertyWhiz`.
+    * 2c1. `PropertyWhiz` shows an error message.
+
+    Use case ends.
+
+_________________
+
+**Use case: UC07 - Export properties/buyers**
+
+**MSS**
+
+1. `User` requests to export properties/buyers.
+2. `User` chooses the destination CSV file.
+3. `PropertyWhiz` exports displayed properties/buyers to the CSV file.
+
+Use case ends.
+
+**Extensions**
+
+* 1a. `User` cancels while choosing a CSV file.
+    * 1a1. `PropertyWhiz` reports that export has been cancelled.
+
+    Use case ends.
+
+* 2a. The CSV file cannot be opened or written to.
+    * 2a1. `PropertyWhiz` shows an error message.
+
+    Use case ends.
+
+_________________
 
 **Use case: UC08 - Match auto**
 
 **MSS**
 
-1. `User` requests to match properties to buyers 1 to 1.
-2. `PropertyWhiz` displays a view containing a list of 1 to 1 matching between properties and buyers in the displayed lists.
-3. `User` requests to return to the original view.
-    
-Use case ends.
-
-**Extensions**
-
-* 2a. There are either no properties, or no buyers.
-    * 2a1. `PropertyWhiz` shows an error message.
-
-    Use case ends.
-
-* 2b. User sends another command within the 1 to 1 matching view.
-    * 2b1. `PropertyWhiz` shows an error message.
-
-    Use case resumes at step 2.
-
-**Use case: UC09 - Stat Properties**
-
-**MSS**
-
-1. `User` requests to draw a histogram of property prices.
-2. `PropertyWhiz` draws and shows in a new window, a histogram of property prices within the displayed property list. 
+1. `User` requests to match properties to buyers 1-to-1.
+2. `PropertyWhiz` displays 1-to-1 matching between properties and buyers.
 
 Use case ends.
 
 **Extensions**
 
-* 1a. There are no properties in the displayed property list.
+* 1a. There are either no properties, or no buyers.
     * 1a1. `PropertyWhiz` shows an error message.
 
     Use case ends.
 
-* 1b. There is already a window containing a previously drawn histogram.
-    * 1b1. `PropertyWhiz` closes the window containing the previously drawn histogram.
+_________________
 
-    Use case resumes at step 2.
+**Use case: UC09 - Charting**
+
+**MSS**
+
+1. `User` requests to for a chart of prices of properties/buyers.
+2. `PropertyWhiz` draws and displays chart showing prices of properties/buyers.
+
+Use case ends.
 
 ### Non-Functional Requirements
 
 1. Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
-2. Should be able to hold up to 500 properties and buyers without a noticeable sluggishness in performance for typical usage.
+2. Should be able to hold up to 200 properties and buyers without a noticeable sluggishness in performance for typical usage.
 3. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 4. Should be able to function without internet access.
 5. Should be able to restart without loss of data.
-6. Should be packaged within a single jar, without requiring an installer.
-7. Files created for storage should not exceed 100MB in total.
+6. Should be packaged within a single JAR file, without requiring an installer.
 
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, OS-X
-* **Property**: A property listed for sale
+* **Property**: A house or apartment listed for sale
 * **Buyer**: A person who expresses interest in a range of properties
-* **Displayed property list**: The current list of properties visible to the user.
-* **Displayed buyer list**: The current list of buyers visible to the user.
+* **CSV file**: Comma-separated values file
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -698,20 +690,21 @@ testers are expected to do more *exploratory* testing.
 
 1. Initial launch
 
-   1. Download the jar file and copy into an empty folder
-   2. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   1. Download the JAR file and copy into an empty folder
+   2. Double-click the JAR file<br>
+       Expected: Shows the GUI with a set of sample properties and buyers. The window size may not be optimum.
 
 1. Saving window preferences
 
    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
-   2. Re-launch the app by double-clicking the jar file.<br>
+   2. Re-launch the app by double-clicking the JAR file.<br>
        Expected: The most recent window size and location is retained.
    
 ### Keeping track of properties
 
 1. Add a property
    1. Test case: `add property n/Hasta La Vista a/20 Clementi Ave 2, #02-25 $/1652000 s/John Doe p/98765432 e/johnd@example.com t/Condo t/4 rm t/621 sqft t/EW23 Clementi`<br>
-      Expected: Property successfully added to front of buyer list.
+      Expected: Property successfully added to the top of property list.
 
 2. Edit a property while all properties are being shown
    1. Prerequisites: List all properties using the `list` command.
@@ -724,31 +717,31 @@ testers are expected to do more *exploratory* testing.
    1. Prerequisites: List all properties using the `list` command. Multiple properties in the list.
 
    2. Test case: `delete property 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+      Expected: First property is deleted from the list. Details of the deleted property shown.
 
    3. Test case: `delete property 0`<br>
-      Expected: No property is deleted. Error details shown in the status message. Status bar remains the same.
+      Expected: No property is deleted. Error message shown.
 
-   4. Other incorrect delete commands to try: `delete`, `delete property x`, `...` (where x is larger than the list size)<br>
-      Expected: Similar to previous.
+   4. Other incorrect delete commands to try: `delete`, `delete property x` (where x is larger than the list size)<br>
+      Expected: Similar to previous test cases.
 
 4. Sort properties that are in the displayed list
    1. Test case: `sort property name desc`<br>
-      Expected: Sorted all properties in the displayed properties list by name in descending order.
+      Expected: Sorted all properties in the displayed property list by name in descending order.
    2. Test case: `sort property name`<br>
-      Expected: There is no sort direction given. Properties are not sorted.
+      Expected: As there is no sort direction given, error message is shown.
 
 ### Exporting and importing data
 
-1. Testing properties export/import csv
+1. Testing properties export/import CSV
    1. Remove `propertywhiz.json` file in the /data folder.
    2. Run `PropertyWhiz` to obtain an initialized list of properties and buyers.
-   3. Enter Command: `export properties`, select a csv file at a convenient location..<br>
-      Expected: csv file is created, containing a header and 1 property per row.
+   3. Enter Command: `export property`, select a CSV file at a convenient location.<br>
+      Expected: CSV file is created, containing a header and 1 property per row.
    4. Enter Command: `clear` to clear existing properties and buyers.
-   5. Enter Command: `import properties` from the csv file.<br>
+   5. Enter Command: `import property` from the CSV file.<br>
       Expected: Properties are successfully imported.
-   6. Enter Command: `import properties` from the csv file.<br>
+   6. Enter Command: `import property` from the CSV file.<br>
       Expected: Import properties failed due to duplicates.
 2. Repeat the commands above to test for buyers.
 
@@ -766,7 +759,7 @@ In other words, `PropertyWhiz` treats the edited command as the last line that h
 </div>
 
 Sample list of interactions:<br>
-```clear
+<pre><code style="white-space: pre-wrap;">clear
 add buyer n/ben p/91234567 e/sam@email.com t/hdb t/3rm $/123
 add buyer n/alice p/91234567 e/sam@email.com t/hdb t/3rm $/1000
 add property n/Hasta La Vista a/20 Clementi Ave 2, #02-25 $/1652000 s/John Doe p/98765432 e/johnd@example.com t/Condo t/4 rm t/621 sqft t/EW23 Clementi
@@ -808,8 +801,9 @@ add property n/Olive Gardens a/Blk 11 Ang Mo Kio Street 74, #11-04 $/6457654 s/C
 match auto
 add buyer n/tom p/91234567 e/sam@email.com t/condo t/3rm $/10000
 match    auto
+back
 clear
-```
+</code></pre>
 
 ### Saving data
 
@@ -832,11 +826,11 @@ If AB3 required an implementation effort of 10, `PropertyWhiz`’s implementatio
   * Command parers have to work for both `Property` and `Buyer`. We considered several user command formats that can work with both `Property` and `Buyer`,
   and settled on adding `property/properties`, `buyer/buyers` after a command word. 
   * Separate command logic and test, storage is required for `Property` and `Buyer` classes. This greatly increased the workload of implementation and testing. 
-* Import and export csv file commands
+* Import and export CSV file commands
   * A new workflow was required for the UI to handle files. We must first parse the command text to check if it requires a file, request for a file if needed, then consider executing the command. 
   * Solution: we added a new type of command- `CommandWithFile` to represent commands that require a file. We then added `CommandPreAction` to indicate that a FileChooserDialog is required for the user to select a file. 
-  * `CsvManager` was added as a static, purely functional class. The parsing of csv file was tricky and involved in multiple exceptions. Careful analysis of cases was required to display an appropriate error message.
-  * Here, [opencsv](http://opencsv.sourceforge.net/) played an important role in dealing with the huge number of possible errors while parsing csv files.
+  * `CsvManager` was added as a static, purely functional class. The parsing of CSV files was tricky and involved in multiple exceptions. Careful analysis of cases was required to display an appropriate error message.
+  * Here, [opencsv](http://opencsv.sourceforge.net/) played an important role in dealing with the huge number of possible errors while parsing CSV files.
 * Intelligent Matching functionality
   * This feature required in-depth consideration of the target users’ priorities. We created a scoring metric based on the number of common tags between the buyer and seller, and the difference of the prices.
   * We then designed a suitable algorithm to determine the best matching.

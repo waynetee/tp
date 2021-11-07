@@ -17,15 +17,15 @@ Given below are my contributions to the project.
     hence I wrote a custom implementation of the bar chart to use here instead.
   * Credits: With thanks to [JFreeChart](https://www.jfree.org/jfreechart/).
 
-* **New Feature**: Developing the model for the separate buyer and property panels in the app. 
+* **New Feature**: Developing the model for the separate buyer and property panels in the app.
   ([\#58](https://github.com/AY2122S1-CS2103T-W11-4/tp/pull/58))
-  * What was added/changed: Refactored `UniquePersonList` into a generic `UniqueList` from which `UniqueBuyerList`, 
-  `UniquePropertyList` and now `UniqueMatchList` inherits. 
+  * What was added/changed: Refactored `UniquePersonList` into a generic `UniqueList` from which `UniqueBuyerList`,
+    `UniquePropertyList` and now `UniqueMatchList` inherits.
 
-* **Code contributed**: [RepoSense link](https://nus-cs2103-ay2122s1.github.io/tp-dashboard/?search=WONG%20PEI%20XIAN&sort=groupTitle&sortWithin=title%20dsc&timeframe=commit&mergegroup=koh-jx~ZhaoPeiduo~wangpeialex~yongxiangng~Chesterwongz~tanjiaxian99~syoopie~peilinye~wyrchris~xianlinc~Wilfredwongkc~timothywongej~trxe~EthanWong6362~xiangjunn~wpinrui&groupSelect=groupByAuthors&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=trxe&tabRepo=AY2122S1-CS2103T-W11-4%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code~other&authorshipIsBinaryFileTypeChecked=false&since=2021-09-17)
+* **Code contributed**: [RepoSense link](https://nus-cs2103-ay2122s1.github.io/tp-dashboard/?search=trxe&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2021-09-17&tabOpen=true&tabType=authorship&tabAuthor=trxe&tabRepo=AY2122S1-CS2103T-W11-4%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code~other&authorshipIsBinaryFileTypeChecked=false)
 
 * **Enhancements to existing features**:
-  * Update tags, address validation to include special characters instead of just alphanumericals. 
+  * Update tags, address validation to include special characters instead of just alphanumericals.
     ([\#123](https://github.com/AY2122S1-CS2103T-W11-4/tp/pull/123), [\#189](https://github.com/AY2122S1-CS2103T-W11-4/tp/pull/189))
 
 * **Documentation**:

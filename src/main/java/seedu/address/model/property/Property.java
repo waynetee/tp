@@ -80,7 +80,7 @@ public class Property implements Listable, Taggable, Nameable, Pricable {
         }
 
         return otherProperty != null
-                && otherProperty.getName().equals(getName());
+                && otherProperty.getAddress().equals(getAddress());
     }
 
     /**

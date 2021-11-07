@@ -8,6 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalProperties.P_ALICE;
+import static seedu.address.testutil.TypicalProperties.P_BOB;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -50,7 +51,7 @@ public class AddressBookTest {
         // Two properties with the same identity fields
         Property editedAlice = new PropertyBuilder(P_ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        List<Property> newProperties = Arrays.asList(P_ALICE, editedAlice);
+        List<Property> newProperties = Arrays.asList(P_BOB, editedAlice);
         AddressBookStub newData = new AddressBookStub(newProperties);
 
         assertThrows(DuplicatePropertyException.class, () -> addressBook.resetData(newData));
@@ -74,7 +75,7 @@ public class AddressBookTest {
 
     @Test
     public void hasProperty_propertyWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addProperty(P_ALICE);
+        addressBook.addProperty(P_BOB);
         Property editedAlice = new PropertyBuilder(P_ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(addressBook.hasProperty(editedAlice));

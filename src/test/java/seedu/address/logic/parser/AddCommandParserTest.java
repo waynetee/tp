@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_ACTOR;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
@@ -27,10 +28,15 @@ import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.parser.ArgumentMultimap.MESSAGE_REPEATED_PREFIX;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SELLER;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_ACTOR;
-import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_NUM_ARGUMENTS;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_PREAMBLE;
 import static seedu.address.testutil.TypicalProperties.P_AMY;
 import static seedu.address.testutil.TypicalProperties.P_BOB;
@@ -50,36 +56,32 @@ import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PropertyBuilder;
 
 public class AddCommandParserTest {
-    private static final String MESSAGE_INVALID_FORMAT =
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
 
     private AddCommandParser parser = new AddCommandParser();
 
     @Test
     public void parse_missingParts_failure() {
+        String expected = String.format(MESSAGE_UNKNOWN_ACTOR, AddCommand.COMMAND_WORD, AddCommand.MESSAGE_USAGE);
+
         // no actor specified
-        assertParseFailure(parser, NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, NAME_DESC_AMY, expected);
 
         // empty command
-        assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "", expected);
     }
 
     @Test
     public void parse_invalidPreamble_failure() {
         // invalid number of arguments being parsed as preamble
         String invalidPreamble = PREAMBLE_PROPERTY + " some random string";
-        int lengthInvalidPreamble = invalidPreamble.split(" ").length;
-        int lengthValidPreamble = 1;
         assertParseFailure(parser, invalidPreamble,
                 String.format(MESSAGE_INVALID_PREAMBLE,
-                String.format(MESSAGE_INVALID_NUM_ARGUMENTS, lengthValidPreamble, lengthInvalidPreamble),
                 AddCommand.EXPECTED_PREAMBLE,
                 PREAMBLE_PROPERTY + " some random string"));
 
         // invalid actor in preamble
         assertParseFailure(parser, "buy",
-                String.format(MESSAGE_INVALID_PREAMBLE,
-                MESSAGE_INVALID_ACTOR, AddCommand.EXPECTED_PREAMBLE, "buy"));
+                String.format(MESSAGE_UNKNOWN_ACTOR, AddCommand.COMMAND_WORD, AddCommand.MESSAGE_USAGE));
     }
 
     @Test
@@ -92,42 +94,6 @@ public class AddCommandParserTest {
                 + ADDRESS_DESC_BOB + SELLER_DESC_BOB + PRICE_DESC_BOB
                 + TAG_DESC_FRIEND, new AddPropertyCommand(expectedProperty));
 
-        // multiple names - last name accepted
-        assertParseSuccess(parser, PREAMBLE_PROPERTY
-                + NAME_DESC_AMY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + SELLER_DESC_BOB + PRICE_DESC_BOB
-                + TAG_DESC_FRIEND, new AddPropertyCommand(expectedProperty));
-
-        // multiple phones - last phone accepted
-        assertParseSuccess(parser, PREAMBLE_PROPERTY
-                + NAME_DESC_BOB + PHONE_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + SELLER_DESC_BOB + PRICE_DESC_BOB
-                + TAG_DESC_FRIEND, new AddPropertyCommand(expectedProperty));
-
-        // multiple emails - last email accepted
-        assertParseSuccess(parser, PREAMBLE_PROPERTY
-                + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + SELLER_DESC_BOB + PRICE_DESC_BOB
-                + TAG_DESC_FRIEND, new AddPropertyCommand(expectedProperty));
-
-        // multiple addresses - last address accepted
-        assertParseSuccess(parser, PREAMBLE_PROPERTY
-                + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_AMY
-                + ADDRESS_DESC_BOB + SELLER_DESC_BOB + PRICE_DESC_BOB
-                + TAG_DESC_FRIEND, new AddPropertyCommand(expectedProperty));
-
-        // multiple sellers - last sellers accepted
-        assertParseSuccess(parser, PREAMBLE_PROPERTY
-                + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + SELLER_DESC_AMY + SELLER_DESC_BOB + PRICE_DESC_BOB
-                + TAG_DESC_FRIEND, new AddPropertyCommand(expectedProperty));
-
-        // multiple price - last price accepted
-        assertParseSuccess(parser, PREAMBLE_PROPERTY
-                + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + SELLER_DESC_BOB + PRICE_DESC_AMY + PRICE_DESC_BOB
-                + TAG_DESC_FRIEND, new AddPropertyCommand(expectedProperty));
-
         // multiple tags - all accepted
         Property expectedPropertyMultipleTags = new PropertyBuilder(P_BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
@@ -135,6 +101,45 @@ public class AddCommandParserTest {
                 + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
                 + SELLER_DESC_BOB + PRICE_DESC_BOB
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new AddPropertyCommand(expectedPropertyMultipleTags));
+    }
+
+    @Test
+    public void parse_repeatedFields_failure() {
+        // multiple names - failure
+        assertParseFailure(parser, PREAMBLE_PROPERTY
+                + NAME_DESC_AMY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+                + ADDRESS_DESC_BOB + SELLER_DESC_BOB + PRICE_DESC_BOB
+                + TAG_DESC_FRIEND, String.format(MESSAGE_REPEATED_PREFIX, PREFIX_NAME));
+
+        // multiple phones - failure
+        assertParseFailure(parser, PREAMBLE_PROPERTY
+                + NAME_DESC_BOB + PHONE_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
+                + ADDRESS_DESC_BOB + SELLER_DESC_BOB + PRICE_DESC_BOB
+                + TAG_DESC_FRIEND, String.format(MESSAGE_REPEATED_PREFIX, PREFIX_PHONE));
+
+        // multiple emails - failure
+        assertParseFailure(parser, PREAMBLE_PROPERTY
+                + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY + EMAIL_DESC_BOB
+                + ADDRESS_DESC_BOB + SELLER_DESC_BOB + PRICE_DESC_BOB
+                + TAG_DESC_FRIEND, String.format(MESSAGE_REPEATED_PREFIX, PREFIX_EMAIL));
+
+        // multiple addresses - failure
+        assertParseFailure(parser, PREAMBLE_PROPERTY
+                + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_AMY
+                + ADDRESS_DESC_BOB + SELLER_DESC_BOB + PRICE_DESC_BOB
+                + TAG_DESC_FRIEND, String.format(MESSAGE_REPEATED_PREFIX, PREFIX_ADDRESS));
+
+        // multiple sellers - failure
+        assertParseFailure(parser, PREAMBLE_PROPERTY
+                + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
+                + SELLER_DESC_AMY + SELLER_DESC_BOB + PRICE_DESC_BOB
+                + TAG_DESC_FRIEND, String.format(MESSAGE_REPEATED_PREFIX, PREFIX_SELLER));
+
+        // multiple price - failure
+        assertParseFailure(parser, PREAMBLE_PROPERTY
+                + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
+                + SELLER_DESC_BOB + PRICE_DESC_AMY + PRICE_DESC_BOB
+                + TAG_DESC_FRIEND, String.format(MESSAGE_REPEATED_PREFIX, PREFIX_PRICE));
     }
 
     @Test
