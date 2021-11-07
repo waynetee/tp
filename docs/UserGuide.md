@@ -218,7 +218,9 @@ Shows a list of all properties and buyers in PropertyWhiz.
 
 Format: `list`
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+<div markdown="block" class="alert alert-primary">
+
+**:bulb: Tip:**<br>
 
 As `list` resets all active filters and sort orderings, one of the most common uses of the `list` command to reset the display lists to display all the properties and buyers in `PropertyWhiz`.
 Some places where you might want to make use of the `list` are when:
@@ -275,7 +277,7 @@ Format: `stat [(property | buyer)]`
 * If only buyers or only properties are visible, `stat` automatically presents the only buyers/only properties view.
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-If you are using macOS, you may have some issues with this command, due to incompatibilities with the underlying library. We recommend that you make use of other commands like `sort` or `match` for data analysis. Fixing these platform incompabilities is one of our main priorities for future development, and we are confident that `stat` will serve you well in the near future.
+If you are using **macOS**, you may have some issues with this command, due to incompatibilities with the underlying library. We recommend that you make use of other commands like `sort` or `match` for data analysis. Fixing these platform incompabilities is one of our main priorities for future development, and we are confident that `stat` will serve you well in the near future.
 </div>
 
 ### Locating properties/buyers by name, tags, price: `find`
@@ -366,7 +368,7 @@ To illustrate, suppose you have 5 buyers in total (Adam, Ben, Carl, Daniel, Elle
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 
-You can use the `list` command to reset the display lists to display all the available buyers before using `match property`. This will allow you to find compatible buyers from the full pool of available buyers so that you don't miss out on the *best* matches.
+You can use the [`list`](#listing-all-propertiesbuyers--list) command to reset the display lists to display all the available buyers before using `match property`. This will allow you to find compatible buyers from the full pool of available buyers so that you don't miss out on the *best* matches.
 
 </div>
 
