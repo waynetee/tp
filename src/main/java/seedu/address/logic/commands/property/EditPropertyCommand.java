@@ -40,7 +40,7 @@ import seedu.address.model.tag.Tag;
 public class EditPropertyCommand extends EditCommand {
 
     public static final String MESSAGE_EDIT_PROPERTY_SUCCESS = "Edited Property: %1$s";
-    public static final String MESSAGE_DUPLICATE_PROPERTY = "This property already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_PROPERTY = "A property with the same address already exists.";
     public static final String MESSAGE_USAGE = COMMAND_WORD + " property: Edits the details of the property identified "
             + "by the index number used in the displayed property list. "
             + "Existing values will be overwritten by the input values.\n"

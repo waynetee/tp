@@ -57,7 +57,6 @@ public abstract class EditCommand extends SimpleCommand {
     public static final String MESSAGE_EDIT_PROPERTY_SUCCESS = "Edited Property: %1$s\n";
 
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PROPERTY = "This property already exists in the address book.";
     public static final String MESSAGE_RESET_TAG_TOGETHER_WITH_MODIFY_TAG = "Tags can either be reset or modified.\n"
             + "You cannot do both at the same time.\n"
             + "An edit command can either have [t/TAG]... or [ta/TAG_TO_ADD]... [td/TAG_TO_DELETE]...";
