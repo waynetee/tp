@@ -77,6 +77,7 @@ PropertyWhiz has been extensively tested on Microsoft Windows 10 and Ubuntu 20.0
 
 2. Download the latest `propertywhiz.jar` file from [here](https://github.com/AY2122S1-CS2103T-W11-4/tp/releases).
 
+
 3. Copy the file to the folder you want to use as the _home folder_ for your PropertyWhiz.
 
 4. Double-click the file to start the app. The [GUI](#glossary) similar to below should appear in a few seconds. Note how the app contains some sample data.<br>
@@ -99,13 +100,16 @@ PropertyWhiz has been extensively tested on Microsoft Windows 10 and Ubuntu 20.0
 
     * **`exit`** : Exits the app.
 
+
 6. Refer to the [Commands](#commands) below for details of each command, 
    or the [Command Summary](#command-summary).
+
 
 --------------------------------------------------------------------------------------------------------------------
 
 
 ## Command summary
+
 
 Refer to the section [Command Syntax Guide](#command-syntax-guide) below for how to interpret our commands, 
 or [Commands](#commands) for a detailed explanation of each action.
@@ -129,7 +133,7 @@ Action | Format
 
 ## Navigating the User Interface
 
-![Ui](images/NavigatingUi.png)
+![NavigatingUi](images/NavigatingUi.png)
 
 The user interface is split into the input and output sections, as well as
 two view columns for **Properties** and **Buyers**.
@@ -143,7 +147,7 @@ Item | Description
 
 Here is the breakdown of an individual *property card*.
 
-![](images/PropertyCardUi.png)
+![PropertyCardUi](images/PropertyCardUi.png)
 
 Item | Description
 --------|------------------
@@ -157,7 +161,7 @@ Item | Description
 
 Here is the breakdown of an individual *buyer card*.
 
-![](images/BuyerCardUi-03.png)
+![BuyerCardUi](images/BuyerCardUi.png)
 
 Item | Description
 --------|------------------
@@ -230,6 +234,7 @@ This section describes the requirements of certain fields.
 * Tags have a maximum allowed length of 100.
 
 ------------------
+
 ## Commands
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
@@ -368,6 +373,7 @@ Examples:
   * Returns buyers `Sally [4rm] [near school] [quiet]` and `sally brown [4rm] [near school]`
 * `find property $min/10000 $max/1000000` 
   * Returns properties that are at least $10000 and at most $1000000
+
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 
@@ -547,6 +553,7 @@ Example csv output of `export buyer`
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 Try copying these to a .csv file. Then import them as sample inputs!
 </div>
+
 
 ### Clearing all entries : `clear`
 
