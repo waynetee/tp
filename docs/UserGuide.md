@@ -78,7 +78,9 @@ PropertyWhiz has been extensively tested on Microsoft Windows 10 and Ubuntu 20.0
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
+
 2. Download the latest `propertywhiz.jar` from [here](https://github.com/AY2122S1-CS2103T-W11-4/tp/releases).
+
 
 3. Copy the file to the folder you want to use as the _home folder_ for your PropertyWhiz.
 
@@ -102,15 +104,19 @@ PropertyWhiz has been extensively tested on Microsoft Windows 10 and Ubuntu 20.0
 
     * **`exit`** : Exits the app.
 
+
 6. Refer to the [Commands](#commands) below for details of each command, 
    or the [Command Summary](#command-summary).
+
 
 --------------------------------------------------------------------------------------------------------------------
 
 
 ## Command summary
 
+
 Refer to the section [Command Syntax Guide](#command-syntax-guide) below for how to interpret our commands, 
+
 or [Commands](#commands) for a more detailed version of each action.
 
 Action | Format, Examples
@@ -127,6 +133,7 @@ Action | Format, Examples
 **Match** | `match ( auto | property INDEX | buyer INDEX )`
 **Import** | `import ( property | buyer )`
 **Export** | `export ( property | buyer )`
+
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -177,6 +184,7 @@ Item | Description
 * The action keywords `property`, `properties` can both be used to refer to properties, and similarly for `buyer` and `buyers` as well.
   * e.g. `find property Condo` can also be entered as `find properties Condo`.
 
+
 * Words in `UPPER_CASE` must be supplied by the user.<br>
   * e.g. in `add property n/PROPERTY_NAME`, `PROPERTY_NAME` is a parameter which can be used as `add property n/Beautiful Condo`.
 
@@ -185,6 +193,7 @@ Item | Description
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 There is one exception to this optional parameter syntax.
+
 
 Under the [`find` command](#locating-propertiesbuyers-by-name-tags-price-find), while each individual argument is optional, it is not valid to leave out all arguments. For example, `find properties` alone is invalid. See the [`find` command](#locating-propertiesbuyers-by-name-tags-price-find) for more detailed examples.
 
@@ -195,6 +204,7 @@ Under the [`find` command](#locating-propertiesbuyers-by-name-tags-price-find), 
 
 * `( | )` : Items in circle brackets `()` separated by `|` means that you can only choose 1 of the partitioned items <br>
   * e.g. `([t/TAG] | [ta/TAG_TO_ADD] [t/TAG_TO_DELETE])` can be used as `t/condo`, `ta/condo td/small condo` but not `t/condo ta/condo`, `t/condo td/small condo`, `t/condo ta/condo td/small condo`
+
 
 * Parameters can be in any order.<br>
   * e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
@@ -208,6 +218,7 @@ Under the [`find` command](#locating-propertiesbuyers-by-name-tags-price-find), 
 ------------------
 
 ## Valid properties/buyers
+
 Here are some fields that are shared amongst commands.
 
 ### Property/Buyer names
@@ -226,6 +237,7 @@ Here are some fields that are shared amongst commands.
 * Properties with identical addresses are not allowed.
 
 ### Property Prices/Buyer Budget
+
 * Prices must be between 4 and 9 digits (both inclusive).
 * Leading zeroes will be ignored. For e.g., `00100` has 5 characters, but it only has 3 digits, not counting the leading 0s. Hence, `00100` is an invalid price.
 
@@ -246,6 +258,7 @@ Here are some fields that are shared amongst commands.
 * Tags have a maximum allowed length of 100.
 
 ------------------
+
 ## Commands
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
@@ -369,6 +382,7 @@ Examples:
 * `find property t/4rm t/near school` returns properties `jurong [4rm] [near school] [near mrt]` and `Clementi [4rm] [near school] [near mrt]`
 * `find buyer Sally t/4rm t/near school` returns buyer `Sally [4rm] [near school] [quiet]` and `sally brown [4rm] [near school]`
 * `find property $min/10000 $max/1000000` returns properties that are at least $10000 and at most $1000000
+
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 
@@ -516,6 +530,7 @@ Example csv output of `export buyer`
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 Try copying these to a .csv file. Then import them as sample inputs!
 </div>
+
 
 ### Clearing all entries : `clear`
 
