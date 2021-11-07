@@ -276,10 +276,6 @@ Format: `stat [(property | buyer)]`
 * Entering another `stat` command while the existing one is open replaces the view in the pop-up window.
 * If only buyers or only properties are visible, `stat` automatically presents the only buyers/only properties view.
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-If you are using **macOS**, you may have some issues with this command, due to incompatibilities with the underlying library. We recommend that you make use of other commands like `sort` or `match` for data analysis. Fixing these platform incompabilities is one of our main priorities for future development, and we are confident that `stat` will serve you well in the near future.
-</div>
-
 ### Locating properties/buyers by name, tags, price: `find`
 
 Finds properties or buyers whose names contain any of the given keywords, whose tag list contain all of the specified tags and whose price is within the specified price range in the **currently displayed list**.
