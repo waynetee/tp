@@ -299,7 +299,7 @@ Shown below is the output for the valid input `add property n/Blk 321 a/123, Cle
 If you typed in an invalid input, the command box will demonstrate the correct input format so you can correct your input,
 such as in the case below.
 <br />
-<img src="images/AddInvalidUi.png" width="574"/>
+<img src="images/AddInvalidUi.png" width="600"/>
 </div>
 
 ### Listing all properties/buyers : `list`
