@@ -117,22 +117,22 @@ Action | Format, Examples
 --------|------------------
 **Add** | **Property** <br>`add property n/PROPERTY_NAME a/PROPERTY_ADDRESS s/SELLER_NAME p/SELLER_PHONE e/SELLER_EMAIL $/PRICE [t/TAG]…​` <br><br> **Buyer** <br>`add buyer n/BUYER_NAME p/BUYER_PHONE e/BUYER_EMAIL $/BUDGET) [t/TAG]…`
 **Clear** | `clear`
-**Delete** | `delete (property | buyer) INDEX`
-**Edit** | **Property** <br>`edit property INDEX [n/PROPERTY_NAME] [a/PROPERTY_ADDRESS] [s/SELLER_NAME] [p/SELLER_PHONE] [e/SELLER_EMAIL] [$/PRICE] [([t/TAG]…​ | [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]]​`<br><br> **Buyer** <br> `edit buyer INDEX [n/BUYER_NAME] [p/BUYER_PHONE] [e/BUYER_EMAIL] [$/BUDGET]) [([t/TAG]… | [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]`
-**Find** | `find (property | buyer) [KEYWORDS] [t/TAG_TO_MATCH]…`
+**Delete** | `delete ( property | buyer ) INDEX`
+**Edit** | **Property** <br>`edit property INDEX [n/PROPERTY_NAME] [a/PROPERTY_ADDRESS] [s/SELLER_NAME] [p/SELLER_PHONE] [e/SELLER_EMAIL] [$/PRICE] [( [t/TAG]…​ | [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]… )] ​`<br><br> **Buyer** <br> `edit buyer INDEX [n/BUYER_NAME] [p/BUYER_PHONE] [e/BUYER_EMAIL] [$/BUDGET] [( [t/TAG]… | [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]… )]`
+**Find** | `find ( property | buyer ) [KEYWORDS] [t/TAG_TO_MATCH]…`
 **List** | `list`
 **Exit** | `exit`
 **Help** | `help`
-**Sort** | `sort ( property | buyer ) (price | name) (asc | desc)`
+**Sort** | `sort ( property | buyer ) ( price | name ) ( asc | desc )`
 **Match** | `match ( auto | property INDEX | buyer INDEX )`
-**Import** | `import (property | buyer)`
-**Export** | `export (property | buyer)`
+**Import** | `import ( property | buyer )`
+**Export** | `export ( property | buyer )`
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## Navigating the User Interface
 
-![Ui](images/NavigatingUi.png)
+![NavigatingUi](images/NavigatingUi.png)
 
 The UI is split into the input and output sections, as well as
 two view columns for **Property** and **Buyer** each.
@@ -144,7 +144,7 @@ Item | Description
 **Properties view** | A listing of properties.
 **Buyers view** | A listing of buyers.
 
-![](images/PropertyCardUi.png)
+![PropertyCardUi](images/PropertyCardUi.png)
 
 Here is the breakdown of an individual *property card*.
 
@@ -158,7 +158,7 @@ Item | Description
 **Phone** | Phone number of seller.
 **Email** | Email of seller.
 
-![](images/BuyerCardUi-03.png)
+![BuyerCardUi](images/BuyerCardUi.png)
 
 Here is the breakdown of an individual *buyer card*.
 
