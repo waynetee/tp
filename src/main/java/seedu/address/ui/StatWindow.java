@@ -41,7 +41,7 @@ public class StatWindow extends UiPart<Stage> {
         JFreeChart chart = stat.create();
         ChartViewer viewer = new ChartViewer(chart);
         getRoot().setScene(new Scene(viewer));
-        getRoot().setTitle("Histogram");
+        getRoot().setTitle("Price Chart");
         getRoot().setWidth(600);
         getRoot().setHeight(480);
     }
