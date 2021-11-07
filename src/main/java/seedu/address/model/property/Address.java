@@ -19,9 +19,8 @@ public class Address {
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
-     * The other characters include hyphens, hashes and spaces.
      */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}\\-][\\p{Alnum}\\-#,; ]{0," + (MAX_LENGTH - 1) + "}";
+    public static final String VALIDATION_REGEX = "[\\p{Alnum}\\-#,;][\\p{Alnum}\\-#,; ]{0," + (MAX_LENGTH - 1) + "}";
 
     public final String value;
 
