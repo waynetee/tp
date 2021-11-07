@@ -17,15 +17,15 @@ PropertyWhiz helps you, a property agent, manage your properties and clients. Pr
 If you fit the descriptions below, then PropertyWhiz will suit you well.
 
 1. Do you face difficulties *managing client information on pen and paper*? With PropertyWhiz, the data you need will always be at your fingertips.
-2. Do you fumble with *the complexities of general purpose software like Microsoft Excel*? PropertyWhiz has a simple yet powerful set of commands purpose-built for you. With a [Command Line Interface (CLI)](#glossary), PropertyWhiz helps you complete your tasks even more efficiently.
+2. Do you fumble with *the complexities of general-purpose software like Microsoft Excel*? PropertyWhiz has a simple yet powerful set of commands purpose-built for you. With a [Command Line Interface (CLI)](#glossary), PropertyWhiz helps you complete your tasks even more efficiently.
 
 ### Purpose of this guide
 
 This guide will gently introduce you to the various features offered by PropertyWhiz. Use this guide as a tutorial to get started with PropertyWhiz. When you are proficient, you can still refer back to this document as a reference sheet.
 
 This guide is:
-* A summary of all the *features* offered by PropertyWhiz, and provides a high level overview on how they operate.
-* A overview of what *user input* is considered as valid so you can quickly get started with PropertyWhiz.
+* A summary of all the *features* offered by PropertyWhiz, and provides a high-level overview on how they operate.
+* An overview of what *user input* is considered as valid so you can quickly get started with PropertyWhiz.
 
 This guide is **not**
 * an exhaustive case study of all possible ways of using PropertyWhiz's features.
@@ -59,7 +59,7 @@ Symbols | Meaning
 Formatting | Meaning
 --------|------------------
 *italics* | This is used to give slight emphasis to certain words.
-**boldface** | This is used to emphasize certain words, for instance restrictions on input. The degree of emphasis is stronger than *italics*.
+**boldface** | This is used to emphasize certain words. The degree of emphasis is stronger than *italics*.
 `code` | This is used to denote user input or special text.
 
 --------------------------------------------------------------------------------------------------------------------
@@ -73,7 +73,7 @@ PropertyWhiz has been extensively tested on Microsoft Windows 10 and Ubuntu 20.0
 
 </div>
 
-1. Ensure you have Java `11` or above installed in your Computer.
+1. Ensure you have Java `11` or above installed on your Computer.
 
 2. Download the latest `propertywhiz.jar` file from [here](https://github.com/AY2122S1-CS2103T-W11-4/tp/releases).
 
@@ -179,8 +179,8 @@ This section helps you understand the format of the commands listed in the [comm
 * The action keywords `property` and `properties` are interchangeable, and likewise for `buyer` and `buyers`.
   * e.g. `find property Condo` can also be entered as `find properties Condo`.
 
-* Words in `UPPER_CASE` must be replaced with corresponding field by the user.<br>
-  * e.g. in `add property n/PROPERTY_NAME`, `PROPERTY_NAME` is a parameter which can be used as `add property n/Beautiful Condo`.
+* Words in `UPPER_CASE` must be replaced with the corresponding field by the user.<br>
+  * e.g. in `add property n/PROPERTY_NAME`, `PROPERTY_NAME` is a parameter that can be used as `add property n/Beautiful Condo`.
 
 * `[]` : Items in square brackets are optional.<br>
   * e.g `n/PROPERTY_NAME [t/TAG]` can be used as `n/Beautiful Condo t/condo` or as `n/Beautiful Condo`.
@@ -205,7 +205,7 @@ This section describes the requirements of certain fields.
 * Buyers with identical names are not allowed.
 
 ### Property addresses
-* Addresses must only contain alphanumerical characters, and the following special characters:
+* Addresses must only contain alphanumerical characters or the following special characters:
   * spaces
   * hyphens (`-`)
   * commas (`,`)
@@ -283,7 +283,7 @@ Format: `list`
 
 As `list` resets all active filters and sort orderings, one of the most common uses of the `list` command to reset the display lists to display all the properties and buyers in `PropertyWhiz`.
 Some places where you might want to make use of the `list` are when:
-* [`find`ing](#locating-propertiesbuyers-by-name-tags-price-find) properties/buyers based on certain criteria
+* [`find`ing](#locating-propertiesbuyers-by-name-tags-and-price-find) properties/buyers based on certain criteria
 * [`sort`ing](#sorting-propertiesbuyers-sort) properties/buyers
 * [`match`ing](#matching-properties-and-buyers-match) properties and buyers together
 
@@ -521,11 +521,11 @@ Format: `export (buyer | property)`
 Example CSV output of  `export property`
 <a name="csvExample"> </a>
 <pre><code style="white-space: pre-wrap;">"Name","Address","Seller Name","Phone","Email","Price","Tags"
-"Geylang St 29","Blk 30 Geylang Street 29, #06-40","Alex Yeoh","87438807","alexyeoh@example.com","419999","flowers,garden"
-"Dee Gardens","Blk 30 Lorong 3 Serangoon Gardens, #07-18","Beatrice Yu","99272758","berniceyu@example.com","420000","quiet"
-"Olive Gardens","Blk 11 Ang Mo Kio Street 74, #11-04","Charlotte Oliveiro","93210283","charlotte@example.com","420001","cathedral"
-"Pear Gardens","Blk 436 Serangoon Gardens Street 26, #16-43","David Li","91031282","lidavid@example.com","420002","near cbd"
-"Tampa Bay","Blk 47 Tampines Street 20, #17-35","Irfan Ibrahim","92492021","irfan@example.com","420003","noisy,party"
+"Geylang St 29","Blk 30 Geylang Street 29, #06-40","Alex Yeoh","87438807", "alexyeoh@example.com","419999","flowers,garden"
+"Dee Gardens","Blk 30 Lorong 3 Serangoon Gardens, #07-18","Beatrice Yu","99272758", "berniceyu@example.com","420000","quiet"
+"Olive Gardens","Blk 11 Ang Mo Kio Street 74, #11-04","Charlotte Oliveiro","93210283", "charlotte@example.com","420001","cathedral"
+"Pear Gardens","Blk 436 Serangoon Gardens Street 26, #16-43","David Li","91031282", "lidavid@example.com","420002","near cbd"
+"Tampa Bay","Blk 47 Tampines Street 20, #17-35","Irfan Ibrahim","92492021", "irfan@example.com","420003","noisy,party"
 </code></pre>
 
 Example CSV output of `export buyer`
