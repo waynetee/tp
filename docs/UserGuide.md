@@ -427,7 +427,7 @@ This command deletes the property/buyer at a specified `INDEX`. The index refers
 
 Examples:
 * `list` followed by `delete property 2` deletes the 2nd property in PropertyWhiz.
-* `find East Coast` followed by `delete property 1` deletes the 1st property in the results of the `find` command.
+* `find property East Coast` followed by `delete property 1` deletes the 1st property in the results of the `find` command.
 
 ### Sorting properties/buyers: `sort`
 
