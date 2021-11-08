@@ -105,7 +105,7 @@ public class EditCommandTest {
         EditPropertyDescriptor descriptor = new EditPropertyDescriptorBuilder(firstProperty).build();
         EditPropertyCommand editCommand = new EditPropertyCommand(INDEX_SECOND, descriptor);
 
-        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_PROPERTY);
+        assertCommandFailure(editCommand, model, EditPropertyCommand.MESSAGE_DUPLICATE_PROPERTY);
     }
 
     @Test

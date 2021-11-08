@@ -20,7 +20,7 @@ import seedu.address.model.property.Property;
  */
 public class AddPropertyCommand extends AddCommand {
     public static final String MESSAGE_SUCCESS = "New property added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PROPERTY = "This property already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_PROPERTY = "A property with the same address already exists.";
     public static final String MESSAGE_USAGE = COMMAND_WORD + " property: Adds a property to the address book.\n"
             + "Parameters: "
             + PREFIX_NAME + "NAME "

@@ -12,6 +12,7 @@ title: Developer Guide
 * [opencsv](http://opencsv.sourceforge.net/) for providing an API to read, parse and write csv files.
 * [JFreeChart](https://www.jfree.org/jfreechart/) for providing the API to display statistics and charts.
 * [JavaFX](https://gluonhq.com/products/javafx/) for providing the API to render GUI.
+* [Jackson](https://github.com/FasterXML/jackson) for providing the API to parse JSON files.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -784,8 +785,6 @@ add buyer n/tim p/91234567 e/sam@email.com t/condo t/3rm $/4444
 add buyer n/tom p/91234567 e/sam@email.com t/condo t/3rm $/10000
 export buyer
 stat
-stat buyer
-stat property
 sort    buyer  price    asc
 sort    buyer  name    asc
 list
