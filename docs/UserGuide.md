@@ -254,6 +254,7 @@ Use this command if you need to access the help page.
 
 Format: `help`
 
+<div style="page-break-after: always;"></div>
 
 ### Adding a property/buyer: `add`
 
@@ -305,6 +306,8 @@ You may wish to use `list` **before** any of these commands in order to process 
 You may wish to use `list` **after** any of these commands in order to return to the *full* list.
 
 </div>
+
+<div style="page-break-after: always;"></div>
 
 ### Editing a property/buyer : `edit`
 
