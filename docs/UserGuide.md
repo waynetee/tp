@@ -162,7 +162,7 @@ Action | Format
 **Help** | `help`
 **Add** | **Property** <br>`add property n/PROPERTY_NAME a/PROPERTY_ADDRESS s/SELLER_NAME p/SELLER_PHONE e/SELLER_EMAIL $/PRICE [t/TAG]…​` <br><br> **Buyer** <br>`add buyer n/BUYER_NAME p/BUYER_PHONE e/BUYER_EMAIL $/BUDGET) [t/TAG]…`
 **List** | `list`
-**Edit** | **Property** <br>`edit property INDEX [n/PROPERTY_NAME] [a/PROPERTY_ADDRESS] [s/SELLER_NAME] [p/SELLER_PHONE] [e/SELLER_EMAIL] [$/PRICE] [([t/TAG]…​ | [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]​`<br><br> **Buyer** <br> `edit buyer INDEX [n/BUYER_NAME] [p/BUYER_PHONE] [e/BUYER_EMAIL] [$/BUDGET]) [([t/TAG]… | [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]`
+**Edit** | **Property** <br>`edit property INDEX [n/PROPERTY_NAME] [a/PROPERTY_ADDRESS] [s/SELLER_NAME] [p/SELLER_PHONE] [e/SELLER_EMAIL] [$/PRICE] [([t/TAG]…​ | [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]​`<br><br> **Buyer** <br> `edit buyer INDEX [n/BUYER_NAME] [p/BUYER_PHONE] [e/BUYER_EMAIL] [$/BUDGET] [([t/TAG]… | [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]`
 **Stat** | `stat [(property | buyer)]`
 **Find** | `find (property | buyer) [KEYWORD]… [t/TAG_TO_MATCH]… [$min/MIN_PRICE] [$max/MAX_PRICE]`
 **Delete** | `delete (property | buyer) INDEX`
@@ -339,7 +339,7 @@ Examples:
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 The following example is invalid:
 
-`edit property 1 t/near school ta/4rm td/near mrt` You cannot override the tag list with `\t` while editing it with `\ta` or `\td` at the same time. As the intention is unclear, PropertyWhiz will display an error message.
+`edit property 1 t/near school ta/4rm td/near mrt` You cannot override the tag list with `t/` while editing it with `ta/` or `td/` at the same time. As the intention is unclear, PropertyWhiz will display an error message.
 
 </div>
 
