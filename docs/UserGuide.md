@@ -358,10 +358,10 @@ Format:
 * View price chart of buyers: `stat buyer`
 
 Visual Example:
-The below is the output from the command `stat`.
+The below image shows a sample output from the command `stat`.
 
 ![stat example](images/StatUi.png)
-Since neither property nor buyer list is empty, you should see histograms of both properties and buyers.
+Since neither the property nor buyer list is empty, you should see the combined chart of both properties and buyers.
 The price chart shows the number of properties and buyers for each price range.
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
