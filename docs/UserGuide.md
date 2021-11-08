@@ -384,11 +384,11 @@ Note that while each criteria (keywords, tags and price/budget) is optional, at 
   
 Examples:
 * `find buyer Sally` 
-  * Finds buyers `sally` and `Sally Brown`
+  * Returns buyers `sally` and `Sally Brown`
 * `find property Jurong t/4rm t/near school` 
-  * Finds properties `jurong [4rm] [near school] [near mrt]` and `Jurong East [4rm] [near school] [near mrt]` but not `jurong [4rm] [near mrt]`
+  * Returns properties `jurong [4rm] [near school] [near mrt]` and `Jurong East [4rm] [near school] [near mrt]` but not `jurong [4rm] [near mrt]`
 * `find buyer $min/100000 $max/1000000` 
-  * Finds buyers with budgets between $100000 and $1000000
+  * Returns buyers with budgets between $100000 and $1000000
 
 Shown below is the output for the valid input `find buyer $min/100000 $max/1000000`.
 
