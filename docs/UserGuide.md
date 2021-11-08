@@ -394,14 +394,6 @@ Shown below is the output for the valid input `find buyer $min/200000 $max/40000
 
 ![Find Buyer](images/FindBuyerUi.png)
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-
-As mentioned in the [syntax guide](#command-syntax-guide), `find` is an exception to the optional parameter syntax. While each of `[KEYWORDS] [t/TAG_TO_MATCH]… [$min/MIN_PRICE] [$max/MAX_PRICE]` are listed as optional, it is invalid to leave out all of them.
-
-Examples of invalid usages of `find` are: `find properties` and `find buyers`.
-
-</div>
-
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 
 Use the [`list`](#listing-all-propertiesbuyers--list) command to reset all filters and view all properties and buyers in `PropertyWhiz`.
