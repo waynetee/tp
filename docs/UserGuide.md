@@ -468,13 +468,13 @@ You can use the [`list`](#listing-all-propertiesbuyers--list) command to display
 </div>
 
 Example:
-* `match property 2` will match all displayed buyers with the second displayed property. Suppose the second displayed property has a selling price of `1,000,000` and has tags `4rm`, `near school`.
+* `match property 2` will match all displayed buyers with the second displayed property. Suppose the second displayed property has a selling price of `$1,000,000` and has tags `4rm`, `near school`.
   * Price Compatibility:
     * Compatible buyers: 
-      * All buyers whose budget is at least `1,000,000` 
-      * e.g. A buyer whose budget is `1,100,000` is compatible
+      * All buyers whose budget is at least `$1,000,000` 
+      * e.g. A buyer whose budget is `$1,100,000` is compatible
     * Incompatible buyers: 
-      * All buyers whose budget is lower than `1,000,000` 
+      * All buyers whose budget is lower than `$1,000,000` 
   * Tag Compatibility:
     * Suppose we have 3 buyers:
       * Richard has tags `5rm`, `far from school`
@@ -495,9 +495,9 @@ Format: `match buyer INDEX`
 * Similar to `match property`, the matching for `match buyer` is done on the currently displayed properties.
 
 Example:
-* `match buyer 2` will match all displayed properties with the second displayed buyer. Suppose the second displayed buyer has budget of `1,000,000` and has tags `4rm`, `near school`.
+* `match buyer 2` will match all displayed properties with the second displayed buyer. Suppose the second displayed buyer has budget of `$1,000,000` and has tags `4rm`, `near school`.
     * Budget Compatibility:
-        * All properties with selling price at most `1,000,000`
+        * All properties with selling price of at most `$1,000,000` are compatible
     * Tag Compatibility:
         * Suppose we have 3 properties:
             * Dee Gardens has tags `5rm`, `far from school`
