@@ -12,7 +12,7 @@ title: Developer Guide
 * [opencsv](http://opencsv.sourceforge.net/) for providing an API to read, parse and write csv files.
 * [JFreeChart](https://www.jfree.org/jfreechart/) for providing the API to display statistics and charts.
 * [JavaFX](https://gluonhq.com/products/javafx/) for providing the API to render GUI.
-* [Jackson](https://gluonhq.com/products/javafx/) for providing the API to parse JSON files.
+* [Jackson](https://github.com/FasterXML/jackson) for providing the API to parse JSON files.
 
 --------------------------------------------------------------------------------------------------------------------
 
