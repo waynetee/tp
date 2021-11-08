@@ -69,7 +69,7 @@ Formatting | Meaning
 <div markdown="block" class="alert alert-info">
 
 **:information_source: Supported platforms:**<br>
-PropertyWhiz is fully compatible with Microsoft Windows, macOS and Linux.
+If you are using Microsoft Windows, macOS or Linux, then PropertyWhiz is fully compatible with your system. Follow the steps below to get started within minutes.
 
 </div>
 
@@ -80,7 +80,7 @@ PropertyWhiz is fully compatible with Microsoft Windows, macOS and Linux.
 
 3. Copy the file to the folder you want to use as the _home folder_ for your PropertyWhiz.
 
-4. Double-click the file to start the app. The [Graphical User Interface (GUI)](#glossary) similar to below should appear in a few seconds. Note how the app contains some sample data.<br>
+4. Double-click the file to start the app. The [Graphical User Interface (GUI)](#glossary) similar to below should appear in a few seconds. PropertyWhiz comes with sample data, so you can try out our features right away.<br>
     
    ![Ui](images/Ui.png)
    
