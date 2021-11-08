@@ -547,6 +547,12 @@ Format: `import (buyer | property)`
   * No missing fields
 * The CSV must begin with a header that includes the names of each column.
 
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+
+As PropertyWhiz does not allow properties with duplicate **addresses** or buyers with duplicate **names**, please ensure that the properties or buyers you are importing do not conflict with existing data within PropertyWhiz. This applies to *all* properties and buyers, not just those currently displayed.
+
+</div>
+
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 
 If you are using Microsoft Excel, you can easily export your data to a CSV file and import it into PropertyWhiz!
