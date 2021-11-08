@@ -197,6 +197,7 @@ This section helps you understand the format of the commands listed above and in
   * e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 ------------------
+<div style="page-break-after: always;"></div>
 
 ## Valid properties/buyers
 This section describes the requirements of certain fields.
@@ -263,18 +264,17 @@ Format:
 * Adding a buyer: `add buyer n/BUYER_NAME p/BUYER_PHONE e/BUYER_EMAIL $/BUDGET [t/TAG]…`
 
 Examples:
-* `add property n/Blk 123 a/123, Clementi Rd, #04-20, 1234665 s/James Lee p/61234567 e/james@email.com $/100000 t/hdb t/3rm`
+* `add property n/Blk 123 a/123, Clementi Rd, #04-20, S654321 s/James Lee p/(hp) 61234567 e/james@email.com $/100000 t/hdb t/3rm`
 * `add buyer n/Sam p/91234567 e/sam@email.com $/740000 t/hdb t/3rm`
 
-Shown below is the output for the valid input `add property n/Blk 321 a/123, Clementi Rd, #04-20, 1234665 s/James Lee p/(hp) 61234567 e/james@email.com $/100000 t/hdb t/3rm`.
+Shown below is the output for the valid input `add property n/Blk 123 a/123, Clementi Rd, #04-20, S654321 s/James Lee p/(hp) 61234567 e/james@email.com $/100000 t/hdb t/3rm`.
 
 ![Add Property](images/AddValidUi.png)
 
 See the section [Valid properties/buyers](#valid-propertiesbuyers) for more details about the different fields.
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-If you entered an invalid input, the command box will demonstrate the correct input format so you can correct your input,
-such as in the case below.
+If you entered an invalid input, don't worry, the command box will display the correct format as shown below and you can try again.
 <br />
 <img src="images/AddInvalidUi.png" width="680"/>
 </div>
@@ -379,18 +379,18 @@ Note that while each criteria (keywords, tags and price/budget) is optional, at 
 * Only properties/buyers that match all the tags will be returned.
     * e.g. `find property t/4rm t/near school` will only return properties with both `4rm` and `near school` tags.
 * The price search is inclusive of the specified number.
-  * e.g. `find property $min/10000` will return properties with price at least $10000
-  * e.g. `find property $max/100000` will return properties with price at most $100000
+  * e.g. `find property $min/10000` will return properties with price at least $10000.
+  * e.g. `find property $max/100000` will return properties with price at most $100000.
   
 Examples:
 * `find buyer Sally` 
-  * Returns buyers `sally` and `Sally Brown`
+  * Finds buyers `sally` and `Sally Brown`
 * `find property Jurong t/4rm t/near school` 
-  * Returns properties `jurong [4rm] [near school] [near mrt]` and `Jurong East [4rm] [near school] [near mrt]` but not `jurong [4rm] [near mrt]`
-* `find property $min/10000 $max/1000000` 
-  * Returns properties that are at least $10000 and at most $1000000
+  * Finds properties `jurong [4rm] [near school] [near mrt]` and `Jurong East [4rm] [near school] [near mrt]` but not `jurong [4rm] [near mrt]`
+* `find buyer $min/100000 $max/1000000` 
+  * Finds buyers with budgets between $100000 and $1000000
 
-Shown below is the output for the valid input `find buyer $min/200000 $max/400000`.
+Shown below is the output for the valid input `find buyer $min/100000 $max/1000000`.
 
 ![Find Buyer](images/FindBuyerUi.png)
 
@@ -430,8 +430,8 @@ Examples:
 * `sort property name asc` 
   * Sorts the list of properties by their names in alphabetical order.
 
-Shown below is the output for the valid input `sort buyer price asc` after having entered
-`find buyer $min/200000 $max/400000`.
+Shown below is the output for the valid input `sort buyer price desc` after previously having entered
+`find buyer $min/100000 $max/1000000`.
 
 ![Find Buyer](images/SortBuyerUi.png)
 
