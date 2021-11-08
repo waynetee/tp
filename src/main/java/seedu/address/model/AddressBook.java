@@ -334,7 +334,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     public String toString() {
         return properties.asUnmodifiableObservableList().size() + " properties"
                 + buyers.asUnmodifiableObservableList().size() + " buyers";
-        // TODO: refine later
     }
 
     @Override

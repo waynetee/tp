@@ -98,7 +98,7 @@ Here's a (partial) class diagram of the `Logic` component:
 How the `Logic` component works:
 1. When `Logic` is called upon to execute a command, it uses the `AddressBookParser` class to parse the user command.
 2. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `ListCommand`) which is executed by the `LogicManager`.
-   Some subclassed commands are themselves abstract (e.g. `AddCommand` is an abstract subclass of `Command`, and `AddPropertyCommand` is a concrete subclass of the `AddCommand`. In this case, an instance of `AddPropertyComand` will be created).
+   Some subclassed commands are themselves abstract (e.g. `AddCommand` is an abstract subclass of `Command`, and `AddPropertyCommand` is a concrete subclass of the `AddCommand`. In this case, an instance of `AddPropertyCommand` will be created).
 3. The command can communicate with the `Model` when it is executed (e.g. to add a property).
 4. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
 
@@ -229,21 +229,21 @@ Please refer to the `MatchAutoCommand` and `Match` classes for the full details 
     * Pros: Potentially convey more information to the user.
     * Cons: Harder for users to comprehend and navigate the information.
 
-We decided to go with Alternative 1 as we prioritised presenting a simpler and more intuitive output to our users.
+We decided to go with Alternative 1 as we prioritized presenting a simpler and more intuitive output to our users.
 
 **Aspect: Matching algorithm**
 
-* **Alternative 1 (current choice):** Prioritise top matches
-    * The current algorithm selects matches starting with the best possible match. This optimises for the compatibility of the first few matches.
+* **Alternative 1 (current choice):** Prioritize top matches
+    * The current algorithm selects matches starting with the best possible match. This optimizes for the compatibility of the first few matches.
     * Pros: First few matches are likely to be very compatible.
     * Cons: Last few matches are likely to be poor.
 
-* **Alternative 2:** Prioritise overall fairness of matches
+* **Alternative 2:** Prioritize overall fairness of matches
     * An alternative algorithm might optimise for the number of acceptable matches.
     * Pros: Allows more buyers to be matched with acceptable properties.
     * Cons: First few matches may not be as compatible as Alternative 1.
 
-We chose Alternative 1 as we expect the user to focus on the top matches, hence we optimised for those.
+We chose Alternative 1 as we expect the user to focus on the top matches, hence we optimized for those.
 
 ### Sort feature
 The sort feature allows the user to sort the properties and buyers in PropertyWhiz.
@@ -257,7 +257,7 @@ There are 2 sorting options in PropertyWhiz:
 
 #### Parsing of commands
 The parsing of commands is done in the `LogicManager` and when executed, which results in `SortCommand` object being created. 
-Since both properties and buyers can be sorted, `SortCommand` is abstract and `SortPropertyCommand` and `SortBuyerCommand`are concrete subclasses that extend `SortComand`.
+Since both properties and buyers can be sorted, `SortCommand` is abstract and `SortPropertyCommand` and `SortBuyerCommand`are concrete subclasses that extend `SortCommand`.
 The `SortCommandParser` serves as the intermediate layer between `LogicManager` and `SortCommand` to handle parsing of arguments of the user sort command. 
 
 Given below are the steps to parse a sort user command:
@@ -808,7 +808,7 @@ clear
 
 1. Dealing with missing/corrupted data files
    * Make sure the `PropertyWhiz` is currently not running.
-   * Open the `propertywhiz.json` file in the /data folder with your favourite text editor.
+   * Open the `propertywhiz.json` file in the /data folder with your favorite text editor.
    * Remove the first character: `{`.
    * Run `PropertyWhiz`. Since the data file is not in the correct format, `PropertyWhiz` should start without any data.
 

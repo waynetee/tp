@@ -3,11 +3,9 @@ package seedu.address.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.Assert.assertThrows;
 
-import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -22,8 +20,6 @@ public class JsonSerializableAddressBookTest {
     private static final Path INVALID_PROPERTY_FILE = TEST_DATA_FOLDER.resolve("invalidPropertyAddressBook.json");
     private static final Path DUPLICATE_PROPERTY_FILE = TEST_DATA_FOLDER.resolve("duplicatePropertyAddressBook.json");
 
-    private static final Path WRITE_TO_FILE = TEST_DATA_FOLDER.resolve("test.json");
-
     @Test
     public void toModelType_typicalPropertiesFile_success() throws Exception {
         JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_PROPERTIES_FILE,
@@ -31,15 +27,6 @@ public class JsonSerializableAddressBookTest {
         AddressBook addressBookFromFile = dataFromFile.toModelType();
         AddressBook typicalPropertiesAddressBook = TypicalAddressBook.getTypicalAddressBook();
         assertEquals(addressBookFromFile, typicalPropertiesAddressBook);
-    }
-
-    // TODO: This helper should be removed or disabled when no longer necessary
-    // Helper method to write the current typicalAddressBook to a temporary file
-    @Disabled
-    @Test
-    public void writeAddressBook() throws IOException {
-        JsonUtil.saveJsonFile(new JsonSerializableAddressBook(TypicalAddressBook.getTypicalAddressBook()),
-                WRITE_TO_FILE);
     }
 
     @Test
