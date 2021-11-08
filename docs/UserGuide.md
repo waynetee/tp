@@ -237,7 +237,6 @@ This section describes the requirements of certain fields.
 * Tags have a maximum allowed length of 100.
 
 ------------------
-<div style="page-break-after: always;"></div>
 
 ## Commands
 
