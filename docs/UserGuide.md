@@ -122,6 +122,7 @@ Item | Description
 **Properties view** | A list of properties and their details.
 **Buyers view** | A list of buyers and their details.
 
+<div style="page-break-after: always;"></div>
 Here is the breakdown of an individual *property card*.
 
 ![PropertyCardUi](images/PropertyCardUi.png)
@@ -136,6 +137,7 @@ Item | Description
 **Phone** | Phone number of seller.
 **Email** | Email of seller.
 
+<div style="page-break-after: always;"></div>
 Here is the breakdown of an individual *buyer card*.
 
 ![BuyerCardUi](images/BuyerCardUi.png)
@@ -149,6 +151,7 @@ Item | Description
 **Email** | Email of buyer.
 
 --------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
 
 ## Command summary
 
