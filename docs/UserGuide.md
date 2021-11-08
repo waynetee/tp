@@ -371,10 +371,10 @@ Format:
 * Finding buyers: `find buyer [KEYWORD]… [t/TAG_TO_MATCH]… [$min/MIN_BUDGET] [$max/MAX_BUDGET]`
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-Note that while each criteria (keywords, tags and price/budget) is optional, at least one criteria must be specified.
+Note that while each criterion (keywords, tags and price/budget) is optional, at least one criterion must be specified.
 </div>
 
-* This command acts on the current list of properties and buyers
+* This command acts on the current list of properties and buyers.
   * e.g. If `find property hillview` return properties `Hillview` and `Hillview Rise`, then applying another find command `find property grove` will return an empty list, even if PropertyWhiz has a property `Grove`.
 * The order of the keywords does not matter. e.g. `Hillview Rise` will match `Rise Hillview`
 * Only full words will be matched e.g. `Hill` will not match `Hillview`
@@ -537,7 +537,7 @@ Format: `import (buyer | property)`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 
-If you are using Microsoft Excel, you can easily export your data to a CSV file and import it to PropertyWhiz!
+If you are using Microsoft Excel, you can easily export your data to a CSV file and import it into PropertyWhiz!
 
 </div>
 
