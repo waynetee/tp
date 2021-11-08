@@ -266,7 +266,18 @@ Examples:
 * `add property n/Blk 123 a/123, Clementi Rd, #04-20, 1234665 s/James Lee p/61234567 e/james@email.com $/100000 t/hdb t/3rm`
 * `add buyer n/Sam p/91234567 e/sam@email.com $/740000 t/hdb t/3rm`
 
+Shown below is the output for the valid input `add property n/Blk 321 a/123, Clementi Rd, #04-20, 1234665 s/James Lee p/(hp) 61234567 e/james@email.com $/100000 t/hdb t/3rm`.
+
+![Add Property](images/AddValidUi.png)
+
 See the section [Valid properties/buyers](#valid-propertiesbuyers) for more details about the different fields.
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+If you entered an invalid input, the command box will demonstrate the correct input format so you can correct your input,
+such as in the case below.
+<br />
+<img src="images/AddInvalidUi.png" width="680"/>
+</div>
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A property/buyer can have any number of tags (including 0). All tags will be converted to lowercase.
@@ -379,6 +390,18 @@ Examples:
 * `find property $min/10000 $max/1000000` 
   * Returns properties that are at least $10000 and at most $1000000
 
+Shown below is the output for the valid input `find buyer $min/200000 $max/400000`.
+
+![Find Buyer](images/FindBuyerUi.png)
+
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+
+As mentioned in the [syntax guide](#command-syntax-guide), `find` is an exception to the optional parameter syntax. While each of `[KEYWORDS] [t/TAG_TO_MATCH]… [$min/MIN_PRICE] [$max/MAX_PRICE]` are listed as optional, it is invalid to leave out all of them.
+
+Examples of invalid usages of `find` are: `find properties` and `find buyers`.
+
+</div>
+
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 
 Use the [`list`](#listing-all-propertiesbuyers--list) command to reset all filters and view all properties and buyers in `PropertyWhiz`.
@@ -414,6 +437,11 @@ Examples:
   * Sorts the list of buyers by their budgets from highest to lowest.
 * `sort property name asc` 
   * Sorts the list of properties by their names in alphabetical order.
+
+Shown below is the output for the valid input `sort buyer price asc` after having entered
+`find buyer $min/200000 $max/400000`.
+
+![Find Buyer](images/SortBuyerUi.png)
 
 ### Matching properties and buyers: `match`
 
@@ -497,6 +525,8 @@ After running `match auto`, enter `back` into the command box to return to the p
 
 Use this command to import buyers or properties from a CSV file. Imported items will be added to the front of the list.
 
+![Imported properties](images/ImportPropertyUi.png)
+
 Format: `import (buyer | property)`
 
 * You can select the import file location from a pop-up dialog box.
@@ -549,6 +579,8 @@ Try copying these to a .csv file. Then import them as sample inputs!
 ### Clearing all entries : `clear`
 
 Use this command to delete all existing data permanently from PropertyWhiz. You can use this command to clear sample data loaded the first time you use PropertyWhiz.
+
+![Clear all](images/ClearUi.png)
 
 Format: `clear`
 

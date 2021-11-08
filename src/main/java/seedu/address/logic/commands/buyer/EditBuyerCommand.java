@@ -45,7 +45,7 @@ public class EditBuyerCommand extends EditCommand {
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_PRICE + "MAX_PRICE] "
+            + "[" + PREFIX_PRICE + "BUDGET] "
             + "["
             + "("
             + "[" + PREFIX_TAG + "TAG]..." + " | "
