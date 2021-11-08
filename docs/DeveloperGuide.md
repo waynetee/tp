@@ -710,7 +710,7 @@ testers are expected to do more *exploratory* testing.
 2. Edit a property while all properties are being shown
    1. Prerequisites: List all properties using the `list` command.
    2. Test case: `edit property 1`<br>
-      Expected: No fields are provided, property is not edited
+      Expected: As no fields are provided, error message is shown.
    3. Test case: `edit property 1 ta/condo1 ta/condo2 ta/condo3 ta/condo4`<br>
       Expected: 4 new tags `condo1`, `condo2`, `condo3`, `condo4` are added to the first property in the displayed property list. 
 3. Deleting a property while all properties are being shown
