@@ -27,9 +27,9 @@ This guide is:
 * A summary of all the *features* offered by PropertyWhiz, and provides a high-level overview on how they operate.
 * An overview of what *user input* is considered as valid so you can quickly get started with PropertyWhiz.
 
-This guide is **not**
-* an exhaustive case study of all possible ways of using PropertyWhiz's features.
-* an exhaustive list of valid and invalid inputs as the application itself will hint you when your input is invalid.
+This guide is **not**:
+* An exhaustive case study of all possible ways of using PropertyWhiz's features.
+* An exhaustive list of valid and invalid inputs as the application itself will hint you when your input is invalid.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -69,7 +69,7 @@ Formatting | Meaning
 <div markdown="block" class="alert alert-info">
 
 **:information_source: Supported platforms:**<br>
-PropertyWhiz has been extensively tested on Microsoft Windows 10 and Ubuntu 20.04. However, recent versions of Windows and GNU Linux are also likely to work with PropertyWhiz.
+PropertyWhiz is fully compatible with Microsoft Windows, macOS and Linux.
 
 </div>
 
@@ -80,7 +80,7 @@ PropertyWhiz has been extensively tested on Microsoft Windows 10 and Ubuntu 20.0
 
 3. Copy the file to the folder you want to use as the _home folder_ for your PropertyWhiz.
 
-4. Double-click the file to start the app. The [GUI](#glossary) similar to below should appear in a few seconds. Note how the app contains some sample data.<br>
+4. Double-click the file to start the app. The [Graphical User Interface (GUI)](#glossary) similar to below should appear in a few seconds. Note how the app contains some sample data.<br>
     
    ![Ui](images/Ui.png)
    
@@ -152,16 +152,15 @@ Item | Description
 
 ## Command summary
 
-Refer to the section [Command Syntax Guide](#command-syntax-guide) below for how to interpret our commands,
-or [Commands](#commands) for a detailed explanation of each action.
+This section presents an overview of the commands you can give PropertyWhiz. Do refer to the [Command Syntax Guide](#command-syntax-guide) below to learn how to interpret the command formats, and the [Commands section](#commands) for a detailed explanation of each action.
 
 Action | Format
 --------|------------------
 **Help** | `help`
 **Add** | **Property** <br>`add property n/PROPERTY_NAME a/PROPERTY_ADDRESS s/SELLER_NAME p/SELLER_PHONE e/SELLER_EMAIL $/PRICE [t/TAG]…​` <br><br> **Buyer** <br>`add buyer n/BUYER_NAME p/BUYER_PHONE e/BUYER_EMAIL $/BUDGET) [t/TAG]…`
 **List** | `list`
-**Edit** | **Property** <br>`edit property INDEX [n/PROPERTY_NAME] [a/PROPERTY_ADDRESS] [s/SELLER_NAME] [p/SELLER_PHONE] [e/SELLER_EMAIL] [$/PRICE] [([t/TAG]…​ | [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]]​`<br><br> **Buyer** <br> `edit buyer INDEX [n/BUYER_NAME] [p/BUYER_PHONE] [e/BUYER_EMAIL] [$/BUDGET]) [([t/TAG]… | [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]`
-**Stat** | `[(property | buyer)]`
+**Edit** | **Property** <br>`edit property INDEX [n/PROPERTY_NAME] [a/PROPERTY_ADDRESS] [s/SELLER_NAME] [p/SELLER_PHONE] [e/SELLER_EMAIL] [$/PRICE] [([t/TAG]…​ | [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]​`<br><br> **Buyer** <br> `edit buyer INDEX [n/BUYER_NAME] [p/BUYER_PHONE] [e/BUYER_EMAIL] [$/BUDGET]) [([t/TAG]… | [ta/TAG_TO_ADD]… [td/TAG_TO_DELETE]…)]`
+**Stat** | `stat [(property | buyer)]`
 **Find** | `find (property | buyer) [KEYWORD]… [t/TAG_TO_MATCH]… [$min/MIN_PRICE] [$max/MAX_PRICE]`
 **Delete** | `delete (property | buyer) INDEX`
 **Sort** | `sort (property | buyer) (price | name) (asc | desc)`
@@ -200,18 +199,18 @@ This section helps you understand the format of the commands listed above and in
 This section describes the requirements of certain fields.
 
 ### Property/buyer names
-* Names must only contain alphanumerical characters, spaces and hyphens (`-`).
-* Names have a maximum allowed length of 50.
+* Names must only contain alphanumeric characters, spaces and hyphens (`-`).
+* Names have a maximum allowed length of 50 and cannot be blank.
 * Buyers with identical names are not allowed.
 
 ### Property addresses
-* Addresses must only contain alphanumerical characters or the following special characters:
+* Addresses must only contain alphanumeric characters or the following special characters:
   * spaces
   * hyphens (`-`)
   * commas (`,`)
   * semicolons (`;`)
   * hashes (`#`)
-* Addresses have a maximum allowed length of 100.
+* Addresses have a maximum allowed length of 100 and cannot be blank.
 * Properties with identical addresses are not allowed.
 
 ### Property prices and buyer budget
@@ -331,7 +330,7 @@ See the section [Valid properties/buyers](#valid-propertiesbuyers) for more deta
 
 ### Viewing price chart of listed properties and/or buyers : `stat`
 
-PropertyWhiz allows you to visualise the prices of properties and buyers. Use this command to view a price chart of the currently displayed properties and/or buyers.
+PropertyWhiz allows you to visualize the prices of properties and buyers. Use this command to view a price chart of the currently displayed properties and/or buyers.
 
 Format: 
 * View price chart of properties and buyers: `stat` 
@@ -346,13 +345,13 @@ If only buyers or only properties are visible, `stat` automatically presents the
 
 ### Locating properties/buyers by name, tags and price: `find`
 
-Use this command to filter or search properties or buyers. This command filters **displayed** properties or buyers whose names contain any of the given keywords, has all the specified tags and whose price is within the specified price range.
+Use this command to filter or search properties or buyers. This command filters **displayed** properties or buyers whose names contain any of the given keywords, has all the specified tags and whose price is within the specified range.
 
 Format: `find (property | buyer) [KEYWORD]… [t/TAG_TO_MATCH]… [$min/MIN_PRICE] [$max/MAX_PRICE]`
 
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-Note that while each criteria (name, tags and price) is optional, at least one criteria must be specified.
+Note that while each criteria (keywords, tags and price) is optional, at least one criteria must be specified.
 </div>
 
 * This command acts on the current list of properties and buyers
@@ -407,7 +406,7 @@ Format: `sort (property | buyer) (price | name) (asc | desc)`
 
 Examples:
 
-* `sort buyers price desc` 
+* `sort buyer price desc` 
   * Sorts the list of buyers by their budgets from highest to lowest.
 * `sort property name asc` 
   * Sorts the list of properties by their names in alphabetical order.
@@ -473,7 +472,8 @@ Example:
             * Dee Gardens has tags `5rm`, `far from school`
             * Olive Gardens has tag `4rm`
             * Pear Gardens has tags `4rm`, `near school`
-        * Pear Gardens has the greatest number of tags in common and is the most desirable property match, the opposite is true for Dee Gardens.
+        * Order of tag compatibility (most to least compatible): Pear Gardens, Olive Gardens, Dee Gardens.
+        * Pear Gardens has the greatest number of tags in common and is hence the most desirable property match, the opposite is true for Dee Gardens.
 
 #### Intelligent matching of properties and buyers
 
@@ -519,7 +519,6 @@ Format: `export (buyer | property)`
 * You can select the export file location from a pop-up dialog box.
 
 Example CSV output of  `export property`
-<a name="csvExample"> </a>
 <pre><code style="white-space: pre-wrap;">"Name","Address","Seller Name","Phone","Email","Price","Tags"
 "Geylang St 29","Blk 30 Geylang Street 29, #06-40","Alex Yeoh","87438807", "alexyeoh@example.com","419999","flowers,garden"
 "Dee Gardens","Blk 30 Lorong 3 Serangoon Gardens, #07-18","Beatrice Yu","99272758", "berniceyu@example.com","420000","quiet"
@@ -593,3 +592,4 @@ Command Line Interface (CLI) | Text-based user interface
 Graphical User Interface (GUI) | User interface that allows users to interact via mouse and graphics
 Alphanumeric | Containing letters and numbers only
 CSV file | Comma-separated values file, a file format Microsoft Excel can export to
+JAR file | Java ARchive file, an application file format for Java programs
