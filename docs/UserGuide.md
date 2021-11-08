@@ -360,6 +360,8 @@ Format:
 If only buyers or only properties are visible, `stat` automatically presents the only buyers or only properties view.
 </div>
 
+<div style="page-break-after: always;"></div>
+
 ### Locating properties/buyers by name, tags and price: `find`
 
 Use this command to filter or search properties or buyers. This command filters **displayed** properties or buyers whose names contain any of the given keywords, has all the specified tags and whose price/budget is within the specified range.
@@ -402,6 +404,8 @@ Shown below is the output for the valid input `find buyer $min/100000 $max/10000
 Use the [`list`](#listing-all-propertiesbuyers--list) command to reset all filters and view all properties and buyers in `PropertyWhiz`.
 
 </div>
+
+<div style="page-break-after: always;"></div>
 
 ### Deleting a property/buyer : `delete`
 
@@ -570,6 +574,7 @@ Example CSV output of `export buyer`
 Try copying these to a .csv file. Then import them as sample inputs!
 </div>
 
+<div style="page-break-after: always;"></div>
 
 ### Clearing all entries : `clear`
 
