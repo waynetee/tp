@@ -296,10 +296,10 @@ Shown below is the output for the valid input `add property n/Blk 321 a/123, Cle
 ![Add Property](images/AddValidUi.png)
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-If you typed in an invalid input, the command box will demonstrate the correct input format so you can correct your input,
+If you entered an invalid input, the command box will demonstrate the correct input format so you can correct your input,
 such as in the case below.
 <br />
-<img src="images/AddInvalidUi.png" width="600"/>
+<img src="images/AddInvalidUi.png" width="680"/>
 </div>
 
 ### Listing all properties/buyers : `list`
@@ -445,7 +445,7 @@ Examples:
 * `sort buyer name desc` 
   * Returns the buyer list sorted by name in descending order
 
-Shown below is the output for the valid input `sort buyer price asc` after having typed in
+Shown below is the output for the valid input `sort buyer price asc` after having entered
 `find buyer $min/200000 $max/400000`.
 
 ![Find Buyer](images/SortBuyerUi.png)
