@@ -23,7 +23,7 @@ Given below are my contributions to the project.
 
 * **Project management**:
   * Set up GitHub team org + repo
-  * Managed releases `v1.2` - `v1.3` (2 releases) on GitHub
+  * Managed releases `v1.2` - `v1.4` (3 releases) on GitHub
   * Triaged bugs reported
 
 * **Enhancements to existing features**:
