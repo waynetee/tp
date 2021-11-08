@@ -345,13 +345,14 @@ If only buyers or only properties are visible, `stat` automatically presents the
 
 ### Locating properties/buyers by name, tags and price: `find`
 
-Use this command to filter or search properties or buyers. This command filters **displayed** properties or buyers whose names contain any of the given keywords, has all the specified tags and whose price is within the specified range.
+Use this command to filter or search properties or buyers. This command filters **displayed** properties or buyers whose names contain any of the given keywords, has all the specified tags and whose price/budget is within the specified range.
 
-Format: `find (property | buyer) [KEYWORD]… [t/TAG_TO_MATCH]… [$min/MIN_PRICE] [$max/MAX_PRICE]`
-
+Format: 
+* Finding properties: `find property [KEYWORD]… [t/TAG_TO_MATCH]… [$min/MIN_PRICE] [$max/MAX_PRICE]`
+* Finding buyers: `find buyer [KEYWORD]… [t/TAG_TO_MATCH]… [$min/MIN_BUDGET] [$max/MAX_BUDGET]`
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-Note that while each criteria (keywords, tags and price) is optional, at least one criteria must be specified.
+Note that while each criteria (keywords, tags and price/budget) is optional, at least one criteria must be specified.
 </div>
 
 * This command acts on the current list of properties and buyers
@@ -364,8 +365,8 @@ Note that while each criteria (keywords, tags and price) is optional, at least o
 * Only properties/buyers that match all the tags will be returned.
     * e.g. `find property t/4rm t/near school` will only return properties with both `4rm` and `near school` tags.
 * The price search is inclusive of the specified number.
-  * e.g. `find property $min/10000` will return properties that are at least $10000
-  * e.g. `find property $max/100000` will return properties that are at most $100000
+  * e.g. `find property $min/10000` will return properties with price at least $10000
+  * e.g. `find property $max/100000` will return properties with price at most $100000
   
 Examples:
 * `find buyer Sally` 
